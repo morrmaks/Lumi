@@ -1,0 +1,22 @@
+{
+  "name": "lumi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "",
+  "author": "Maksim Morozov",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morrmaks/Lumi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/morrmaks/Lumi/issues"
+  },
+  "homepage": "https://github.com/morrmaks/Lumi#readme",
+  "scripts": {
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}

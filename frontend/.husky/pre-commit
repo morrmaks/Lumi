@@ -1,0 +1,4 @@
+npm run build:prod
+npm run lint:ts:fix
+#npm run lint:less:fix
+npx pretty-quick --staged

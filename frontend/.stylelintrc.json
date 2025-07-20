@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "stylelint-config-standard-less",
+    "stylelint-prettier/recommended"
+  ],
+  "customSyntax": "postcss-less",
+  "rules": {
+    "prettier/prettier": [
+      true,
+      {
+        "endsOfLine": "auto"
+      }
+    ],
+    "selector-class-pattern": null,
+    "no-missing-end-of-source-newline": null
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "jsx": "react-jsx",
+    "noImplicitAny": true,
+    "module": "NodeNext",
+    "target": "es2020",
+    "allowJs": true,
+    "strict": true,
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "baseUrl": "..",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+    //    "types": ["jest", "@testing-library/jest-dom", "@wdio/globals/types"]
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+}
