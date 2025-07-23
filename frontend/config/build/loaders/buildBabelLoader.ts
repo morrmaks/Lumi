@@ -5,9 +5,7 @@ interface BabelLoaderProps extends BuildOptions {
   isJsx?: boolean
 }
 
-export const buildBabelLoader = (
-  { isDev, isJsx }: BabelLoaderProps
-) => {
+export const buildBabelLoader = ({ isDev, isJsx }: BabelLoaderProps) => {
   const isProd = !isDev
 
   return {
