@@ -10,6 +10,7 @@ export const buildBabelLoader = ({ isDev, isJsx }: BabelLoaderProps) => {
 
   return {
     test: isJsx ? /\.(jsx|tsx)$/i : /\.(js|ts)$/i,
+    exclude: /node_modules/,
     use: {
       loader: 'babel-loader',
       options: {
@@ -24,6 +25,5 @@ export const buildBabelLoader = ({ isDev, isJsx }: BabelLoaderProps) => {
         ].filter(Boolean),
       },
     },
-    exclude: /node_modules/,
   }
 }
