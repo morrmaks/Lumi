@@ -1,2 +1,4 @@
 import { lazy } from 'react'
-export const ForgotPasswordPageAsync = lazy(() => import('./ForgotPasswordPage'))
+export const ForgotPasswordPageAsync = lazy(
+  () => import('./ForgotPasswordPage')
+)

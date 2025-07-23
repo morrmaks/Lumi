@@ -8,10 +8,10 @@ import {
 } from '@/shared/consts/router'
 import { RouteProps } from 'react-router-dom'
 
-import { MainPage } from '@/pages/Main';
-import { RegisterPage } from '@/pages/Register';
-import { LoginPage } from '@/pages/Login';
-import { NotFoundPage } from '@/pages/NotFound';
+import { MainPage } from '@/pages/Main'
+import { RegisterPage } from '@/pages/Register'
+import { LoginPage } from '@/pages/Login'
+import { NotFoundPage } from '@/pages/NotFound'
 import { WishListPage } from '@/pages/WishList'
 import { ConfiguratorPage } from '@/pages/Configurator'
 
@@ -19,26 +19,26 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
   [AppRoutes.MAIN]: {
     path: getRouteMain(),
     index: true,
-    element: <MainPage/>
+    element: <MainPage />,
   },
   [AppRoutes.LOGIN]: {
     path: getRouteLogin(),
-    element: <LoginPage/>
+    element: <LoginPage />,
   },
   [AppRoutes.REGISTER]: {
     path: getRouteRegister(),
-    element: <RegisterPage/>
+    element: <RegisterPage />,
   },
   [AppRoutes.CONFIGURATOR]: {
     path: getRouteConfigurator(),
-    element: <ConfiguratorPage/>
+    element: <ConfiguratorPage />,
   },
   [AppRoutes.WISHLIST]: {
     path: getRouteWishlist(),
-    element: <WishListPage/>
+    element: <WishListPage />,
   },
   [AppRoutes.NOT_FOUND]: {
     path: '*',
-    element: <NotFoundPage/>
-  }
+    element: <NotFoundPage />,
+  },
 }

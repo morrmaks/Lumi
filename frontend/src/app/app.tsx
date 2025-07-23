@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import { useLocation } from 'react-router-dom'
 
 export const App = () => {
-  const location = useLocation();
+  const location = useLocation()
 
   return (
     <div>

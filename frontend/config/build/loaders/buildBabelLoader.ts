@@ -5,11 +5,14 @@ interface BabelLoaderProps extends BuildOptions {
   isJsx?: boolean
 }
 
-export const buildBabelLoader = ({ isDev, isJsx }: BabelLoaderProps) => {
+export const buildBabelLoader = (
+  { isDev, isJsx }: BabelLoaderProps
+) => {
   const isProd = !isDev
 
   return {
     test: isJsx ? /\.(jsx|tsx)$/i : /\.(js|ts)$/i,
+    exclude: /node_modules/,
     use: {
       loader: 'babel-loader',
       options: {
@@ -24,6 +27,5 @@ export const buildBabelLoader = ({ isDev, isJsx }: BabelLoaderProps) => {
         ].filter(Boolean),
       },
     },
-    exclude: /node_modules/,
   }
 }
