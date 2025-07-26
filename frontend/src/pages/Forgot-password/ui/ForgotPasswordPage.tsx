@@ -1,5 +1,9 @@
 const ForgotPasswordPage = () => {
-  return <div></div>
+  return (
+    <div>
+      <h1>Восстановление пароля</h1>
+    </div>
+  )
 }
 
 export default ForgotPasswordPage

@@ -1,0 +1,24 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/variables/global.less';
+
+.menuItem {
+  .flex(column, center, center);
+  gap: 2px;
+
+  &_horizontal {
+    .flex();
+    gap: 6px;
+  }
+
+  &_icon {
+    transition: 150ms ease;
+    width: var(--icon-size-m);
+    height: var(--icon-size-m);
+
+    @media @breakpoint-md {
+      width: var(--icon-size-s);
+      height: var(--icon-size-s);
+    }
+  }
+}

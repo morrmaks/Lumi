@@ -1,0 +1,20 @@
+.logo {
+  transition: 150ms ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &__text {
+    margin-left: 8px;
+    font: var(--font-logo-l);
+    font-weight: 600;
+    background-image: linear-gradient(
+      to right,
+      var(--secondary-color),
+      var(--accent-bg-color)
+    );
+    background-clip: text;
+    color: transparent;
+  }
+}

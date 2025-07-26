@@ -1,0 +1,13 @@
+@keyframes wipe-out {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+::view-transition-old(root) {
+  animation: 500ms ease both wipe-out;
+  z-index: 10;
+}

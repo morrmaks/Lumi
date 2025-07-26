@@ -1,0 +1,32 @@
+@import '@/app/styles/variables/global.less';
+@import '@/app/styles/mixins/interactive.less';
+
+.search {
+  position: relative;
+
+  &__input {
+    padding: 8px 40px 8px 16px;
+    width: 100%;
+    color: var(--primary-color);
+
+    &:focus-visible {
+      outline: none;
+      box-shadow:
+        0 0 0 2px var(--bg-color),
+        0 0 0 4px var(--secondary-color);
+    }
+  }
+
+  &__icon {
+    min-width: var(--icon-size-m);
+    min-height: var(--icon-size-m);
+
+    @media @breakpoint-md {
+      position: absolute;
+      top: 8px;
+      right: 16px;
+      min-width: var(--icon-size-s);
+      min-height: var(--icon-size-s);
+    }
+  }
+}

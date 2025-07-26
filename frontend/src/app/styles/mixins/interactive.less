@@ -1,0 +1,22 @@
+.selectable(@background: transparent, @color: var(--accent-color)) {
+  cursor: pointer;
+  position: relative;
+  transition: 150ms ease;
+
+  &:hover {
+    background-color: @background;
+    color: @color;
+  }
+}
+
+.selectableIcon(@fill: transparent, @stroke: var(--accent-color), @opacity: 1) {
+  cursor: pointer;
+  position: relative;
+  transition: 150ms ease;
+
+  &:hover {
+    background-color: @fill;
+    stroke: @stroke;
+    opacity: @opacity;
+  }
+}

@@ -1,0 +1,53 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+
+.burgerButton {
+  .flex(row, center, start);
+  .selectableIcon(transparent, '', 0.8);
+  position: relative;
+  width: 22px;
+  height: 20px;
+
+  &__line {
+    width: 22px;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &:before {
+    position: absolute;
+    content: '';
+    width: 16px;
+    height: 2px;
+    background-color: var(--primary-color);
+    transform: translateY(7px) rotate(0);
+    transition: transform 0.2s ease-in-out;
+    z-index: 10;
+  }
+
+  &:after {
+    position: absolute;
+    content: '';
+    width: 20px;
+    height: 2px;
+    background-color: var(--primary-color);
+    transform: translateY(-7px) rotate(0);
+    transition: transform 0.2s ease-in-out;
+    z-index: 10;
+  }
+
+  &_animate {
+    &:before {
+      transform: translateY(0.5px) translateX(1px) rotate(-45deg) scaleX(1.25);
+    }
+
+    &:after {
+      transform: translateY(0.5px) translateX(-1px) rotate(45deg);
+    }
+
+    .burgerButton__line {
+      transform: scale(0) rotate(45deg);
+    }
+  }
+}

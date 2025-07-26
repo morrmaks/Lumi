@@ -1,0 +1,14 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+
+.mobileNavBar {
+  .flex(row, center, space-around);
+  width: 100%;
+  height: 64px;
+  bottom: 0;
+  position: fixed;
+  z-index: 50;
+  font: var(--font-xxs);
+  background-color: var(--bg-color);
+  box-shadow: 0 -2px 8px var(--shadow-color);
+}
