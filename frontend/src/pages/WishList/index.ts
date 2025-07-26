@@ -1,1 +1,2 @@
-export { WishListPageAsync as WishListPage } from './ui/WishListPage.async'
+import { WishListPageAsync as WishListPage } from './ui/WishListPage.async'
+export { WishListPage }

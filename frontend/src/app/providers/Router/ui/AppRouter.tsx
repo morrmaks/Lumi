@@ -1,17 +1,30 @@
 import { Suspense, useCallback } from 'react'
-import { Route, RouteProps, Routes } from 'react-router-dom'
-import { routeConfig } from '@/shared/config/routeConfig/routeConfig'
+import { Route, Routes } from 'react-router-dom'
+import {
+  type RouteConfig,
+  routeConfig,
+} from '@/shared/config/routeConfig/routeConfig'
 
 export const AppRouter = () => {
-  const renderWithRouter = useCallback((route: RouteProps) => {
-    const { path, index, element } = route
+  const renderRoutes = useCallback((routeConfig: RouteConfig) => {
+    return Object.values(routeConfig).map(
+      ({ path, index, element, subRoutes }) => {
+        if (index) {
+          return <Route key={path || 'index'} element={element} index />
+        }
 
-    return <Route key={path} index={index} path={path} element={element} />
+        return (
+          <Route key={path} path={path} element={element}>
+            {subRoutes ? renderRoutes(subRoutes) : null}
+          </Route>
+        )
+      }
+    )
   }, [])
 
   return (
     <Suspense fallback={<h1>Loading</h1>}>
-      <Routes>{Object.values(routeConfig).map(renderWithRouter)}</Routes>
+      <Routes>{renderRoutes(routeConfig)}</Routes>
     </Suspense>
   )
 }

@@ -1,5 +1,9 @@
 const WishListPage = () => {
-  return <div></div>
+  return (
+    <div>
+      <h1>Избранное</h1>
+    </div>
+  )
 }
 
 export default WishListPage

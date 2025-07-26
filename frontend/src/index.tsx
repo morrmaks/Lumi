@@ -2,7 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import '@/app/styles/index.less'
-import { App } from './app/app'
+import { App } from './app/App'
+import { ThemeProvider } from './app/providers/ThemeProvider'
 
 const container = document.getElementById('root')
 if (!container) {
@@ -13,7 +14,9 @@ const root = ReactDOM.createRoot(container)
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

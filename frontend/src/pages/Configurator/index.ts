@@ -1,1 +1,2 @@
-export { ConfiguratorPageAsync as ConfiguratorPage } from './ui/ConfiguratorPage.async'
+import { ConfiguratorPageAsync as ConfiguratorPage } from './ui/ConfiguratorPage.async'
+export { ConfiguratorPage }

@@ -1,0 +1,67 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/variables/global.less';
+
+.navbar {
+  .flex(row, center, space-between);
+  width: 100%;
+  padding: 0 32px;
+  gap: 32px;
+  height: 64px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  top: 0;
+  z-index: 50;
+  background-color: rgba(var(--bg-color-header), 0.95);
+  backdrop-filter: blur(8px);
+
+  @media @breakpoint-md {
+    position: sticky;
+  }
+}
+
+.search {
+  @media @breakpoint-md {
+    flex: 1 1 0%;
+  }
+}
+
+.menu {
+  .flex();
+  gap: 8px;
+  font: var(--font-xxs);
+
+  &__item {
+    .flex();
+    padding: 12px;
+    border-radius: var(--border-r);
+    transition: 150ms ease;
+
+    &:hover {
+      background-color: var(--accent-bg-color);
+      fill: var(--accent-color);
+      color: var(--accent-color);
+
+      svg {
+        stroke: var(--accent-color);
+      }
+    }
+
+    &_configurator {
+      color: var(--accent-color);
+      background-image: linear-gradient(
+        to right,
+        var(--secondary-color),
+        var(--accent-bg-color)
+      );
+
+      svg {
+        stroke: var(--accent-color);
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}

@@ -7,8 +7,13 @@ export const buildLoaders = (options: BuildOptions): webpack.RuleSetRule[] => {
   const { isDev } = options
 
   const fileLoader = {
-    test: /\.(svg|png|webp|jpg|jpeg|gif|woff(2)?|eot|ttf|otf)$/i,
+    test: /\.(png|webp|jpg|jpeg|gif|woff(2)?|eot|ttf|otf)$/i,
     type: 'asset/resource',
+  }
+
+  const svgLoader = {
+    test: /\.svg$/,
+    use: ['@svgr/webpack'],
   }
 
   const cssLoader = buildCssLoader(isDev)
@@ -16,5 +21,5 @@ export const buildLoaders = (options: BuildOptions): webpack.RuleSetRule[] => {
   const babelLoader = buildBabelLoader({ ...options, isJsx: false })
   const jsxBabelLoader = buildBabelLoader({ ...options, isJsx: true })
 
-  return [fileLoader, cssLoader, babelLoader, jsxBabelLoader]
+  return [fileLoader, svgLoader, cssLoader, babelLoader, jsxBabelLoader]
 }

@@ -1,12 +1,16 @@
 import {
   AppRoutes,
+  getRouteAuth,
+  getRouteCatalog,
   getRouteConfigurator,
-  getRouteLogin,
+  getRouteAuthForgotPassword,
+  getRouteAuthLogin,
   getRouteMain,
-  getRouteRegister,
+  getRouteProfile,
+  getRouteAuthRegister,
   getRouteWishlist,
 } from '@/shared/consts/router'
-import { RouteProps } from 'react-router-dom'
+import { Navigate, RouteProps } from 'react-router-dom'
 
 import { MainPage } from '@/pages/Main'
 import { RegisterPage } from '@/pages/Register'
@@ -14,24 +18,55 @@ import { LoginPage } from '@/pages/Login'
 import { NotFoundPage } from '@/pages/NotFound'
 import { WishListPage } from '@/pages/WishList'
 import { ConfiguratorPage } from '@/pages/Configurator'
+import { CatalogPage } from '@/pages/Catalog'
+import { ProfilePage } from '@/pages/Profile'
+import { AuthPage } from '@/pages/Auth'
+import { ForgotPasswordPage } from '@/pages/Forgot-password'
 
-export const routeConfig: Record<AppRoutes, RouteProps> = {
+export type RouteConfigProps = {
+  subRoutes?: RouteConfig
+} & RouteProps
+
+export type RouteConfig = OptionalRecord<AppRoutes, RouteConfigProps>
+
+export const routeConfig: RouteConfig = {
   [AppRoutes.MAIN]: {
     path: getRouteMain(),
-    index: true,
     element: <MainPage />,
   },
-  [AppRoutes.LOGIN]: {
-    path: getRouteLogin(),
-    element: <LoginPage />,
+  [AppRoutes.AUTH]: {
+    path: getRouteAuth(),
+    element: <AuthPage />,
+    subRoutes: {
+      [AppRoutes.LOGIN]: {
+        path: getRouteAuthLogin(),
+        element: <LoginPage />,
+      },
+      [AppRoutes.REGISTER]: {
+        path: getRouteAuthRegister(),
+        element: <RegisterPage />,
+      },
+      [AppRoutes.FORGOT_PASSWORD]: {
+        path: getRouteAuthForgotPassword(),
+        element: <ForgotPasswordPage />,
+      },
+      auth: {
+        index: true,
+        element: <Navigate to={getRouteAuthLogin()} />,
+      },
+    },
   },
-  [AppRoutes.REGISTER]: {
-    path: getRouteRegister(),
-    element: <RegisterPage />,
+  [AppRoutes.PROFILE]: {
+    path: getRouteProfile(),
+    element: <ProfilePage />,
   },
   [AppRoutes.CONFIGURATOR]: {
     path: getRouteConfigurator(),
     element: <ConfiguratorPage />,
+  },
+  [AppRoutes.CATALOG]: {
+    path: getRouteCatalog(),
+    element: <CatalogPage />,
   },
   [AppRoutes.WISHLIST]: {
     path: getRouteWishlist(),

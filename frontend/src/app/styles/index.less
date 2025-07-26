@@ -1,0 +1,26 @@
+@import 'reset.less';
+@import 'variables/global.less';
+@import 'themes/dark.less';
+@import 'themes/light.less';
+@import 'animations/button-theme';
+@import 'animations/switch-theme';
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+.app {
+  min-width: var(--min-page-width);
+  //max-width: var(--max-page-width);
+  min-height: 100vh;
+  background: var(--bg-color);
+  font: var(--font-xs);
+  font-weight: 500;
+  color: var(--primary-color);
+}

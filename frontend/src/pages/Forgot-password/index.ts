@@ -1,1 +1,2 @@
-export { ForgotPasswordPageAsync as ForgotPasswordPage } from './ui/ForgotPasswordPage.async'
+import { ForgotPasswordPageAsync as ForgotPasswordPage } from './ui/ForgotPasswordPage.async'
+export { ForgotPasswordPage }

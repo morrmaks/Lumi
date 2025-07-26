@@ -1,0 +1,35 @@
+::view-transition-old(theme-icon),
+::view-transition-new(theme-icon) {
+  animation-duration: 150ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: both;
+  transform-origin: center;
+}
+
+::view-transition-old(theme-icon) {
+  animation-name: fade-out-icon;
+  z-index: 1;
+}
+
+::view-transition-new(theme-icon) {
+  animation-name: fade-in-icon;
+  z-index: 2;
+}
+
+@keyframes fade-in-icon {
+  0% {
+    transform: scale(0) rotate(-90deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes fade-out-icon {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    transform: scale(0) rotate(90deg);
+  }
+}

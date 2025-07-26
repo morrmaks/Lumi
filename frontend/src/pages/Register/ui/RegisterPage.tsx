@@ -1,5 +1,9 @@
 const RegisterPage = () => {
-  return <div></div>
+  return (
+    <div>
+      <h1>Регистрация</h1>
+    </div>
+  )
 }
 
 export default RegisterPage
