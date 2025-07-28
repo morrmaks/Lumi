@@ -1,0 +1,50 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive.less';
+
+.dropdownMenu {
+  position: sticky;
+  overflow-y: scroll;
+  height: calc(var(--app-vh) * 100);
+  padding-bottom: 80px;
+  z-index: 110;
+  top: 0;
+  background-color: var(--bg-color);
+  display: none;
+
+  &_open {
+    display: block;
+  }
+
+  &__wrapper {
+    .flex(column, start, start);
+    gap: 20px;
+    padding: 20px 32px 40px;
+    font: var(--font-s);
+  }
+
+  &__item {
+    .selectable();
+    padding: 10px;
+    gap: 16px;
+  }
+
+  &__themeSwitcher {
+    padding: 10px;
+    border-radius: var(--border-radius);
+    background-image: linear-gradient(
+      to right,
+      var(--secondary-color),
+      var(--accent-bg-color)
+    );
+    transition: 150ms ease;
+    color: var(--accent-color);
+
+    svg {
+      stroke: var(--accent-color);
+    }
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}

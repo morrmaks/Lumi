@@ -1,2 +1,4 @@
 import { AppRouter } from './ui/AppRouter'
-export { AppRouter }
+import { routeConfig } from './config/routeConfig'
+import { ProtectedRoute } from './ui/ProtectedRoute'
+export { AppRouter, ProtectedRoute, routeConfig }

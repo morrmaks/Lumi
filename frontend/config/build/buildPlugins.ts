@@ -2,7 +2,6 @@ import { BuildOptions } from './types/config'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
-import CircularDependencyPlugin from 'circular-dependency-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
@@ -18,10 +17,7 @@ export const buildPlugins = ({
       template: paths.html,
     }),
     new webpack.ProgressPlugin(),
-    new CircularDependencyPlugin({
-      exclude: /node_modules/,
-      failOnError: true,
-    }),
+
     new ForkTsCheckerWebpackPlugin({
       typescript: {
         diagnosticOptions: {

@@ -4,11 +4,15 @@
 .mobileNavBar {
   .flex(row, center, space-around);
   width: 100%;
-  height: 64px;
+  height: var(--mobile-navbar-height);
   bottom: 0;
   position: fixed;
   z-index: 50;
   font: var(--font-xxs);
   background-color: var(--bg-color);
   box-shadow: 0 -2px 8px var(--shadow-color);
+
+  &_item {
+    .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
+  }
 }

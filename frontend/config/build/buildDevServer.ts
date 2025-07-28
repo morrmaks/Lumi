@@ -5,10 +5,10 @@ export const buildDevServer = ({
   port,
 }: BuildOptions): DevServerConfiguration => {
   return {
-    // static: path.resolve(__dirname,'./dist'),
     port: port,
     compress: true,
     hot: true,
     open: true,
+    historyApiFallback: true,
   }
 }

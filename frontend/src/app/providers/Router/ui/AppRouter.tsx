@@ -1,20 +1,36 @@
 import { Suspense, useCallback } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import {
-  type RouteConfig,
-  routeConfig,
-} from '@/shared/config/routeConfig/routeConfig'
+import { type RouteConfig, routeConfig } from '../config/routeConfig'
+import { ProtectedRoute } from './ProtectedRoute'
 
 export const AppRouter = () => {
   const renderRoutes = useCallback((routeConfig: RouteConfig) => {
     return Object.values(routeConfig).map(
-      ({ path, index, element, subRoutes }) => {
+      ({ path, index, element, subRoutes, anonymOnly, authOnly }) => {
         if (index) {
-          return <Route key={path || 'index'} element={element} index />
+          return (
+            <Route
+              index
+              key={path || 'index'}
+              element={
+                <ProtectedRoute anonimOnly={anonymOnly} authOnly={authOnly}>
+                  {element}
+                </ProtectedRoute>
+              }
+            />
+          )
         }
 
         return (
-          <Route key={path} path={path} element={element}>
+          <Route
+            key={path}
+            path={path}
+            element={
+              <ProtectedRoute anonimOnly={anonymOnly} authOnly={authOnly}>
+                {element}
+              </ProtectedRoute>
+            }
+          >
             {subRoutes ? renderRoutes(subRoutes) : null}
           </Route>
         )
