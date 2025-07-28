@@ -1,6 +1,5 @@
 import cls from './MobileNavBar.module.less'
 import {
-  getRouteAuth,
   getRouteCatalog,
   getRouteConfigurator,
   getRouteMain,
@@ -8,39 +7,46 @@ import {
   getRouteWishlist,
 } from '@/shared/consts/router'
 import { MenuItem } from '@/shared/ui/MenuItem'
-import HomeSvg from '@/shared/assets/icons/home.svg'
-import ConfiguratorSvg from '@/shared/assets/icons/configurator.svg'
-import HeartSvg from '@/shared/assets/icons/heart.svg'
-import CatalogSvg from '@/shared/assets/icons/catalog.svg'
-import ProfileSvg from '@/shared/assets/icons/profile.svg'
-import LoginSvg from '@/shared/assets/icons/login.svg'
+import { IconsMap } from '@/shared/consts/icons'
 
 export const MobileNavBar = () => {
-  const isAuth = false
-
   return (
     <nav className={cls.mobileNavBar}>
-      <MenuItem to={getRouteMain()} Svg={HomeSvg}>
+      <MenuItem
+        to={getRouteMain()}
+        Svg={IconsMap.HOME}
+        className={cls.mobileNavBar_item}
+      >
         Главная
       </MenuItem>
-      <MenuItem to={getRouteConfigurator()} Svg={ConfiguratorSvg}>
+      <MenuItem
+        to={getRouteConfigurator()}
+        Svg={IconsMap.CONFIGURATOR}
+        className={cls.mobileNavBar_item}
+      >
         Конфиг ПК
       </MenuItem>
-      <MenuItem to={getRouteCatalog()} Svg={CatalogSvg}>
+      <MenuItem
+        to={getRouteCatalog()}
+        Svg={IconsMap.CATALOG}
+        className={cls.mobileNavBar_item}
+      >
         Каталог
       </MenuItem>
-      <MenuItem to={getRouteWishlist()} Svg={HeartSvg}>
+      <MenuItem
+        to={getRouteWishlist()}
+        Svg={IconsMap.WISHLIST}
+        className={cls.mobileNavBar_item}
+      >
         Избранное
       </MenuItem>
-      {isAuth ? (
-        <MenuItem to={getRouteProfile()} Svg={ProfileSvg}>
-          Профиль
-        </MenuItem>
-      ) : (
-        <MenuItem to={getRouteAuth()} Svg={LoginSvg}>
-          Вход
-        </MenuItem>
-      )}
+      <MenuItem
+        to={getRouteProfile()}
+        Svg={IconsMap.PROFILE}
+        className={cls.mobileNavBar_item}
+      >
+        Профиль
+      </MenuItem>
     </nav>
   )
 }

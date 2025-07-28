@@ -1,27 +1,31 @@
 import { Button } from '@/shared/ui/Button'
 import { Icon } from '@/shared/ui/Icon'
-import SunIcon from '@/shared/assets/icons/sun.svg'
-import MoonIcon from '@/shared/assets/icons/moon.svg'
 import { Theme, useTheme } from '@/app/providers/ThemeProvider'
+import { ReactNode } from 'react'
+import { classNames } from '@/shared/lib/classNames'
+import cls from './ThemeSwitcher.module.less'
+import { IconsMap } from '@/shared/consts/icons'
 
 interface ThemeSwitcherProps {
   className?: string
+  children?: ReactNode
 }
 
-export const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
+export const ThemeSwitcher = ({ className, children }: ThemeSwitcherProps) => {
   const { theme, toggleTheme } = useTheme()
 
   return (
     <Button
       style={{ viewTransitionName: 'theme-icon' }}
       onClick={toggleTheme}
-      className={className}
+      className={classNames(cls.themeSwitcher, {}, [className])}
     >
       {theme === Theme.LIGHT ? (
-        <Icon key="light" Svg={SunIcon} />
+        <Icon key={Theme.LIGHT} Svg={IconsMap.THEME_LIGHT} />
       ) : (
-        <Icon key="dark" Svg={MoonIcon} />
+        <Icon key={Theme.DARK} Svg={IconsMap.THEME_DARK} />
       )}
+      {children}
     </Button>
   )
 }

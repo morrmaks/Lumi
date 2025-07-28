@@ -1,0 +1,18 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/variables/global.less';
+
+.themeSwitcher {
+  .flex();
+  gap: 16px;
+  color: var(--primary-color);
+
+  svg {
+    width: 20px;
+    height: 20px;
+
+    @media @breakpoint-md {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

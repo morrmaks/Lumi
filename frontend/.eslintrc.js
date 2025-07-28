@@ -4,7 +4,7 @@ module.exports = {
     'react',
     'react-hooks',
     '@typescript-eslint',
-    'prettier',
+    // 'prettier',
     'unused-imports',
   ],
   extends: [

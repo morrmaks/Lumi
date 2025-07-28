@@ -4,3 +4,10 @@
   align-items: @align;
   justify-content: @justify;
 }
+
+.grid(@columns: 1fr, @autoFlow: row, @gap: 0) {
+  display: grid;
+  grid-template-columns: @columns;
+  grid-auto-flow: @autoFlow;
+  gap: @gap;
+}

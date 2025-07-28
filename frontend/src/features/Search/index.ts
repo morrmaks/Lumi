@@ -1,2 +1,2 @@
-import { Search } from './ui/Search'
-export { Search }
+import { SearchInput } from './ui/SearchInput'
+export { SearchInput }

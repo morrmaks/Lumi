@@ -9,6 +9,7 @@ import {
   getRouteProfile,
   getRouteAuthRegister,
   getRouteWishlist,
+  getRouteSearch,
 } from '@/shared/consts/router'
 import { Navigate, RouteProps } from 'react-router-dom'
 
@@ -22,9 +23,12 @@ import { CatalogPage } from '@/pages/Catalog'
 import { ProfilePage } from '@/pages/Profile'
 import { AuthPage } from '@/pages/Auth'
 import { ForgotPasswordPage } from '@/pages/Forgot-password'
+import { SearchPage } from '@/pages/Search'
 
 export type RouteConfigProps = {
   subRoutes?: RouteConfig
+  authOnly?: boolean
+  anonymOnly?: boolean
 } & RouteProps
 
 export type RouteConfig = OptionalRecord<AppRoutes, RouteConfigProps>
@@ -37,18 +41,22 @@ export const routeConfig: RouteConfig = {
   [AppRoutes.AUTH]: {
     path: getRouteAuth(),
     element: <AuthPage />,
+    anonymOnly: true,
     subRoutes: {
       [AppRoutes.LOGIN]: {
         path: getRouteAuthLogin(),
         element: <LoginPage />,
+        anonymOnly: true,
       },
       [AppRoutes.REGISTER]: {
         path: getRouteAuthRegister(),
         element: <RegisterPage />,
+        anonymOnly: true,
       },
       [AppRoutes.FORGOT_PASSWORD]: {
         path: getRouteAuthForgotPassword(),
         element: <ForgotPasswordPage />,
+        anonymOnly: true,
       },
       auth: {
         index: true,
@@ -59,6 +67,7 @@ export const routeConfig: RouteConfig = {
   [AppRoutes.PROFILE]: {
     path: getRouteProfile(),
     element: <ProfilePage />,
+    authOnly: true,
   },
   [AppRoutes.CONFIGURATOR]: {
     path: getRouteConfigurator(),
@@ -71,6 +80,10 @@ export const routeConfig: RouteConfig = {
   [AppRoutes.WISHLIST]: {
     path: getRouteWishlist(),
     element: <WishListPage />,
+  },
+  [AppRoutes.SEARCH]: {
+    path: getRouteSearch(),
+    element: <SearchPage />,
   },
   [AppRoutes.NOT_FOUND]: {
     path: '*',

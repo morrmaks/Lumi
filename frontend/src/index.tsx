@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import '@/app/styles/index.less'
 import { App } from './app/App'
 import { ThemeProvider } from './app/providers/ThemeProvider'
+import { StoreProvider } from '@/app/providers/StoreProvider'
 
 const container = document.getElementById('root')
 if (!container) {
@@ -14,9 +15,11 @@ const root = ReactDOM.createRoot(container)
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <StoreProvider>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </StoreProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

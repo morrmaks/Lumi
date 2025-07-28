@@ -1,7 +1,11 @@
 .input {
-  border-radius: var(--border-r);
-  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
   background-color: var(--bg-color);
+
+  &:hover {
+    border: var(--border);
+  }
 
   &::placeholder {
     color: var(--muted-color);
