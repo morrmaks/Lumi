@@ -1,0 +1,81 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/decorators.less';
+@import '@/app/styles/variables/global.less';
+
+.notFoundPage {
+  .flex(column);
+  min-height: 70vh;
+  width: 100%;
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  gap: 24px;
+  padding: 24px 0;
+
+  &__container {
+    .flex(column);
+    max-width: 600px;
+  }
+
+  &__title {
+    font: var(--font-l);
+    font-weight: var(--font-bold);
+    margin-bottom: 16px;
+
+    @media @breakpoint-sm {
+      font: var(--font-xl);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__description {
+    font: var(--font-xs);
+    text-align: center;
+    margin-bottom: 32px;
+
+    @media @breakpoint-sm {
+      font: var(--font-s);
+    }
+  }
+
+  &__button {
+    font: var(--font-xs);
+
+    &_main {
+      .border(1px, solid, var(--border-color-secondary));
+    }
+
+    &_icon {
+      margin-right: 8px;
+    }
+  }
+
+  &__actions {
+    .flex();
+    gap: 8px;
+    margin-bottom: 64px;
+  }
+
+  &__code {
+    font: var(--font-code-error-xl);
+    font-weight: var(--font-bold);
+    margin-bottom: 16px;
+  }
+
+  &__popular {
+    text-align: center;
+    font: var(--font-s);
+
+    &_list {
+      .flex(column);
+      font: var(--font-xs);
+      font-weight: var(--font-bold);
+      margin-top: 16px;
+      column-gap: 42px;
+      row-gap: 24px;
+
+      @media @breakpoint-sm {
+        .flex();
+      }
+    }
+  }
+}

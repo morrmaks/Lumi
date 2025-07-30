@@ -1,9 +1,12 @@
 import { Suspense, useCallback } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { type RouteConfig, routeConfig } from '../config/routeConfig'
 import { ProtectedRoute } from './ProtectedRoute'
+import { Loader } from '@/shared/ui/Loader'
 
 export const AppRouter = () => {
+  const location = useLocation()
+
   const renderRoutes = useCallback((routeConfig: RouteConfig) => {
     return Object.values(routeConfig).map(
       ({ path, index, element, subRoutes, anonymOnly, authOnly }) => {
@@ -39,7 +42,7 @@ export const AppRouter = () => {
   }, [])
 
   return (
-    <Suspense fallback={<h1>Loading</h1>}>
+    <Suspense key={location.pathname} fallback={<Loader />}>
       <Routes>{renderRoutes(routeConfig)}</Routes>
     </Suspense>
   )

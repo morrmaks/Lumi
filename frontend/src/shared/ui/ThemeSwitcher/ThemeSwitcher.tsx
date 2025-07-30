@@ -1,4 +1,4 @@
-import { Button } from '@/shared/ui/Button'
+import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { Icon } from '@/shared/ui/Icon'
 import { Theme, useTheme } from '@/app/providers/ThemeProvider'
 import { ReactNode } from 'react'
@@ -9,15 +9,22 @@ import { IconsMap } from '@/shared/consts/icons'
 interface ThemeSwitcherProps {
   className?: string
   children?: ReactNode
+  themeButton?: ButtonTheme
 }
 
-export const ThemeSwitcher = ({ className, children }: ThemeSwitcherProps) => {
+export const ThemeSwitcher = ({
+  className,
+  children,
+  themeButton = ButtonTheme.PRIMARY,
+}: ThemeSwitcherProps) => {
   const { theme, toggleTheme } = useTheme()
 
   return (
     <Button
       style={{ viewTransitionName: 'theme-icon' }}
       onClick={toggleTheme}
+      theme={themeButton}
+      square={true}
       className={classNames(cls.themeSwitcher, {}, [className])}
     >
       {theme === Theme.LIGHT ? (

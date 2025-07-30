@@ -14,6 +14,10 @@ import FacebookSvg from '@/shared/assets/icons/facebook.svg'
 import YoutubeSvg from '@/shared/assets/icons/youtube.svg'
 import XMediaSvg from '@/shared/assets/icons/x-media.svg'
 import InstagramSvg from '@/shared/assets/icons/instagram.svg'
+import EyeSvg from '@/shared/assets/icons/eye.svg'
+import EyeOffSvg from '@/shared/assets/icons/eye-off.svg'
+import ChevronLeftSvg from '@/shared/assets/icons/chevron-left.svg'
+import ChevronRightSvg from '@/shared/assets/icons/chevron-right.svg'
 
 export const IconsMap = {
   PROFILE: ProfileSvg,
@@ -32,6 +36,10 @@ export const IconsMap = {
   X_MEDIA: XMediaSvg,
   INSTAGRAM: InstagramSvg,
   YOUTUBE: YoutubeSvg,
+  PASSWORD_SHOW: EyeSvg,
+  PASSWORD_HIDE: EyeOffSvg,
+  CHEVRON_LEFT: ChevronLeftSvg,
+  CHEVRON_RIGHT: ChevronRightSvg,
 } as const
 
 export type IconsMap = (typeof IconsMap)[keyof typeof IconsMap]

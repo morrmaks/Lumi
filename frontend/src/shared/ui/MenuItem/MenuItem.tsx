@@ -5,7 +5,11 @@ import { classNames } from '@/shared/lib/classNames'
 import { useCallback, useEffect, useTransition } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
-import { dropdownMenuActions } from '@/entities/DropdownMenu'
+import {
+  dropdownMenuActions,
+  getDropdownMenuState,
+} from '@/entities/DropdownMenu'
+import { useAppSelector } from '@/shared/lib/hooks/useAppSelector'
 
 interface MenuItemProps {
   to: string
@@ -24,6 +28,7 @@ export const MenuItem = ({
 }: MenuItemProps) => {
   const navigate = useNavigate()
   const [isPending, startTransition] = useTransition()
+  const { isOpen: dropdownMenuIsOpen } = useAppSelector(getDropdownMenuState)
   const dispatch = useAppDispatch()
 
   const handleClick = useCallback(() => {
@@ -33,7 +38,7 @@ export const MenuItem = ({
   }, [navigate, to])
 
   useEffect(() => {
-    if (!isPending) {
+    if (!isPending && dropdownMenuIsOpen) {
       dispatch(dropdownMenuActions.setIsOpen(false))
     }
   }, [isPending, dispatch])

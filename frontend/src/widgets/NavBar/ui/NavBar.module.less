@@ -1,19 +1,24 @@
 @import '@/app/styles/mixins/container.less';
 @import '@/app/styles/mixins/interactive.less';
 @import '@/app/styles/variables/global.less';
+@import '@/app/styles/mixins/decorators.less';
 
 .navbar {
   .flex(row, center, space-between);
+  .borderBottom();
   width: 100%;
-  padding: 0 32px;
+  padding: 0 16px;
   gap: 32px;
   height: 64px;
-  border-bottom: var(--border);
   position: relative;
   top: 0;
   z-index: 50;
   background-color: rgba(var(--bg-color-header), 0.95);
   backdrop-filter: blur(8px);
+
+  @media @breakpoint-sm {
+    padding: 0 32px;
+  }
 
   @media @breakpoint-md {
     position: sticky;
@@ -38,8 +43,9 @@
   &__item {
     .flex();
     padding: 12px;
-    border-radius: var(--border-radius);
-    transition: 150ms ease;
+    min-width: 40px;
+    border-radius: var(--border-radius-m);
+    transition: var(--transition-speed);
 
     &:hover {
       background-color: var(--accent-bg-color);
@@ -52,12 +58,8 @@
     }
 
     &_configurator {
+      .gradient();
       color: var(--accent-color);
-      background-image: linear-gradient(
-        to right,
-        var(--secondary-color),
-        var(--accent-bg-color)
-      );
 
       svg {
         stroke: var(--accent-color);

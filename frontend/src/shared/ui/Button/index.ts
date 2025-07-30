@@ -1,2 +1,3 @@
+import { ButtonTheme } from './Button'
 import { Button } from './Button'
-export { Button }
+export { Button, ButtonTheme }

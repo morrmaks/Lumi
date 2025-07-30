@@ -1,18 +1,23 @@
 @import '@/app/styles/mixins/container.less';
 @import '@/app/styles/variables/global';
 @import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/mixins/decorators.less';
 
 .appFooter {
   .flex(column);
+  .borderTop();
   font: var(--font-xs);
   color: var(--muted-color);
   width: 100%;
-  padding: 48px 32px;
-  border-top: var(--border);
+  padding: 48px 16px;
+
+  @media @breakpoint-sm {
+    padding: 48px 32px;
+  }
 
   &__sectionTitle {
     font: var(--font-s);
-    font-weight: 600;
+    font-weight: var(--font-bold);
     color: var(--primary-color);
   }
 
@@ -25,8 +30,8 @@
       width: 32px;
       height: 32px;
       .selectableIcon(1, var(--accent-bg-color), var(--accent-color));
-      border: var(--border);
-      border-radius: var(--border-radius);
+      .border();
+      border-radius: var(--border-radius-m);
     }
   }
 
@@ -72,10 +77,10 @@
 
   &__docs {
     .flex(column, start, start);
+    .borderTop();
     gap: 16px;
     width: 100%;
     padding-top: 32px;
-    border-top: 1px solid var(--border-color);
 
     @media @breakpoint-sm {
       .flex(row, center, space-between);

@@ -1,4 +1,4 @@
-import { Button } from '@/shared/ui/Button'
+import { Button, ButtonTheme } from '@/shared/ui/Button'
 import cls from './BurgerButton.module.less'
 import { classNames } from '@/shared/lib/classNames'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
@@ -18,6 +18,9 @@ export const BurgerButton = ({ className }: BurgerButtonProps) => {
 
   return (
     <Button
+      theme={ButtonTheme.STATIC}
+      square={true}
+      resetPadding={true}
       className={classNames(
         cls.burgerButton,
         { [cls.burgerButton_animate]: dropdownMenuIsOpen },

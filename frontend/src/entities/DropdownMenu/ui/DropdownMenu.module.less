@@ -6,7 +6,7 @@
   overflow-y: scroll;
   height: calc(var(--app-vh) * 100);
   padding-bottom: 80px;
-  z-index: 110;
+  z-index: var(--z-dropdown-menu);
   top: 0;
   background-color: var(--bg-color);
   display: none;
@@ -23,22 +23,12 @@
   }
 
   &__item {
-    .selectable();
+    .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
     padding: 10px;
     gap: 16px;
   }
 
   &__themeSwitcher {
-    padding: 10px;
-    border-radius: var(--border-radius);
-    background-image: linear-gradient(
-      to right,
-      var(--secondary-color),
-      var(--accent-bg-color)
-    );
-    transition: 150ms ease;
-    color: var(--accent-color);
-
     svg {
       stroke: var(--accent-color);
     }

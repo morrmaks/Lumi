@@ -1,0 +1,24 @@
+.border(@width: 1px, @line: solid, @color: var(--border-color-primary)) {
+  border: @width @line @color;
+}
+
+.borderTop(@width: 1px, @line: solid, @color: var(--border-color-primary)) {
+  border-top: @width @line @color;
+}
+
+.borderBottom(@width: 1px, @line: solid, @color: var(--border-color-primary)) {
+  border-bottom: @width @line @color;
+}
+
+.gradient(@colorOne: var(--secondary-color), @colorTwo: var(--accent-bg-color)) {
+  background-image: linear-gradient(to right, @colorOne, @colorTwo);
+}
+
+.gradientThree(@colorOne: var(--secondary-color), @colorTwo: var(--accent-bg-color), @colorThree: var(--accent-bg-color)) {
+  background-image: linear-gradient(
+    to right,
+    @colorOne,
+    @colorTwo,
+    @colorThree
+  );
+}
