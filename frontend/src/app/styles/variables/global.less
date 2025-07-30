@@ -3,6 +3,9 @@
 :root {
   --font-family-main: 'Geist', 'Inter', sans-serif;
 
+  --font-regular: 400;
+  --font-bold: 600;
+
   //xxs
   --font-size-xxs: 12px;
   --font-line-xxs: 16px;
@@ -52,18 +55,35 @@
   --font-logo-l: var(--font-logo-size-l) / var(--font-logo-line-l)
     var(--font-family-main);
 
+  //code error size xl
+  --font-code-error-size-xl: 96px;
+  --font-code-error-line-xl: 120px;
+  --font-code-error-xl: var(--font-code-error-size-xl) /
+    var(--font-code-error-line-xl) var(--font-family-main);
+
+  //icons
   --icon-size-s: 16px;
   --icon-size-m: 20px;
 
-  --border: 1px solid var(--border-color);
-  --border-radius: 6px;
+  //z-index
+  --z-icons: 10;
+  --z-mobile-navbar: 20;
+  --z-dropdown-menu: 30;
+  --z-burger-button: 40;
 
+  //border
+  --border-radius-m: 6px;
+  --border-radius-s: 4px;
+
+  //page width
   --min-page-width: 320px;
   --max-page-width: 1320px;
+  --max-auth-content-width: 672px;
 
   --mobile-navbar-height: 64px;
 
   --hover-opacity: 0.8;
+  --transition-speed: 150ms ease;
 }
 
 //breakpoints

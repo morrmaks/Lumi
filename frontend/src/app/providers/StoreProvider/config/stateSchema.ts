@@ -2,10 +2,18 @@ import { LoginSchema } from '@/features/Login'
 import { DropdownMenuSchema } from '@/entities/DropdownMenu'
 import { Reducer, ReducersMapObject, UnknownAction } from 'redux'
 import { EnhancedStore } from '@reduxjs/toolkit'
+import { RegisterSchema } from '@/features/Register'
+import { ResetPasswordSchema } from '@/features/ResetPassword'
+import { ForgotPasswordSchema } from '@/features/ForgotPassword'
+import { BreadcrumbNavSchema } from '@/features/BreadcrumbNav'
 
 export interface StateSchema {
   dropdownMenu: DropdownMenuSchema
+  breadcrumbNav: BreadcrumbNavSchema
   loginForm?: LoginSchema
+  registerForm?: RegisterSchema
+  forgotPasswordForm?: ForgotPasswordSchema
+  resetPasswordForm?: ResetPasswordSchema
 }
 
 export type StateSchemaKey = keyof StateSchema
@@ -21,5 +29,5 @@ export interface ReducerManager {
 }
 
 export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
-  reduserManager: ReducerManager
+  reducerManager: ReducerManager
 }

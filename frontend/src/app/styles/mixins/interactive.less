@@ -1,7 +1,7 @@
 .selectable(@opacity: 1, @color: var(--primary-color), @hoverColor: var(--secondary-color)) {
   cursor: pointer;
   position: relative;
-  transition: 150ms ease;
+  transition: var(--transition-speed);
   color: @color;
 
   &:hover {
@@ -13,7 +13,7 @@
 .selectableIcon(@opacity: 1, @background: transparent, @stroke: var(--accent-color)) {
   cursor: pointer;
   position: relative;
-  transition: 150ms ease;
+  transition: var(--transition-speed);
 
   &:hover {
     opacity: @opacity;

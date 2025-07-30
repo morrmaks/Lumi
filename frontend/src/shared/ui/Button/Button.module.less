@@ -1,8 +1,80 @@
 @import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/decorators.less';
 
 .button {
   .flex();
+  font: var(--size-xs);
+  border-radius: var(--border-radius-m);
   background: transparent;
   border: none;
   cursor: pointer;
+}
+
+.primaryButton {
+  .gradient();
+  color: var(--accent-color);
+  transition: var(--transition-speed);
+
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+}
+
+.secondaryButton {
+  .border();
+  color: var(--primary-color);
+  background-color: var(--bg-color);
+  transition: var(--transition-speed);
+
+  &:hover {
+    background-color: var(--accent-bg-color);
+    color: var(--accent-color);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+}
+
+.staticButton {
+  color: var(--primary-color);
+  background-color: var(--bg-color);
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+}
+
+.size_s {
+  height: 36px;
+  padding: 0 12px;
+}
+
+.size_m {
+  height: 40px;
+  padding: 8px 16px;
+}
+
+.size_l {
+  height: 44px;
+  padding: 0 32px;
+}
+
+.square {
+  padding: 10px;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.resetPadding {
+  padding: 0;
 }

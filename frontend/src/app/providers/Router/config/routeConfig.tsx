@@ -10,6 +10,7 @@ import {
   getRouteAuthRegister,
   getRouteWishlist,
   getRouteSearch,
+  getRouteAuthResetPassword,
 } from '@/shared/consts/router'
 import { Navigate, RouteProps } from 'react-router-dom'
 
@@ -22,7 +23,8 @@ import { ConfiguratorPage } from '@/pages/Configurator'
 import { CatalogPage } from '@/pages/Catalog'
 import { ProfilePage } from '@/pages/Profile'
 import { AuthPage } from '@/pages/Auth'
-import { ForgotPasswordPage } from '@/pages/Forgot-password'
+import { ForgotPasswordPage } from '@/pages/ForgotPassword'
+import { ResetPasswordPage } from '@/pages/ResetPassword'
 import { SearchPage } from '@/pages/Search'
 
 export type RouteConfigProps = {
@@ -56,6 +58,11 @@ export const routeConfig: RouteConfig = {
       [AppRoutes.FORGOT_PASSWORD]: {
         path: getRouteAuthForgotPassword(),
         element: <ForgotPasswordPage />,
+        anonymOnly: true,
+      },
+      [AppRoutes.RESET_PASSWORD]: {
+        path: getRouteAuthResetPassword(),
+        element: <ResetPasswordPage />,
         anonymOnly: true,
       },
       auth: {

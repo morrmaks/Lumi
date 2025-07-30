@@ -1,8 +1,12 @@
+import { PageLayout } from '@/widgets/PageLayout'
+
 const CatalogPage = () => {
   return (
-    <div>
-      <h1>Каталог</h1>
-    </div>
+    <PageLayout>
+      <div>
+        <h1>Каталог</h1>
+      </div>
+    </PageLayout>
   )
 }
 

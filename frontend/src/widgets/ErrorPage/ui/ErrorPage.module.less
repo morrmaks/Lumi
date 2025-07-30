@@ -1,0 +1,30 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/decorators.less';
+
+.errorPage {
+  .flex(column);
+  height: 100vh;
+  width: 100%;
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  gap: 24px;
+
+  &__title {
+    font: var(--font-xl);
+    font-weight: var(--font-bold);
+  }
+
+  &__button {
+    font: var(--font-xs);
+    font-weight: var(--font-bold);
+
+    &_main {
+      .border(1px, solid, var(--border-color-secondary));
+    }
+  }
+
+  &__actions {
+    .flex();
+    gap: 8px;
+  }
+}

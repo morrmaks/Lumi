@@ -14,6 +14,7 @@ import { useBreakpoint } from '@/shared/lib/hooks/useBreakpoint'
 import { MenuItem } from '@/shared/ui/MenuItem'
 import { classNames } from '@/shared/lib/classNames'
 import { IconsMap } from '@/shared/consts/icons'
+import { ButtonTheme } from '@/shared/ui/Button'
 
 export const NavBar = () => {
   const { md } = useBreakpoint()
@@ -62,7 +63,10 @@ export const NavBar = () => {
             Svg={IconsMap.PROFILE}
             className={cls.menu__item}
           ></MenuItem>
-          <ThemeSwitcher className={cls.menu__item} />
+          <ThemeSwitcher
+            className={cls.menu__item}
+            themeButton={ButtonTheme.SECONDARY}
+          />
         </nav>
       ) : null}
     </header>

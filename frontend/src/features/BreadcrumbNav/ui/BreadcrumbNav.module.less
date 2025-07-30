@@ -1,0 +1,31 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/variables/global.less';
+
+.breadcrumbNav {
+  padding: 16px 0;
+
+  @media @breakpoint-sm {
+    padding: 16px 16px;
+  }
+
+  &__list {
+    .flex(row, center, start);
+    overflow-x: scroll;
+    gap: 4px;
+    margin: 0 16px;
+  }
+
+  &__item {
+    .flex(row, center, start);
+    gap: 4px;
+
+    &_link {
+      .selectable(1, var(--muted-color));
+    }
+  }
+
+  &__currentPath {
+    color: var(--primary-color);
+  }
+}

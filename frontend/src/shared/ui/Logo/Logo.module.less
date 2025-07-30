@@ -1,18 +1,16 @@
+@import '@/app/styles/mixins/decorators.less';
+
 .logo {
-  transition: 150ms ease;
+  transition: var(--transition-speed);
 
   &:hover {
     transform: scale(1.05);
   }
 
   &__text {
+    .gradient();
     font: var(--font-logo-l);
-    font-weight: 600;
-    background-image: linear-gradient(
-      to right,
-      var(--secondary-color),
-      var(--accent-bg-color)
-    );
+    font-weight: var(--font-bold);
     background-clip: text;
     color: transparent;
   }

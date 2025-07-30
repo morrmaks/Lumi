@@ -4,6 +4,12 @@
 @import 'themes/light.less';
 @import 'animations/button-theme';
 @import 'animations/switch-theme';
+@import 'animations/skeleton';
+@import 'animations/loader';
+@import 'mixins/container';
+@import 'mixins/decorators';
+@import 'mixins/form-elements';
+@import 'mixins/interactive';
 
 html {
   box-sizing: border-box;
@@ -21,12 +27,22 @@ html {
   min-height: 100vh;
   background: var(--bg-color);
   font: var(--font-xs);
-  font-weight: 500;
+  font-weight: var(--font-regular);
   color: var(--primary-color);
   position: relative;
   padding-bottom: var(--mobile-navbar-height);
 
   @media @breakpoint-md {
     padding-bottom: 0;
+  }
+}
+
+.contentPage {
+  .flex(column);
+  width: 100%;
+  padding: 0 16px;
+
+  @media @breakpoint-sm {
+    padding: 0 32px;
   }
 }
