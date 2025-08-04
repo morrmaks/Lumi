@@ -4,6 +4,7 @@
 
 .notFoundPage {
   .flex(column);
+
   min-height: 70vh;
   width: 100%;
   background-color: var(--bg-color);
@@ -13,6 +14,7 @@
 
   &__container {
     .flex(column);
+
     max-width: 600px;
   }
 
@@ -51,6 +53,7 @@
 
   &__actions {
     .flex();
+
     gap: 8px;
     margin-bottom: 64px;
   }
@@ -67,11 +70,11 @@
 
     &_list {
       .flex(column);
+
       font: var(--font-xs);
       font-weight: var(--font-bold);
       margin-top: 16px;
-      column-gap: 42px;
-      row-gap: 24px;
+      gap: 24px 42px;
 
       @media @breakpoint-sm {
         .flex();

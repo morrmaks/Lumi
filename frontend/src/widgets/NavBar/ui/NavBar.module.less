@@ -6,6 +6,7 @@
 .navbar {
   .flex(row, center, space-between);
   .borderBottom();
+
   width: 100%;
   padding: 0 16px;
   gap: 32px;
@@ -13,7 +14,7 @@
   position: relative;
   top: 0;
   z-index: 50;
-  background-color: rgba(var(--bg-color-header), 0.95);
+  background-color: rgba(var(--bg-color-rgb), 0.6);
   backdrop-filter: blur(8px);
 
   @media @breakpoint-sm {
@@ -23,29 +24,32 @@
   @media @breakpoint-md {
     position: sticky;
   }
-}
 
-.search {
-  @media @breakpoint-md {
-    flex: 1 1 0%;
+  &__search {
+    @media @breakpoint-md {
+      flex: 1 1 0%;
+    }
   }
 
-  &__icon {
+  &__searchIcon {
     .selectable(var(--hover-opacity));
   }
-}
 
-.menu {
-  .flex();
-  gap: 8px;
-  font: var(--font-xxs);
-
-  &__item {
+  &__menu {
     .flex();
+
+    gap: 8px;
+    font: var(--font-xxs);
+  }
+
+  &__menuItem {
+    .flex();
+
     padding: 12px;
     min-width: 40px;
-    border-radius: var(--border-radius-m);
+    border-radius: var(--border-radius-l);
     transition: var(--transition-speed);
+    background-color: transparent;
 
     &:hover {
       background-color: var(--accent-bg-color);
@@ -59,6 +63,8 @@
 
     &_configurator {
       .gradient();
+      font-weight: var(--font-bold);
+
       color: var(--accent-color);
 
       svg {

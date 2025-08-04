@@ -1,0 +1,103 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/decorators.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/variables/global.less';
+
+.basketProducts {
+  .flex(column, space-between);
+
+  gap: 32px;
+  position: relative;
+
+  &__productList {
+    .flex(column, space-between);
+
+    gap: 16px;
+  }
+
+  &__addProduct {
+    .flex(column, center);
+    .border(1px, dashed);
+    border-radius: var(--border-radius-l);
+    padding: 12px;
+    gap: 16px;
+    background-color: var(--card-bg-color);
+    transition: var(--transition-speed);
+
+    @media @breakpoint-sm {
+      padding: 24px;
+    }
+
+    &_title {
+      font: var(--font-s);
+      color: var(--muted-color);
+    }
+
+    &_button {
+      .flex();
+      gap: 16px;
+    }
+  }
+
+  &__order {
+    .flex(column, start, space-between);
+    .border(1px, solid, var(--border-color-primary));
+
+    border-radius: var(--border-radius-l);
+    gap: 16px;
+    padding: 12px;
+    z-index: var(--z-wishlist-actions);
+    background-color: var(--card-bg-color);
+
+    @media @breakpoint-md {
+      padding: 24px;
+    }
+
+    &_title {
+      font: var(--font-l);
+      font-weight: var(--font-bold);
+      width: 100%;
+      padding-bottom: 24px;
+      .borderBottom();
+    }
+
+    &_subtotal {
+      .flex(column, space-between, center);
+      width: 100%;
+      font: var(--font-s);
+      gap: 8px;
+      //margin: 16px 0;
+    }
+
+    &_price {
+      .flex(row, center, space-between);
+      color: var(--muted-color);
+    }
+
+    &_discount {
+      .flex(row, center, space-between);
+      color: var(--muted-color);
+    }
+
+    &_delivery {
+      .flex(row, center, space-between);
+      .borderBottom();
+      padding-bottom: 16px;
+      color: var(--order-accent-color);
+    }
+
+    &_discountPrice {
+      .flex(row, center, space-between);
+      white-space: nowrap;
+      font: var(--font-m);
+      font-weight: var(--font-bold);
+      margin-top: 12px;
+    }
+  }
+
+  &__orderButton {
+    .flex();
+    gap: 16px;
+    width: 100%;
+  }
+}

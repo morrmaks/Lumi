@@ -4,7 +4,8 @@
 
 .input {
   .border();
-  border-radius: var(--border-radius-m);
+
+  border-radius: var(--border-radius-l);
   background-color: var(--input-bg-color);
 
   &:hover {
@@ -16,19 +17,18 @@
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow:
-      0 0 0 2px var(--bg-color),
-      0 0 0 4px var(--secondary-color);
+    .focusStroke();
   }
 
   &__wrapper {
     .flex();
+
     position: relative;
   }
 
   &__icon {
     .selectable();
+
     position: absolute;
     top: 18px;
     right: 16px;

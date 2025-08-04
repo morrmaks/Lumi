@@ -18,6 +18,13 @@ import EyeSvg from '@/shared/assets/icons/eye.svg'
 import EyeOffSvg from '@/shared/assets/icons/eye-off.svg'
 import ChevronLeftSvg from '@/shared/assets/icons/chevron-left.svg'
 import ChevronRightSvg from '@/shared/assets/icons/chevron-right.svg'
+import CheckMarkSvg from '@/shared/assets/icons/check.svg'
+import BasketSvg from '@/shared/assets/icons/shopping-cart.svg'
+import TrashSvg from '@/shared/assets/icons/trash.svg'
+import StarSvg from '@/shared/assets/icons/star.svg'
+import CreditCardSvg from '@/shared/assets/icons/credit-card.svg'
+import PlusSvg from '@/shared/assets/icons/plus.svg'
+import MinusSvg from '@/shared/assets/icons/minus.svg'
 
 export const IconsMap = {
   PROFILE: ProfileSvg,
@@ -40,6 +47,13 @@ export const IconsMap = {
   PASSWORD_HIDE: EyeOffSvg,
   CHEVRON_LEFT: ChevronLeftSvg,
   CHEVRON_RIGHT: ChevronRightSvg,
+  CHECK_MARK: CheckMarkSvg,
+  BASKET: BasketSvg,
+  TRASH: TrashSvg,
+  RATING: StarSvg,
+  PAYMENT: CreditCardSvg,
+  PLUS: PlusSvg,
+  MINUS: MinusSvg,
 } as const
 
 export type IconsMap = (typeof IconsMap)[keyof typeof IconsMap]

@@ -1,3 +1,5 @@
+@import '@/app/styles/mixins/decorators.less';
+
 .selectable(@opacity: 1, @color: var(--primary-color), @hoverColor: var(--secondary-color)) {
   cursor: pointer;
   position: relative;
@@ -19,5 +21,13 @@
     opacity: @opacity;
     background-color: @background;
     stroke: @stroke;
+  }
+}
+
+.hoverShadow() {
+  transition: var(--transition-speed);
+
+  &:hover {
+    .shadow(0, 6px, 8px, 0);
   }
 }

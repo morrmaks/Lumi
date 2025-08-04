@@ -1,0 +1,82 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/decorators.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/variables/global.less';
+
+.wishlistProducts {
+  .flex(column, space-between);
+
+  position: relative;
+
+  &__selectAll {
+    .flex();
+
+    gap: 8px;
+    text-align: center;
+    white-space: nowrap;
+    align-self: start;
+    margin-bottom: 32px;
+  }
+
+  &__productList {
+    .flex(column, space-between);
+
+    gap: 16px;
+  }
+
+  &__selectionActions {
+    .flex(column, start, space-between);
+    .border(1px, solid, var(--secondary-color));
+
+    border-radius: var(--border-radius-l);
+    position: sticky;
+    margin-top: 16px;
+    padding: 12px;
+    gap: 16px;
+    z-index: var(--z-wishlist-actions);
+    bottom: calc(var(--mobile-navbar-height) + 8px);
+    background-color: rgba(var(--bg-color-rgb), 0.7);
+    backdrop-filter: blur(8px);
+
+    @media @breakpoint-md {
+      padding: 24px;
+      bottom: 16px;
+      .flex(row, center, space-between);
+    }
+
+    &_infoSection {
+      .flex(column, start);
+      gap: 8px;
+    }
+
+    &_totalItems {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+      white-space: nowrap;
+    }
+
+    &_totalPrice {
+      white-space: nowrap;
+      color: var(--secondary-color);
+      font-weight: var(--font-bold);
+    }
+
+    &_battons {
+      .grid(minmax(1fr, max-content), column, 8px);
+
+      width: 100%;
+
+      @media @breakpoint-md {
+        .flex(row, center, end);
+      }
+    }
+
+    &_batton {
+      height: 50px;
+
+      @media @breakpoint-sm {
+        height: 40px;
+      }
+    }
+  }
+}

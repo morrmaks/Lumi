@@ -6,10 +6,14 @@ import { RegisterSchema } from '@/features/Register'
 import { ResetPasswordSchema } from '@/features/ResetPassword'
 import { ForgotPasswordSchema } from '@/features/ForgotPassword'
 import { BreadcrumbNavSchema } from '@/features/BreadcrumbNav'
+import { WishlistProductsSchema } from '@/features/WishlistProducts'
+import { BasketProductsSchema } from '@/features/BasketProducts'
 
 export interface StateSchema {
   dropdownMenu: DropdownMenuSchema
   breadcrumbNav: BreadcrumbNavSchema
+  wishlistProducts: WishlistProductsSchema
+  basketProducts: BasketProductsSchema
   loginForm?: LoginSchema
   registerForm?: RegisterSchema
   forgotPasswordForm?: ForgotPasswordSchema

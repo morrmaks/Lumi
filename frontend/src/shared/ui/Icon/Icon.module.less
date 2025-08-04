@@ -1,6 +1,14 @@
 .icon {
-  stroke: var(--primary-color);
   width: var(--icon-size-s);
   height: var(--icon-size-s);
   z-index: var(--z-icons);
+
+  &__primary {
+    stroke: var(--primary-color);
+  }
+
+  &__yellow {
+    fill: var(--rating-icon-color);
+    stroke: var(--rating-icon-color);
+  }
 }

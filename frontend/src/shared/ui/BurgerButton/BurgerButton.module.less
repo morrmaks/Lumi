@@ -4,6 +4,7 @@
 .burgerButton {
   .flex(row, center, start);
   .selectable(var(--hover-opacity));
+
   position: relative;
   width: 22px;
   height: 20px;
@@ -15,7 +16,7 @@
     transition: var(--transition-speed);
   }
 
-  &:before {
+  &::before {
     position: absolute;
     content: '';
     width: 16px;
@@ -26,7 +27,7 @@
     z-index: var(--z-burger-button);
   }
 
-  &:after {
+  &::after {
     position: absolute;
     content: '';
     width: 20px;
@@ -38,11 +39,11 @@
   }
 
   &_animate {
-    &:before {
+    &::before {
       transform: translateY(0.5px) translateX(1px) rotate(-45deg) scaleX(1.25);
     }
 
-    &:after {
+    &::after {
       transform: translateY(0.5px) translateX(-1px) rotate(45deg);
     }
 

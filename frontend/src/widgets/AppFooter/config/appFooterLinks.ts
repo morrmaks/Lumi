@@ -1,4 +1,5 @@
 import {
+  getRouteBasket,
   getRouteCatalog,
   getRouteConfigurator,
   getRouteMain,
@@ -77,10 +78,10 @@ export const appFooterLinks: IAppFooterLinks = {
       label: 'Избранное',
       to: getRouteWishlist(),
     },
-    // {
-    //   label: 'Корзина',
-    //   to: getRouteCatalog(),
-    // },
+    {
+      label: 'Корзина',
+      to: getRouteBasket(),
+    },
     {
       label: 'Личный кабинет',
       to: getRouteProfile(),
