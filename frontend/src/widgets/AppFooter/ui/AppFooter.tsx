@@ -18,7 +18,7 @@ export const AppFooter = () => {
           <ul className={cls.appFooter__socialLinks}>
             {appFooterLinks.socialLinks.map(({ name, href, icon }) => (
               <li key={name}>
-                <ExternalLink href={href}>
+                <ExternalLink href={href} className={cls.appFooter__socialLink}>
                   <Icon
                     Svg={icon}
                     className={cls.appFooter__socialLinks_icon}

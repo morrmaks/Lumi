@@ -1,11 +1,5 @@
 import cls from './NavBar.module.less'
-import {
-  getRouteCatalog,
-  getRouteConfigurator,
-  getRouteProfile,
-  getRouteWishlist,
-  getRouteSearch,
-} from '@/shared/consts/router'
+import { getRouteSearch } from '@/shared/consts/router'
 import { Logo } from '@/shared/ui/Logo'
 import { SearchInput } from '@/features/Search'
 import { ThemeSwitcher } from '@/shared/ui/ThemeSwitcher'
@@ -15,6 +9,7 @@ import { MenuItem } from '@/shared/ui/MenuItem'
 import { classNames } from '@/shared/lib/classNames'
 import { IconsMap } from '@/shared/consts/icons'
 import { ButtonTheme } from '@/shared/ui/Button'
+import { navBarLinksConfig } from '@/widgets/NavBar/config/NavBarLinks'
 
 export const NavBar = () => {
   const { md } = useBreakpoint()
@@ -23,49 +18,38 @@ export const NavBar = () => {
     <header className={cls.navbar}>
       {!md ? <BurgerButton /> : null}
       <Logo />
-      <div className={cls.search}>
+      <div className={cls.navbar__search}>
         {md ? (
           <SearchInput />
         ) : (
           <MenuItem
             to={getRouteSearch()}
             Svg={IconsMap.SEARCH}
-            className={cls.search__icon}
+            className={cls.navbar__searchIcon}
           ></MenuItem>
         )}
       </div>
 
       {md ? (
-        <nav className={cls.menu}>
-          <MenuItem
-            to={getRouteConfigurator()}
-            Svg={IconsMap.CONFIGURATOR}
-            className={classNames('', {}, [
-              cls.menu__item,
-              cls.menu__item_configurator,
-            ])}
-            horizontal
-          >
-            Конфигуратор
-          </MenuItem>
-          <MenuItem
-            to={getRouteCatalog()}
-            Svg={IconsMap.CATALOG}
-            className={cls.menu__item}
-          ></MenuItem>
-          <MenuItem
-            to={getRouteWishlist()}
-            Svg={IconsMap.WISHLIST}
-            className={cls.menu__item}
-          ></MenuItem>
-          <MenuItem
-            to={getRouteProfile()}
-            Svg={IconsMap.PROFILE}
-            className={cls.menu__item}
-          ></MenuItem>
+        <nav className={cls.navbar__menu}>
+          {navBarLinksConfig.map(
+            ({ to, icon, label, extraClasses, horizontal }) => (
+              <MenuItem
+                key={to}
+                to={to}
+                Svg={icon}
+                className={classNames(cls.navbar__menuItem, {}, [
+                  ...extraClasses,
+                ])}
+                horizontal={horizontal}
+              >
+                {label}
+              </MenuItem>
+            )
+          )}
           <ThemeSwitcher
-            className={cls.menu__item}
-            themeButton={ButtonTheme.SECONDARY}
+            className={cls.navbar__menuItem}
+            themeButton={ButtonTheme.OUTLINE}
           />
         </nav>
       ) : null}

@@ -22,3 +22,14 @@
     @colorThree
   );
 }
+
+.focusStroke() {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--bg-color),
+    0 0 0 4px var(--secondary-color);
+}
+
+.shadow(@offsetX: 0, @offsetY: 0, @blurRadius: 4px, @spreadRadius: 2px, @color: var(--shadow-color)) {
+  box-shadow: @offsetX @offsetY @blurRadius @spreadRadius @color;
+}

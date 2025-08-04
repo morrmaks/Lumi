@@ -8,6 +8,7 @@ export const BreadcrumbMap = {
   wishlist: 'Избранное',
   configurator: 'Конфигуратор',
   catalog: 'Каталог',
+  basket: 'Корзина',
   search: 'Поиск',
 } as const
 

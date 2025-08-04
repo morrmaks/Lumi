@@ -1,0 +1,30 @@
+@import '@/app/styles/mixins/decorators.less';
+@import '@/app/styles/mixins/interactive.less';
+
+.checkbox {
+  .border(1px, solid, @color: var(--secondary-color));
+  .selectable();
+
+  width: 16px;
+  height: 16px;
+  border-radius: var(--border-radius-m);
+  background-color: var(--bg-color);
+
+  &:focus {
+    .focusStroke();
+  }
+
+  &__checked {
+    background-color: var(--secondary-color);
+
+    &_icon {
+      stroke: var(--accent-color);
+    }
+  }
+
+  &__icon {
+    width: 14px;
+    height: 14px;
+    stroke: var(--bg-color);
+  }
+}

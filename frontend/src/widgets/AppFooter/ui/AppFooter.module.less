@@ -6,6 +6,7 @@
 .appFooter {
   .flex(column);
   .borderTop();
+
   font: var(--font-xs);
   color: var(--muted-color);
   width: 100%;
@@ -23,6 +24,7 @@
 
   &__socialLinks {
     .flex();
+
     gap: 8px;
 
     &_icon {
@@ -31,12 +33,18 @@
       height: 32px;
       .selectableIcon(1, var(--accent-bg-color), var(--accent-color));
       .border();
-      border-radius: var(--border-radius-m);
+
+      border-radius: var(--border-radius-l);
     }
+  }
+
+  &__socialLink {
+    display: flex;
   }
 
   &__info {
     .grid(1fr, row, 32px);
+
     width: 100%;
     margin-bottom: 32px;
 
@@ -50,12 +58,14 @@
 
     &_section {
       .flex(column, start, start);
+
       gap: 16px;
     }
   }
 
   &__menu {
     .flex(column, start, start);
+
     gap: 8px;
 
     &_item {
@@ -66,6 +76,7 @@
   &__contacts {
     &_item {
       .flex();
+
       gap: 8px;
       white-space: pre-line;
 
@@ -78,6 +89,7 @@
   &__docs {
     .flex(column, start, start);
     .borderTop();
+
     gap: 16px;
     width: 100%;
     padding-top: 32px;
@@ -89,6 +101,7 @@
 
   &__docLinks {
     .flex(column, start, start);
+
     gap: 16px;
 
     @media @breakpoint-sm {

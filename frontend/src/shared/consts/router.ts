@@ -9,6 +9,7 @@ export const AppRoutes = {
   WISHLIST: 'wishlist',
   CONFIGURATOR: 'configurator',
   CATALOG: 'catalog',
+  BASKET: 'basket',
   SEARCH: 'search',
   NOT_FOUND: 'not-found',
 } as const
@@ -25,6 +26,7 @@ export const getRouteProfile = () => '/profile'
 export const getRouteConfigurator = () => '/configurator'
 export const getRouteCatalog = () => '/catalog'
 export const getRouteWishlist = () => '/wishlist'
+export const getRouteBasket = () => '/basket'
 export const getRouteSearch = () => '/search'
 
 export const getFullRouteLogin = () => '/auth/login'

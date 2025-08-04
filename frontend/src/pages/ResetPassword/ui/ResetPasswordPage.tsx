@@ -6,15 +6,21 @@ import { PageLayout } from '@/widgets/PageLayout'
 
 const ResetPasswordPage = () => {
   const isAllowed = true
+  const email = 'morozov.maksm20@uandex.ru'
 
   if (!isAllowed) {
     return <Navigate to={getRouteMain()} replace />
   }
 
   return (
-    <PageLayout>
+    <PageLayout noPadding>
       <div className={cls.resetPasswordPage}>
-        <h2 className={cls.resetPasswordPage__title}>Сброс пароля</h2>
+        <div className={cls.resetPasswordPage__header}>
+          <h2 className={cls.resetPasswordPage__title}>Сброс пароля</h2>
+          <p className={cls.resetPasswordPage__description}>
+            {`Введите код из письма, отправленного по адресу ${email} и установите новый пароль`}
+          </p>
+        </div>
         <ResetPasswordForm />
       </div>
     </PageLayout>

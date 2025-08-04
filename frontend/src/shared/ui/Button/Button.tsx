@@ -5,6 +5,7 @@ import { Mods } from '@/shared/lib/classNames/classNames'
 
 export const ButtonTheme = {
   PRIMARY: 'primaryButton',
+  OUTLINE: 'outlineButton',
   SECONDARY: 'secondaryButton',
   STATIC: 'staticButton',
 } as const

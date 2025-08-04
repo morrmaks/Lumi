@@ -3,53 +3,99 @@
 
 .button {
   .flex();
+
   font: var(--size-xs);
-  border-radius: var(--border-radius-m);
+  border-radius: var(--border-radius-l);
   background: transparent;
   border: none;
   cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: var(--disabled-button-opacity);
+  }
 }
 
 .primaryButton {
   .gradient();
   color: var(--accent-color);
   transition: var(--transition-speed);
+  font: var(--font-xs);
+  font-weight: var(--font-bold);
 
   &:hover {
     transform: scale(1.03);
   }
 
   &:disabled {
-    cursor: not-allowed;
-    opacity: 0.8;
+    &:hover {
+      transform: none;
+    }
+  }
+
+  svg {
+    stroke: var(--accent-color);
   }
 }
 
 .secondaryButton {
+  color: var(--accent-color);
+  background-color: var(--secondary-color);
+  transition: var(--transition-speed);
+  font: var(--font-xs);
+  font-weight: var(--font-bold);
+
+  &:hover {
+    opacity: var(--hover-opacity);
+  }
+
+  &:disabled {
+    .border();
+    background-color: var(--muted-bg-color);
+    &:hover {
+      opacity: var(--hover-opacity);
+    }
+  }
+
+  svg {
+    stroke: var(--accent-color);
+  }
+}
+
+.outlineButton {
   .border();
+
   color: var(--primary-color);
   background-color: var(--bg-color);
   transition: var(--transition-speed);
+  font: var(--font-xs);
 
   &:hover {
     background-color: var(--accent-bg-color);
     color: var(--accent-color);
+
+    svg {
+      stroke: var(--accent-color);
+    }
   }
 
   &:disabled {
-    cursor: not-allowed;
-    opacity: 0.8;
+    background-color: var(--muted-bg-color);
+
+    &:hover {
+      color: var(--primary-color);
+      background-color: var(--muted-bg-color);
+
+      svg {
+        stroke: var(--primary-color);
+      }
+    }
   }
 }
 
 .staticButton {
   color: var(--primary-color);
   background-color: var(--bg-color);
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.8;
-  }
 }
 
 .size_s {

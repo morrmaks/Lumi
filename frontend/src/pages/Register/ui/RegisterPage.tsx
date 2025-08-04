@@ -4,7 +4,7 @@ import { PageLayout } from '@/widgets/PageLayout'
 
 const RegisterPage = () => {
   return (
-    <PageLayout>
+    <PageLayout noPadding>
       <div className={cls.registerPage}>
         <h2 className={cls.registerPage__title}>Регистрация</h2>
         <RegisterForm />

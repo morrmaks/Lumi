@@ -17,6 +17,7 @@
 
   &__wrapper {
     .flex(column, start, start);
+
     gap: 20px;
     padding: 20px 32px 40px;
     font: var(--font-s);
@@ -24,11 +25,14 @@
 
   &__item {
     .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
+
     padding: 10px;
     gap: 16px;
   }
 
   &__themeSwitcher {
+    font: var(--font-s);
+
     svg {
       stroke: var(--accent-color);
     }

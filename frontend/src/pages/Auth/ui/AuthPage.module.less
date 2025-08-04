@@ -4,6 +4,7 @@
 
 .authPage {
   .flex(column);
+
   text-align: center;
   width: 100%;
   max-width: var(--max-auth-content-width);
@@ -26,13 +27,14 @@
 
   &__toggle {
     .grid(repeat(2, minmax(0, 1fr)), column);
+
     width: 100%;
     align-items: center;
     justify-content: center;
     padding: 4px;
     color: var(--muted-color);
     background-color: var(--muted-bg-color);
-    border-radius: var(--border-radius-s);
+    border-radius: var(--border-radius-l);
   }
 
   &__toggleButton {
@@ -40,12 +42,12 @@
       width: 100%;
       background-color: var(--bg-color);
       color: var(--primary-color);
-      border-radius: var(--border-radius-s);
+      border-radius: var(--border-radius-m);
       padding: 6px;
       box-shadow:
         0 0 #0000,
         0 0 #0000,
-        0 1px 2px 0 rgb(0 0 0 / 0.05);
+        0 1px 2px 0 rgb(0 0 0 / 5%);
     }
   }
 }

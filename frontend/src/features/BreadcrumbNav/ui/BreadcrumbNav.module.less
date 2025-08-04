@@ -6,11 +6,12 @@
   padding: 16px 0;
 
   @media @breakpoint-sm {
-    padding: 16px 16px;
+    padding: 16px;
   }
 
   &__list {
     .flex(row, center, start);
+
     overflow-x: scroll;
     gap: 4px;
     margin: 0 16px;
@@ -18,6 +19,7 @@
 
   &__item {
     .flex(row, center, start);
+
     gap: 4px;
 
     &_link {
