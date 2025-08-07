@@ -12,7 +12,7 @@ export const SearchInput = () => {
       <Icon Svg={IconsMap.SEARCH} className={cls.search__icon} />
       <Input
         className={cls.search__input}
-        onChange={setValue}
+        onChangeString={setValue}
         value={value}
         placeholder="Поиск по сайту"
       />

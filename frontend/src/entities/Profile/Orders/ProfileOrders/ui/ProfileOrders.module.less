@@ -1,0 +1,50 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/mixins/decorators.less';
+@import '@/app/styles/variables/global.less';
+
+.profileOrders {
+  .flex(column, space-between);
+  .border();
+  border-radius: var(--border-radius-l);
+  padding: 24px 12px;
+  width: 100%;
+
+  @media @breakpoint-sm {
+    padding: 24px 24px;
+  }
+
+  &__header {
+    .flex(row, center, start);
+    gap: 8px;
+    margin-bottom: 24px;
+
+    &_title {
+      font: var(--font-l);
+      font-weight: var(--font-bold);
+    }
+
+    &_icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__list {
+    .flex(column);
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  &__order {
+    .hoverShadow();
+    width: 100%;
+  }
+
+  &__button {
+    width: max-content;
+    align-self: center;
+    margin-top: 32px;
+    font-weight: var(--font-bold);
+  }
+}

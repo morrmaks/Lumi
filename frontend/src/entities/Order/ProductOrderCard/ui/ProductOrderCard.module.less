@@ -1,0 +1,49 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.productOrderCard {
+  .flex(column, start, space-between);
+  gap: 16px;
+  width: 100%;
+
+  @media @breakpoint-sm {
+    .flex(row, center, space-between);
+  }
+
+  &__meta {
+    .flex();
+    gap: 16px;
+  }
+
+  &__title {
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+  }
+
+  &__priceContainer {
+    .flex(row, start, start);
+    gap: 8px;
+    text-align: end;
+
+    @media @breakpoint-sm {
+      .flex(column, end, center);
+    }
+  }
+
+  &__totalPrice {
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+  }
+
+  &__price {
+    color: var(--muted-color);
+    white-space: nowrap;
+  }
+
+  &__image {
+    border-radius: var(--border-radius-l);
+    width: 64px;
+    height: 64px;
+  }
+}

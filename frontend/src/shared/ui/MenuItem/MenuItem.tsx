@@ -1,7 +1,7 @@
 import { AppLink } from '@/shared/ui/AppLink'
 import cls from './MenuItem.module.less'
 import { Icon } from '@/shared/ui/Icon'
-import { classNames } from '@/shared/lib/classNames'
+import { classNames } from '@/shared/lib/utils'
 import { useCallback, useEffect, useTransition } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'

@@ -1,15 +1,19 @@
-import { LoginSchema } from '@/features/Login'
+import { LoginSchema } from 'src/features/Auth'
 import { DropdownMenuSchema } from '@/entities/DropdownMenu'
 import { Reducer, ReducersMapObject, UnknownAction } from 'redux'
 import { EnhancedStore } from '@reduxjs/toolkit'
-import { RegisterSchema } from '@/features/Register'
-import { ResetPasswordSchema } from '@/features/ResetPassword'
-import { ForgotPasswordSchema } from '@/features/ForgotPassword'
+import { RegisterSchema } from 'src/features/Auth'
+import { ResetPasswordSchema } from 'src/features/Auth'
+import { ForgotPasswordSchema } from 'src/features/Auth'
 import { BreadcrumbNavSchema } from '@/features/BreadcrumbNav'
 import { WishlistProductsSchema } from '@/features/WishlistProducts'
 import { BasketProductsSchema } from '@/features/BasketProducts'
+import { UserSchema } from '@/entities/User'
+import { ProfileCardSchema } from '@/features/Profile'
+import { ProfileSettingsSchema } from '@/features/Profile'
 
 export interface StateSchema {
+  user: UserSchema
   dropdownMenu: DropdownMenuSchema
   breadcrumbNav: BreadcrumbNavSchema
   wishlistProducts: WishlistProductsSchema
@@ -18,6 +22,8 @@ export interface StateSchema {
   registerForm?: RegisterSchema
   forgotPasswordForm?: ForgotPasswordSchema
   resetPasswordForm?: ResetPasswordSchema
+  profileCardForm?: ProfileCardSchema
+  profileSettingsForm?: ProfileSettingsSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

@@ -3,7 +3,7 @@ import { AppLink } from '@/shared/ui/AppLink'
 import { getRouteAuthLogin, getRouteAuthRegister } from '@/shared/consts/router'
 import { Suspense } from 'react'
 import cls from './AuthPage.module.less'
-import { classNames } from '@/shared/lib/classNames'
+import { classNames } from '@/shared/lib/utils'
 import { Skeleton } from '@/shared/ui/Skeleton'
 import { PageLayout } from '@/widgets/PageLayout'
 

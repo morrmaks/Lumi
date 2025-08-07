@@ -1,5 +1,5 @@
 import cls from './ForgotPasswordPage.module.less'
-import { ForgotPasswordForm } from '@/features/ForgotPassword'
+import { ForgotPasswordForm } from '@/features/Auth/ForgotPassword'
 import { PageLayout } from '@/widgets/PageLayout'
 
 const ForgotPasswordPage = () => {

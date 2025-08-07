@@ -6,9 +6,11 @@ import { configureStore } from '@reduxjs/toolkit'
 import { breadcrumbNavReducer } from '@/features/BreadcrumbNav'
 import { wishlistProductsReducer } from '@/features/WishlistProducts'
 import { basketProductsReducer } from '@/features/BasketProducts'
+import { userReducer } from '@/entities/User'
 
 export const createReduxStore = (initialState?: StateSchema) => {
   const rootReducers: ReducersMapObject<StateSchema> = {
+    user: userReducer,
     dropdownMenu: dropdownMenuReducer,
     breadcrumbNav: breadcrumbNavReducer,
     wishlistProducts: wishlistProductsReducer,

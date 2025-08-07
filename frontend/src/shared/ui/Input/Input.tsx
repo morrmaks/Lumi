@@ -1,6 +1,6 @@
 import { ChangeEvent, InputHTMLAttributes } from 'react'
 import cls from './Input.module.less'
-import { classNames } from '@/shared/lib/classNames'
+import { classNames } from '@/shared/lib/utils'
 import { IconsMap } from '@/shared/consts/icons'
 import { Icon } from '@/shared/ui/Icon'
 
@@ -12,7 +12,8 @@ type HtmlInputProps = Omit<
 interface InputProps extends HtmlInputProps {
   className?: string
   value?: string
-  onChange?: (value: string) => void
+  onChangeFile?: (value: File | null) => void
+  onChangeString?: (value: string) => void
   type?: string
   icon?: keyof typeof IconsMap
   onIconClick?: () => void
@@ -21,7 +22,8 @@ interface InputProps extends HtmlInputProps {
 export const Input = ({
   className,
   value = '',
-  onChange,
+  onChangeFile,
+  onChangeString,
   type = 'text',
   icon,
   onIconClick,
@@ -30,7 +32,11 @@ export const Input = ({
   const IconComponent = icon && IconsMap[icon]
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    onChange?.(e.target.value)
+    if (type === 'file') {
+      const file = e.target.files?.[0] || null
+      onChangeFile?.(file)
+    }
+    onChangeString?.(e.target.value)
   }
 
   return (

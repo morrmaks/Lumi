@@ -51,9 +51,35 @@
 
   &:disabled {
     .border();
+    opacity: var(--hover-opacity);
     background-color: var(--muted-bg-color);
     &:hover {
-      opacity: var(--hover-opacity);
+      //opacity: var(--hover-opacity);
+    }
+  }
+
+  svg {
+    stroke: var(--accent-color);
+  }
+}
+
+.dangerButton {
+  color: var(--accent-color);
+  background-color: var(--danger-color);
+  transition: var(--transition-speed);
+  font: var(--font-xs);
+  font-weight: var(--font-bold);
+
+  &:hover {
+    opacity: var(--hover-opacity);
+  }
+
+  &:disabled {
+    .border();
+    opacity: var(--hover-opacity);
+    background-color: var(--muted-bg-color);
+    &:hover {
+      //opacity: var(--hover-opacity);
     }
   }
 

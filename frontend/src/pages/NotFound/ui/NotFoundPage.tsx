@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
-import { classNames } from '@/shared/lib/classNames'
+import { classNames } from '@/shared/lib/utils'
 import cls from './NotFoundPage.module.less'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'

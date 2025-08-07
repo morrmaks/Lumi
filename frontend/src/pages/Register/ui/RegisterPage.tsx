@@ -1,5 +1,5 @@
 import cls from './RegisterPage.module.less'
-import { RegisterForm } from '@/features/Register'
+import { RegisterForm } from '@/features/Auth/Register'
 import { PageLayout } from '@/widgets/PageLayout'
 
 const RegisterPage = () => {

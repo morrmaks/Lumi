@@ -1,5 +1,5 @@
 import cls from './LoginPage.module.less'
-import { LoginForm } from '@/features/Login'
+import { LoginForm } from '@/features/Auth/Login'
 import { PageLayout } from '@/widgets/PageLayout'
 
 const LoginPage = () => {

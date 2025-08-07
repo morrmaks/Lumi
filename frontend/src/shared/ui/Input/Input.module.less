@@ -20,6 +20,16 @@
     .focusStroke();
   }
 
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--muted-color);
+    background-color: var(--muted-bg-color);
+
+    &:hover {
+      .border();
+    }
+  }
+
   &__wrapper {
     .flex();
 

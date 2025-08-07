@@ -1,0 +1,153 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.profileOrderModal {
+  //.flex(column, space-between);
+
+  &__header {
+    .flex(row, center, start);
+    gap: 8px;
+    margin-bottom: 24px;
+
+    &_title {
+      font: var(--font-m);
+      font-weight: var(--font-bold);
+    }
+
+    &_icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__sectionStatus {
+    .flex(row, center, space-between);
+    padding: 16px;
+    background-color: var(--muted-bg-color);
+    border-radius: var(--border-radius-l);
+
+    &_status {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+    }
+
+    &_date {
+      color: var(--muted-color);
+    }
+  }
+
+  &__statusContainter {
+    .flex(column, start);
+    gap: 4px;
+  }
+
+  &__trackNumberContainer {
+    .flex(column, end, center);
+    gap: 4px;
+
+    &_title {
+      color: var(--muted-color);
+    }
+  }
+
+  &__trackNumber {
+    .flex(row, center);
+    gap: 8px;
+
+    &_copyIcon {
+      .selectableIcon(var(--hover-opacity), transparent, var(--primary-color));
+    }
+  }
+
+  &__sectionProducts {
+    //.flex(column, space-between);
+    margin-top: 24px;
+    padding-bottom: 24px;
+    .borderBottom();
+
+    &_title {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__productList {
+    .flex(column, center, center);
+    margin-top: 12px;
+    gap: 12px;
+  }
+
+  &__product {
+    .border();
+    .hoverShadow();
+    width: 100%;
+    border-radius: var(--border-radius-l);
+    padding: 12px;
+    background-color: var(--card-bg-color);
+  }
+
+  &__sectionDetails {
+    .flex(column, start, space-between);
+    .borderBottom();
+    gap: 12px;
+    margin-top: 24px;
+    padding-bottom: 12px;
+
+    &_container {
+      .flex(column, space-between, center);
+      width: 100%;
+      gap: 16px;
+
+      @media @breakpoint-sm {
+        .grid(repeat(2, 1fr));
+      }
+    }
+
+    &_title {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+    }
+
+    &_addressContainer {
+      .flex(column, start, space-between);
+      gap: 8px;
+    }
+
+    &_addressTitle {
+      font-weight: var(--font-bold);
+    }
+
+    &_address {
+      color: var(--muted-color);
+    }
+
+    &_paymentContainer {
+      .flex(column, start, space-between);
+      gap: 8px;
+    }
+
+    &_paymentTitle {
+      font-weight: var(--font-bold);
+    }
+
+    &_paymentMethod {
+      color: var(--muted-color);
+    }
+  }
+
+  &__sectionTotalPrice {
+    .flex(row, center, space-between);
+    margin-top: 12px;
+
+    &_title {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__orderPrice {
+    font: var(--font-m);
+    font-weight: var(--font-bold);
+  }
+}

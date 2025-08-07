@@ -2,7 +2,7 @@ import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { Icon } from '@/shared/ui/Icon'
 import { Theme, useTheme } from '@/app/providers/ThemeProvider'
 import { ReactNode } from 'react'
-import { classNames } from '@/shared/lib/classNames'
+import { classNames } from '@/shared/lib/utils'
 import cls from './ThemeSwitcher.module.less'
 import { IconsMap } from '@/shared/consts/icons'
 

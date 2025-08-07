@@ -1,0 +1,44 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/decorators';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.modal {
+  .flex();
+  min-width: var(--min-page-width);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--modal-overlay-color);
+  z-index: var(--z-modal);
+  color: var(--primary-color);
+  font: var(--font-xs);
+  overflow: hidden;
+  cursor: pointer;
+
+  &__container {
+    .border();
+    border-radius: var(--border-radius-l);
+    position: relative;
+    max-width: var(--max-modal-width);
+    width: 100%;
+    height: var(--mobile-adaptive-height);
+    background-color: var(--modal-bg-color);
+    padding: 24px;
+    overflow-y: scroll;
+    cursor: auto;
+
+    @media @breakpoint-sm {
+      max-height: 80vh;
+    }
+  }
+
+  &__closeIcon {
+    .selectableIcon(var(--hover-opacity));
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}

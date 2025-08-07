@@ -1,13 +1,14 @@
-import { classNames } from '@/shared/lib/classNames'
+import { classNames } from '@/shared/lib/utils'
 import { ButtonHTMLAttributes } from 'react'
 import cls from './Button.module.less'
-import { Mods } from '@/shared/lib/classNames/classNames'
+import { Mods } from '@/shared/lib/utils/classNames/classNames'
 
 export const ButtonTheme = {
   PRIMARY: 'primaryButton',
   OUTLINE: 'outlineButton',
   SECONDARY: 'secondaryButton',
   STATIC: 'staticButton',
+  DANGER: 'dangerButton',
 } as const
 
 export type ButtonTheme = (typeof ButtonTheme)[keyof typeof ButtonTheme]

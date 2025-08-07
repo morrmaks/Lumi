@@ -1,4 +1,4 @@
-import { classNames } from '@/shared/lib/classNames'
+import { classNames } from '@/shared/lib/utils'
 import { Link, LinkProps } from 'react-router-dom'
 
 interface AppLinkProps extends LinkProps {
