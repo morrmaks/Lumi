@@ -25,6 +25,13 @@ import StarSvg from '@/shared/assets/icons/star.svg'
 import CreditCardSvg from '@/shared/assets/icons/credit-card.svg'
 import PlusSvg from '@/shared/assets/icons/plus.svg'
 import MinusSvg from '@/shared/assets/icons/minus.svg'
+import BellSvg from '@/shared/assets/icons/bell.svg'
+import CameraSvg from '@/shared/assets/icons/camera.svg'
+import LockSvg from '@/shared/assets/icons/lock.svg'
+import PackageSvg from '@/shared/assets/icons/package.svg'
+import CrossSvg from '@/shared/assets/icons/cross.svg'
+import CopySvg from '@/shared/assets/icons/copy.svg'
+import LogoutSvg from '@/shared/assets/icons/logout.svg'
 
 export const IconsMap = {
   PROFILE: ProfileSvg,
@@ -54,6 +61,13 @@ export const IconsMap = {
   PAYMENT: CreditCardSvg,
   PLUS: PlusSvg,
   MINUS: MinusSvg,
+  NOTICE: BellSvg,
+  PHOTO: CameraSvg,
+  SAFETY: LockSvg,
+  ORDERS: PackageSvg,
+  CLOSE: CrossSvg,
+  COPY: CopySvg,
+  LOGOUT: LogoutSvg,
 } as const
 
 export type IconsMap = (typeof IconsMap)[keyof typeof IconsMap]

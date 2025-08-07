@@ -1,0 +1,58 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/variables/global.less';
+
+.profileWishlist {
+  .border();
+  border-radius: var(--border-radius-l);
+  padding: 24px 12px;
+  width: 100%;
+
+  @media @breakpoint-sm {
+    padding: 24px;
+  }
+
+  &__header {
+    .flex(row, center, start);
+    gap: 8px;
+    margin-bottom: 24px;
+
+    &_title {
+      font: var(--font-l);
+      font-weight: var(--font-bold);
+    }
+
+    &_icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__emptyWishlist {
+    .flex(column);
+    padding: 32px;
+
+    @media @breakpoint-sm {
+      padding: 32px;
+    }
+
+    &_icon {
+      width: 64px;
+      height: 64px;
+      stroke: var(--muted-color);
+      margin-bottom: 16px;
+    }
+
+    &_title {
+      font: var(--font-m);
+      font-weight: var(--font-bold);
+      margin-bottom: 8px;
+    }
+
+    &_description {
+      font: var(--font-s);
+      color: var(--muted-color);
+      margin-bottom: 24px;
+    }
+  }
+}

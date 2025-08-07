@@ -1,0 +1,62 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/variables/global.less';
+@import '@/app/styles/mixins/form-elements.less';
+
+.profileSettings {
+  .flex(column, space-between);
+  gap: 24px;
+  width: 100%;
+
+  @media @breakpoint-lg {
+    .flex(row, start);
+  }
+
+  &__section {
+    .border();
+    .flex(column, start, start);
+    border-radius: var(--border-radius-l);
+    padding: 24px 12px;
+    background-color: var(--card-bg-color);
+    width: 100%;
+    align-self: stretch;
+
+    @media @breakpoint-sm {
+      padding: 24px;
+    }
+  }
+
+  &__sectionHeader {
+    .flex();
+    gap: 8px;
+    margin-bottom: 24px;
+
+    &_icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    &_title {
+      font: var(--font-l);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__formChangePassowrd {
+    .borderBottom();
+    padding-bottom: 16px;
+    width: 100%;
+  }
+
+  &__deleteAccount {
+    margin-top: 32px;
+    width: 100%;
+
+    &_textWarning {
+      margin-top: 8px;
+      text-align: center;
+      color: var(--muted-color);
+      font: var(--font-xxs);
+    }
+  }
+}

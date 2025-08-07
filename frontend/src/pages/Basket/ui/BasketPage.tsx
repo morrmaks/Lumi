@@ -1,10 +1,8 @@
 import { PageLayout } from '@/widgets/PageLayout'
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
-import { useEffect } from 'react'
+import { useAppSelector } from '@/shared/lib/hooks'
 import {
   getBasketProductsState,
   BasketProducts,
-  basketProductsActions,
 } from '@/features/BasketProducts'
 import cls from './BasketPage.module.less'
 import { Icon } from '@/shared/ui/Icon'
@@ -14,11 +12,6 @@ import { getRouteCatalog } from '@/shared/consts/router'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 
 const BasketPage = () => {
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(basketProductsActions.addProduct({ id: '1', quantity: 1 })) //это будет происходить при инициализации приложения
-  }, [dispatch])
-
   const { products } = useAppSelector(getBasketProductsState)
 
   return (

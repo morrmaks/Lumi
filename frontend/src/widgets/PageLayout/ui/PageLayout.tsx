@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { useAppDispatch } from '@/shared/lib/hooks'
 import { breadcrumbNavActions } from '@/features/BreadcrumbNav'
 import cls from './PageLayout.module.less'
-import { classNames } from '@/shared/lib/classNames'
+import { classNames } from '@/shared/lib/utils'
 
 interface PageLayoutProps {
   name?: string

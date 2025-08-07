@@ -1,0 +1,104 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/variables/global.less';
+
+.profileCard {
+  .flex(column);
+  gap: 12px;
+  width: 100%;
+
+  @media @breakpoint-sm {
+    gap: 24px;
+  }
+
+  @media @breakpoint-lg {
+    .flex(row, start);
+  }
+
+  &__personalInfo {
+    .border();
+    border-radius: var(--border-radius-l);
+    padding: 24px 12px;
+    width: 100%;
+    align-self: stretch;
+
+    @media @breakpoint-sm {
+      padding: 24px;
+    }
+  }
+
+  &__userHeader {
+    .flex(column, center);
+    .borderBottom();
+    padding-bottom: 16px;
+  }
+
+  &__avatar {
+    .selectable(var(--hover-opacity));
+    width: 96px;
+    height: 96px;
+    border-radius: var(--border-radius-rounded);
+
+    &_input {
+      display: none;
+    }
+  }
+
+  &__username {
+    margin-top: 16px;
+    font: var(--font-m);
+    font-weight: var(--font-bold);
+  }
+
+  &__email {
+    font: var(--font-s);
+    color: var(--muted-color);
+  }
+
+  &__userStats {
+    .flex(column, space-between);
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  &__orders {
+    .flex(row, center, space-between);
+
+    &_total {
+      background-color: var(--muted-bg-color);
+      border-radius: var(--border-radius-rounded);
+      font: var(--font-xxs);
+      font-weight: var(--font-bold);
+      padding: 4px 8px;
+    }
+  }
+
+  &__wishlistProducts {
+    .flex(row, center, space-between);
+
+    &_total {
+      background-color: var(--muted-bg-color);
+      border-radius: var(--border-radius-rounded);
+      font: var(--font-xxs);
+      font-weight: var(--font-bold);
+      padding: 4px 8px;
+    }
+  }
+
+  &__form {
+    &_headerTitle {
+      font: var(--font-l);
+      font-weight: var(--font-bold);
+    }
+
+    &_header {
+      margin-bottom: 24px;
+      .flex(column);
+      gap: 8px;
+
+      @media @breakpoint-sm {
+        .flex(row, center, space-between);
+      }
+    }
+  }
+}

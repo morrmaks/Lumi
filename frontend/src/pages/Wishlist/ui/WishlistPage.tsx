@@ -2,11 +2,9 @@ import { PageLayout } from '@/widgets/PageLayout'
 import {
   getWishlistProductsState,
   WishlistProducts,
-  wishlistProductsActions,
 } from '@/features/WishlistProducts'
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
+import { useAppSelector } from '@/shared/lib/hooks'
 import cls from './WishlistPage.module.less'
-import { useEffect } from 'react'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
@@ -14,11 +12,6 @@ import { AppLink } from '@/shared/ui/AppLink'
 import { getRouteCatalog } from '@/shared/consts/router'
 
 const WishlistPage = () => {
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(wishlistProductsActions.addProduct(['1', '2', '3', '4', '5'])) //это будет происходить при инициализации приложения
-  }, [dispatch])
-
   const { products } = useAppSelector(getWishlistProductsState)
 
   return (

@@ -1,0 +1,75 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/mixins/decorators.less';
+@import '@/app/styles/variables/global.less';
+
+.orderCard {
+  .border();
+  border-radius: var(--border-radius-l);
+  background-color: var(--card-bg-color);
+  width: 100%;
+  padding: 12px;
+
+  @media @breakpoint-sm {
+    padding: 16px;
+  }
+
+  &__info {
+    .flex(column, space-between, space-between);
+    gap: 8px;
+    margin-top: 16px;
+
+    @media @breakpoint-sm {
+      .flex(row, start, space-between);
+    }
+  }
+
+  &__meta {
+    .flex(row, start, space-between);
+    flex-wrap: wrap;
+    gap: 8px;
+    align-self: stretch;
+
+    @media @breakpoint-sm {
+      .flex(column, start, space-between);
+    }
+  }
+
+  &__controls {
+    .flex(column, start);
+    gap: 8px;
+
+    @media @breakpoint-sm {
+      .flex(column, end);
+    }
+  }
+
+  &__status {
+    .border();
+    font: var(--font-xxs);
+    font-weight: var(--font-bold);
+    padding: 2px 10px;
+    border-radius: var(--border-radius-rounded);
+  }
+
+  &__title {
+    .ellipsis();
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+  }
+
+  &__date {
+    color: var(--muted-color);
+  }
+
+  &__totalPrice {
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+    color: var(--secondary-color);
+  }
+
+  &__button {
+    font-weight: var(--font-bold);
+    width: 100%;
+  }
+}

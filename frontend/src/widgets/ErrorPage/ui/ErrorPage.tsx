@@ -1,7 +1,7 @@
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { useNavigate } from 'react-router-dom'
 import cls from './ErrorPage.module.less'
-import { classNames } from '@/shared/lib/classNames'
+import { classNames } from '@/shared/lib/utils'
 
 interface ErrorPageProps {
   onResetError: () => void

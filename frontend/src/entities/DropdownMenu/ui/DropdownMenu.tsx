@@ -3,7 +3,7 @@ import cls from './DropdownMenu.module.less'
 import { useEffect } from 'react'
 import { useAppSelector } from '@/shared/lib/hooks/useAppSelector'
 import { getDropdownMenuState } from '@/entities/DropdownMenu'
-import { classNames } from '@/shared/lib/classNames'
+import { classNames } from '@/shared/lib/utils'
 import { ThemeSwitcher } from '@/shared/ui/ThemeSwitcher'
 import { dropdownMenuLinks } from '@/entities/DropdownMenu/config/DropdownMenuLinks'
 

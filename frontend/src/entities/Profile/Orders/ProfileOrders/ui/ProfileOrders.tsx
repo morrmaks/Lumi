@@ -1,0 +1,43 @@
+import cls from './ProfileOrders.module.less'
+import { Button, ButtonTheme } from '@/shared/ui/Button'
+import { useAppSelector } from '@/shared/lib/hooks'
+import { getUserAuthData } from '@/entities/User'
+import { useState } from 'react'
+import { OrderCard } from '@/entities/Order'
+import { Icon } from '@/shared/ui/Icon'
+import { IconsMap } from '@/shared/consts/icons'
+
+export const ProfileOrders = () => {
+  const [showAll, setShowAll] = useState<boolean>(false)
+  const { orders } = useAppSelector(getUserAuthData)
+
+  const displayedOrders = showAll ? orders : orders.slice(0, 3)
+
+  return (
+    <div className={cls.profileOrders}>
+      <div className={cls.profileOrders__header}>
+        <Icon
+          Svg={IconsMap.ORDERS}
+          className={cls.profileOrders__header_icon}
+        />
+        <h2 className={cls.profileOrders__header_title}>Мои заказы</h2>
+      </div>
+      <ul className={cls.profileOrders__list}>
+        {displayedOrders.map((card) => (
+          <li key={card.id} className={cls.profileOrders__order}>
+            <OrderCard card={card} />
+          </li>
+        ))}
+      </ul>
+      {!showAll && (
+        <Button
+          onClick={() => setShowAll(true)}
+          theme={ButtonTheme.OUTLINE}
+          className={cls.profileOrders__button}
+        >
+          Показать все заказы
+        </Button>
+      )}
+    </div>
+  )
+}

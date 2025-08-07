@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import cls from './BasketProducts.module.less'
-import { BasketCard } from '@/entities/BasketCard'
+import { BasketCard, BasketCardSkeleton } from '@/entities/Basket'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { getBasketProductsState } from '@/features/BasketProducts'
@@ -80,13 +80,20 @@ const BasketItems: IBasketItem[] = [
 
 export const BasketProducts = () => {
   const [products, setProducts] = useState<IBasketItem[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const { products: productIds } = useAppSelector(getBasketProductsState)
 
   useEffect(() => {
     // const res = await fetch('url', { body: productIds })
     // const data = await res.json()
-    setProducts(BasketItems)
+    // setProducts(data)
+
+    const timeout = setTimeout(() => {
+      //имитация загрузки пока нет реальных запросов
+      setProducts(BasketItems)
+      setIsLoading(false)
+    }, 1500)
   }, [])
 
   function fullPrice() {
@@ -118,11 +125,17 @@ export const BasketProducts = () => {
   return (
     <div className={cls.basketProducts}>
       <ul className={cls.basketProducts__productList}>
-        {products.map((card) => (
-          <li key={card.id}>
-            <BasketCard card={card} onClickRemove={handleRemoveCard} />
-          </li>
-        ))}
+        {isLoading
+          ? [...new Array(5)].map((_, index) => (
+              <li key={index}>
+                <BasketCardSkeleton />
+              </li>
+            ))
+          : products.map((card) => (
+              <li key={card.id}>
+                <BasketCard card={card} onClickRemove={handleRemoveCard} />
+              </li>
+            ))}
         <li className={cls.basketProducts__addProduct} key="addProduct">
           <p className={cls.basketProducts__addProduct_title}>
             Нужно что то еще?
@@ -147,7 +160,9 @@ export const BasketProducts = () => {
           </div>
           <div className={cls.basketProducts__order_discount}>
             <span>Ваша скидка</span>
-            <span>{`-${getDiscountAmount()}`} ₽</span>
+            <span>
+              {getDiscountAmount() > 0 ? `-${getDiscountAmount()}` : `0`} ₽
+            </span>
           </div>
           <div className={cls.basketProducts__order_delivery}>
             <span>Доставка</span>

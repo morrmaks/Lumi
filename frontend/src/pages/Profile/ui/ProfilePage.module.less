@@ -1,0 +1,69 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/variables/global.less';
+
+.profilePage {
+  .flex(column, space-between);
+  width: 100%;
+
+  &__header {
+    .flex(row, start, space-between);
+    font: var(--font-s);
+    gap: 8px;
+
+    &_container {
+      .flex(column, start);
+      gap: 8px;
+    }
+
+    &_title {
+      font: var(--font-xl);
+      font-weight: var(--font-bold);
+    }
+
+    &_description {
+      color: var(--muted-color);
+    }
+  }
+
+  &__logoutButton {
+    &_icon {
+      margin-right: 4px;
+    }
+  }
+
+  &__tabs {
+    .grid(repeat(2, 1fr));
+    border-radius: var(--border-radius-l);
+    margin-top: 32px;
+    padding: 4px;
+    width: 100%;
+    background-color: var(--muted-bg-color);
+    font-weight: var(--font-bold);
+    color: var(--muted-color);
+    gap: 0;
+
+    @media @breakpoint-sm {
+      .flex(row, center, space-between);
+    }
+  }
+
+  &__tab {
+    .selectable(1, var(--muted-color), var(--primary-color));
+    padding: 6px 12px;
+    width: 100%;
+    text-align: center;
+
+    &_active {
+      border-radius: var(--border-radius-m);
+      background-color: var(--bg-color);
+      color: var(--primary-color);
+      box-shadow: var(--shadow-tab);
+    }
+  }
+
+  &__content {
+    margin-top: 24px;
+    width: 100%;
+  }
+}

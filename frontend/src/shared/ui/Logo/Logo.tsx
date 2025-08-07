@@ -1,5 +1,5 @@
 import { getRouteMain } from '@/shared/consts/router'
-import { classNames } from '@/shared/lib/classNames'
+import { classNames } from '@/shared/lib/utils'
 import cls from './Logo.module.less'
 import { AppLink } from '@/shared/ui/AppLink'
 

@@ -13,7 +13,7 @@ export const ProtectedRoute = ({
   anonimOnly = false,
   authOnly = false,
 }: ProtectedRouteProps) => {
-  const isAuth = false
+  const isAuth = true
 
   if (anonimOnly && isAuth) {
     return <Navigate to={getRouteMain()} />

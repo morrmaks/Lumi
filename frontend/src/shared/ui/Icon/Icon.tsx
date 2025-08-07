@@ -1,4 +1,4 @@
-import { classNames, Mods } from '@/shared/lib/classNames/classNames'
+import { classNames, Mods } from '@/shared/lib/utils/classNames/classNames'
 import cls from './Icon.module.less'
 
 export const IconTheme = {

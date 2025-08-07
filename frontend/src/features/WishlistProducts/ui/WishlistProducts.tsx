@@ -1,6 +1,6 @@
 import cls from './WishlistProducts.module.less'
 import { Checkbox } from '@/shared/ui/Checkbox'
-import { WishlistCard } from '@/entities/WishlistCard'
+import { WishlistCard, WishlistCardSkeleton } from '@/entities/Wishlist'
 import { useEffect, useState } from 'react'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { useAppSelector } from '@/shared/lib/hooks'
@@ -72,13 +72,20 @@ const WishlistItems: IWishlistItem[] = [
 export const WishlistProducts = () => {
   const [products, setProducts] = useState<IWishlistItem[]>([])
   const [select, setSelect] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const { products: productIds } = useAppSelector(getWishlistProductsState)
 
   useEffect(() => {
     // const res = await fetch('url', { body: productIds })
     // const data = await res.json()
-    setProducts(WishlistItems)
+    // setProducts(data)
+
+    const timeout = setTimeout(() => {
+      //имитация загрузки пока нет реальных запросов
+      setProducts(WishlistItems)
+      setIsLoading(false)
+    }, 1500)
   }, [])
 
   function fullDiscountPrice(): number {
@@ -130,16 +137,22 @@ export const WishlistProducts = () => {
         <p>Выбрать все</p>
       </div>
       <ul className={cls.wishlistProducts__productList}>
-        {products.map((card) => (
-          <li key={card.id}>
-            <WishlistCard
-              card={card}
-              onSelectCard={handleSelectCard}
-              onClickRemove={handleRemoveCard}
-              checked={select.includes(card.id)}
-            />
-          </li>
-        ))}
+        {isLoading
+          ? [...new Array(5)].map((_, index) => (
+              <li key={index}>
+                <WishlistCardSkeleton />
+              </li>
+            ))
+          : products.map((card) => (
+              <li key={card.id}>
+                <WishlistCard
+                  card={card}
+                  onSelectCard={handleSelectCard}
+                  onClickRemove={handleRemoveCard}
+                  checked={select.includes(card.id)}
+                />
+              </li>
+            ))}
       </ul>
       {select.length > 0 && (
         <div className={cls.wishlistProducts__selectionActions}>
