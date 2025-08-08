@@ -1,13 +1,12 @@
-@import '@/app/styles/variables/global.less';
-@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/variables/global';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/mixins/form-elements';
 
 .search {
   position: relative;
 
   &__input {
-    padding: 8px 40px 8px 16px;
-    width: 100%;
-    color: var(--primary-color);
+    .input();
   }
 
   &__icon {

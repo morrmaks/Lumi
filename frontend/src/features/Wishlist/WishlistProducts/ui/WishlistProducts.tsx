@@ -1,12 +1,13 @@
 import cls from './WishlistProducts.module.less'
 import { Checkbox } from '@/shared/ui/Checkbox'
 import { WishlistCard, WishlistCardSkeleton } from '@/entities/Wishlist'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { useAppSelector } from '@/shared/lib/hooks'
-import { getWishlistProductsState } from '@/features/WishlistProducts'
+import { getWishlistProductsState } from '@/features/Wishlist'
+import { fullSelectDiscountPrice } from '@/features/Wishlist'
 
-interface IWishlistItem {
+export interface IWishlistItem {
   id: string
   image: string
   title: string
@@ -75,6 +76,10 @@ export const WishlistProducts = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   const { products: productIds } = useAppSelector(getWishlistProductsState)
+  const selectTotalPrice = useMemo(
+    () => fullSelectDiscountPrice(products, select),
+    [products, select]
+  )
 
   useEffect(() => {
     // const res = await fetch('url', { body: productIds })
@@ -87,15 +92,6 @@ export const WishlistProducts = () => {
       setIsLoading(false)
     }, 1500)
   }, [])
-
-  function fullDiscountPrice(): number {
-    return products.reduce((acc, prod) => {
-      if (select.includes(prod.id)) {
-        return acc + prod.discountPrice
-      }
-      return acc
-    }, 0)
-  }
 
   function handleAllSelectCards(newStateChecked: boolean) {
     if (newStateChecked) {
@@ -161,7 +157,7 @@ export const WishlistProducts = () => {
               Выбрано товаров: {select.length}
             </span>
             <span className={cls.wishlistProducts__selectionActions_totalPrice}>
-              Общая стоимость: {fullDiscountPrice()} ₽
+              Общая стоимость: {selectTotalPrice} ₽
             </span>
           </div>
           <div className={cls.wishlistProducts__selectionActions_battons}>

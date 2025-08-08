@@ -12,6 +12,8 @@ import {
   getRouteSearch,
   getRouteAuthResetPassword,
   getRouteBasket,
+  getRouteCatalogCategory,
+  getRouteCatalogItem,
 } from '@/shared/consts/router'
 import { Navigate, RouteProps } from 'react-router-dom'
 
@@ -28,6 +30,8 @@ import { ForgotPasswordPage } from '@/pages/ForgotPassword'
 import { ResetPasswordPage } from '@/pages/ResetPassword'
 import { SearchPage } from '@/pages/Search'
 import { BasketPage } from '@/pages/Basket'
+import { CategoryPage } from '@/pages/CategoryPage'
+import { ProductPage } from '@/pages/ProductPage'
 
 export type RouteConfigProps = {
   subRoutes?: RouteConfig
@@ -85,6 +89,14 @@ export const routeConfig: RouteConfig = {
   [AppRoutes.CATALOG]: {
     path: getRouteCatalog(),
     element: <CatalogPage />,
+  },
+  [AppRoutes.CATALOG_CATEGORY]: {
+    path: getRouteCatalogCategory(':category'),
+    element: <CategoryPage />,
+  },
+  [AppRoutes.CATALOG_ITEM]: {
+    path: getRouteCatalogItem(':category', ':productId'),
+    element: <ProductPage />,
   },
   [AppRoutes.WISHLIST]: {
     path: getRouteWishlist(),

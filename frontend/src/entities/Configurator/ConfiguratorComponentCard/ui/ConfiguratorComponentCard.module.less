@@ -1,0 +1,57 @@
+@import '@/app/styles/mixins/decorators';
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/variables/global';
+
+.configuratorComponentCard {
+  .flex(row, center);
+  .border();
+  border-radius: var(--border-radius-l);
+  background-color: var(--card-bg-color);
+  padding: 24px 12px;
+  gap: 16px;
+
+  @media @breakpoint-sm {
+    padding: 24px;
+  }
+
+  &__meta {
+    .flex(column, start, space-between);
+    //flex-shrink: 0;
+    width: 100%;
+    gap: 16px;
+
+    @media @breakpoint-sm {
+      .flex(row, center, space-between);
+    }
+  }
+
+  &__image {
+    border-radius: var(--border-radius-l);
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+  }
+
+  &__productName {
+    color: var(--muted-color);
+  }
+
+  &__priceSection {
+    .flex();
+    gap: 16px;
+  }
+
+  &__price {
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+  }
+
+  &__changeIcon {
+    flex-shrink: 0;
+  }
+}

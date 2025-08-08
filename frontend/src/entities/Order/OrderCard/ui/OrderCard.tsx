@@ -1,4 +1,3 @@
-import { Button, ButtonTheme } from '@/shared/ui/Button'
 import cls from './OrderCard.module.less'
 import { IOrder } from '@/features/Order'
 import { useState } from 'react'
@@ -17,29 +16,22 @@ export const OrderCard = ({ card }: OrderCardProps) => {
   }
 
   return (
-    <div className={cls.orderCard}>
-      <span className={cls.orderCard__status}>{status}</span>
-      <div className={cls.orderCard__info}>
-        <div className={cls.orderCard__meta}>
-          <p className={cls.orderCard__title}>{`Заказ ${id}`}</p>
-          <p
-            className={cls.orderCard__date}
-          >{`${date} • ${products.length} шт`}</p>
-        </div>
-        <div className={cls.orderCard__controls}>
+    <>
+      <div className={cls.orderCard} onClick={() => setShowModal(true)}>
+        <span className={cls.orderCard__status}>{status}</span>
+        <div className={cls.orderCard__info}>
+          <div className={cls.orderCard__meta}>
+            <p className={cls.orderCard__title}>{`Заказ ${id}`}</p>
+            <p
+              className={cls.orderCard__date}
+            >{`${date} • ${products.length} шт`}</p>
+          </div>
           <span className={cls.orderCard__totalPrice}>{total} ₽</span>
-          <Button
-            theme={ButtonTheme.OUTLINE}
-            className={cls.orderCard__button}
-            onClick={() => setShowModal(true)}
-          >
-            Подробнее
-          </Button>
         </div>
       </div>
       {showModal && (
         <ProfileOrderModal onClose={handleModalClose} card={card} />
       )}
-    </div>
+    </>
   )
 }

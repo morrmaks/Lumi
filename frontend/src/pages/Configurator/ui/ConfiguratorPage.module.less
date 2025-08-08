@@ -1,13 +1,13 @@
-@import '@/app/styles/mixins/container.less';
-@import '@/app/styles/variables/global.less';
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/variables/global';
+@import '@/app/styles/mixins/interactive';
 
 .configuratorPage {
   width: 100%;
 
   &__header {
-    .flex(row, center, space-between);
-
-    gap: 48px;
+    .flex(column, start, start);
+    gap: 8px;
     margin-bottom: 32px;
   }
 
@@ -17,8 +17,151 @@
   }
 
   &__description {
-    margin-top: 8px;
     font: var(--font-s);
     color: var(--muted-color);
+  }
+
+  &__content {
+    position: relative;
+    .flex(column, space-between, center);
+    gap: 32px;
+
+    @media @breakpoint-lg {
+      .grid(repeat(3, 1fr), row, 32px);
+    }
+  }
+
+  &__components {
+    @media @breakpoint-lg {
+      grid-column: span 2;
+    }
+
+    &_header {
+    }
+
+    &_headerContainer {
+      .flex(row, center, space-between);
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    &_title {
+      font: var(--font-m);
+      font-weight: var(--font-bold);
+    }
+
+    &_componentCounts {
+      font: var(--font-xxs);
+      font-weight: var(--font-bold);
+      background-color: var(--muted-bg-color);
+      color: var(--muted-color);
+      border-radius: var(--border-radius-rounded);
+      padding: 2px 10px;
+      text-align: center;
+    }
+  }
+
+  &__component {
+    .border();
+    border-radius: var(--border-radius-l);
+    background-color: var(--card-bg-color);
+    padding: 24px 12px;
+
+    @media @breakpoint-sm {
+      padding: 24px;
+    }
+  }
+
+  &__componentList {
+    .flex(column, space-between, center);
+    gap: 16px;
+
+    &_container {
+      margin-top: 24px;
+    }
+  }
+
+  &__total {
+    .border();
+    border-radius: var(--border-radius-l);
+    background-color: var(--card-bg-color);
+    height: max-content;
+    padding: 24px 12px;
+
+    @media @breakpoint-sm {
+      padding: 24px;
+    }
+
+    @media @breakpoint-lg {
+      grid-column: span 1;
+      position: sticky;
+      z-index: var(--z-configurator-order);
+      top: calc(var(--desktop-navbar-height) + 32px);
+    }
+
+    &_title {
+      font: var(--font-l);
+      font-weight: var(--font-bold);
+    }
+
+    &_details {
+      .borderBottom();
+      margin-top: 24px;
+      padding-bottom: 16px;
+    }
+
+    &_componentCounts {
+      .flex(row, center, space-between);
+      gap: 8px;
+    }
+
+    &_compatibility {
+      .flex(row, center, space-between);
+      gap: 8px;
+      margin-top: 8px;
+    }
+  }
+
+  &__totalButtons {
+    .flex(column);
+    gap: 8px;
+    margin-top: 16px;
+
+    &_button {
+      width: 100%;
+    }
+  }
+
+  &__totalPrice {
+    .flex(row, center, space-between);
+    margin-top: 16px;
+    gap: 8px;
+
+    &_title {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+    }
+
+    &_amount {
+      white-space: nowrap;
+      font: var(--font-l);
+      font-weight: var(--font-bold);
+      color: var(--secondary-color);
+    }
+  }
+
+  &__recommendation {
+    .borderTop();
+    margin-top: 16px;
+    padding-top: 16px;
+    color: var(--muted-color);
+
+    &_title {
+      font-weight: var(--font-bold);
+    }
+
+    &_list {
+      margin-top: 8px;
+    }
   }
 }

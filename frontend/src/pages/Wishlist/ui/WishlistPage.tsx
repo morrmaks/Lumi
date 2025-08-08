@@ -1,8 +1,5 @@
 import { PageLayout } from '@/widgets/PageLayout'
-import {
-  getWishlistProductsState,
-  WishlistProducts,
-} from '@/features/WishlistProducts'
+import { getWishlistProductsState, WishlistProducts } from '@/features/Wishlist'
 import { useAppSelector } from '@/shared/lib/hooks'
 import cls from './WishlistPage.module.less'
 import { Icon } from '@/shared/ui/Icon'
