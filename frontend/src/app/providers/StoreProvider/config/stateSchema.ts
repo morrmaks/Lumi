@@ -6,11 +6,12 @@ import { RegisterSchema } from 'src/features/Auth'
 import { ResetPasswordSchema } from 'src/features/Auth'
 import { ForgotPasswordSchema } from 'src/features/Auth'
 import { BreadcrumbNavSchema } from '@/features/BreadcrumbNav'
-import { WishlistProductsSchema } from '@/features/WishlistProducts'
-import { BasketProductsSchema } from '@/features/BasketProducts'
+import { WishlistProductsSchema } from '@/features/Wishlist'
+import { BasketProductsSchema } from '@/features/Basket'
 import { UserSchema } from '@/entities/User'
 import { ProfileCardSchema } from '@/features/Profile'
 import { ProfileSettingsSchema } from '@/features/Profile'
+import { ConfiguratorComponentsSchema } from '@/features/Configurator'
 
 export interface StateSchema {
   user: UserSchema
@@ -18,6 +19,7 @@ export interface StateSchema {
   breadcrumbNav: BreadcrumbNavSchema
   wishlistProducts: WishlistProductsSchema
   basketProducts: BasketProductsSchema
+  configuratorComponents: ConfiguratorComponentsSchema
   loginForm?: LoginSchema
   registerForm?: RegisterSchema
   forgotPasswordForm?: ForgotPasswordSchema

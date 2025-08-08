@@ -1,15 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import cls from './BasketProducts.module.less'
 import { BasketCard, BasketCardSkeleton } from '@/entities/Basket'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { useAppSelector } from '@/shared/lib/hooks'
-import { getBasketProductsState } from '@/features/BasketProducts'
+import {
+  fullBasketPrices,
+  getBasketProductsState,
+  totalBasketProducts,
+  getBasketDiscountAmount,
+} from '@/features/Basket/BasketProducts'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { AppLink } from '@/shared/ui/AppLink'
 import { getRouteCatalog } from '@/shared/consts/router'
 
-interface IBasketItem {
+export interface IBasketItem {
   id: string
   image: string
   title: string
@@ -84,6 +89,18 @@ export const BasketProducts = () => {
 
   const { products: productIds } = useAppSelector(getBasketProductsState)
 
+  const { price, discountPrice } = useMemo(
+    () => fullBasketPrices(products),
+    [products]
+  )
+
+  const discountAmount = useMemo(
+    () => getBasketDiscountAmount(price, discountPrice),
+    [price, discountPrice]
+  )
+
+  const totalProducts = useMemo(() => totalBasketProducts(products), [products])
+
   useEffect(() => {
     // const res = await fetch('url', { body: productIds })
     // const data = await res.json()
@@ -95,28 +112,6 @@ export const BasketProducts = () => {
       setIsLoading(false)
     }, 1500)
   }, [])
-
-  function fullPrice() {
-    const discountPrice = products.reduce((acc, product) => {
-      return acc + product.discountPrice * product.quantity
-    }, 0)
-
-    const price = products.reduce((acc, product) => {
-      return acc + product.price * product.quantity
-    }, 0)
-
-    return { discountPrice, price }
-  }
-
-  function getDiscountAmount() {
-    return fullPrice().price - fullPrice().discountPrice
-  }
-
-  function totalProducts() {
-    return products.reduce((acc, product) => {
-      return acc + product.quantity
-    }, 0)
-  }
 
   function handleRemoveCard(id: string) {
     setProducts(products.filter((card) => card.id !== id))
@@ -136,33 +131,30 @@ export const BasketProducts = () => {
                 <BasketCard card={card} onClickRemove={handleRemoveCard} />
               </li>
             ))}
-        <li className={cls.basketProducts__addProduct} key="addProduct">
+        <AppLink
+          to={getRouteCatalog()}
+          className={cls.basketProducts__addProduct}
+          key="addProduct"
+        >
           <p className={cls.basketProducts__addProduct_title}>
             Нужно что то еще?
           </p>
-          <AppLink to={getRouteCatalog()}>
-            <Button
-              theme={ButtonTheme.OUTLINE}
-              className={cls.basketProducts__addProduct_button}
-            >
-              <Icon Svg={IconsMap.PLUS} />
-              <p>Продолжить покупки</p>
-            </Button>
-          </AppLink>
-        </li>
+          <div className={cls.basketProducts__addProduct_description}>
+            <Icon Svg={IconsMap.PLUS} />
+            <p>Продолжить покупки</p>
+          </div>
+        </AppLink>
       </ul>
       <div className={cls.basketProducts__order}>
         <h3 className={cls.basketProducts__order_title}>Ваш заказ</h3>
         <div className={cls.basketProducts__order_subtotal}>
           <div className={cls.basketProducts__order_price}>
-            <span>{`Товары, ${totalProducts()} шт.`}</span>
-            <span>{fullPrice().price} ₽</span>
+            <span>{`Товары, ${totalProducts} шт.`}</span>
+            <span>{price} ₽</span>
           </div>
           <div className={cls.basketProducts__order_discount}>
             <span>Ваша скидка</span>
-            <span>
-              {getDiscountAmount() > 0 ? `-${getDiscountAmount()}` : `0`} ₽
-            </span>
+            <span>{discountAmount > 0 ? `-${discountAmount}` : `0`} ₽</span>
           </div>
           <div className={cls.basketProducts__order_delivery}>
             <span>Доставка</span>
@@ -170,7 +162,7 @@ export const BasketProducts = () => {
           </div>
           <div className={cls.basketProducts__order_discountPrice}>
             <span>Итого</span>
-            <span>{fullPrice().discountPrice} ₽</span>
+            <span>{discountPrice} ₽</span>
           </div>
         </div>
         <Button

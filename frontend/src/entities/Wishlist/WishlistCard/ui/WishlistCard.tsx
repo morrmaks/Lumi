@@ -77,7 +77,9 @@ export const WishlistCard = ({
         </AppLink>
         <div className={cls.wishlistCard__actions}>
           <div className={cls.wishlistCard__priceSection}>
-            <span className={cls.wishlistCard__discountPrice}>{price} ₽</span>
+            <span className={cls.wishlistCard__discountPrice}>
+              {discountPrice} ₽
+            </span>
             {discountPrice !== price && (
               <span className={cls.wishlistCard__price}>{price} ₽</span>
             )}

@@ -1,3 +1,4 @@
+import { fullSelectDiscountPrice } from './lib/fullSelectDiscountPrice'
 import { getWishlistProductsState } from './model/selectors/getWishlistProductsState'
 import {
   wishlistProductsActions,
@@ -6,6 +7,7 @@ import {
 import { type WishlistProductsSchema } from './model/types/wishlistProductsSchema'
 import { WishlistProducts } from './ui/WishlistProducts'
 export {
+  fullSelectDiscountPrice,
   getWishlistProductsState,
   wishlistProductsActions,
   wishlistProductsReducer,

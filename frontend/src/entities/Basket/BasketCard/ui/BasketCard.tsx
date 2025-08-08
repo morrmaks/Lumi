@@ -4,7 +4,7 @@ import { IconsMap } from '@/shared/consts/icons'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { getRouteCatalog } from '@/shared/consts/router'
 import { AppLink } from '@/shared/ui/AppLink'
-import { getBasketProductsState } from '@/features/BasketProducts'
+import { getBasketProductsState } from '@/features/Basket'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { AppImage } from '@/shared/ui/AppImage'
 

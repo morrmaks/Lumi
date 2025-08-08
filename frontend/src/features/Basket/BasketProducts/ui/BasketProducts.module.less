@@ -4,20 +4,29 @@
 @import '@/app/styles/variables/global.less';
 
 .basketProducts {
-  .flex(column, space-between);
-
-  gap: 32px;
   position: relative;
+  .flex(column, space-between, center);
+  gap: 32px;
+
+  @media @breakpoint-lg {
+    .grid(repeat(3, 1fr), row, 32px);
+  }
 
   &__productList {
     .flex(column, space-between);
 
     gap: 16px;
+
+    @media @breakpoint-lg {
+      grid-column: span 2;
+    }
   }
 
   &__addProduct {
     .flex(column, center);
-    .border(1px, dashed);
+    .border(2px, dashed);
+    .selectableBorder();
+    .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
     border-radius: var(--border-radius-l);
     padding: 24px 12px;
     gap: 16px;
@@ -33,7 +42,7 @@
       color: var(--muted-color);
     }
 
-    &_button {
+    &_description {
       .flex();
       gap: 16px;
     }
@@ -46,11 +55,18 @@
     border-radius: var(--border-radius-l);
     gap: 16px;
     padding: 12px;
-    z-index: var(--z-wishlist-actions);
+    height: max-content;
     background-color: var(--card-bg-color);
 
     @media @breakpoint-md {
       padding: 24px;
+    }
+
+    @media @breakpoint-lg {
+      grid-column: span 1;
+      position: sticky;
+      z-index: var(--z-basket-order);
+      top: calc(var(--desktop-navbar-height) + 32px);
     }
 
     &_title {

@@ -9,8 +9,8 @@ import { AppFooter } from '@/widgets/AppFooter'
 import { BreadcrumbNav } from '@/features/BreadcrumbNav'
 import { useAppDispatch } from '@/shared/lib/hooks'
 import { useEffect } from 'react'
-import { wishlistProductsActions } from '@/features/WishlistProducts'
-import { basketProductsActions } from '@/features/BasketProducts'
+import { wishlistProductsActions } from '@/features/Wishlist'
+import { basketProductsActions } from '@/features/Basket'
 
 export const App = () => {
   const dispatch = useAppDispatch()

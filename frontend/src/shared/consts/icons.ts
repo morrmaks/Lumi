@@ -32,6 +32,15 @@ import PackageSvg from '@/shared/assets/icons/package.svg'
 import CrossSvg from '@/shared/assets/icons/cross.svg'
 import CopySvg from '@/shared/assets/icons/copy.svg'
 import LogoutSvg from '@/shared/assets/icons/logout.svg'
+import CpuSvg from '@/shared/assets/icons/cpu.svg'
+import GpuSvg from '@/shared/assets/icons/gpu.svg'
+import CoolerSvg from '@/shared/assets/icons/fan.svg'
+import MemoryStickSvg from '@/shared/assets/icons/memory-stick.svg'
+import MonitorSvg from '@/shared/assets/icons/monitor.svg'
+import PcCaseSvg from '@/shared/assets/icons/pc-case.svg'
+import SsdSvg from '@/shared/assets/icons/ssd.svg'
+import ZapSvg from '@/shared/assets/icons/zap.svg'
+import RefreshSvg from '@/shared/assets/icons/refresh.svg'
 
 export const IconsMap = {
   PROFILE: ProfileSvg,
@@ -68,6 +77,15 @@ export const IconsMap = {
   CLOSE: CrossSvg,
   COPY: CopySvg,
   LOGOUT: LogoutSvg,
+  CPU: CpuSvg,
+  GPU: GpuSvg,
+  MOTHERBOARD: MonitorSvg,
+  RAM: MemoryStickSvg,
+  SSD: SsdSvg,
+  PSU: ZapSvg,
+  COOLER: CoolerSvg,
+  CASE: PcCaseSvg,
+  CHANGE: RefreshSvg,
 } as const
 
 export type IconsMap = (typeof IconsMap)[keyof typeof IconsMap]

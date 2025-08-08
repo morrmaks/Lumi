@@ -2,8 +2,9 @@ import { AppLink } from '@/shared/ui/AppLink'
 import { getRouteCatalog } from '@/shared/consts/router'
 import cls from './ProductOrderCard.module.less'
 import { AppImage } from '@/shared/ui/AppImage'
-import { useCallback } from 'react'
+import { useMemo } from 'react'
 import { Product } from '@/entities/Order/ProfileOrderModal/ui/ProfileOrderModal'
+import { getPriceOrderCard } from '@/entities/Order'
 
 interface ProductCardProps {
   card: Product
@@ -12,34 +13,30 @@ interface ProductCardProps {
 export const ProductOrderCard = ({ card }: ProductCardProps) => {
   const { id, title, price, image, quantity } = card
 
-  const getPriceCard = useCallback(
-    (quantity: number, price: number) => {
-      return quantity * price
-    },
+  const orderCardPrice = useMemo(
+    () => getPriceOrderCard(quantity, price),
     [quantity, price]
   )
 
   return (
-    <div className={cls.productOrderCard}>
-      <AppLink to={getRouteCatalog()}>
-        <div className={cls.productOrderCard__meta}>
-          <AppImage
-            className={cls.productOrderCard__image}
-            src={image}
-            alt={title}
-          />
-          <div>
-            <h5 className={cls.productOrderCard__title}>{title}</h5>
-            <span>{`Количество ${quantity}`}</span>
-          </div>
+    <AppLink to={getRouteCatalog()} className={cls.productOrderCard}>
+      <div className={cls.productOrderCard__meta}>
+        <AppImage
+          className={cls.productOrderCard__image}
+          src={image}
+          alt={title}
+        />
+        <div>
+          <h5 className={cls.productOrderCard__title}>{title}</h5>
+          <span>{`Количество ${quantity}`}</span>
         </div>
-      </AppLink>
+      </div>
       <div className={cls.productOrderCard__priceContainer}>
         <span className={cls.productOrderCard__totalPrice}>
-          {getPriceCard(quantity, price)} ₽
+          {orderCardPrice} ₽
         </span>
         <span className={cls.productOrderCard__price}>{price} ₽ за шт.</span>
       </div>
-    </div>
+    </AppLink>
   )
 }

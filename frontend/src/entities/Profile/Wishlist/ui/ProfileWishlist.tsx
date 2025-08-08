@@ -1,8 +1,5 @@
 import cls from './ProfileWishlist.module.less'
-import {
-  getWishlistProductsState,
-  WishlistProducts,
-} from '@/features/WishlistProducts'
+import { getWishlistProductsState, WishlistProducts } from '@/features/Wishlist'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'

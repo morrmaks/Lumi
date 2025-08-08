@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { WishlistProductsSchema } from '@/features/WishlistProducts'
+import { WishlistProductsSchema } from '@/features/Wishlist/WishlistProducts'
 
 const initialState: WishlistProductsSchema = {
   products: [],

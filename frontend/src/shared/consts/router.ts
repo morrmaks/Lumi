@@ -9,6 +9,8 @@ export const AppRoutes = {
   WISHLIST: 'wishlist',
   CONFIGURATOR: 'configurator',
   CATALOG: 'catalog',
+  CATALOG_CATEGORY: 'catalog-category',
+  CATALOG_ITEM: 'catalog-item',
   BASKET: 'basket',
   SEARCH: 'search',
   NOT_FOUND: 'not-found',
@@ -25,6 +27,10 @@ export const getRouteAuthResetPassword = () => 'reset-password'
 export const getRouteProfile = () => '/profile'
 export const getRouteConfigurator = () => '/configurator'
 export const getRouteCatalog = () => '/catalog'
+export const getRouteCatalogCategory = (category: string) =>
+  `/catalog/${category}`
+export const getRouteCatalogItem = (category: string, id: string) =>
+  `/catalog/${category}/${id}`
 export const getRouteWishlist = () => '/wishlist'
 export const getRouteBasket = () => '/basket'
 export const getRouteSearch = () => '/search'

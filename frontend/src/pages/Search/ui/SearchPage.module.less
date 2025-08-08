@@ -1,0 +1,21 @@
+@import '@/app/styles/mixins/container';
+
+.searchPage {
+  width: 100%;
+
+  &__header {
+    .flex(column, start, start);
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  &__title {
+    font: var(--font-xl);
+    font-weight: var(--font-bold);
+  }
+
+  &__description {
+    font: var(--font-s);
+    color: var(--muted-color);
+  }
+}

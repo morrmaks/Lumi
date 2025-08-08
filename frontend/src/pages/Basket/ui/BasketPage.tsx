@@ -1,9 +1,6 @@
 import { PageLayout } from '@/widgets/PageLayout'
 import { useAppSelector } from '@/shared/lib/hooks'
-import {
-  getBasketProductsState,
-  BasketProducts,
-} from '@/features/BasketProducts'
+import { getBasketProductsState, BasketProducts } from '@/features/Basket'
 import cls from './BasketPage.module.less'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'

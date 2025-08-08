@@ -24,6 +24,17 @@
   }
 }
 
+.selectableBorder(@border: var(--border-color-primary), @hoverBorder: var(--accent-bg-color)) {
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition-speed);
+  border-color: @border;
+
+  &:hover {
+    border-color: @hoverBorder;
+  }
+}
+
 .hoverShadow() {
   transition: var(--transition-speed);
 
