@@ -1,0 +1,104 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/decorators';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.productDetails {
+  &__header {
+    .flex(column, start, start);
+    gap: 12px;
+  }
+
+  &__title {
+    font: var(--font-m);
+    font-weight: var(--font-bold);
+
+    @media @breakpoint-sm {
+      font: var(--font-l);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__ratingContainer {
+    .flex(row, center, start);
+
+    gap: 4px;
+  }
+
+  &__reviews {
+    color: var(--muted-color);
+  }
+
+  &__priceSection {
+    .flex(column, start, start);
+    gap: 4px;
+    margin-top: 24px;
+    background-color: var(--card-bg-color);
+    padding: 16px;
+    width: 100%;
+    border-radius: var(--border-radius-l);
+  }
+
+  &__discountPrice {
+    white-space: nowrap;
+    font: var(--font-l);
+    font-weight: var(--font-bold);
+    color: var(--secondary-color);
+
+    @media @breakpoint-lg {
+      font: var(--font-xl);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__price {
+    font: var(--font-s);
+    color: var(--muted-color);
+    text-decoration: line-through;
+
+    @media @breakpoint-lg {
+      font: var(--font-m);
+    }
+  }
+
+  &__discountAmount {
+    margin-top: 8px;
+    color: var(--benefit-color);
+  }
+
+  &__buttons {
+    .flex(column, space-between);
+    gap: 8px;
+    width: 100%;
+
+    &_secondary {
+      .flex();
+      gap: 8px;
+    }
+  }
+
+  &__button {
+    .flex();
+    gap: 8px;
+    white-space: nowrap;
+    padding: 0 10px;
+    width: 100%;
+    font: var(--font-xxs);
+    font-weight: var(--font-bold);
+
+    @media @breakpoint-sm {
+      font: var(--font-xs);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__buttonIcon {
+    width: 12px;
+    height: 12px;
+
+    @media @breakpoint-sm {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

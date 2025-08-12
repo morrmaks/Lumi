@@ -5,7 +5,7 @@ import {
   ConfiguratorComponentMap,
   ConfiguratorComponentsSchema,
 } from '../types/configuratorComponentsSchema'
-import { ComponentNames } from '../../consts/componentNames'
+import { ComponentNames } from '../../consts/ComponentNames'
 
 const emptyComponentMap = Object.values(ComponentNames).reduce((acc, name) => {
   acc[name] = null

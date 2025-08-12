@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
 import { FormEvent, useCallback } from 'react'
-import { DynamicModuleLoader } from '@/shared/lib/components'
+import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import cls from './ProfileSettingsForm.module.less'
 import { PasswordInput } from '@/entities/User'
 import { Button } from '@/shared/ui/Button'
@@ -10,7 +10,7 @@ import {
 } from '../model/slice/profileSettingsSlice'
 import { getProfileSettingsState } from '../model/selectors/getProfileSettingsState'
 
-const initialReducers = {
+const initialReducers: ReducerList = {
   profileSettingsForm: profileSettingsReducer,
 }
 

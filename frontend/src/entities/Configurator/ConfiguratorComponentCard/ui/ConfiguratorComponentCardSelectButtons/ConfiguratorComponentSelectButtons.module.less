@@ -1,0 +1,27 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+
+.configuratorComponentSelectButtons {
+  .border();
+  .flex();
+  border-radius: var(--border-radius-l);
+  background-color: var(--bg-color);
+  gap: 2px;
+  position: absolute;
+  width: max-content;
+  z-index: var(--z-configurator-select-buttons);
+  top: calc(100% + 4px);
+  left: 0;
+
+  &__compact {
+    .flex(column);
+    top: 0;
+    bottom: 0;
+    width: 100%;
+  }
+
+  &__button {
+    border: none;
+    font-weight: var(--font-bold);
+  }
+}

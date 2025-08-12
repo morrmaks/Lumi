@@ -13,7 +13,7 @@ interface IMobileNavBarItem {
   label: string
 }
 
-export const mobileNavBarLinks: IMobileNavBarItem[] = [
+export const MobileNavBarLinksConfig: IMobileNavBarItem[] = [
   {
     to: getRouteMain(),
     icon: IconsMap.HOME,

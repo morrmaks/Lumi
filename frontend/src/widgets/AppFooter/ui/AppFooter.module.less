@@ -45,8 +45,9 @@
   &__info {
     .grid(1fr, row, 32px);
 
+    max-width: var(--max-page-width);
+    margin: 0 auto 32px;
     width: 100%;
-    margin-bottom: 32px;
 
     @media @breakpoint-sm {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -87,13 +88,17 @@
   }
 
   &__docs {
-    .flex(column, start, start);
+    width: 100%;
     .borderTop();
+  }
 
+  &__docsContainer {
+    .flex(column, start, start);
+    max-width: var(--max-page-width);
+    margin: 0 auto;
     gap: 16px;
     width: 100%;
     padding-top: 32px;
-
     @media @breakpoint-sm {
       .flex(row, center, space-between);
     }

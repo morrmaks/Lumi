@@ -1,0 +1,81 @@
+@import '@/app/styles/mixins/decorators';
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.configuratorComponentCard {
+  .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
+  .flex(row, center);
+  .border();
+  border-radius: var(--border-radius-l);
+  background-color: var(--card-bg-color);
+  padding: 24px 12px;
+  gap: 16px;
+  width: 100%;
+
+  @media @breakpoint-sm {
+    padding: 24px;
+  }
+
+  &__compact {
+    .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
+    .flex(column, center, space-between);
+    border-radius: var(--border-radius-l);
+    background-color: var(--bg-color);
+    padding: 12px 8px;
+    gap: 8px;
+    height: 100%;
+
+    &_image {
+      border-radius: var(--border-radius-l);
+      width: 60px;
+      height: 60px;
+      flex-shrink: 0;
+    }
+
+    &_price {
+      font: var(--font-xs);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__meta {
+    .flex(column, start, space-between);
+    width: 100%;
+    gap: 16px;
+
+    @media @breakpoint-sm {
+      .flex(row, center, space-between);
+    }
+  }
+
+  &__image {
+    border-radius: var(--border-radius-l);
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+  }
+
+  &__productName {
+    color: var(--muted-color);
+  }
+
+  &__priceSection {
+    .flex();
+    gap: 16px;
+  }
+
+  &__price {
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+  }
+
+  &__changeIcon {
+    flex-shrink: 0;
+  }
+}

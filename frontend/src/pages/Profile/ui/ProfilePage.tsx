@@ -1,10 +1,10 @@
 import { PageLayout } from '@/widgets/PageLayout'
 import cls from './ProfilePage.module.less'
-import { profilePageTabsConfig } from '../config/profilePageTabsConfig'
+import { ProfilePageTabsConfig } from '../config/ProfilePageTabs'
 import { ProfilePageTabs } from '@/pages/Profile'
 import { classNames } from '@/shared/lib/utils'
 import { useCallback, useState } from 'react'
-import { profilePageTabContentMap } from '../consts/profilePageTabContentMap'
+import { ProfilePageTabContentMap } from '../consts'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { IconsMap } from '@/shared/consts/icons'
 import { Icon } from '@/shared/ui/Icon'
@@ -48,7 +48,7 @@ const ProfilePage = () => {
           </Button>
         </div>
         <ul className={cls.profilePage__tabs}>
-          {profilePageTabsConfig.map(({ label }) => (
+          {ProfilePageTabsConfig.map(({ label }) => (
             <li
               key={label}
               className={classNames(cls.profilePage__tab, {
@@ -61,7 +61,7 @@ const ProfilePage = () => {
           ))}
         </ul>
         <div className={cls.profilePage__content}>
-          {profilePageTabContentMap[tab]}
+          {ProfilePageTabContentMap[tab]}
         </div>
       </div>
     </PageLayout>

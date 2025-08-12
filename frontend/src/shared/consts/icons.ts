@@ -18,6 +18,7 @@ import EyeSvg from '@/shared/assets/icons/eye.svg'
 import EyeOffSvg from '@/shared/assets/icons/eye-off.svg'
 import ChevronLeftSvg from '@/shared/assets/icons/chevron-left.svg'
 import ChevronRightSvg from '@/shared/assets/icons/chevron-right.svg'
+import ChevronUpSvg from '@/shared/assets/icons/chevron-up.svg'
 import CheckMarkSvg from '@/shared/assets/icons/check.svg'
 import BasketSvg from '@/shared/assets/icons/shopping-cart.svg'
 import TrashSvg from '@/shared/assets/icons/trash.svg'
@@ -36,11 +37,13 @@ import CpuSvg from '@/shared/assets/icons/cpu.svg'
 import GpuSvg from '@/shared/assets/icons/gpu.svg'
 import CoolerSvg from '@/shared/assets/icons/fan.svg'
 import MemoryStickSvg from '@/shared/assets/icons/memory-stick.svg'
-import MonitorSvg from '@/shared/assets/icons/monitor.svg'
-import PcCaseSvg from '@/shared/assets/icons/pc-case.svg'
-import SsdSvg from '@/shared/assets/icons/ssd.svg'
+import MotherboardSvg from '@/shared/assets/icons/motherboard.svg'
+import PcCaseSvg from '@/shared/assets/icons/case.svg'
+import StorageSvg from '@/shared/assets/icons/ssd.svg'
 import ZapSvg from '@/shared/assets/icons/zap.svg'
 import RefreshSvg from '@/shared/assets/icons/refresh.svg'
+import GridSvg from '@/shared/assets/icons/grid.svg'
+import ListSvg from '@/shared/assets/icons/list.svg'
 
 export const IconsMap = {
   PROFILE: ProfileSvg,
@@ -63,6 +66,7 @@ export const IconsMap = {
   PASSWORD_HIDE: EyeOffSvg,
   CHEVRON_LEFT: ChevronLeftSvg,
   CHEVRON_RIGHT: ChevronRightSvg,
+  CHEVRON_UP: ChevronUpSvg,
   CHECK_MARK: CheckMarkSvg,
   BASKET: BasketSvg,
   TRASH: TrashSvg,
@@ -79,13 +83,15 @@ export const IconsMap = {
   LOGOUT: LogoutSvg,
   CPU: CpuSvg,
   GPU: GpuSvg,
-  MOTHERBOARD: MonitorSvg,
+  MOTHERBOARD: MotherboardSvg,
   RAM: MemoryStickSvg,
-  SSD: SsdSvg,
+  STORAGE: StorageSvg,
   PSU: ZapSvg,
   COOLER: CoolerSvg,
   CASE: PcCaseSvg,
   CHANGE: RefreshSvg,
+  GRID: GridSvg,
+  LIST: ListSvg,
 } as const
 
 export type IconsMap = (typeof IconsMap)[keyof typeof IconsMap]

@@ -1,2 +1,1 @@
-import { ProfileSettings } from './ui/ProfileSettings'
-export { ProfileSettings }
+export * from './ui'

@@ -91,11 +91,11 @@ export const routeConfig: RouteConfig = {
     element: <CatalogPage />,
   },
   [AppRoutes.CATALOG_CATEGORY]: {
-    path: getRouteCatalogCategory(':category'),
+    path: getRouteCatalogCategory(':categoryId'),
     element: <CategoryPage />,
   },
   [AppRoutes.CATALOG_ITEM]: {
-    path: getRouteCatalogItem(':category', ':productId'),
+    path: getRouteCatalogItem(':categoryId', ':productId'),
     element: <ProductPage />,
   },
   [AppRoutes.WISHLIST]: {

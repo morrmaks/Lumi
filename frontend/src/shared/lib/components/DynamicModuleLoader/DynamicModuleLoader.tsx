@@ -8,7 +8,7 @@ import { Reducer } from '@reduxjs/toolkit'
 import { useStore } from 'react-redux'
 import { useAppDispatch } from '@/shared/lib/hooks'
 
-type ReducerList = {
+export type ReducerList = {
   [name in StateSchemaKey]?: Reducer<NonNullable<StateSchema[name]>>
 }
 

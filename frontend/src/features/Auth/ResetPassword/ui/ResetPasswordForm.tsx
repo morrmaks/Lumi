@@ -10,12 +10,12 @@ import {
   resetPasswordActions,
   resetPasswordReducer,
 } from '@/features/Auth/ResetPassword'
-import { DynamicModuleLoader } from '@/shared/lib/components'
+import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import { ButtonSize } from '@/shared/ui/Button/Button'
 import { useNavigate } from 'react-router-dom'
 import { getFullRouteLogin } from '@/shared/consts/router'
 
-const initialReducers = {
+const initialReducers: ReducerList = {
   resetPasswordForm: resetPasswordReducer,
 }
 

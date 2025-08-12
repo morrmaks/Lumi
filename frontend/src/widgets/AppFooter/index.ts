@@ -1,2 +1,2 @@
-import { AppFooter } from './ui/AppFooter'
-export { AppFooter }
+export * from './config'
+export * from './ui'

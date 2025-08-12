@@ -1,2 +1,1 @@
-import { ProfileWishlist } from './ui/ProfileWishlist'
-export { ProfileWishlist }
+export * from './ui'

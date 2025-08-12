@@ -3,6 +3,8 @@
 @import '@/app/styles/variables/global.less';
 
 .breadcrumbNav {
+  max-width: var(--max-page-width);
+  margin: 0 auto;
   padding: 16px 0;
 
   @media @breakpoint-sm {
@@ -11,8 +13,9 @@
 
   &__list {
     .flex(row, center, start);
+    flex-wrap: nowrap;
 
-    overflow-x: scroll;
+    overflow-x: auto;
     gap: 4px;
     margin: 0 16px;
   }
@@ -20,6 +23,7 @@
   &__item {
     .flex(row, center, start);
 
+    flex: 0 0 auto;
     gap: 4px;
 
     &_link {

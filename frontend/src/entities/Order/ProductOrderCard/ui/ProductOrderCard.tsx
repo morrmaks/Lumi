@@ -28,7 +28,9 @@ export const ProductOrderCard = ({ card }: ProductCardProps) => {
         />
         <div>
           <h5 className={cls.productOrderCard__title}>{title}</h5>
-          <span>{`Количество ${quantity}`}</span>
+          <span
+            className={cls.productOrderCard__quantity}
+          >{`Количество: ${quantity}`}</span>
         </div>
       </div>
       <div className={cls.productOrderCard__priceContainer}>

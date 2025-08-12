@@ -1,2 +1,1 @@
-import { ProfileCard } from './ui/ProfileCard'
-export { ProfileCard }
+export * from './ui'

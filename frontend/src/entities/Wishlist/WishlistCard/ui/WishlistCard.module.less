@@ -76,12 +76,6 @@
     }
   }
 
-  &__ratingIcon {
-  }
-
-  &__rating {
-  }
-
   &__reviews {
     color: var(--muted-color);
   }
@@ -112,15 +106,25 @@
   }
 
   &__discountPrice {
-    font: var(--font-m);
     white-space: nowrap;
+    font: var(--font-s);
     font-weight: var(--font-bold);
     color: var(--secondary-color);
+
+    @media @breakpoint-sm {
+      font: var(--font-m);
+      font-weight: var(--font-bold);
+    }
   }
 
   &__price {
+    font: var(--font-xxs);
     color: var(--muted-color);
     text-decoration: line-through;
+
+    @media @breakpoint-sm {
+      font: var(--font-xs);
+    }
   }
 
   &__buttons {

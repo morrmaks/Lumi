@@ -1,0 +1,21 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/variables/global';
+
+.categoryProducts {
+  margin: 0 auto;
+  .grid(repeat(2, minmax(100px, 1fr)), row, 8px);
+
+  @media @breakpoint-sm {
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    gap: 12px;
+  }
+
+  @media @breakpoint-md {
+    grid-template-columns: repeat(4, minmax(100px, 1fr));
+  }
+
+  &__list {
+    margin: 0 auto;
+    .flex(column, space-between, start);
+  }
+}

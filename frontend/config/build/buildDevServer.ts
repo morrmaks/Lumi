@@ -9,6 +9,9 @@ export const buildDevServer = ({
     compress: true,
     hot: true,
     open: true,
-    historyApiFallback: true,
+    historyApiFallback: {
+      disableDotRule: true,
+      index: '/index.html',
+    },
   }
 }

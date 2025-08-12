@@ -1,3 +1,7 @@
-import { DynamicModuleLoader } from './DynamicModuleLoader/DynamicModuleLoader'
+import {
+  type ReducerList,
+  DynamicModuleLoader,
+} from './DynamicModuleLoader/DynamicModuleLoader'
+import { InfiniteScrollWrapper } from './InfiniteScrollWrapper/InfiniteScrollWrapper'
 
-export { DynamicModuleLoader }
+export { ReducerList, DynamicModuleLoader, InfiniteScrollWrapper }

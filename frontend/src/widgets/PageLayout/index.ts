@@ -1,2 +1,1 @@
-import { PageLayout } from './ui/PageLayout'
-export { PageLayout }
+export * from './ui'

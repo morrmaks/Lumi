@@ -1,12 +1,13 @@
 import { Checkbox } from '@/shared/ui/Checkbox'
 import cls from './WishlistCard.module.less'
-import { Icon, IconTheme } from '@/shared/ui/Icon'
+import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { getRouteCatalog } from '@/shared/consts/router'
 import { AppLink } from '@/shared/ui/AppLink'
 import { AppImage } from '@/shared/ui/AppImage'
 import { useBreakpoint } from '@/shared/lib/hooks'
+import { getIconTheme } from '@/shared/lib/utils'
 
 interface IWishlistItem {
   id: string
@@ -66,7 +67,7 @@ export const WishlistCard = ({
               <div className={cls.wishlistCard__ratingContainer}>
                 <Icon
                   Svg={IconsMap.RATING}
-                  theme={IconTheme.YELLOW}
+                  theme={getIconTheme('YELLOW')}
                   className={cls.wishlistCard__ratingIcon}
                 />
                 <span className={cls.wishlistCard__rating}>{rating}</span>
