@@ -15,11 +15,11 @@ import {
   loginActions,
   loginReducer,
 } from '@/features/Auth/Login'
-import { DynamicModuleLoader } from '@/shared/lib/components'
+import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import { ButtonSize } from '@/shared/ui/Button/Button'
 import { useNavigate } from 'react-router-dom'
 
-const initialReducers = {
+const initialReducers: ReducerList = {
   loginForm: loginReducer,
 }
 

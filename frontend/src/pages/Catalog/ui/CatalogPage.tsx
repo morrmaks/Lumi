@@ -1,5 +1,6 @@
 import { PageLayout } from '@/widgets/PageLayout'
 import cls from './CatalogPage.module.less'
+import { CatalogCategories } from '@/features/Catalog'
 
 const CatalogPage = () => {
   return (
@@ -12,6 +13,10 @@ const CatalogPage = () => {
               Выберите категорию для просмотра товаров
             </p>
           </div>
+        </div>
+
+        <div className={cls.catalogPage__categories}>
+          <CatalogCategories />
         </div>
       </div>
     </PageLayout>

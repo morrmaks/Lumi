@@ -1,0 +1,22 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+
+.categoryFilters {
+  .flex(row, center, space-between);
+  margin-bottom: 24px;
+
+  &__viewFormat {
+    .flex();
+    gap: 12px;
+  }
+
+  &__viewFormatIcon {
+    width: 20px;
+    height: 20px;
+    .selectableIcon(1, transparent, var(--secondary-color));
+
+    &_active {
+      stroke: var(--secondary-color);
+    }
+  }
+}

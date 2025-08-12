@@ -8,17 +8,17 @@ import {
   ComponentNames,
   ConfiguratorComponentMap,
   configuratorComponentsActions,
-  configuratorComponentsConfig,
+  ConfiguratorComponentsConfig,
   getConfiguratorComponentsState,
 } from '@/features/Configurator'
 import { useEffect, useState } from 'react'
-import { Icon } from '@/shared/ui/Icon'
-import { IconsMap } from '@/shared/consts/icons'
 import { AppLink } from '@/shared/ui/AppLink'
 import {
   getRouteCatalogCategory,
   getRouteCatalogItem,
 } from '@/shared/consts/router'
+import { ConfiguratorEmptyComponentCard } from '@/entities/Configurator/ConfiguratorEmptyComponentCard'
+import { classNames } from '@/shared/lib/utils'
 
 const ComponentsMock: Partial<ConfiguratorComponentMap> = {
   ['graphics-card']: {
@@ -37,12 +37,20 @@ const ComponentsMock: Partial<ConfiguratorComponentMap> = {
   },
 }
 
-export const ConfiguratorComponents = () => {
+interface ConfiguratorComponentsProps {
+  carousel?: boolean
+  className?: string
+}
+
+export const ConfiguratorComponents = ({
+  carousel = false,
+  className,
+}: ConfiguratorComponentsProps) => {
+  const [isLoading, setIsLoading] = useState(true)
   const dispatch = useAppDispatch()
   const { components, componentIds /* isLoading */ } = useAppSelector(
     getConfiguratorComponentsState
   )
-  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     // dispatch(getConfiguratorComponents(componentIds))
@@ -57,10 +65,14 @@ export const ConfiguratorComponents = () => {
 
   if (isLoading) {
     return (
-      <ul className={cls.configuratorComponents}>
+      <ul
+        className={classNames(cls.configuratorComponents, {
+          [cls.configuratorComponents__carousel]: carousel,
+        })}
+      >
         {[...new Array(8)].map((_, i) => (
           <li key={i}>
-            <ConfiguratorComponentCardSkeleton />
+            <ConfiguratorComponentCardSkeleton compact={carousel} />
           </li>
         ))}
       </ul>
@@ -68,60 +80,47 @@ export const ConfiguratorComponents = () => {
   }
 
   return (
-    <ul className={cls.configuratorComponents}>
+    <ul
+      className={classNames(cls.configuratorComponents, {
+        [cls.configuratorComponents__carousel]: carousel,
+      })}
+    >
       {Object.entries(components).map(([key, value]) => {
         const componentConfig =
-          configuratorComponentsConfig[key as ComponentNames]
-        const route = value
-          ? getRouteCatalogItem(componentConfig.category, value.id)
-          : getRouteCatalogCategory(componentConfig.category)
+          ConfiguratorComponentsConfig[key as ComponentNames]
+
+        const routeCategory = getRouteCatalogCategory(componentConfig.category)
 
         if (!value) {
           return (
             <AppLink
               key={key}
-              to={route}
+              to={routeCategory}
               className={cls.configuratorComponents__emptyComponent}
             >
-              <Icon
-                Svg={componentConfig.icon}
-                className={cls.configuratorComponents__emptyComponent_typeIcon}
-              />
-              <div>
-                <h4
-                  className={cls.configuratorComponents__emptyComponent_title}
-                >
-                  {componentConfig.label}
-                </h4>
-                <p
-                  className={
-                    cls.configuratorComponents__emptyComponent_description
-                  }
-                >
-                  Не выбран
-                </p>
-              </div>
-              <Icon
-                Svg={IconsMap.PLUS}
-                className={
-                  cls.configuratorComponents__emptyComponent_actionIcon
-                }
+              <ConfiguratorEmptyComponentCard
+                componentConfig={componentConfig}
+                compact={carousel}
               />
             </AppLink>
           )
         }
 
+        const routeItem = getRouteCatalogItem(
+          componentConfig.category,
+          value.id
+        )
+
         return (
-          <AppLink
-            to={route}
-            key={key}
-            className={cls.configuratorComponents__component}
-          >
+          <li key={key} className={cls.configuratorComponents__component}>
             <ConfiguratorComponentCard
               componentName={key as ComponentNames}
               component={value}
+              compact={carousel}
+              routeItem={routeItem}
+              routeCategory={routeCategory}
             />
-          </AppLink>
+          </li>
         )
       })}
     </ul>

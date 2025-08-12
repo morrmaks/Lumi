@@ -1,0 +1,54 @@
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/mixins/container';
+
+.select {
+  position: relative;
+  appearance: none;
+
+  &__menu {
+    .border();
+    border-radius: var(--border-radius-l);
+    background-color: var(--bg-color);
+    position: absolute;
+    z-index: var(--z-category-filters);
+    top: calc(100% + 4px);
+    left: 0;
+    width: max-content;
+    padding: 2px;
+  }
+
+  &__menuItem {
+    &_button {
+      .flex(row, center, start);
+      gap: 4px;
+      border: none;
+      width: 100%;
+      font-weight: var(--font-bold);
+    }
+
+    &_active {
+      background-color: var(--accent-bg-color);
+      color: var(--accent-color);
+    }
+  }
+
+  &__button {
+    .flex();
+    gap: 8px;
+    border: none;
+    font-weight: var(--font-bold);
+
+    &:hover {
+      border-radius: var(--border-radius-m);
+    }
+  }
+
+  &__icon {
+    transition: var(--transition-speed);
+    transform: rotate(180deg);
+
+    &_active {
+      transform: rotate(0deg);
+    }
+  }
+}

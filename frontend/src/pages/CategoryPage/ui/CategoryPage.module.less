@@ -3,4 +3,28 @@
 @import '@/app/styles/variables/global.less';
 
 .categoryPage {
+  width: 100%;
+
+  &__header {
+    .flex(row, center, space-between);
+
+    gap: 48px;
+    margin-bottom: 32px;
+  }
+
+  &__title {
+    font: var(--font-xl);
+    font-weight: var(--font-bold);
+  }
+
+  &__productsSecton {
+  }
+
+  &__configuratorCarousel {
+    margin-bottom: 24px;
+    background-color: var(--muted-bg-color);
+    border-radius: var(--border-radius-l);
+    padding: 12px;
+    z-index: 10;
+  }
 }

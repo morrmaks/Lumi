@@ -16,7 +16,7 @@ interface INavBarLink {
   extraClasses: string[]
 }
 
-export const navBarLinksConfig: INavBarLink[] = [
+export const NavBarLinksConfig: INavBarLink[] = [
   {
     to: getRouteConfigurator(),
     icon: IconsMap.CONFIGURATOR,

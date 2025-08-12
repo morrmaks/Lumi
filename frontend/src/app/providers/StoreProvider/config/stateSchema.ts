@@ -12,6 +12,7 @@ import { UserSchema } from '@/entities/User'
 import { ProfileCardSchema } from '@/features/Profile'
 import { ProfileSettingsSchema } from '@/features/Profile'
 import { ConfiguratorComponentsSchema } from '@/features/Configurator'
+import { CategoryPageSchema } from '@/pages/CategoryPage'
 
 export interface StateSchema {
   user: UserSchema
@@ -20,6 +21,7 @@ export interface StateSchema {
   wishlistProducts: WishlistProductsSchema
   basketProducts: BasketProductsSchema
   configuratorComponents: ConfiguratorComponentsSchema
+  categoryPage?: CategoryPageSchema
   loginForm?: LoginSchema
   registerForm?: RegisterSchema
   forgotPasswordForm?: ForgotPasswordSchema

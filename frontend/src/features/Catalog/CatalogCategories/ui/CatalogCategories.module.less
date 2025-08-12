@@ -1,0 +1,54 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.catalogCategories {
+  .grid(1fr, row, 16px);
+
+  @media @breakpoint-sm {
+    .grid(repeat(2, 1fr), row, 24px);
+  }
+
+  @media @breakpoint-lg {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &__card {
+    .selectableScale();
+    .flex(column, start);
+    .border();
+    border-radius: var(--border-radius-l);
+    padding: 24px 12px;
+    background-color: var(--card-bg-color);
+
+    @media @breakpoint-sm {
+      padding: 24px;
+    }
+  }
+
+  &__header {
+    .flex(column, start);
+    gap: 8px;
+    width: 100%;
+  }
+
+  &__title {
+    font: var(--font-m);
+    font-weight: var(--font-bold);
+  }
+
+  &__description {
+    margin-top: 24px;
+    color: var(--muted-color);
+  }
+
+  &__icons {
+    .flex(row, start, space-between);
+    width: 100%;
+  }
+
+  &__icon {
+    width: 32px;
+    height: 32px;
+  }
+}

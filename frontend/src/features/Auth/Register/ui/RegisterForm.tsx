@@ -10,12 +10,12 @@ import {
   registerActions,
   registerReducer,
 } from '@/features/Auth/Register'
-import { DynamicModuleLoader } from '@/shared/lib/components'
+import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import { ButtonSize } from '@/shared/ui/Button/Button'
 import { getRouteProfile } from '@/shared/consts/router'
 import { useNavigate } from 'react-router-dom'
 
-const initialReducers = {
+const initialReducers: ReducerList = {
   registerForm: registerReducer,
 }
 

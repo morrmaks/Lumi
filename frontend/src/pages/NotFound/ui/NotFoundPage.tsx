@@ -5,7 +5,7 @@ import cls from './NotFoundPage.module.less'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { AppLink } from '@/shared/ui/AppLink'
-import { popularSections } from '../config/popularSections'
+import { PopularSectionsConfig } from '../config/PopularSections'
 
 const NotFoundPage = () => {
   const navigate = useNavigate()
@@ -56,7 +56,7 @@ const NotFoundPage = () => {
         <div className={cls.notFoundPage__popular}>
           <h3>Популярные разделы:</h3>
           <ul className={cls.notFoundPage__popular_list}>
-            {popularSections.map(({ to, label }) => (
+            {PopularSectionsConfig.map(({ to, label }) => (
               <li key={to}>
                 <AppLink to={to}>{label}</AppLink>
               </li>

@@ -1,5 +1,5 @@
 import cls from './BasketCard.module.less'
-import { Icon, IconTheme } from '@/shared/ui/Icon'
+import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { getRouteCatalog } from '@/shared/consts/router'
@@ -7,6 +7,7 @@ import { AppLink } from '@/shared/ui/AppLink'
 import { getBasketProductsState } from '@/features/Basket'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { AppImage } from '@/shared/ui/AppImage'
+import { getIconTheme } from '@/shared/lib/utils'
 
 interface IBasketItem {
   id: string
@@ -77,7 +78,7 @@ export const BasketCard = ({ card, onClickRemove }: BasketCardProps) => {
               <div className={cls.basketCard__ratingContainer}>
                 <Icon
                   Svg={IconsMap.RATING}
-                  theme={IconTheme.YELLOW}
+                  theme={getIconTheme('YELLOW')}
                   className={cls.basketCard__ratingIcon}
                 />
                 <span className={cls.basketCard__rating}>{rating}</span>

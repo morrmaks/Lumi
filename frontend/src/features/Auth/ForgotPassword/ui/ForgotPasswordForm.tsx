@@ -15,11 +15,11 @@ import {
   forgotPasswordReducer,
   getForgotPasswordState,
 } from '@/features/Auth/ForgotPassword'
-import { DynamicModuleLoader } from '@/shared/lib/components'
+import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import { ButtonSize } from '@/shared/ui/Button/Button'
 import { userActions } from '@/entities/User'
 
-const initialReducers = {
+const initialReducers: ReducerList = {
   forgotPasswordForm: forgotPasswordReducer,
 }
 

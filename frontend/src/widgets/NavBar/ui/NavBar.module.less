@@ -5,15 +5,14 @@
 
 .navbar {
   .flex(row, center, space-between);
-  .borderBottom();
 
+  max-width: var(--max-page-width);
   width: 100%;
+  margin: 0 auto;
   padding: 0 16px;
   gap: 32px;
   height: var(--desktop-navbar-height);
   position: relative;
-  top: 0;
-  z-index: 50;
   background-color: rgba(var(--bg-color-rgb), 0.6);
   backdrop-filter: blur(8px);
 
@@ -21,8 +20,14 @@
     padding: 0 32px;
   }
 
-  @media @breakpoint-md {
-    position: sticky;
+  &__wrapper {
+    .borderBottom();
+    top: 0;
+    z-index: var(--z-desktop-navbar);
+
+    @media @breakpoint-md {
+      position: sticky;
+    }
   }
 
   &__search {

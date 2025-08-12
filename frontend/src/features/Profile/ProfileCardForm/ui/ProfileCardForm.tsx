@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
 import { FormEvent, useCallback, useEffect } from 'react'
-import { DynamicModuleLoader } from '@/shared/lib/components'
+import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import cls from './ProfileCardForm.module.less'
 import { Input } from '@/shared/ui/Input'
 import { getUserAuthData } from '@/entities/User'
@@ -14,7 +14,7 @@ interface ProfileCardFormProps {
   disabled: boolean
 }
 
-const initialReducers = {
+const initialReducers: ReducerList = {
   profileCardForm: profileCardReducer,
 }
 

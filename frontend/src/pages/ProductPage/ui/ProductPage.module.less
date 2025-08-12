@@ -1,6 +1,14 @@
-@import '@/app/styles/mixins/container.less';
-@import '@/app/styles/mixins/decorators.less';
-@import '@/app/styles/variables/global.less';
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/decorators';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
 
 .productPage {
+  .flex(column, space-between, start);
+  gap: 12px;
+  width: 100%;
+
+  @media @breakpoint-md {
+    .grid(repeat(2, 1fr), row, 16px);
+  }
 }

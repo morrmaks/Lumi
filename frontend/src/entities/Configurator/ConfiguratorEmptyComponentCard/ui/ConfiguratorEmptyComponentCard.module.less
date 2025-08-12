@@ -1,0 +1,69 @@
+@import '@/app/styles/mixins/decorators';
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.configuratorEmptyComponentCard {
+  .grid(60px 1fr min-content, row, 16px);
+  .border(2px, dashed);
+  .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
+  .selectableBorder();
+  justify-content: space-between;
+  border-radius: var(--border-radius-l);
+  background-color: var(--card-bg-color);
+  padding: 24px 12px;
+
+  @media @breakpoint-sm {
+    padding: 24px;
+  }
+
+  &__compact {
+    .flex(column, center, space-between);
+    //.border();
+    .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
+    border-radius: var(--border-radius-l);
+    //background-color: var(--card-bg-color);
+    background-color: var(--bg-color);
+    padding: 12px 8px;
+    gap: 8px;
+    height: 100%;
+
+    &_typeIcon {
+      width: 30px;
+      height: 30px;
+      stroke: var(--muted-color);
+      justify-self: center;
+    }
+
+    &_title {
+      .ellipsis();
+      width: 100%;
+      text-align: center;
+      font: var(--font-xs);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__typeIcon {
+    width: 32px;
+    height: 32px;
+    stroke: var(--muted-color);
+    justify-self: center;
+  }
+
+  &__actionIcon {
+    align-self: center;
+  }
+
+  &__title {
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+  }
+
+  &__description {
+    color: var(--muted-color);
+  }
+
+  &__link {
+  }
+}

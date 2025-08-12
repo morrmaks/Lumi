@@ -17,6 +17,7 @@ export const buildWebpackConfig = (
       path: paths.build,
       filename: '[name].[contenthash].js',
       clean: true,
+      publicPath: '/',
     },
     devServer: isDev ? buildDevServer(options) : undefined,
     devtool: isDev ? 'eval-cheap-module-source-map' : undefined,

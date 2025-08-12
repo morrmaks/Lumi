@@ -7,13 +7,13 @@ export const ProductOrderCardSkeleton = () => {
       <div className={cls.productOrderCard__meta}>
         <Skeleton className={cls.productOrderCard__image} />
         <div>
-          <Skeleton width={200} height={20} />
-          <Skeleton width={100} height={16} />
+          <Skeleton width={200} height={20} border={'4px'} />
+          <Skeleton width={100} height={16} border={'4px'} />
         </div>
       </div>
       <div className={cls.productOrderCard__priceContainer}>
-        <Skeleton width={60} height={20} />
-        <Skeleton width={100} height={18} />
+        <Skeleton width={60} height={20} border={'4px'} />
+        <Skeleton width={100} height={18} border={'4px'} />
       </div>
     </div>
   )

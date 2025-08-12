@@ -42,3 +42,13 @@
     .shadow(0, 6px, 8px, 0);
   }
 }
+
+.selectableScale(@scale: 1.05) {
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition-speed);
+
+  &:hover {
+    transform: scale(@scale);
+  }
+}
