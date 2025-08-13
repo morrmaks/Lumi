@@ -1,14 +1,3 @@
-import {
-  getCategoryIsLoading,
-  getCategoryHasMore,
-  getCategoryLimit,
-  getCategoryPage,
-  getCategoryName,
-  getCategoryId,
-  getCategorySort,
-  getCategoryView,
-  getCategoryProducts,
-} from './selectors/categoryPageSelectors'
 import type {
   ICategoryProduct,
   CategoryPageSchema,
@@ -18,16 +7,8 @@ import {
   categoryPageSlice,
 } from './slice/categoryPageSlice'
 
+export * from './selectors/categoryPageSelectors'
 export {
-  getCategoryIsLoading,
-  getCategoryHasMore,
-  getCategoryLimit,
-  getCategoryPage,
-  getCategoryName,
-  getCategoryId,
-  getCategorySort,
-  getCategoryView,
-  getCategoryProducts,
   ICategoryProduct,
   CategoryPageSchema,
   categoryPageReducer,

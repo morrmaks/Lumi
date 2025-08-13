@@ -1,4 +1,3 @@
-import { getConfiguratorComponentsState } from './selectors/getConfiguratorComponentsState'
 import {
   configuratorComponentsReducer,
   configuratorComponentsActions,
@@ -10,11 +9,11 @@ import type {
   ConfiguratorComponentsSchema,
 } from './types/configuratorComponentsSchema'
 
+export * from './selectors/configuratorComponentsSelectors'
 export {
   ConfiguratorComponent,
   ConfiguratorComponentIdsMap,
   ConfiguratorComponentMap,
-  getConfiguratorComponentsState,
   configuratorComponentsReducer,
   configuratorComponentsActions,
   ConfiguratorComponentsSchema,

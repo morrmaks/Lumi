@@ -14,7 +14,7 @@ interface IBasketItem {
   image: string
   title: string
   rating: string
-  reviews: string
+  reviews: number
   quantity: number
   discountPrice: number
   price: number

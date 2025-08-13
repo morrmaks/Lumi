@@ -8,7 +8,7 @@ import {
   profileSettingsActions,
   profileSettingsReducer,
 } from '../model/slice/profileSettingsSlice'
-import { getProfileSettingsState } from '../model/selectors/getProfileSettingsState'
+import { getProfileSettingsState } from '@/features/Profile'
 
 const initialReducers: ReducerList = {
   profileSettingsForm: profileSettingsReducer,

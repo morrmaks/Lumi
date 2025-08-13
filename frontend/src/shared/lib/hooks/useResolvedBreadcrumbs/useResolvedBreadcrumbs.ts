@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import { BreadcrumbMap } from '@/shared/consts/breadcrumbMap'
 import { useAppSelector } from '@/shared/lib/hooks'
-import { getBreadcrumbNavState } from '@/features/BreadcrumbNav/model/selectors/getBreadcrumbNavState'
+import { getBreadcrumbNavState } from '@/features/BreadcrumbNav'
 
 export const useResolvedBreadcrumbs = () => {
   const { pathname } = useLocation()

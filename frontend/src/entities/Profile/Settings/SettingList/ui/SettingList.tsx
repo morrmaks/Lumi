@@ -3,7 +3,7 @@ import cls from './SettingList.module.less'
 import { Checkbox, CheckboxType } from '@/shared/ui/Checkbox'
 import { settingListConfig } from '@/entities/Profile'
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
-import { getUserSettings } from '@/entities/User/model/selectors/getUserSettings'
+import { getUserSettings } from '@/entities/User'
 import { useCallback, useEffect, useState } from 'react'
 import { Settings, userActions } from '@/entities/User'
 

@@ -1,14 +1,7 @@
-import { ComponentNames } from '@/features/Configurator'
+import { IProduct } from '@/features/Product'
 
-export interface IProduct {
-  id: string
-  images: string[]
-  title: string
-  description: string
-  specs: Record<string, string | number>
-  rating: string
-  reviews: string
-  discountPrice: number
-  price: number
-  componentName: ComponentNames
+export interface ProductPageSchema {
+  product: IProduct
+  isLoading: boolean
+  error?: string
 }

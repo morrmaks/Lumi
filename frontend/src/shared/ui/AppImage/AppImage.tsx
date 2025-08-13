@@ -35,10 +35,11 @@ export const CustomImage = ({
 }: ImageProps) => {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
-
+  // console.log(src)
   useLayoutEffect(() => {
     const img = new Image()
     img.src = src ?? ''
+    // console.log(src)
     img.onload = () => {
       setIsLoading(false)
     }

@@ -1,0 +1,15 @@
+@import '@/app/styles/mixins/container';
+
+.productImageModal {
+  .flex(column, center, start);
+  gap: 8px;
+  padding: 48px 0;
+  border: none;
+  border-radius: 0;
+  max-height: 100vh;
+
+  &__image {
+    width: 80%;
+    object-fit: contain;
+  }
+}

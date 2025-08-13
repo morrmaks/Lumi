@@ -1,2 +1,3 @@
+import { ProductDetailsSkeleton } from './ProductDetailsSkeleton'
 import { ProductDetails } from './ProductDetails'
-export { ProductDetails }
+export { ProductDetailsSkeleton, ProductDetails }

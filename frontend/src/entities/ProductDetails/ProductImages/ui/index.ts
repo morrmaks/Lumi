@@ -1,2 +1,4 @@
+import { ProductImageModal } from './ProductImageModal/ProductImageModal'
+import { ProductImagesSkeleton } from './ProductImagesSkeleton'
 import { ProductImages } from './ProductImages'
-export { ProductImages }
+export { ProductImageModal, ProductImagesSkeleton, ProductImages }

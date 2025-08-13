@@ -2,16 +2,16 @@ import cls from './ProductDetails.module.less'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts'
 import { getIconTheme } from '@/shared/lib/utils'
-import { IProduct } from '@/pages/ProductPage'
-import { getProductDetailsDiscountAmount } from '@/entities/ProductDetails'
+import {
+  getProductDetailsDiscountAmount,
+  ProductDetailsSkeleton,
+} from '@/entities/ProductDetails'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
-import { MouseEvent, useCallback } from 'react'
+import { MouseEvent, useCallback, useMemo } from 'react'
+import { useAppSelector } from '@/shared/lib/hooks'
+import { getProductCard, getProductIsLoading } from '@/pages/ProductPage'
 
-interface ProductDetailsProps {
-  product: IProduct
-}
-
-export const ProductDetails = ({ product }: ProductDetailsProps) => {
+export const ProductDetails = () => {
   const {
     id,
     images,
@@ -23,9 +23,13 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
     discountPrice,
     price,
     componentName,
-  } = product
+  } = useAppSelector(getProductCard)
+  const isLoading = useAppSelector(getProductIsLoading)
 
-  const discountAmount = getProductDetailsDiscountAmount(price, discountPrice)
+  const discountAmount = useMemo(
+    () => getProductDetailsDiscountAmount(price, discountPrice),
+    [price, discountPrice]
+  )
 
   const handleAddToBasket = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     // dispatch(addBasketProduct(id))
@@ -48,10 +52,15 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
     []
   )
 
+  if (isLoading) {
+    return <ProductDetailsSkeleton />
+  }
+
   return (
     <div className={cls.productDetails}>
       <div className={cls.productDetails__header}>
         <h2 className={cls.productDetails__title}>{title}</h2>
+
         <div className={cls.productDetails__ratingContainer}>
           <Icon
             Svg={IconsMap.RATING}
@@ -63,6 +72,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
             ({reviews} отзывов)
           </span>
         </div>
+
         <div className={cls.productDetails__priceSection}>
           {price !== discountPrice && (
             <span className={cls.productDetails__price}>{price} ₽</span>
@@ -74,6 +84,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
             Экономия: {discountAmount} ₽
           </span>
         </div>
+
         <div className={cls.productDetails__buttons}>
           <Button
             onClick={handleAddToBasket}
@@ -109,6 +120,26 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
               В конфигуратор
             </Button>
           </div>
+        </div>
+
+        <div className={cls.productDetails__specs}>
+          <h3 className={cls.productDetails__specs_title}>
+            Технические характеристики
+          </h3>
+          <ul className={cls.productDetails__specList}>
+            {specs.map(({ label, value }) => (
+              <li key={label} className={cls.productDetails__spec}>
+                <span className={cls.productDetails__spec_label}>{label}</span>
+                <div className={cls.productDetails__spec_line}></div>
+                <span className={cls.productDetails__spec_value}>{value}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className={cls.productDetails__description}>
+          <h3 className={cls.productDetails__description_title}>Описание</h3>
+          <p className={cls.productDetails__description_text}>{description}</p>
         </div>
       </div>
     </div>

@@ -1,11 +1,11 @@
-import { getWishlistProductsState } from './selectors/getWishlistProductsState'
 import {
   wishlistProductsActions,
   wishlistProductsReducer,
 } from './slice/wishlistProductsSlice'
 import { type WishlistProductsSchema } from './types/wishlistProductsSchema'
+
+export * from './selectors/wishlistProductsSelectors'
 export {
-  getWishlistProductsState,
   wishlistProductsActions,
   wishlistProductsReducer,
   WishlistProductsSchema,

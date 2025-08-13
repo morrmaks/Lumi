@@ -12,7 +12,7 @@ export interface IWishlistItem {
   image: string
   title: string
   rating: string
-  reviews: string
+  reviews: number
   discountPrice: number
   price: number
 }
@@ -24,7 +24,7 @@ const WishlistItems: IWishlistItem[] = [
       'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=300&h=300&fit=crop',
     title: 'NVIDIA GeForce RTX 4080',
     rating: '4.8',
-    reviews: '128',
+    reviews: 128,
     price: 99990,
     discountPrice: 89990,
   },
@@ -34,7 +34,7 @@ const WishlistItems: IWishlistItem[] = [
       'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     title: 'AMD Ryzen 9 7900X',
     rating: '4.7',
-    reviews: '245',
+    reviews: 245,
     price: 54990,
     discountPrice: 48990,
   },
@@ -44,7 +44,7 @@ const WishlistItems: IWishlistItem[] = [
       'https://images.unsplash.com/photo-1577538926210-fc6cc624fde2?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     title: 'Samsung 980 PRO 1TB SSD',
     rating: '4.9',
-    reviews: '510',
+    reviews: 510,
     price: 12490,
     discountPrice: 12490,
   },
@@ -54,7 +54,7 @@ const WishlistItems: IWishlistItem[] = [
       'https://images.unsplash.com/photo-1736457833735-a24989a1270f?q=80&w=874&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     title: 'Corsair Vengeance 32GB DDR5',
     rating: '4.8',
-    reviews: '322',
+    reviews: 322,
     price: 18990,
     discountPrice: 15990,
   },
@@ -64,7 +64,7 @@ const WishlistItems: IWishlistItem[] = [
       'https://avatars.mds.yandex.net/i?id=befd2ba9680b6a66666cfa707d26091a2ed81cea-4600590-images-thumbs&n=13',
     title: 'MSI MAG B650 Tomahawk',
     rating: '4.6',
-    reviews: '187',
+    reviews: 187,
     price: 24990,
     discountPrice: 24990,
   },
