@@ -3,15 +3,17 @@ import cls from './Modal.module.less'
 import { ReactNode, useEffect } from 'react'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
+import { classNames } from '@/shared/lib/utils'
 
 interface ModalProps {
   onClose: () => void
   children?: ReactNode
+  className?: string
 }
 
 const modalRoot = document.getElementById('modal')
 
-export const Modal = ({ onClose, children }: ModalProps) => {
+export const Modal = ({ onClose, children, className }: ModalProps) => {
   useEffect(() => {
     const originalStyle = window.getComputedStyle(document.body).overflow
     document.body.style.overflow = 'hidden'
@@ -27,7 +29,7 @@ export const Modal = ({ onClose, children }: ModalProps) => {
       <div className={cls.modal} onClick={onClose}>
         <div
           onClick={(e) => e.stopPropagation()}
-          className={cls.modal__container}
+          className={classNames(cls.modal__container, {}, [className])}
         >
           <Icon
             Svg={IconsMap.CLOSE}

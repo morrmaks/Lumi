@@ -1,4 +1,3 @@
-import { getBasketProductsState } from './selectors/getBasketProductsState'
 import {
   basketProductsReducer,
   basketProductsActions,
@@ -8,8 +7,8 @@ import {
   type BasketProductsSchema,
 } from './types/basketProductsSchema'
 
+export * from './selectors/basketProductsSelectors'
 export {
-  getBasketProductsState,
   basketProductsReducer,
   basketProductsActions,
   BasketProduct,

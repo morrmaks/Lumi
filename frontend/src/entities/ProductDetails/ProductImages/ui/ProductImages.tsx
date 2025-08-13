@@ -1,25 +1,19 @@
 import cls from './ProductImages.module.less'
 import { AppImage } from '@/shared/ui/AppImage'
 import { classNames } from '@/shared/lib/utils'
-import { IProduct } from '@/pages/ProductPage'
 import { useCallback, useState } from 'react'
+import { useAppSelector } from '@/shared/lib/hooks'
+import { getProductCard, getProductIsLoading } from '@/pages/ProductPage'
+import {
+  ProductImageModal,
+  ProductImagesSkeleton,
+} from '@/entities/ProductDetails'
 
-interface ProductImagesProps {
-  product: IProduct
-}
+export const ProductImages = () => {
+  const { images, title } = useAppSelector(getProductCard)
+  const isLoading = useAppSelector(getProductIsLoading)
 
-export const ProductImages = ({ product }: ProductImagesProps) => {
-  const {
-    id,
-    images,
-    title,
-    description,
-    specs,
-    rating,
-    reviews,
-    discountPrice,
-    price,
-  } = product
+  const [isOpen, setOpen] = useState(false)
   const [fullImage, setFullImage] = useState<{ src: string; index: number }>({
     src: images[0],
     index: 0,
@@ -32,10 +26,22 @@ export const ProductImages = ({ product }: ProductImagesProps) => {
     })
   }, [])
 
+  const handleImageModalClose = useCallback(() => {
+    setOpen(false)
+  }, [])
+
+  const handleImageModalOpen = useCallback(() => {
+    setOpen(true)
+  }, [])
+
+  if (isLoading) {
+    return <ProductImagesSkeleton />
+  }
+
   return (
     <div className={cls.productImages}>
       <div className={cls.productImages__selector}>
-        {product.images.map((image, i) => (
+        {images.map((image, i) => (
           <AppImage
             key={image}
             src={image}
@@ -50,11 +56,18 @@ export const ProductImages = ({ product }: ProductImagesProps) => {
       </div>
       <div className={cls.productImages__fullImage_container}>
         <AppImage
-          src={fullImage.src}
+          src={fullImage.src ?? images[0]}
           alt={title}
+          onClick={handleImageModalOpen}
           className={cls.productImages__fullImage}
         />
       </div>
+      <ProductImageModal
+        isOpen={isOpen}
+        onClose={handleImageModalClose}
+        images={images}
+        alt={title}
+      />
     </div>
   )
 }

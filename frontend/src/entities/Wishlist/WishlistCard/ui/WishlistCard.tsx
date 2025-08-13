@@ -14,7 +14,7 @@ interface IWishlistItem {
   image: string
   title: string
   rating: string
-  reviews: string
+  reviews: number
   discountPrice: number
   price: number
 }

@@ -3,10 +3,6 @@ import {
   dropdownMenuActions,
   dropdownMenuReducer,
 } from './slice/dropdownMenuSlice'
-import { getDropdownMenuState } from './selectors/getDropdownMenuState'
-export {
-  DropdownMenuSchema,
-  dropdownMenuActions,
-  dropdownMenuReducer,
-  getDropdownMenuState,
-}
+
+export * from './selectors/dropdownMenuSelectors'
+export { DropdownMenuSchema, dropdownMenuActions, dropdownMenuReducer }

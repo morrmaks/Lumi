@@ -24,6 +24,7 @@
     border-radius: var(--border-radius-l);
     width: 100%;
     min-height: 100%;
+    aspect-ratio: 1;
 
     &_container {
       width: 100%;
@@ -69,6 +70,7 @@
     height: 60px;
     aspect-ratio: 1;
     border-radius: var(--border-radius-l);
+    flex-shrink: 0;
 
     @media @breakpoint-sm {
       width: 80px;
@@ -87,6 +89,21 @@
 
     &_active {
       .border(2px, solid, var(--secondary-color));
+    }
+  }
+
+  &__modal {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    height: auto;
+
+    .productImages__fullImage {
+      aspect-ratio: auto;
+      min-height: 0;
+      max-height: 80vh;
+      max-width: 100vw;
+      object-fit: contain;
     }
   }
 }

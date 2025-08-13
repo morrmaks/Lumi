@@ -13,6 +13,7 @@ import { ProfileCardSchema } from '@/features/Profile'
 import { ProfileSettingsSchema } from '@/features/Profile'
 import { ConfiguratorComponentsSchema } from '@/features/Configurator'
 import { CategoryPageSchema } from '@/pages/CategoryPage'
+import { ProductPageSchema } from '@/pages/ProductPage'
 
 export interface StateSchema {
   user: UserSchema
@@ -22,6 +23,7 @@ export interface StateSchema {
   basketProducts: BasketProductsSchema
   configuratorComponents: ConfiguratorComponentsSchema
   categoryPage?: CategoryPageSchema
+  productPage?: ProductPageSchema
   loginForm?: LoginSchema
   registerForm?: RegisterSchema
   forgotPasswordForm?: ForgotPasswordSchema
