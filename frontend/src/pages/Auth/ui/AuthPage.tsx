@@ -4,8 +4,9 @@ import { getRouteAuthLogin, getRouteAuthRegister } from '@/shared/consts/router'
 import { Suspense } from 'react'
 import cls from './AuthPage.module.less'
 import { classNames } from '@/shared/lib/utils'
-import { Skeleton } from '@/shared/ui/Skeleton'
 import { PageLayout } from '@/widgets/PageLayout'
+import { Placeholders } from '@/shared/consts'
+import { AuthFormSkeleton } from '@/pages/Auth'
 
 const AuthPage = () => {
   const location = useLocation()
@@ -16,9 +17,11 @@ const AuthPage = () => {
     <PageLayout>
       <div className={cls.authPage}>
         <div className={cls.authPage__header}>
-          <h1 className={cls.authPage__title}>Вход в аккаунт</h1>
+          <h2 className={cls.authPage__title}>
+            {Placeholders.pages.auth.mainText}
+          </h2>
           <p className={cls.authPage__description}>
-            Войдите в свой аккаунт или создайте новый
+            {Placeholders.pages.auth.describeText}
           </p>
         </div>
         {isLoginPage || isRegisterPage ? (
@@ -31,7 +34,7 @@ const AuthPage = () => {
                 []
               )}
             >
-              Вход
+              {Placeholders.pages.auth.tabs.loginTab}
             </AppLink>
             <AppLink
               to={getRouteAuthRegister()}
@@ -41,13 +44,11 @@ const AuthPage = () => {
                 []
               )}
             >
-              Регистрация
+              {Placeholders.pages.auth.tabs.registerTab}
             </AppLink>
           </div>
         ) : null}
-        <Suspense
-          fallback={<Skeleton width="672px" height="320px" border="10px" />}
-        >
+        <Suspense fallback={<AuthFormSkeleton />}>
           <Outlet />
         </Suspense>
       </div>

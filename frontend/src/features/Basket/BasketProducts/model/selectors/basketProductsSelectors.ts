@@ -1,4 +1,7 @@
 import { StateSchema } from '@/app/providers/StoreProvider'
 
-export const getBasketProductsState = (state: StateSchema) =>
-  state?.basketProducts ?? { products: [], isLoading: false }
+export const getBasketProducts = (state: StateSchema) =>
+  state?.basketProducts?.products ?? []
+
+export const getBasketIsLoading = (state: StateSchema) =>
+  state?.basketProducts?.isLoading ?? false

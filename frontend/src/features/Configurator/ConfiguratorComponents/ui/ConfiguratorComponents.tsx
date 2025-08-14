@@ -42,7 +42,7 @@ interface ConfiguratorComponentsProps {
   className?: string
 }
 
-export const ConfiguratorComponents = ({
+const ConfiguratorComponents = ({
   carousel = false,
   className,
 }: ConfiguratorComponentsProps) => {
@@ -66,9 +66,11 @@ export const ConfiguratorComponents = ({
   if (isLoading) {
     return (
       <ul
-        className={classNames(cls.configuratorComponents, {
-          [cls.configuratorComponents__carousel]: carousel,
-        })}
+        className={classNames(
+          cls.configuratorComponents,
+          { [cls.configuratorComponents__carousel]: carousel },
+          [className]
+        )}
       >
         {[...new Array(8)].map((_, i) => (
           <li key={i}>
@@ -81,9 +83,11 @@ export const ConfiguratorComponents = ({
 
   return (
     <ul
-      className={classNames(cls.configuratorComponents, {
-        [cls.configuratorComponents__carousel]: carousel,
-      })}
+      className={classNames(
+        cls.configuratorComponents,
+        { [cls.configuratorComponents__carousel]: carousel },
+        [className]
+      )}
     >
       {Object.entries(components).map(([key, value]) => {
         const componentConfig =
@@ -126,3 +130,5 @@ export const ConfiguratorComponents = ({
     </ul>
   )
 }
+
+export default ConfiguratorComponents

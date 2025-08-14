@@ -13,6 +13,7 @@ import {
   ViewFormat,
 } from '@/pages/CategoryPage'
 import { useAppSelector } from '@/shared/lib/hooks'
+import { Placeholders } from '@/shared/consts'
 
 interface CategoryProductProps {
   product: ICategoryProduct
@@ -92,7 +93,7 @@ export const Product = ({ product, view }: CategoryProductProps) => {
                 Svg={IconsMap.BASKET}
                 className={cls.categoryProduct__buttonIcon}
               />
-              В корзину
+              {Placeholders.entities.category.categoryProduct.onAddToBasket}
             </Button>
           </div>
         </div>

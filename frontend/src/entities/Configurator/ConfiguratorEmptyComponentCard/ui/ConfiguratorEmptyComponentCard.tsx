@@ -2,6 +2,7 @@ import cls from './ConfiguratorEmptyComponentCard.module.less'
 import { ConfiguratorComponentConfig } from '@/features/Configurator'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
+import { Placeholders } from '@/shared/consts'
 
 interface ConfiguratorComponentCardProps {
   componentConfig: ConfiguratorComponentConfig
@@ -37,7 +38,7 @@ export const ConfiguratorEmptyComponentCard = ({
           {componentConfig.label}
         </h4>
         <p className={cls.configuratorEmptyComponentCard__description}>
-          Не выбран
+          {Placeholders.entities.configurator.emptyComponent.describeText}
         </p>
       </div>
       <Icon

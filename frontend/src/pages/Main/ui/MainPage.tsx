@@ -1,11 +1,31 @@
-import { BugButton } from '@/app/providers/ErrorBoundary'
+import { PageLayout } from '@/widgets/PageLayout'
+import {
+  BannerCarousel,
+  CategoriesSection,
+  ConfiguratorPromoBlock,
+} from '@/entities/MainSection'
+import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
+import { bannersReducer } from '@/features/Banners'
+import cls from './MainPage.module.less'
+
+const initialReducers: ReducerList = {
+  banners: bannersReducer,
+}
 
 const MainPage = () => {
   return (
-    <div>
-      <h1>Главная</h1>
-      <BugButton></BugButton>
-    </div>
+    <PageLayout>
+      <div className={cls.mainPage}>
+        <DynamicModuleLoader
+          reducers={initialReducers}
+          removeAfterUnmount={false}
+        >
+          <BannerCarousel />
+        </DynamicModuleLoader>
+        <CategoriesSection />
+        <ConfiguratorPromoBlock />
+      </div>
+    </PageLayout>
   )
 }
 

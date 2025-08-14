@@ -34,8 +34,18 @@
   box-shadow: @offsetX @offsetY @blurRadius @spreadRadius @color;
 }
 
-.ellipsis() {
+.insetShadow(@shadowColor: var(--shadow-color)) {
+  box-shadow:
+    inset -10px 0 20px -5px var(--shadow-color),
+    inset 10px 0 20px -5px var(--shadow-color);
+}
+
+.textShadow(@offsetX: 0, @offsetY: 0, @blurRadius: 4px, @color: var(--shadow-color)) {
+  text-shadow: @offsetX @offsetY @blurRadius @color;
+}
+
+.ellipsis(@wrap: nowrap) {
   overflow: hidden;
-  white-space: nowrap;
+  white-space: @wrap;
   text-overflow: ellipsis;
 }

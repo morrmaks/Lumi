@@ -9,6 +9,7 @@ import {
   profileSettingsReducer,
 } from '../model/slice/profileSettingsSlice'
 import { getProfileSettingsState } from '@/features/Profile'
+import { Placeholders } from '@/shared/consts'
 
 const initialReducers: ReducerList = {
   profileSettingsForm: profileSettingsReducer,
@@ -49,7 +50,7 @@ export const ProfileSettingsForm = () => {
           htmlFor="current-password"
           className={cls.profileSettingsForm__label}
         >
-          Текущий пароль
+          {Placeholders.features.profile.settingsForm.labels.currentPassword}
           <PasswordInput
             id={'current-password'}
             value={currentPassword}
@@ -61,7 +62,7 @@ export const ProfileSettingsForm = () => {
           htmlFor="new-password"
           className={cls.profileSettingsForm__label}
         >
-          Новый пароль
+          {Placeholders.features.profile.settingsForm.labels.newPassword}
           <PasswordInput
             id={'new-password'}
             value={newPassword}
@@ -75,7 +76,7 @@ export const ProfileSettingsForm = () => {
           fullWidth={true}
           className={cls.profileSettingsForm__button}
         >
-          Изменить пароль
+          {Placeholders.features.profile.settingsForm.submit}
         </Button>
         {error && (
           <span className={cls.profileSettingsForm__errors}>{error}</span>

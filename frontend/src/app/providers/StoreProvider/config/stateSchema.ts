@@ -14,6 +14,7 @@ import { ProfileSettingsSchema } from '@/features/Profile'
 import { ConfiguratorComponentsSchema } from '@/features/Configurator'
 import { CategoryPageSchema } from '@/pages/CategoryPage'
 import { ProductPageSchema } from '@/pages/ProductPage'
+import { BannersSchema } from '@/features/Banners'
 
 export interface StateSchema {
   user: UserSchema
@@ -24,6 +25,7 @@ export interface StateSchema {
   configuratorComponents: ConfiguratorComponentsSchema
   categoryPage?: CategoryPageSchema
   productPage?: ProductPageSchema
+  banners?: BannersSchema
   loginForm?: LoginSchema
   registerForm?: RegisterSchema
   forgotPasswordForm?: ForgotPasswordSchema

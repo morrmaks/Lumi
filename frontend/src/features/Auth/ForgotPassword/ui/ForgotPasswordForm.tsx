@@ -18,6 +18,7 @@ import {
 import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import { ButtonSize } from '@/shared/ui/Button/Button'
 import { userActions } from '@/entities/User'
+import { Placeholders } from '@/shared/consts'
 
 const initialReducers: ReducerList = {
   forgotPasswordForm: forgotPasswordReducer,
@@ -52,21 +53,20 @@ export const ForgotPasswordForm = () => {
     <DynamicModuleLoader reducers={initialReducers}>
       <form className={cls.forgotPasswordForm} onSubmit={handleSubmit}>
         <label htmlFor="email" className={cls.forgotPasswordForm__label}>
-          Email
+          {Placeholders.features.auth.forgotPasswordForm.labels.email}
           <Input
             id={'email'}
             type={'email'}
             value={email}
             onChangeString={onChangeEmail}
-            placeholder={'email@mail.com'}
+            placeholder={
+              Placeholders.features.auth.forgotPasswordForm.placeholders.email
+            }
             className={cls.forgotPasswordForm__input}
           />
         </label>
         {error && (
-          <span className={cls.forgotPasswordForm__errors}>
-            {error}
-            sdfsdf
-          </span>
+          <span className={cls.forgotPasswordForm__errors}>{error}</span>
         )}
         <Button
           type={'submit'}
@@ -75,13 +75,13 @@ export const ForgotPasswordForm = () => {
           size={ButtonSize.L}
           disabled={isLoading}
         >
-          Отправить код
+          {Placeholders.features.auth.forgotPasswordForm.submit}
         </Button>
         <AppLink
           to={getFullRouteLogin()}
           className={cls.forgotPasswordForm__backLoginButton}
         >
-          ← Вернуться ко входу
+          {Placeholders.features.auth.forgotPasswordForm.onRouteLogin}
         </AppLink>
       </form>
     </DynamicModuleLoader>

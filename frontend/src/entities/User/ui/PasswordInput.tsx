@@ -1,5 +1,6 @@
 import { Input } from '@/shared/ui/Input'
 import { useState } from 'react'
+import { Placeholders } from '@/shared/consts'
 
 interface PasswordInputProps {
   className?: string
@@ -21,7 +22,7 @@ export const PasswordInput = ({
       id={id ?? 'password'}
       type={isShow ? 'text' : 'password'}
       name={'password'}
-      placeholder={'Введите пароль'}
+      placeholder={Placeholders.entities.user.passwordInput.placeholder}
       className={className}
       value={value}
       onChangeString={onChange}

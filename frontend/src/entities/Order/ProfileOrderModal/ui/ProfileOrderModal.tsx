@@ -6,6 +6,7 @@ import cls from './ProfileOrderModal.module.less'
 import { copyToClipboard } from '@/shared/lib/utils'
 import { useEffect, useState } from 'react'
 import { ProductOrderCard, ProductOrderCardSkeleton } from '@/entities/Order'
+import { Placeholders } from '@/shared/consts'
 
 export interface Product {
   id: string
@@ -83,7 +84,7 @@ export const ProfileOrderModal = ({ onClose, card }: OrderModalProps) => {
           />
           <h3
             className={cls.profileOrderModal__header_title}
-          >{`Заказ ${id}`}</h3>
+          >{`${Placeholders.entities.order.profileOrderModal.mainText} ${id}`}</h3>
         </div>
         <div className={cls.profileOrderModal__sectionStatus}>
           <div className={cls.profileOrderModal__statusContainter}>
@@ -91,12 +92,12 @@ export const ProfileOrderModal = ({ onClose, card }: OrderModalProps) => {
               {status}
             </span>
             <span className={cls.profileOrderModal__sectionStatus_date}>
-              Заказ от {date}
+              {`${Placeholders.entities.order.profileOrderModal.dateOrder} ${date}`}
             </span>
           </div>
           <div className={cls.profileOrderModal__trackNumberContainer}>
             <span className={cls.profileOrderModal__trackNumberContainer_title}>
-              Номер отслеживания
+              {Placeholders.entities.order.profileOrderModal.trackNumber}
             </span>
             <div className={cls.profileOrderModal__trackNumber}>
               {trackNumber}
@@ -110,7 +111,7 @@ export const ProfileOrderModal = ({ onClose, card }: OrderModalProps) => {
         </div>
         <div className={cls.profileOrderModal__sectionProducts}>
           <h4 className={cls.profileOrderModal__sectionProducts_title}>
-            Товары
+            {Placeholders.entities.order.profileOrderModal.productsMainText}
           </h4>
           <ul className={cls.profileOrderModal__productList}>
             {isLoading
@@ -128,7 +129,7 @@ export const ProfileOrderModal = ({ onClose, card }: OrderModalProps) => {
         </div>
         <div className={cls.profileOrderModal__sectionDetails}>
           <h4 className={cls.profileOrderModal__sectionDetails_title}>
-            Детали заказа
+            {Placeholders.entities.order.profileOrderModal.details.mainText}
           </h4>
           <div className={cls.profileOrderModal__sectionDetails_container}>
             <div
@@ -137,7 +138,7 @@ export const ProfileOrderModal = ({ onClose, card }: OrderModalProps) => {
               <span
                 className={cls.profileOrderModal__sectionDetails_addressTitle}
               >
-                Адрес доставки
+                {Placeholders.entities.order.profileOrderModal.details.address}
               </span>
               <p className={cls.profileOrderModal__sectionDetails_address}>
                 {address}
@@ -149,7 +150,10 @@ export const ProfileOrderModal = ({ onClose, card }: OrderModalProps) => {
               <span
                 className={cls.profileOrderModal__sectionDetails_paymentTitle}
               >
-                Метод оплаты
+                {
+                  Placeholders.entities.order.profileOrderModal.details
+                    .paymentMethod
+                }
               </span>
               <span
                 className={cls.profileOrderModal__sectionDetails_paymentMethod}
@@ -161,7 +165,7 @@ export const ProfileOrderModal = ({ onClose, card }: OrderModalProps) => {
         </div>
         <div className={cls.profileOrderModal__sectionTotalPrice}>
           <span className={cls.profileOrderModal__sectionTotalPrice_title}>
-            Итого к оплате
+            {Placeholders.entities.order.profileOrderModal.details.totalPrice}
           </span>
           <span className={cls.profileOrderModal__orderPrice}>{total} ₽</span>
         </div>

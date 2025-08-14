@@ -11,6 +11,9 @@ import {
   productPageActions,
   productPageReducer,
 } from '@/pages/ProductPage'
+import { BackButton } from '@/shared/ui/BackButton'
+import { Icon } from '@/shared/ui/Icon'
+import { IconsMap, Placeholders } from '@/shared/consts'
 
 const productCard: IProduct = {
   id: '1',
@@ -68,15 +71,21 @@ const ProductPage = () => {
   }, [productId, dispatch])
 
   if (!productId) {
-    return <div>Товар не найден</div>
+    return <div>{Placeholders.pages.product.notFound}</div>
   }
 
   return (
     <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={false}>
       <PageLayout name={product.title}>
         <div className={cls.productPage}>
-          <ProductImages />
-          <ProductDetails />
+          <BackButton className={cls.productPage__backButton}>
+            <Icon Svg={IconsMap.CHEVRON_LEFT} />
+            {Placeholders.pages.product.onRouteBack}
+          </BackButton>
+          <div className={cls.productPage__content}>
+            <ProductImages />
+            <ProductDetails />
+          </div>
         </div>
       </PageLayout>
     </DynamicModuleLoader>

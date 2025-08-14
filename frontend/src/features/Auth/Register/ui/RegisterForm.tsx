@@ -14,6 +14,7 @@ import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import { ButtonSize } from '@/shared/ui/Button/Button'
 import { getRouteProfile } from '@/shared/consts/router'
 import { useNavigate } from 'react-router-dom'
+import { Placeholders } from '@/shared/consts'
 
 const initialReducers: ReducerList = {
   registerForm: registerReducer,
@@ -55,30 +56,27 @@ export const RegisterForm = () => {
     <DynamicModuleLoader reducers={initialReducers}>
       <form className={cls.registerForm} onSubmit={handleSubmit}>
         <label htmlFor="email" className={cls.registerForm__label}>
-          Email
+          {Placeholders.features.auth.registerForm.labels.email}
           <Input
             id={'email'}
             type={'email'}
             value={email}
             onChangeString={onChangeEmail}
-            placeholder={'email@mail.com'}
+            placeholder={
+              Placeholders.features.auth.registerForm.placeholders.email
+            }
             className={cls.registerForm__input}
           />
         </label>
         <label htmlFor="password" className={cls.registerForm__label}>
-          Пароль
+          {Placeholders.features.auth.registerForm.labels.password}
           <PasswordInput
             className={cls.registerForm__input}
             value={password}
             onChange={onChangePassword}
           />
         </label>
-        {error && (
-          <span className={cls.registerForm__errors}>
-            {error}
-            sdfsdf
-          </span>
-        )}
+        {error && <span className={cls.registerForm__errors}>{error}</span>}
         <Button
           type={'submit'}
           theme={ButtonTheme.PRIMARY}
@@ -86,7 +84,7 @@ export const RegisterForm = () => {
           size={ButtonSize.L}
           disabled={isLoading}
         >
-          Зарегистрироваться
+          {Placeholders.features.auth.registerForm.submit}
         </Button>
       </form>
     </DynamicModuleLoader>

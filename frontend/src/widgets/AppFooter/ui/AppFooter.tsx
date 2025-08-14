@@ -4,6 +4,7 @@ import { AppLink } from '@/shared/ui/AppLink'
 import { AppFooterLinksConfig } from '../config/AppFooterLinks'
 import { Icon } from '@/shared/ui/Icon'
 import { ExternalLink } from '@/shared/ui/ExternalLink'
+import { Placeholders } from '@/shared/consts'
 
 export const AppFooter = () => {
   return (
@@ -11,10 +12,7 @@ export const AppFooter = () => {
       <div className={cls.appFooter__info}>
         <div className={cls.appFooter__info_section}>
           <Logo />
-          <p>
-            Интернет-магазин электроники и комплектующих для ПК. Собираем
-            игровые компьютеры мечты с 2020 года.
-          </p>
+          <p>{Placeholders.widgets.footer.describeText}</p>
           <ul className={cls.appFooter__socialLinks}>
             {AppFooterLinksConfig.socialLinks.map(({ name, href, icon }) => (
               <li key={name}>
@@ -29,7 +27,9 @@ export const AppFooter = () => {
           </ul>
         </div>
         <div className={cls.appFooter__info_section}>
-          <h3 className={cls.appFooter__sectionTitle}>Быстрые ссылки</h3>
+          <h3 className={cls.appFooter__sectionTitle}>
+            {Placeholders.widgets.footer.quickLinks}
+          </h3>
           <nav className={cls.appFooter__menu}>
             {AppFooterLinksConfig.quickLinks.map(({ label, to }) => (
               <AppLink key={label} to={to} className={cls.appFooter__menu_item}>
@@ -39,7 +39,9 @@ export const AppFooter = () => {
           </nav>
         </div>
         <div className={cls.appFooter__info_section}>
-          <h3 className={cls.appFooter__sectionTitle}>Поддержка</h3>
+          <h3 className={cls.appFooter__sectionTitle}>
+            {Placeholders.widgets.footer.supportLinks}
+          </h3>
           <nav className={cls.appFooter__menu}>
             {AppFooterLinksConfig.supportLinks.map(({ label, to }) => (
               <AppLink key={label} to={to} className={cls.appFooter__menu_item}>
@@ -49,7 +51,9 @@ export const AppFooter = () => {
           </nav>
         </div>
         <div className={cls.appFooter__info_section}>
-          <h3 className={cls.appFooter__sectionTitle}>Контакты</h3>
+          <h3 className={cls.appFooter__sectionTitle}>
+            {Placeholders.widgets.footer.contactLinks}
+          </h3>
           <ul className={cls.appFooter__menu}>
             {AppFooterLinksConfig.contacts.map(({ label, icon }) => (
               <li key={label} className={cls.appFooter__contacts_item}>
@@ -62,7 +66,7 @@ export const AppFooter = () => {
       </div>
       <div className={cls.appFooter__docs}>
         <div className={cls.appFooter__docsContainer}>
-          <p>© 2025 Lumi. Все права защищены</p>
+          <p>{Placeholders.widgets.footer.copyright}</p>
           <ul className={cls.appFooter__docLinks}>
             {AppFooterLinksConfig.legalDocs.map(({ label, to }) => (
               <li key={label}>

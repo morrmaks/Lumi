@@ -1,0 +1,17 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/decorators';
+@import '@/app/styles/variables/global';
+
+.mainPage {
+  .flex(column, space-between, start);
+  gap: 32px;
+  width: 100%;
+
+  @media @breakpoint-sm {
+    gap: 40px;
+  }
+
+  @media @breakpoint-lg {
+    gap: 48px;
+  }
+}

@@ -1,6 +1,6 @@
 import cls from './CategoryPage.module.less'
 import { useParams } from 'react-router-dom'
-import { useCallback, useEffect } from 'react'
+import { Suspense, useCallback, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
 import { CategoryFilters, CategoryProducts } from '@/features/Category'
 import { PageLayout } from '@/widgets/PageLayout'
@@ -17,6 +17,8 @@ import {
 } from '@/pages/CategoryPage'
 import { categoryPageActions } from '@/pages/CategoryPage/model/slice/categoryPageSlice'
 import { ConfiguratorComponents } from '@/features/Configurator'
+import { Loader } from '@/shared/ui/Loader'
+import { Placeholders } from '@/shared/consts'
 
 const productList: ICategoryProduct[] = [
   {
@@ -173,7 +175,7 @@ const CategoryPage = () => {
   }, [dispatch])
 
   if (!categoryId) {
-    return <div>Категория не найдена</div>
+    return <div>{Placeholders.pages.category.notFound}</div>
   }
 
   return (
@@ -183,13 +185,18 @@ const CategoryPage = () => {
           <div className={cls.categoryPage__header}>
             <div>
               <h2 className={cls.categoryPage__title}>
-                Категория {categoryName}
+                {`${Placeholders.pages.category.mainText} ${categoryName}`}
               </h2>
             </div>
           </div>
           <div className={cls.categoryPage__productsSecton}>
             <div className={cls.categoryPage__configuratorCarousel}>
-              <ConfiguratorComponents carousel />
+              <Suspense fallback={<Loader />}>
+                <ConfiguratorComponents carousel />
+              </Suspense>
+              <div
+                className={cls.categoryPage__configuratorCarousel_shadow}
+              ></div>
             </div>
             <CategoryFilters />
             <InfiniteScrollWrapper

@@ -13,7 +13,8 @@ export const ProtectedRoute = ({
   anonimOnly = false,
   authOnly = false,
 }: ProtectedRouteProps) => {
-  const isAuth = true
+  // const isAuth = useAppSelector(getUserAuthData)
+  const isAuth = false
 
   if (anonimOnly && isAuth) {
     return <Navigate to={getRouteMain()} />

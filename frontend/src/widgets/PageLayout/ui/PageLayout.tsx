@@ -27,6 +27,10 @@ export const PageLayout = ({
     }
   }, [pathname, name])
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
   return (
     <section
       className={classNames(

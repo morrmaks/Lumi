@@ -5,14 +5,15 @@ import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { useAppSelector } from '@/shared/lib/hooks'
 import {
   fullBasketPrices,
-  getBasketProductsState,
   totalBasketProducts,
   getBasketDiscountAmount,
-} from '@/features/Basket/BasketProducts'
+  getBasketProducts,
+} from '@/features/Basket'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { AppLink } from '@/shared/ui/AppLink'
 import { getRouteCatalog } from '@/shared/consts/router'
+import { Placeholders } from '@/shared/consts'
 
 export interface IBasketItem {
   id: string
@@ -83,11 +84,11 @@ const BasketItems: IBasketItem[] = [
   },
 ]
 
-export const BasketProducts = () => {
+const BasketProducts = () => {
   const [products, setProducts] = useState<IBasketItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
-  const { products: productIds } = useAppSelector(getBasketProductsState)
+  const productIds = useAppSelector(getBasketProducts)
 
   const { price, discountPrice } = useMemo(
     () => fullBasketPrices(products),
@@ -137,31 +138,35 @@ export const BasketProducts = () => {
           key="addProduct"
         >
           <p className={cls.basketProducts__addProduct_title}>
-            Нужно что то еще?
+            {Placeholders.features.basket.products.onRouteCatalog.describeText}
           </p>
           <div className={cls.basketProducts__addProduct_description}>
             <Icon Svg={IconsMap.PLUS} />
-            <p>Продолжить покупки</p>
+            <p>
+              {Placeholders.features.basket.products.onRouteCatalog.triggerText}
+            </p>
           </div>
         </AppLink>
       </ul>
       <div className={cls.basketProducts__order}>
-        <h3 className={cls.basketProducts__order_title}>Ваш заказ</h3>
+        <h3 className={cls.basketProducts__order_title}>
+          {Placeholders.features.basket.products.order.mainText}
+        </h3>
         <div className={cls.basketProducts__order_subtotal}>
           <div className={cls.basketProducts__order_price}>
             <span>{`Товары, ${totalProducts} шт.`}</span>
             <span>{price} ₽</span>
           </div>
           <div className={cls.basketProducts__order_discount}>
-            <span>Ваша скидка</span>
+            <span>{Placeholders.features.basket.products.order.discount}</span>
             <span>{discountAmount > 0 ? `-${discountAmount}` : `0`} ₽</span>
           </div>
           <div className={cls.basketProducts__order_delivery}>
-            <span>Доставка</span>
+            <span>{Placeholders.features.basket.products.order.delivery}</span>
             <span>бесплатно</span>
           </div>
           <div className={cls.basketProducts__order_discountPrice}>
-            <span>Итого</span>
+            <span>{Placeholders.features.basket.products.order.price}</span>
             <span>{discountPrice} ₽</span>
           </div>
         </div>
@@ -170,9 +175,11 @@ export const BasketProducts = () => {
           className={cls.basketProducts__orderButton}
         >
           <Icon Svg={IconsMap.PAYMENT} />
-          Оформить заказ
+          {Placeholders.features.basket.products.onPlaceAnOrder}
         </Button>
       </div>
     </div>
   )
 }
+
+export default BasketProducts

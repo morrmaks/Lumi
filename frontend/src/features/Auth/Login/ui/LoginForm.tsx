@@ -18,6 +18,7 @@ import {
 import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import { ButtonSize } from '@/shared/ui/Button/Button'
 import { useNavigate } from 'react-router-dom'
+import { Placeholders } from '@/shared/consts'
 
 const initialReducers: ReducerList = {
   loginForm: loginReducer,
@@ -59,30 +60,27 @@ export const LoginForm = () => {
     <DynamicModuleLoader reducers={initialReducers}>
       <form className={cls.loginForm} onSubmit={handleSubmit}>
         <label htmlFor="email" className={cls.loginForm__label}>
-          Email
+          {Placeholders.features.auth.loginForm.labels.email}
           <Input
             id={'email'}
             type={'email'}
             value={email}
             onChangeString={onChangeEmail}
-            placeholder={'email@mail.com'}
+            placeholder={
+              Placeholders.features.auth.loginForm.placeholders.email
+            }
             className={cls.loginForm__input}
           />
         </label>
         <label htmlFor="password" className={cls.loginForm__label}>
-          Пароль
+          {Placeholders.features.auth.loginForm.labels.password}
           <PasswordInput
             className={cls.loginForm__input}
             value={password}
             onChange={onChangePassword}
           />
         </label>
-        {error && (
-          <span className={cls.loginForm__errors}>
-            {error}
-            sdfsdf
-          </span>
-        )}
+        {error && <span className={cls.loginForm__errors}>{error}</span>}
         <Button
           type={'submit'}
           theme={ButtonTheme.PRIMARY}
@@ -90,13 +88,13 @@ export const LoginForm = () => {
           size={ButtonSize.L}
           disabled={isLoading}
         >
-          Войти
+          {Placeholders.features.auth.loginForm.submit}
         </Button>
         <AppLink
           to={getFullRouteForgotPassword()}
           className={cls.loginForm__forgotButton}
         >
-          Забыли пароль?
+          {Placeholders.features.auth.loginForm.onRouteForgotPassword}
         </AppLink>
       </form>
     </DynamicModuleLoader>

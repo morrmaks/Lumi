@@ -7,6 +7,9 @@ import { IconsMap } from '@/shared/consts/icons'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { AppLink } from '@/shared/ui/AppLink'
 import { getRouteCatalog } from '@/shared/consts/router'
+import { Loader } from '@/shared/ui/Loader'
+import { Suspense } from 'react'
+import { Placeholders } from '@/shared/consts'
 
 const WishlistPage = () => {
   const { products } = useAppSelector(getWishlistProductsState)
@@ -16,14 +19,18 @@ const WishlistPage = () => {
       <div className={cls.wishlistPage}>
         <div className={cls.wishlistPage__header}>
           <div>
-            <h2 className={cls.wishlistPage__title}>Избранное</h2>
+            <h2 className={cls.wishlistPage__title}>
+              {Placeholders.pages.wishlist.mainText}
+            </h2>
             <p className={cls.wishlistPage__description}>
-              {`Товары, которые вас заинтересовали ${products.length ? ` (${products.length})` : ''}`}
+              {`${Placeholders.pages.wishlist.describeText} ${products.length ? ` (${products.length})` : ''}`}
             </p>
           </div>
         </div>
         {products.length > 0 ? (
-          <WishlistProducts />
+          <Suspense fallback={<Loader />}>
+            <WishlistProducts />
+          </Suspense>
         ) : (
           <div className={cls.wishlistPage__emptyWishlist}>
             <Icon
@@ -31,13 +38,15 @@ const WishlistPage = () => {
               className={cls.wishlistPage__emptyWishlist_icon}
             />
             <h3 className={cls.wishlistPage__emptyWishlist_title}>
-              Список избранного пуст
+              {Placeholders.pages.wishlist.empty.mainText}
             </h3>
             <p className={cls.wishlistPage__emptyWishlist_description}>
-              Добавьте товары в избранное, чтобы не потерять
+              {Placeholders.pages.wishlist.empty.describeText}
             </p>
             <AppLink to={getRouteCatalog()}>
-              <Button theme={ButtonTheme.SECONDARY}>Перейти в каталог</Button>
+              <Button theme={ButtonTheme.SECONDARY}>
+                {Placeholders.pages.wishlist.empty.onRouteCatalog}
+              </Button>
             </AppLink>
           </div>
         )}

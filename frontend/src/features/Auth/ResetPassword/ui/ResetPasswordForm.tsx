@@ -14,6 +14,7 @@ import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import { ButtonSize } from '@/shared/ui/Button/Button'
 import { useNavigate } from 'react-router-dom'
 import { getFullRouteLogin } from '@/shared/consts/router'
+import { Placeholders } from '@/shared/consts'
 
 const initialReducers: ReducerList = {
   resetPasswordForm: resetPasswordReducer,
@@ -60,18 +61,20 @@ export const ResetPasswordForm = () => {
           htmlFor="code-from-email"
           className={cls.resetPasswordForm__label}
         >
-          Код из письма
+          {Placeholders.features.auth.resetPasswordForm.labels.code}
           <Input
             id={'code-from-email'}
             type={'number'}
             value={codeFromEmail}
             onChangeString={onChangeCode}
-            placeholder={'Введите код'}
+            placeholder={
+              Placeholders.features.auth.resetPasswordForm.labels.password
+            }
             className={cls.resetPasswordForm__input}
           />
         </label>
         <label htmlFor="password" className={cls.resetPasswordForm__label}>
-          Новый пароль
+          {Placeholders.features.auth.resetPasswordForm.labels.password}
           <PasswordInput
             className={cls.resetPasswordForm__input}
             value={newPassword}
@@ -79,10 +82,7 @@ export const ResetPasswordForm = () => {
           />
         </label>
         {error && (
-          <span className={cls.resetPasswordForm__errors}>
-            {error}
-            sdfsdf
-          </span>
+          <span className={cls.resetPasswordForm__errors}>{error}</span>
         )}
         <Button
           type={'submit'}
@@ -91,7 +91,7 @@ export const ResetPasswordForm = () => {
           size={ButtonSize.L}
           disabled={isLoading}
         >
-          Войти
+          {Placeholders.features.auth.resetPasswordForm.submit}
         </Button>
       </form>
     </DynamicModuleLoader>

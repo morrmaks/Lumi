@@ -10,6 +10,7 @@ import {
   getProfileCardState,
   ProfileCardForm,
 } from '@/features/Profile/ProfileCardForm'
+import { Placeholders } from '@/shared/consts'
 
 export const ProfileCard = () => {
   const dispatch = useAppDispatch()
@@ -153,13 +154,13 @@ export const ProfileCard = () => {
         </div>
         <div className={cls.profileCard__userStats}>
           <div className={cls.profileCard__orders}>
-            <span>Заказов:</span>
+            <span>{Placeholders.entities.profile.card.ordersQuantity}</span>
             <span className={cls.profileCard__orders_total}>
               {orders.length}
             </span>
           </div>
           <div className={cls.profileCard__wishlistProducts}>
-            <span>В избранном:</span>
+            <span>{Placeholders.entities.profile.card.wishlistQuantity}</span>
             <span className={cls.profileCard__wishlistProducts_total}>
               {products.length}
             </span>
@@ -169,14 +170,16 @@ export const ProfileCard = () => {
       <div className={cls.profileCard__personalInfo}>
         <div className={cls.profileCard__form_header}>
           <h2 className={cls.profileCard__form_headerTitle}>
-            Личная информация
+            {Placeholders.entities.profile.card.personalInfo}
           </h2>
           <Button
             theme={ButtonTheme.SECONDARY}
             onClick={handleEditForm}
             disabled={profileForm.isLoading}
           >
-            {editForm ? 'Сохранить' : 'Редактировать'}
+            {editForm
+              ? Placeholders.entities.profile.card.onSaveInfo
+              : Placeholders.entities.profile.card.onEditInfo}
           </Button>
         </div>
         <ProfileCardForm disabled={!editForm} />

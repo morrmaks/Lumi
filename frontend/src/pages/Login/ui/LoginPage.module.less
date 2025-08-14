@@ -1,10 +1,11 @@
-@import '@/app/styles/mixins/decorators.less';
+@import '@/app/styles/mixins/decorators';
+@import '@/app/styles/mixins/container';
 
 .loginPage {
-  .border();
+  .shadow(0, 2px, 8px);
 
   width: 100%;
-  border-radius: var(--border-radius-m);
+  border-radius: var(--border-radius-l);
   margin-top: 8px;
   background-color: var(--card-bg-color);
 

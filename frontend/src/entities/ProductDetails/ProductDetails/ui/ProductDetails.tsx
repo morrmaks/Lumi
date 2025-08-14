@@ -1,6 +1,6 @@
 import cls from './ProductDetails.module.less'
 import { Icon } from '@/shared/ui/Icon'
-import { IconsMap } from '@/shared/consts'
+import { IconsMap, Placeholders } from '@/shared/consts'
 import { getIconTheme } from '@/shared/lib/utils'
 import {
   getProductDetailsDiscountAmount,
@@ -81,7 +81,7 @@ export const ProductDetails = () => {
             {discountPrice} ₽
           </span>
           <span className={cls.productDetails__discountAmount}>
-            Экономия: {discountAmount} ₽
+            {`${Placeholders.entities.productDetails.priceDifference} ${discountAmount} ₽`}
           </span>
         </div>
 
@@ -94,7 +94,7 @@ export const ProductDetails = () => {
               Svg={IconsMap.BASKET}
               className={cls.productDetails__buttonIcon}
             />
-            В корзину
+            {Placeholders.entities.productDetails.onAddToBasket}
           </Button>
           <div className={cls.productDetails__buttons_secondary}>
             <Button
@@ -106,7 +106,7 @@ export const ProductDetails = () => {
                 Svg={IconsMap.WISHLIST}
                 className={cls.productDetails__buttonIcon}
               />
-              В избранное
+              {Placeholders.entities.productDetails.onAddToWishlist}
             </Button>
             <Button
               theme={ButtonTheme.OUTLINE}
@@ -117,14 +117,14 @@ export const ProductDetails = () => {
                 Svg={IconsMap.CONFIGURATOR}
                 className={cls.productDetails__buttonIcon}
               />
-              В конфигуратор
+              {Placeholders.entities.productDetails.onAddToConfigurator}
             </Button>
           </div>
         </div>
 
         <div className={cls.productDetails__specs}>
           <h3 className={cls.productDetails__specs_title}>
-            Технические характеристики
+            {Placeholders.entities.productDetails.specs.mainText}
           </h3>
           <ul className={cls.productDetails__specList}>
             {specs.map(({ label, value }) => (
@@ -138,7 +138,9 @@ export const ProductDetails = () => {
         </div>
 
         <div className={cls.productDetails__description}>
-          <h3 className={cls.productDetails__description_title}>Описание</h3>
+          <h3 className={cls.productDetails__description_title}>
+            {Placeholders.entities.productDetails.description.mainText}
+          </h3>
           <p className={cls.productDetails__description_text}>{description}</p>
         </div>
       </div>

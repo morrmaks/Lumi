@@ -6,6 +6,7 @@ import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { getWishlistProductsState } from '@/features/Wishlist'
 import { fullSelectDiscountPrice } from '@/features/Wishlist'
+import { Placeholders } from '@/shared/consts'
 
 export interface IWishlistItem {
   id: string
@@ -70,7 +71,7 @@ const WishlistItems: IWishlistItem[] = [
   },
 ]
 
-export const WishlistProducts = () => {
+const WishlistProducts = () => {
   const [products, setProducts] = useState<IWishlistItem[]>([])
   const [select, setSelect] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -130,7 +131,7 @@ export const WishlistProducts = () => {
     <div className={cls.wishlistProducts}>
       <div className={cls.wishlistProducts__selectAll}>
         <Checkbox onChange={handleAllSelectCards} />
-        <p>Выбрать все</p>
+        <p>{Placeholders.features.wishlist.products.onSelectAll}</p>
       </div>
       <ul className={cls.wishlistProducts__productList}>
         {isLoading
@@ -154,10 +155,10 @@ export const WishlistProducts = () => {
         <div className={cls.wishlistProducts__selectionActions}>
           <div className={cls.wishlistProducts__selectionActions_infoSection}>
             <span className={cls.wishlistProducts__selectionActions_totalItems}>
-              Выбрано товаров: {select.length}
+              {`${Placeholders.features.wishlist.products.select.quantity} ${select.length}`}
             </span>
             <span className={cls.wishlistProducts__selectionActions_totalPrice}>
-              Общая стоимость: {selectTotalPrice} ₽
+              {`${Placeholders.features.wishlist.products.select.price} ${selectTotalPrice} ₽`}
             </span>
           </div>
           <div className={cls.wishlistProducts__selectionActions_battons}>
@@ -166,14 +167,14 @@ export const WishlistProducts = () => {
               className={cls.wishlistProducts__selectionActions_batton}
               onClick={handleRemoveSelectCard}
             >
-              Удалить выбранные
+              {Placeholders.features.wishlist.products.select.onDelete}
             </Button>
             <Button
               theme={ButtonTheme.SECONDARY}
               className={cls.wishlistProducts__selectionActions_batton}
               onClick={handleAddToBasketSelectCard}
             >
-              Добавить в корзину ({select.length})
+              {`${Placeholders.features.wishlist.products.select.onAddToBasket} (${select.length})`}
             </Button>
           </div>
         </div>
@@ -181,3 +182,5 @@ export const WishlistProducts = () => {
     </div>
   )
 }
+
+export default WishlistProducts

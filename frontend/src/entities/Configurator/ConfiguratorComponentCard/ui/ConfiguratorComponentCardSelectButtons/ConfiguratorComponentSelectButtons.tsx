@@ -2,6 +2,7 @@ import cls from './ConfiguratorComponentSelectButtons.module.less'
 import { AppLink } from '@/shared/ui/AppLink'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { classNames } from '@/shared/lib/utils'
+import { Placeholders } from '@/shared/consts'
 
 interface ConfiguratorComponentCardSelectButtonsProps {
   compact?: boolean
@@ -25,7 +26,10 @@ export const ConfiguratorComponentSelectButtons = ({
           theme={ButtonTheme.OUTLINE}
           className={cls.configuratorComponentSelectButtons__button}
         >
-          К товару
+          {
+            Placeholders.entities.configurator.componentSelectButtons
+              .onRouteProduct
+          }
         </Button>
       </AppLink>
       <AppLink to={routeCategory}>
@@ -33,7 +37,10 @@ export const ConfiguratorComponentSelectButtons = ({
           theme={ButtonTheme.OUTLINE}
           className={cls.configuratorComponentSelectButtons__button}
         >
-          Заменить
+          {
+            Placeholders.entities.configurator.componentSelectButtons
+              .onRouteCategory
+          }
         </Button>
       </AppLink>
     </div>

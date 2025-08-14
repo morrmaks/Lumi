@@ -21,10 +21,27 @@
   }
 
   &__configuratorCarousel {
+    .flex();
+    position: relative;
     margin-bottom: 24px;
     background-color: var(--muted-bg-color);
     border-radius: var(--border-radius-l);
     padding: 12px;
-    z-index: 10;
+    z-index: var(--z-configurator-scrollbar);
+
+    &_shadow {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      border-radius: var(--border-radius-l);
+      box-shadow:
+        inset -10px 0 20px -5px var(--shadow-color),
+        inset 10px 0 20px -5px var(--shadow-color);
+      pointer-events: none;
+      overflow-y: auto;
+    }
   }
 }

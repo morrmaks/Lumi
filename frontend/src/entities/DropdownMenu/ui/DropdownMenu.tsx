@@ -6,6 +6,7 @@ import { getDropdownMenuState } from '@/entities/DropdownMenu'
 import { classNames } from '@/shared/lib/utils'
 import { ThemeSwitcher } from '@/shared/ui/ThemeSwitcher'
 import { dropdownMenuLinks } from '@/entities/DropdownMenu/config/DropdownMenuLinks'
+import { Placeholders } from '@/shared/consts'
 
 export const DropdownMenu = () => {
   const { isOpen: dropdownMenuIsOpen } = useAppSelector(getDropdownMenuState)
@@ -42,7 +43,7 @@ export const DropdownMenu = () => {
         ))}
         <div>
           <ThemeSwitcher className={cls.dropdownMenu__themeSwitcher}>
-            Тема
+            {Placeholders.entities.dropdownMenu.onSwitchTheme}
           </ThemeSwitcher>
         </div>
       </nav>

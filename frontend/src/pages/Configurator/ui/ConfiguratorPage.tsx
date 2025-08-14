@@ -11,6 +11,9 @@ import {
   getConfiguratorProgress,
   getTotalConfigPrice,
 } from '@/pages/Configurator'
+import { Loader } from '@/shared/ui/Loader'
+import { Suspense } from 'react'
+import { Placeholders } from '@/shared/consts'
 
 const ConfiguratorPage = () => {
   const { components } = useAppSelector(getConfiguratorComponentsState)
@@ -20,9 +23,11 @@ const ConfiguratorPage = () => {
     <PageLayout>
       <div className={cls.configuratorPage}>
         <div className={cls.configuratorPage__header}>
-          <h2 className={cls.configuratorPage__title}>Конфигуратор ПК</h2>
+          <h2 className={cls.configuratorPage__title}>
+            {Placeholders.pages.configurator.mainText}
+          </h2>
           <p className={cls.configuratorPage__description}>
-            Соберите идеальный компьютер под ваши задачи и бюджет
+            {Placeholders.pages.configurator.describeText}
           </p>
         </div>
 
@@ -31,39 +36,44 @@ const ConfiguratorPage = () => {
             <div className={cls.configuratorPage__components_header}>
               <div className={cls.configuratorPage__components_headerContainer}>
                 <h3 className={cls.configuratorPage__components_title}>
-                  Компоненты сборки
+                  {Placeholders.pages.configurator.sectionComponents.mainText}
                 </h3>
                 <p className={cls.configuratorPage__components_componentCounts}>
                   {filled} из {total} выбрано
                 </p>
               </div>
               <Progress value={progress} />
-              <div></div>
             </div>
             <div className={cls.configuratorPage__componentList_container}>
-              <ConfiguratorComponents />
+              <Suspense fallback={<Loader />}>
+                <ConfiguratorComponents />
+              </Suspense>
             </div>
           </div>
 
           <div className={cls.configuratorPage__total}>
             <h3 className={cls.configuratorPage__total_title}>
-              Итого по сборке
+              {Placeholders.pages.configurator.total.mainText}
             </h3>
             <div className={cls.configuratorPage__total_details}>
               <div className={cls.configuratorPage__total_componentCounts}>
-                <span>Выбрано компонентов:</span>
+                <span>
+                  {Placeholders.pages.configurator.total.componentsQuantity}
+                </span>
                 <span>
                   {filled}/{total}
                 </span>
               </div>
               <div className={cls.configuratorPage__total_compatibility}>
-                <span>Совместимость:</span>
+                <span>
+                  {Placeholders.pages.configurator.total.compatibility}
+                </span>
                 <span>Отлично</span>
               </div>
             </div>
             <div className={cls.configuratorPage__totalPrice}>
               <span className={cls.configuratorPage__totalPrice_title}>
-                Общая стоимость:
+                {Placeholders.pages.configurator.total.price}
               </span>
               <span className={cls.configuratorPage__totalPrice_amount}>
                 {getTotalConfigPrice(components)} ₽
@@ -74,18 +84,18 @@ const ConfiguratorPage = () => {
                 className={cls.configuratorPage__totalButtons_button}
                 onClick={() => {}}
               >
-                Заказать сборку
+                {Placeholders.pages.configurator.total.onPlaceAnOrder}
               </Button>
               <Button
                 theme={ButtonTheme.OUTLINE}
                 className={cls.configuratorPage__totalButtons_button}
               >
-                Сохранить конфигурацию
+                {Placeholders.pages.configurator.total.onCopyLinkConfig}
               </Button>
             </div>
             <div className={cls.configuratorPage__recommendation}>
               <h4 className={cls.configuratorPage__recommendation_title}>
-                Рекомендации:
+                {Placeholders.pages.configurator.total.recommendation}
               </h4>
               <ul className={cls.configuratorPage__recommendation_list}>
                 <li>• Добавьте систему охлаждения</li>

@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
 import { getUserSettings } from '@/entities/User'
 import { useCallback, useEffect, useState } from 'react'
 import { Settings, userActions } from '@/entities/User'
+import { Placeholders } from '@/shared/consts'
 
 export const SettingList = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -52,12 +53,13 @@ export const SettingList = () => {
               checked={settings[name]}
               onChange={(newChecked) => handleSettingStatus(newChecked, name)}
               checkboxType={CheckboxType.TOGGLE}
+              className={cls.settingList__setting_checkbox}
             />
           </li>
         ))}
       </ul>
       <Button disabled={isLoading} onClick={handleSaveSettings}>
-        Сохранить
+        {Placeholders.entities.profile.settings.notifications.onSave}
       </Button>
     </div>
   )

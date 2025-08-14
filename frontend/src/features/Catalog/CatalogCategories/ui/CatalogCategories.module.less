@@ -3,14 +3,19 @@
 @import '@/app/styles/variables/global';
 
 .catalogCategories {
-  .grid(1fr, row, 16px);
+  .flex(row, space-between, start);
+  gap: 16px;
 
-  @media @breakpoint-sm {
-    .grid(repeat(2, 1fr), row, 24px);
-  }
+  &__grid {
+    .grid(1fr, row, 16px);
 
-  @media @breakpoint-lg {
-    grid-template-columns: repeat(3, 1fr);
+    @media @breakpoint-sm {
+      .grid(repeat(2, 1fr), row, 24px);
+    }
+
+    @media @breakpoint-lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   &__card {
@@ -24,6 +29,18 @@
     @media @breakpoint-sm {
       padding: 24px;
     }
+
+    &_compact {
+      .grid(1fr, row, 12px);
+      grid-template-rows: min-content 2fr;
+      padding: 16px 12px;
+      text-align: center;
+
+      @media @breakpoint-sm {
+        padding: 24px 12px;
+        gap: 16px;
+      }
+    }
   }
 
   &__header {
@@ -33,8 +50,17 @@
   }
 
   &__title {
-    font: var(--font-m);
+    font: var(--font-xs);
     font-weight: var(--font-bold);
+
+    @media @breakpoint-sm {
+      font: var(--font-m);
+      font-weight: var(--font-bold);
+    }
+
+    &_compact {
+      align-self: start;
+    }
   }
 
   &__description {
@@ -50,5 +76,9 @@
   &__icon {
     width: 32px;
     height: 32px;
+
+    &_compact {
+      justify-self: center;
+    }
   }
 }

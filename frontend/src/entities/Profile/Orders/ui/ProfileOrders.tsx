@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { OrderCard } from '@/entities/Order'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
+import { Placeholders } from '@/shared/consts'
 
 export const ProfileOrders = () => {
   const [showAll, setShowAll] = useState<boolean>(false)
@@ -20,7 +21,9 @@ export const ProfileOrders = () => {
           Svg={IconsMap.ORDERS}
           className={cls.profileOrders__header_icon}
         />
-        <h2 className={cls.profileOrders__header_title}>Мои заказы</h2>
+        <h2 className={cls.profileOrders__header_title}>
+          {Placeholders.entities.profile.orders.mainText}
+        </h2>
       </div>
       <ul className={cls.profileOrders__list}>
         {displayedOrders.map((card) => (
@@ -35,7 +38,7 @@ export const ProfileOrders = () => {
           theme={ButtonTheme.OUTLINE}
           className={cls.profileOrders__button}
         >
-          Показать все заказы
+          {Placeholders.entities.profile.orders.onShowAllOrders}
         </Button>
       )}
     </div>

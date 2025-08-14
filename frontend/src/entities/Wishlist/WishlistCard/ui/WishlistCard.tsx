@@ -8,6 +8,7 @@ import { AppLink } from '@/shared/ui/AppLink'
 import { AppImage } from '@/shared/ui/AppImage'
 import { useBreakpoint } from '@/shared/lib/hooks'
 import { getIconTheme } from '@/shared/lib/utils'
+import { Placeholders } from '@/shared/consts'
 
 interface IWishlistItem {
   id: string
@@ -95,7 +96,7 @@ export const WishlistCard = ({
                 Svg={IconsMap.BASKET}
                 className={cls.wishlistCard__buttonIcon}
               ></Icon>
-              В корзину
+              {Placeholders.entities.wishlist.card.onAddToBasket}
             </Button>
             <Button
               theme={ButtonTheme.OUTLINE}
@@ -106,7 +107,7 @@ export const WishlistCard = ({
                 Svg={IconsMap.TRASH}
                 className={cls.wishlistCard__buttonIcon}
               ></Icon>
-              {sm ? 'Удалить' : ''}
+              {sm ? Placeholders.entities.wishlist.card.onDelete : ''}
             </Button>
           </div>
         </div>

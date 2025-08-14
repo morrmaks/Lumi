@@ -5,6 +5,7 @@ import { AppImage } from '@/shared/ui/AppImage'
 import { useMemo } from 'react'
 import { Product } from '@/entities/Order/ProfileOrderModal/ui/ProfileOrderModal'
 import { getPriceOrderCard } from '@/entities/Order'
+import { Placeholders } from '@/shared/consts'
 
 interface ProductCardProps {
   card: Product
@@ -30,7 +31,7 @@ export const ProductOrderCard = ({ card }: ProductCardProps) => {
           <h5 className={cls.productOrderCard__title}>{title}</h5>
           <span
             className={cls.productOrderCard__quantity}
-          >{`Количество: ${quantity}`}</span>
+          >{`${Placeholders.entities.order.profileOrderCard.productsQuantity} ${quantity}`}</span>
         </div>
       </div>
       <div className={cls.productOrderCard__priceContainer}>

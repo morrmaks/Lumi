@@ -9,6 +9,7 @@ import {
   profileCardActions,
   profileCardReducer,
 } from '@/features/Profile/ProfileCardForm'
+import { Placeholders } from '@/shared/consts'
 
 interface ProfileCardFormProps {
   disabled: boolean
@@ -65,44 +66,45 @@ export const ProfileCardForm = ({ disabled }: ProfileCardFormProps) => {
   return (
     <DynamicModuleLoader reducers={initialReducers}>
       <form className={cls.profileCardForm} onSubmit={handleSubmit}>
-        {error && (
-          <span className={cls.profileCardForm__errors}>
-            {error}
-            sdfsdf
-          </span>
-        )}
+        {error && <span className={cls.profileCardForm__errors}>{error}</span>}
         <label htmlFor="username" className={cls.profileCardForm__label}>
-          Имя
+          {Placeholders.features.profile.cardForm.labels.name}
           <Input
             id={'username'}
             type={'text'}
             value={username}
             onChangeString={onChangeUsername}
-            placeholder={'Ваше имя'}
+            placeholder={
+              Placeholders.features.profile.cardForm.placeholders.name
+            }
             className={cls.profileCardForm__input}
             disabled={disabled}
           />
         </label>
         <label htmlFor="email" className={cls.profileCardForm__label}>
-          Email
+          {Placeholders.features.profile.cardForm.labels.email}
           <Input
             id={'email'}
             type={'email'}
             value={email}
             onChangeString={onChangeEmail}
-            placeholder={'email@mail.com'}
+            placeholder={
+              Placeholders.features.profile.cardForm.placeholders.email
+            }
             className={cls.profileCardForm__input}
             disabled={disabled}
           />
         </label>
         <label htmlFor="phone" className={cls.profileCardForm__label}>
-          Телефон
+          {Placeholders.features.profile.cardForm.labels.phone}
           <Input
             id={'phone'}
             type={'phone'}
             value={phone}
             onChangeString={onChangePhone}
-            placeholder={'+7 (992) 234 12 34'}
+            placeholder={
+              Placeholders.features.profile.cardForm.placeholders.phone
+            }
             className={cls.profileCardForm__input}
             disabled={disabled}
           />

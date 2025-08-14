@@ -1,0 +1,88 @@
+@import '@/app/styles/variables/global';
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/decorators';
+@import '@/app/styles/mixins/interactive';
+
+.configuratorPromoBlock {
+  .grid(1fr, row, 16px);
+  border-radius: var(--border-radius-xl);
+  padding: 24px 16px;
+  background-color: var(--card-bg-color);
+  min-height: 300px;
+  position: relative;
+
+  @media @breakpoint-sm {
+    .grid(repeat(2, 1fr), row, 24px);
+    grid-auto-rows: 100%;
+    padding: 24px;
+  }
+
+  @media @breakpoint-md {
+    height: 350px;
+  }
+
+  @media @breakpoint-lg {
+    gap: 32px;
+    padding: 32px;
+    height: 400px;
+  }
+
+  &:hover {
+    .configuratorPromoBlock__button {
+      border-color: var(--accent-bg-color);
+    }
+  }
+
+  &__image {
+    width: 100%;
+    max-height: 300px;
+    border-radius: var(--border-radius-l);
+
+    @media @breakpoint-sm {
+      max-height: 100%;
+    }
+  }
+
+  &__details {
+    .flex(column, start, start);
+    max-height: 100%;
+    gap: 16px;
+  }
+
+  &__title {
+    font: var(--font-m);
+    font-weight: var(--font-bold);
+
+    @media @breakpoint-sm {
+      font: var(--font-l);
+      font-weight: var(--font-bold);
+    }
+
+    @media @breakpoint-md {
+      font: var(--font-xl);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__description {
+    font: var(--font-xs);
+    color: var(--muted-color);
+
+    @media @breakpoint-sm {
+      font: var(--font-xs);
+    }
+
+    @media @breakpoint-md {
+      font: var(--font-s);
+    }
+  }
+
+  &__button {
+    width: 100%;
+    .border(2px, dashed);
+  }
+
+  &__shadow {
+    .insetShadowContainer();
+  }
+}

@@ -4,10 +4,12 @@ import { IconsMap } from '@/shared/consts/icons'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { getRouteCatalog } from '@/shared/consts/router'
 import { AppLink } from '@/shared/ui/AppLink'
-import { getBasketProductsState } from '@/features/Basket'
+import { getBasketProducts } from '@/features/Basket'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { AppImage } from '@/shared/ui/AppImage'
 import { getIconTheme } from '@/shared/lib/utils'
+import { getTotalPriceCard } from '@/entities/Basket'
+import { useCallback, useMemo } from 'react'
 
 interface IBasketItem {
   id: string
@@ -28,30 +30,31 @@ interface BasketCardProps {
 export const BasketCard = ({ card, onClickRemove }: BasketCardProps) => {
   const { id, image, title, rating, reviews, quantity, discountPrice, price } =
     card
-  const { products } = useAppSelector(getBasketProductsState)
+  const products = useAppSelector(getBasketProducts)
+
   const productQuantity =
     products.find((product) => product.id === id)?.quantity || 1
 
-  function getPriceCard() {
-    return productQuantity * price
-  }
+  const getPriceCard = useMemo(() => {
+    return getTotalPriceCard(productQuantity, price)
+  }, [productQuantity, price])
 
-  function getDiscountPriceCard() {
-    return productQuantity * discountPrice
-  }
+  const getDiscountPriceCard = useMemo(() => {
+    return getTotalPriceCard(productQuantity, discountPrice)
+  }, [productQuantity, discountPrice])
 
-  function handleRemoveCard() {
+  const handleRemoveCard = useCallback(() => {
     // dispatch(removeBasketProduct(id)) //это используется thunk запрос в котором диспатчится состояние избранного и изменяется значение в localStorage
     onClickRemove(id)
-  }
+  }, [])
 
-  function decrementCartItem() {
+  const decrementCartItem = useCallback(() => {
     // dispatch(addBasketProduct(id))
-  }
+  }, [])
 
-  function incrementCartItem() {
+  const incrementCartItem = useCallback(() => {
     // dispatch(decreaseBasketProductQuantity(id))
-  }
+  }, [])
 
   return (
     <div className={cls.basketCard}>
@@ -67,11 +70,11 @@ export const BasketCard = ({ card, onClickRemove }: BasketCardProps) => {
               <h3 className={cls.basketCard__title}>{title}</h3>
               <div className={cls.basketCard__priceSection}>
                 <span className={cls.basketCard__discountPrice}>
-                  {getDiscountPriceCard()} ₽
+                  {getDiscountPriceCard} ₽
                 </span>
                 {discountPrice !== price && (
                   <span className={cls.basketCard__price}>
-                    {getPriceCard()} ₽
+                    {getPriceCard} ₽
                   </span>
                 )}
               </div>
