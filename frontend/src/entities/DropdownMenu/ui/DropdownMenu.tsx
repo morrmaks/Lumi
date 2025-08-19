@@ -1,7 +1,7 @@
 import { MenuItem } from '@/shared/ui/MenuItem'
 import cls from './DropdownMenu.module.less'
 import { useEffect } from 'react'
-import { useAppSelector } from '@/shared/lib/hooks/useAppSelector'
+import { useAppSelector } from '@/shared/lib/hooks'
 import { getDropdownMenuState } from '@/entities/DropdownMenu'
 import { classNames } from '@/shared/lib/utils'
 import { ThemeSwitcher } from '@/shared/ui/ThemeSwitcher'

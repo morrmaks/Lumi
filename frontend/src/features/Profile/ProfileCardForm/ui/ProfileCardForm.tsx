@@ -1,115 +1,81 @@
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
-import { FormEvent, useCallback, useEffect } from 'react'
-import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import cls from './ProfileCardForm.module.less'
 import { Input } from '@/shared/ui/Input'
-import { getUserAuthData } from '@/entities/User'
-import {
-  getProfileCardState,
-  profileCardActions,
-  profileCardReducer,
-} from '@/features/Profile/ProfileCardForm'
 import { Placeholders } from '@/shared/consts'
+import { useFormContext } from 'react-hook-form'
+import { ApiErrorMessage } from '@/shared/ui/ApiErrorMessage'
+import { ProfileCardFormValues } from '@/features/Profile'
+import { ApiError } from '@/shared/types'
+import { SerializedError } from '@reduxjs/toolkit'
 
 interface ProfileCardFormProps {
   disabled: boolean
+  apiErrors: ApiError | SerializedError | undefined
 }
 
-const initialReducers: ReducerList = {
-  profileCardForm: profileCardReducer,
-}
-
-export const ProfileCardForm = ({ disabled }: ProfileCardFormProps) => {
-  const userData = useAppSelector(getUserAuthData)
-  const { username, email, phone, error } = useAppSelector(getProfileCardState)
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(
-      profileCardActions.setForm({
-        username: userData.username,
-        email: userData.email,
-        phone: userData.phone,
-      })
-    )
-  }, [])
-
-  const onChangeUsername = useCallback(
-    (value: string) => {
-      dispatch(profileCardActions.setUsername(value))
-    },
-    [dispatch]
-  )
-
-  const onChangeEmail = useCallback(
-    (value: string) => {
-      dispatch(profileCardActions.setEmail(value))
-    },
-    [dispatch]
-  )
-
-  const onChangePhone = useCallback(
-    (value: string) => {
-      dispatch(profileCardActions.setPhone(value))
-    },
-    [dispatch]
-  )
-
-  const handleSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      // dispatch(updateUserData({ username, email, phone }))
-    },
-    [dispatch, username, email, phone]
-  )
+export const ProfileCardForm = ({
+  disabled,
+  apiErrors,
+}: ProfileCardFormProps) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<ProfileCardFormValues>()
 
   return (
-    <DynamicModuleLoader reducers={initialReducers}>
-      <form className={cls.profileCardForm} onSubmit={handleSubmit}>
-        {error && <span className={cls.profileCardForm__errors}>{error}</span>}
-        <label htmlFor="username" className={cls.profileCardForm__label}>
-          {Placeholders.features.profile.cardForm.labels.name}
-          <Input
-            id={'username'}
-            type={'text'}
-            value={username}
-            onChangeString={onChangeUsername}
-            placeholder={
-              Placeholders.features.profile.cardForm.placeholders.name
-            }
-            className={cls.profileCardForm__input}
-            disabled={disabled}
-          />
-        </label>
-        <label htmlFor="email" className={cls.profileCardForm__label}>
-          {Placeholders.features.profile.cardForm.labels.email}
-          <Input
-            id={'email'}
-            type={'email'}
-            value={email}
-            onChangeString={onChangeEmail}
-            placeholder={
-              Placeholders.features.profile.cardForm.placeholders.email
-            }
-            className={cls.profileCardForm__input}
-            disabled={disabled}
-          />
-        </label>
-        <label htmlFor="phone" className={cls.profileCardForm__label}>
-          {Placeholders.features.profile.cardForm.labels.phone}
-          <Input
-            id={'phone'}
-            type={'phone'}
-            value={phone}
-            onChangeString={onChangePhone}
-            placeholder={
-              Placeholders.features.profile.cardForm.placeholders.phone
-            }
-            className={cls.profileCardForm__input}
-            disabled={disabled}
-          />
-        </label>
-      </form>
-    </DynamicModuleLoader>
+    <form className={cls.profileCardForm} noValidate>
+      <ApiErrorMessage error={apiErrors} />
+      <label htmlFor="name" className={cls.profileCardForm__label}>
+        {Placeholders.features.profile.cardForm.labels.name}
+        <Input
+          id={'name'}
+          type={'text'}
+          placeholder={Placeholders.features.profile.cardForm.placeholders.name}
+          className={cls.profileCardForm__input}
+          disabled={disabled}
+          {...register('name')}
+        />
+        {errors.name && (
+          <span className={cls.profileCardForm__errors}>
+            {errors.name.message}
+          </span>
+        )}
+      </label>
+      <label htmlFor="email" className={cls.profileCardForm__label}>
+        {Placeholders.features.profile.cardForm.labels.email}
+        <Input
+          id={'email'}
+          type={'email'}
+          placeholder={
+            Placeholders.features.profile.cardForm.placeholders.email
+          }
+          className={cls.profileCardForm__input}
+          disabled={disabled}
+          {...register('email')}
+        />
+        {errors.email && (
+          <span className={cls.profileCardForm__errors}>
+            {errors.email.message}
+          </span>
+        )}
+      </label>
+      <label htmlFor="phone" className={cls.profileCardForm__label}>
+        {Placeholders.features.profile.cardForm.labels.phone}
+        <Input
+          id={'phone'}
+          type={'phone'}
+          placeholder={
+            Placeholders.features.profile.cardForm.placeholders.phone
+          }
+          className={cls.profileCardForm__input}
+          disabled={disabled}
+          {...register('phone')}
+        />
+        {errors.phone && (
+          <span className={cls.profileCardForm__errors}>
+            {errors.phone.message}
+          </span>
+        )}
+      </label>
+    </form>
   )
 }

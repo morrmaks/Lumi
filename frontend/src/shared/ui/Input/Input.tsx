@@ -1,60 +1,74 @@
-import { ChangeEvent, InputHTMLAttributes } from 'react'
+import {
+  ChangeEvent,
+  forwardRef,
+  InputHTMLAttributes,
+  useCallback,
+} from 'react'
 import cls from './Input.module.less'
 import { classNames } from '@/shared/lib/utils'
 import { IconsMap } from '@/shared/consts/icons'
 import { Icon } from '@/shared/ui/Icon'
 
-type HtmlInputProps = Omit<
-  InputHTMLAttributes<HTMLInputElement>,
-  'value' | 'onChange'
->
-
-interface InputProps extends HtmlInputProps {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
-  value?: string
-  onChangeFile?: (value: File | null) => void
-  onChangeString?: (value: string) => void
   type?: string
   icon?: keyof typeof IconsMap
   onIconClick?: () => void
+  value?: string
+  onChangeFile?: (file: string | File | null) => void
+  onChangeString?: (value: string) => void
 }
 
-export const Input = ({
-  className,
-  value = '',
-  onChangeFile,
-  onChangeString,
-  type = 'text',
-  icon,
-  onIconClick,
-  ...otherProps
-}: InputProps) => {
-  const IconComponent = icon && IconsMap[icon]
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      className,
+      type = 'text',
+      icon,
+      onIconClick,
+      onChangeFile,
+      onChangeString,
+      value,
+      ...otherProps
+    },
+    ref
+  ) => {
+    const IconComponent = icon && IconsMap[icon]
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    if (type === 'file') {
-      const file = e.target.files?.[0] || null
-      onChangeFile?.(file)
-    }
-    onChangeString?.(e.target.value)
-  }
+    const handleChange = useCallback(
+      (e: ChangeEvent<HTMLInputElement>) => {
+        if (type === 'file' && onChangeFile) {
+          console.log(1)
+          const file = e.target.files?.[0] || null
+          onChangeFile?.(file)
+        } else {
+          console.log(e.target.value)
+          onChangeString?.(e.target.value)
+        }
+      },
+      [onChangeFile]
+    )
 
-  return (
-    <div className={cls.input__wrapper}>
-      <input
-        className={classNames(cls.input, {}, [className])}
-        value={value}
-        onChange={handleChange}
-        type={type}
-        {...otherProps}
-      />
-      {IconComponent && (
-        <Icon
-          className={cls.input__icon}
-          Svg={IconComponent}
-          onClick={onIconClick}
+    return (
+      <div className={cls.input__wrapper}>
+        <input
+          className={classNames(cls.input, {}, [className])}
+          ref={ref}
+          type={type}
+          value={value}
+          onChange={handleChange}
+          {...otherProps}
         />
-      )}
-    </div>
-  )
-}
+        {IconComponent && (
+          <Icon
+            className={cls.input__icon}
+            Svg={IconComponent}
+            onClick={onIconClick}
+          />
+        )}
+      </div>
+    )
+  }
+)
+
+Input.displayName = 'Input'

@@ -1,3 +1,3 @@
 import { ViewFormat } from './ViewFormat'
-import { SortFieldOptions } from './SortOptions'
-export { ViewFormat, SortFieldOptions }
+import { SortFieldOptions, type SortFieldOptionKey } from './SortOptions'
+export { ViewFormat, SortFieldOptions, SortFieldOptionKey }

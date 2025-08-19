@@ -1,23 +1,37 @@
 import cls from './ProductImages.module.less'
 import { AppImage } from '@/shared/ui/AppImage'
 import { classNames } from '@/shared/lib/utils'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAppSelector } from '@/shared/lib/hooks'
-import { getProductCard, getProductIsLoading } from '@/pages/ProductPage'
+import { getProductCard } from '@/pages/ProductPage'
 import {
   ProductImageModal,
   ProductImagesSkeleton,
 } from '@/entities/ProductDetails'
+import { ApiMap } from '@/shared/consts'
 
-export const ProductImages = () => {
-  const { images, title } = useAppSelector(getProductCard)
-  const isLoading = useAppSelector(getProductIsLoading)
+interface ProductImagesProps {
+  isLoading: boolean
+}
 
+export const ProductImages = ({ isLoading }: ProductImagesProps) => {
+  const { images, name } = useAppSelector(getProductCard)
   const [isOpen, setOpen] = useState(false)
   const [fullImage, setFullImage] = useState<{ src: string; index: number }>({
-    src: images[0],
+    src: '',
     index: 0,
   })
+
+  useEffect(() => {
+    if (images) {
+      setFullImage({ src: fullImageUrls[0], index: 0 })
+    }
+  }, [images])
+
+  const fullImageUrls = useMemo(
+    () => images.map((img) => `${ApiMap.STATIC}${img}`),
+    [images]
+  )
 
   const changeFullImage = useCallback((image: string, index: number) => {
     setFullImage((prev) => {
@@ -34,18 +48,16 @@ export const ProductImages = () => {
     setOpen(true)
   }, [])
 
-  if (isLoading) {
-    return <ProductImagesSkeleton />
-  }
+  if (isLoading) return <ProductImagesSkeleton />
 
   return (
     <div className={cls.productImages}>
       <div className={cls.productImages__selector}>
-        {images.map((image, i) => (
+        {fullImageUrls.map((image, i) => (
           <AppImage
             key={image}
             src={image}
-            alt={title}
+            alt={name}
             onClick={changeFullImage}
             index={i}
             className={classNames(cls.productImages__image, {
@@ -56,8 +68,8 @@ export const ProductImages = () => {
       </div>
       <div className={cls.productImages__fullImage_container}>
         <AppImage
-          src={fullImage.src ?? images[0]}
-          alt={title}
+          src={fullImage.src ?? fullImageUrls[0]}
+          alt={name}
           onClick={handleImageModalOpen}
           className={cls.productImages__fullImage}
         />
@@ -66,7 +78,7 @@ export const ProductImages = () => {
         isOpen={isOpen}
         onClose={handleImageModalClose}
         images={images}
-        alt={title}
+        alt={name}
       />
     </div>
   )

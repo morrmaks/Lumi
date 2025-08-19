@@ -4,6 +4,7 @@
 
 .catalogCategories {
   .flex(row, space-between, start);
+
   gap: 16px;
 
   &__grid {
@@ -22,6 +23,7 @@
     .selectableScale();
     .flex(column, start);
     .border();
+
     border-radius: var(--border-radius-l);
     padding: 24px 12px;
     background-color: var(--card-bg-color);
@@ -32,6 +34,7 @@
 
     &_compact {
       .grid(1fr, row, 12px);
+
       grid-template-rows: min-content 2fr;
       padding: 16px 12px;
       text-align: center;
@@ -45,6 +48,7 @@
 
   &__header {
     .flex(column, start);
+
     gap: 8px;
     width: 100%;
   }
@@ -63,6 +67,16 @@
     }
   }
 
+  &__productCount {
+    white-space: nowrap;
+    font: var(--font-xxs);
+    color: var(--muted-color);
+
+    @media @breakpoint-sm {
+      font: var(--font-xs);
+    }
+  }
+
   &__description {
     margin-top: 24px;
     color: var(--muted-color);
@@ -70,6 +84,7 @@
 
   &__icons {
     .flex(row, start, space-between);
+
     width: 100%;
   }
 

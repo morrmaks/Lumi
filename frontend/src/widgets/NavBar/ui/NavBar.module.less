@@ -22,22 +22,13 @@
 
   &__wrapper {
     .borderBottom();
+
     top: 0;
     z-index: var(--z-desktop-navbar);
 
     @media @breakpoint-md {
       position: sticky;
     }
-  }
-
-  &__search {
-    @media @breakpoint-md {
-      flex: 1 1 0%;
-    }
-  }
-
-  &__searchIcon {
-    .selectable(var(--hover-opacity));
   }
 
   &__menu {
@@ -68,8 +59,8 @@
 
     &_configurator {
       .gradient();
-      font-weight: var(--font-bold);
 
+      font-weight: var(--font-bold);
       color: var(--accent-color);
 
       svg {

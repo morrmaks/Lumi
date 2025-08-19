@@ -6,17 +6,22 @@ import { configureStore } from '@reduxjs/toolkit'
 import { breadcrumbNavReducer } from '@/features/BreadcrumbNav'
 import { wishlistProductsReducer } from '@/features/Wishlist'
 import { basketProductsReducer } from '@/features/Basket'
-import { userReducer } from '@/entities/User'
+import { authReducer, userReducer } from '@/entities/User'
 import { configuratorComponentsReducer } from '@/features/Configurator'
+import { rtkApi } from '@/shared/api'
+import { forgotPasswordReducer } from '@/features/Auth'
 
 export const createReduxStore = (initialState?: StateSchema) => {
   const rootReducers: ReducersMapObject<StateSchema> = {
     user: userReducer,
+    auth: authReducer,
+    forgotPassword: forgotPasswordReducer,
     dropdownMenu: dropdownMenuReducer,
     breadcrumbNav: breadcrumbNavReducer,
     wishlistProducts: wishlistProductsReducer,
     basketProducts: basketProductsReducer,
     configuratorComponents: configuratorComponentsReducer,
+    [rtkApi.reducerPath]: rtkApi.reducer,
   }
 
   const reducerManager = createReducerManager(rootReducers)
@@ -24,6 +29,8 @@ export const createReduxStore = (initialState?: StateSchema) => {
   const store = configureStore({
     reducer: reducerManager.reduce as Reducer<StateSchema>,
     preloadedState: initialState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat([rtkApi.middleware]),
   })
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

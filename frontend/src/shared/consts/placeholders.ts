@@ -54,7 +54,7 @@ export const Placeholders = {
       describeText: 'Выберите категорию для просмотра товаров',
     },
     category: {
-      mainText: 'Категория',
+      productsQuantity: 'Товаров в категории: ',
       notFound: 'Категория не найдена',
     },
     configurator: {
@@ -159,6 +159,11 @@ export const Placeholders = {
         submit: 'Войти',
       },
     },
+    catalog: {
+      categories: {
+        productsQuantity: 'Товаров:',
+      },
+    },
     basket: {
       products: {
         onRouteCatalog: {
@@ -187,7 +192,7 @@ export const Placeholders = {
         placeholders: {
           name: 'Ваше имя',
           email: 'email@mail.com',
-          phone: '+7 (992) 234 12 34',
+          phone: 'Номер телефона',
         },
       },
       settingsForm: {
@@ -211,7 +216,7 @@ export const Placeholders = {
     },
     search: {
       input: {
-        placeholder: 'Поиск по сайту',
+        placeholder: 'Поиск товаров',
       },
     },
   },
@@ -268,6 +273,7 @@ export const Placeholders = {
     },
     productDetails: {
       priceDifference: 'Экономия:',
+      inStockQuantity: 'В наличии',
       onAddToBasket: 'В корзину',
       onAddToWishlist: 'В избранное',
       onAddToConfigurator: 'В конфигуратор',
@@ -282,6 +288,13 @@ export const Placeholders = {
       orders: {
         mainText: 'Мои заказы',
         onShowAllOrders: 'Показать все заказы',
+        emptyOrders: {
+          mainText: 'Пока нет заказов',
+          describeText:
+            'Вы еще не совершили ни одного заказа. Начните покупки, чтобы увидеть историю заказов здесь.',
+          onRouteCatalog: 'Перейти в каталог',
+          onRouteBasket: 'Проверить корзину',
+        },
       },
       card: {
         ordersQuantity: 'Заказов:',
@@ -328,6 +341,9 @@ export const Placeholders = {
   shared: {
     logo: {
       mainText: 'Lumi',
+    },
+    config: {
+      defaultError: 'Пожалуйста, перезагрузите страницу или попробуйте позже',
     },
   },
 }

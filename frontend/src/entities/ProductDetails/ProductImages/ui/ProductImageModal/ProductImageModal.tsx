@@ -1,6 +1,7 @@
 import cls from './ProductImageModal.module.less'
 import { AppImage } from '@/shared/ui/AppImage'
 import { Modal } from '@/shared/ui/Modal'
+import { ApiMap } from '@/shared/consts'
 
 interface ProductImageModalProps {
   onClose: () => void
@@ -22,7 +23,7 @@ export const ProductImageModal = ({
       {images.map((src) => (
         <AppImage
           key={src}
-          src={src}
+          src={`${ApiMap.STATIC}${src}`}
           alt={alt}
           className={cls.productImageModal__image}
         />

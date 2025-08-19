@@ -4,44 +4,25 @@ import { Icon } from '@/shared/ui/Icon'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { ProfileSettingsForm } from '@/features/Profile'
 import { useCallback } from 'react'
-import { useAppDispatch } from '@/shared/lib/hooks'
-import { getRouteMain } from '@/shared/consts/router'
-import { useNavigate } from 'react-router-dom'
 import { SettingList } from '@/entities/Profile'
 import { Placeholders } from '@/shared/consts'
+import {
+  useDeleteUserMutation,
+  usePostLogoutMutation,
+} from '@/entities/User/api'
 
 export const ProfileSettings = () => {
-  // const notifications = useAppSelector()
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  const [deleteAccount, { isLoading: isLoadingDelete }] =
+    useDeleteUserMutation()
+  const [logoutUser, { isLoading: isLoadingLogout }] = usePostLogoutMutation()
 
-  const handleDeleteAccount = useCallback(() => {
-    // dispatch(deleteAccount())
-    const res = true
-    if (res) {
-      navigate(getRouteMain())
-    }
-  }, [dispatch])
+  const handleDeleteAccount = useCallback(async () => {
+    await deleteAccount()
+  }, [])
 
-  const handleLogout = useCallback(() => {
-    // const res = dispatch(logout())
-    const res = true
-    if (res) {
-      navigate(getRouteMain())
-    }
-  }, [dispatch])
-
-  const handleOrderNotification = useCallback(() => {
-    // const res = dispatch(logout())
-  }, [dispatch])
-
-  const handleMarketingNotification = useCallback(() => {
-    // const res = dispatch(logout())
-  }, [dispatch])
-
-  const handleNewsNotification = useCallback(() => {
-    // const res = dispatch(logout())
-  }, [dispatch])
+  const handleLogout = useCallback(async () => {
+    await logoutUser()
+  }, [])
 
   return (
     <div className={cls.profileSettings}>
@@ -74,6 +55,7 @@ export const ProfileSettings = () => {
           theme={ButtonTheme.SECONDARY}
           onClick={handleLogout}
           className={cls.profileSettings__logoutButton}
+          disabled={isLoadingLogout}
         >
           <Icon
             Svg={IconsMap.LOGOUT}
@@ -86,6 +68,7 @@ export const ProfileSettings = () => {
             theme={ButtonTheme.DANGER}
             onClick={handleDeleteAccount}
             fullWidth={true}
+            disabled={isLoadingDelete}
           >
             {Placeholders.entities.profile.settings.safety.deleteAccount}
           </Button>

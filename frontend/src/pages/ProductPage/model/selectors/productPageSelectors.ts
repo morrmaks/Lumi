@@ -1,19 +1,18 @@
 import { StateSchema } from '@/app/providers/StoreProvider'
-import { ComponentNames } from '@/features/Configurator'
-
-export const getProductIsLoading = (state: StateSchema) =>
-  state.productPage?.isLoading || false
+import { ComponentTypes } from '@/features/Configurator'
 
 export const getProductCard = (state: StateSchema) =>
   state.productPage?.product ?? {
     id: '',
     images: [],
-    title: '',
+    name: '',
     description: '',
-    componentName: ComponentNames.GPU,
-    specs: [],
+    componentType: ComponentTypes.GPU,
+    specs: {},
     rating: '',
     reviews: 0,
+    categoryId: '',
     discountPrice: 0,
     price: 0,
+    quantity: 0,
   }

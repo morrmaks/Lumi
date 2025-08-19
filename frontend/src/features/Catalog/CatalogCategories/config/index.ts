@@ -1,2 +1,2 @@
-import { CatalogCategoriesConfig } from './CatalogCategories'
-export { CatalogCategoriesConfig }
+import { CatalogCategoryIcons } from './CatalogCategoryIcons'
+export { CatalogCategoryIcons }

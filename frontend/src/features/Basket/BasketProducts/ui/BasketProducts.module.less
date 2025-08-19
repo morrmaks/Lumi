@@ -6,6 +6,7 @@
 .basketProducts {
   position: relative;
   .flex(column, space-between, center);
+
   gap: 32px;
   width: 100%;
 
@@ -28,6 +29,7 @@
     .border(2px, dashed);
     .selectableBorder();
     .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
+
     border-radius: var(--border-radius-l);
     padding: 24px 12px;
     gap: 16px;
@@ -45,6 +47,7 @@
 
     &_description {
       .flex();
+
       gap: 16px;
     }
   }
@@ -80,6 +83,7 @@
 
     &_subtotal {
       .flex(column, space-between, center);
+
       width: 100%;
       font: var(--font-s);
       gap: 8px;
@@ -88,23 +92,27 @@
 
     &_price {
       .flex(row, center, space-between);
+
       color: var(--muted-color);
     }
 
     &_discount {
       .flex(row, center, space-between);
+
       color: var(--muted-color);
     }
 
     &_delivery {
       .flex(row, center, space-between);
       .borderBottom();
+
       padding-bottom: 16px;
       color: var(--benefit-color);
     }
 
     &_discountPrice {
       .flex(row, center, space-between);
+
       white-space: nowrap;
       font: var(--font-m);
       font-weight: var(--font-bold);
@@ -114,6 +122,7 @@
 
   &__orderButton {
     .flex();
+
     gap: 16px;
     width: 100%;
   }

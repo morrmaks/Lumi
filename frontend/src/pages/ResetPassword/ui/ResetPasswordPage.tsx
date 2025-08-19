@@ -4,11 +4,11 @@ import { Navigate } from 'react-router-dom'
 import { getRouteMain } from '@/shared/consts/router'
 import { PageLayout } from '@/widgets/PageLayout'
 import { useAppSelector } from '@/shared/lib/hooks'
-import { getUserIsForgotPassword } from '@/entities/User'
 import { Placeholders } from '@/shared/consts'
+import { getIsForgotPassword } from '@/features/Auth'
 
 const ResetPasswordPage = () => {
-  const isAllowed = useAppSelector(getUserIsForgotPassword)
+  const isAllowed = useAppSelector(getIsForgotPassword)
 
   if (!isAllowed) {
     return <Navigate to={getRouteMain()} replace />

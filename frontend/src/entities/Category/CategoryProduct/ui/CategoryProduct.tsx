@@ -7,13 +7,9 @@ import { IconsMap } from '@/shared/consts/icons'
 import { getIconTheme } from '@/shared/lib/utils'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { memo, MouseEvent, useCallback } from 'react'
-import {
-  getCategoryId,
-  ICategoryProduct,
-  ViewFormat,
-} from '@/pages/CategoryPage'
+import { getCategory, ICategoryProduct, ViewFormat } from '@/pages/CategoryPage'
 import { useAppSelector } from '@/shared/lib/hooks'
-import { Placeholders } from '@/shared/consts'
+import { ApiMap, Placeholders } from '@/shared/consts'
 
 interface CategoryProductProps {
   product: ICategoryProduct
@@ -21,8 +17,8 @@ interface CategoryProductProps {
 }
 
 export const Product = ({ product, view }: CategoryProductProps) => {
-  const { id, image, title, rating, reviews, discountPrice, price } = product
-  const categoryId = useAppSelector(getCategoryId)
+  const { id, image, name, rating, reviews, discountPrice, price } = product
+  const { id: categoryId, slug } = useAppSelector(getCategory)
 
   const handleAddToBasket = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -44,7 +40,7 @@ export const Product = ({ product, view }: CategoryProductProps) => {
   if (view === ViewFormat.GRID) {
     return (
       <AppLink
-        to={getRouteCatalogItem(categoryId, id)}
+        to={getRouteCatalogItem(slug, id)}
         className={cls.categoryProduct}
       >
         <Button
@@ -58,13 +54,13 @@ export const Product = ({ product, view }: CategoryProductProps) => {
           />
         </Button>
         <AppImage
-          src={image}
-          alt={title}
+          src={`${ApiMap.STATIC}${image}`}
+          alt={name}
           className={cls.categoryProduct__image}
         />
         <div className={cls.categoryProduct__details}>
           <div className={cls.categoryProduct__infoSection}>
-            <h3 className={cls.categoryProduct__title}>{title}</h3>
+            <h3 className={cls.categoryProduct__title}>{name}</h3>
             <div className={cls.categoryProduct__ratingContainer}>
               <Icon
                 Svg={IconsMap.RATING}
@@ -103,17 +99,17 @@ export const Product = ({ product, view }: CategoryProductProps) => {
 
   return (
     <AppLink
-      to={getRouteCatalogItem(categoryId, id)}
+      to={getRouteCatalogItem(slug, id)}
       className={cls.categoryProduct__viewList}
     >
       <AppImage
-        src={image}
-        alt={title}
+        src={`${ApiMap.STATIC}${image}`}
+        alt={name}
         className={cls.categoryProduct__viewList_image}
       />
       <div className={cls.categoryProduct__viewList_details}>
         <div className={cls.categoryProduct__viewList_infoSection}>
-          <h3 className={cls.categoryProduct__title}>{title}</h3>
+          <h3 className={cls.categoryProduct__title}>{name}</h3>
           <div className={cls.categoryProduct__ratingContainer}>
             <Icon
               Svg={IconsMap.RATING}

@@ -8,17 +8,14 @@ export interface Settings {
 
 export interface User {
   id: string
-  username: string
+  name: string
   email: string
-  avatar: string
-  phone: string
-  isActivated: boolean
-  orders: IOrder[]
+  avatarUrl?: string
+  phone?: string
+  settings?: Settings
+  orders?: IOrder[]
 }
 
 export interface UserSchema {
-  isForgotPassword: boolean
-  inited: boolean
-  authData?: User
-  settings?: Settings
+  user?: User
 }

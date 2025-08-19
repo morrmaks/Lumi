@@ -4,7 +4,7 @@ import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { Progress } from '@/shared/ui/Progress'
 import {
   ConfiguratorComponents,
-  getConfiguratorComponentsState,
+  getConfiguratorComponentsList,
 } from '@/features/Configurator'
 import { useAppSelector } from '@/shared/lib/hooks'
 import {
@@ -16,7 +16,7 @@ import { Suspense } from 'react'
 import { Placeholders } from '@/shared/consts'
 
 const ConfiguratorPage = () => {
-  const { components } = useAppSelector(getConfiguratorComponentsState)
+  const components = useAppSelector(getConfiguratorComponentsList)
   const { total, filled, progress } = getConfiguratorProgress(components)
 
   return (

@@ -1,5 +1,5 @@
 import { IconsMap } from '@/shared/consts/icons'
-import { ComponentNames } from '../consts/ComponentNames'
+import { ComponentTypes } from '../consts/ComponentTypes'
 import { CatalogCategoriesMap } from '@/shared/consts/catalogCategoriesMap'
 
 export interface ConfiguratorComponentConfig {
@@ -9,45 +9,45 @@ export interface ConfiguratorComponentConfig {
 }
 
 export const ConfiguratorComponentsConfig: Record<
-  ComponentNames,
+  ComponentTypes,
   ConfiguratorComponentConfig
 > = {
-  [ComponentNames.CPU]: {
+  [ComponentTypes.CPU]: {
     label: 'Процессор',
     icon: IconsMap.CPU,
     category: CatalogCategoriesMap.CPU,
   },
-  [ComponentNames.GPU]: {
+  [ComponentTypes.GPU]: {
     label: 'Видеокарта',
     icon: IconsMap.GPU,
     category: CatalogCategoriesMap.GPU,
   },
-  [ComponentNames.MB]: {
+  [ComponentTypes.MB]: {
     label: 'Мат. плата',
     icon: IconsMap.MOTHERBOARD,
     category: CatalogCategoriesMap.MB,
   },
-  [ComponentNames.RAM]: {
+  [ComponentTypes.RAM]: {
     label: 'Оперативная память',
     icon: IconsMap.RAM,
     category: CatalogCategoriesMap.RAM,
   },
-  [ComponentNames.STORAGE]: {
+  [ComponentTypes.STORAGE]: {
     label: 'Накопитель SSD',
     icon: IconsMap.STORAGE,
     category: CatalogCategoriesMap.STORAGE,
   },
-  [ComponentNames.PSU]: {
+  [ComponentTypes.PSU]: {
     label: 'Блок питания',
     icon: IconsMap.PSU,
     category: CatalogCategoriesMap.PSU,
   },
-  [ComponentNames.COOLER]: {
+  [ComponentTypes.COOLER]: {
     label: 'Охлаждение',
     icon: IconsMap.COOLER,
     category: CatalogCategoriesMap.COOLER,
   },
-  [ComponentNames.CASE]: {
+  [ComponentTypes.CASE]: {
     label: 'Корпус',
     icon: IconsMap.CASE,
     category: CatalogCategoriesMap.CASE,

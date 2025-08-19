@@ -5,26 +5,30 @@ import { getIconTheme } from '@/shared/lib/utils'
 import {
   getProductDetailsDiscountAmount,
   ProductDetailsSkeleton,
+  ProductSpecs,
 } from '@/entities/ProductDetails'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { MouseEvent, useCallback, useMemo } from 'react'
 import { useAppSelector } from '@/shared/lib/hooks'
-import { getProductCard, getProductIsLoading } from '@/pages/ProductPage'
+import { getProductCard } from '@/pages/ProductPage'
 
-export const ProductDetails = () => {
+interface ProductDetailsProps {
+  isLoading: boolean
+}
+
+export const ProductDetails = ({ isLoading }: ProductDetailsProps) => {
   const {
     id,
-    images,
-    title,
+    name,
     description,
     specs,
     rating,
     reviews,
     discountPrice,
     price,
-    componentName,
+    componentType,
+    quantity,
   } = useAppSelector(getProductCard)
-  const isLoading = useAppSelector(getProductIsLoading)
 
   const discountAmount = useMemo(
     () => getProductDetailsDiscountAmount(price, discountPrice),
@@ -59,7 +63,7 @@ export const ProductDetails = () => {
   return (
     <div className={cls.productDetails}>
       <div className={cls.productDetails__header}>
-        <h2 className={cls.productDetails__title}>{title}</h2>
+        <h2 className={cls.productDetails__title}>{name}</h2>
 
         <div className={cls.productDetails__ratingContainer}>
           <Icon
@@ -83,6 +87,10 @@ export const ProductDetails = () => {
           <span className={cls.productDetails__discountAmount}>
             {`${Placeholders.entities.productDetails.priceDifference} ${discountAmount} ₽`}
           </span>
+        </div>
+
+        <div className={cls.productDetails__stockSection}>
+          <p>{`${Placeholders.entities.productDetails.inStockQuantity} ${quantity} шт.`}</p>
         </div>
 
         <div className={cls.productDetails__buttons}>
@@ -122,20 +130,7 @@ export const ProductDetails = () => {
           </div>
         </div>
 
-        <div className={cls.productDetails__specs}>
-          <h3 className={cls.productDetails__specs_title}>
-            {Placeholders.entities.productDetails.specs.mainText}
-          </h3>
-          <ul className={cls.productDetails__specList}>
-            {specs.map(({ label, value }) => (
-              <li key={label} className={cls.productDetails__spec}>
-                <span className={cls.productDetails__spec_label}>{label}</span>
-                <div className={cls.productDetails__spec_line}></div>
-                <span className={cls.productDetails__spec_value}>{value}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ProductSpecs specs={specs || {}} componentType={componentType} />
 
         <div className={cls.productDetails__description}>
           <h3 className={cls.productDetails__description_title}>

@@ -1,5 +1,2 @@
-import { loginActions, loginReducer } from './slice/loginSlice'
-import { type LoginSchema } from './types/loginSchema'
-
-export * from './selectors/loginSelectors'
-export { loginActions, loginReducer, LoginSchema }
+import { type LoginFormValues, loginFormSchema } from './types/loginFormSchema'
+export { LoginFormValues, loginFormSchema }

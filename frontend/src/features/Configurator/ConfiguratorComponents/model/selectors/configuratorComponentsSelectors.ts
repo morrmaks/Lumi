@@ -1,8 +1,7 @@
 import { StateSchema } from '@/app/providers/StoreProvider'
 
-export const getConfiguratorComponentsState = (state: StateSchema) =>
-  state?.configuratorComponents ?? {
-    componentIds: [],
-    components: [],
-    isLoading: false,
-  }
+export const getConfiguratorComponentsList = (state: StateSchema) =>
+  state?.configuratorComponents.components ?? []
+
+export const getConfiguratorComponentsIsLoading = (state: StateSchema) =>
+  state?.configuratorComponents.isLoading ?? false

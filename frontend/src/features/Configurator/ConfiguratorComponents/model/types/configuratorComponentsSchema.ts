@@ -1,4 +1,4 @@
-import { ComponentNames } from '@/features/Configurator'
+import { ComponentTypes } from '@/features/Configurator'
 
 export interface ConfiguratorComponent {
   id: string
@@ -7,17 +7,14 @@ export interface ConfiguratorComponent {
   price: number
 }
 
-export type ConfiguratorComponentIdsMap = Partial<
-  Record<ComponentNames, string>
->
 export type ConfiguratorComponentMap = Record<
-  ComponentNames,
+  ComponentTypes,
   ConfiguratorComponent | null
 >
 
 export interface ConfiguratorComponentsSchema {
-  componentIds: ConfiguratorComponentIdsMap
   components: ConfiguratorComponentMap
+  price: number
   isLoading: boolean
   error?: string
 }

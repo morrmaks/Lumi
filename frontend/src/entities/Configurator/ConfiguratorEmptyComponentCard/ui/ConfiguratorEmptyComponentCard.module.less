@@ -8,6 +8,7 @@
   .border(2px, dashed);
   .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
   .selectableBorder();
+
   justify-content: space-between;
   border-radius: var(--border-radius-l);
   background-color: var(--card-bg-color);
@@ -19,10 +20,9 @@
 
   &__compact {
     .flex(column, center, space-between);
-    //.border();
     .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
+
     border-radius: var(--border-radius-l);
-    //background-color: var(--card-bg-color);
     background-color: var(--bg-color);
     padding: 12px 8px;
     gap: 8px;
@@ -37,6 +37,7 @@
 
     &_title {
       .ellipsis();
+
       width: 100%;
       text-align: center;
       font: var(--font-xs);

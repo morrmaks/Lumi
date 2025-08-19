@@ -6,16 +6,18 @@
 .profileOrders {
   .flex(column, space-between);
   .border();
+
   border-radius: var(--border-radius-l);
   padding: 24px 12px;
   width: 100%;
 
   @media @breakpoint-sm {
-    padding: 24px 24px;
+    padding: 24px;
   }
 
   &__header {
     .flex(row, center, start);
+
     gap: 8px;
     margin-bottom: 24px;
 
@@ -32,12 +34,14 @@
 
   &__list {
     .flex(column);
+
     gap: 16px;
     margin-top: 24px;
   }
 
   &__order {
     .hoverShadow();
+
     width: 100%;
   }
 

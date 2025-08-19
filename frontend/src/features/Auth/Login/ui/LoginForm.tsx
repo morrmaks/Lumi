@@ -1,102 +1,89 @@
 import { Input } from '@/shared/ui/Input'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { AppLink } from '@/shared/ui/AppLink'
-import {
-  getFullRouteForgotPassword,
-  getRouteProfile,
-} from '@/shared/consts/router'
+import { getFullRouteForgotPassword } from '@/shared/consts/router'
 import cls from './LoginForm.module.less'
 import { PasswordInput } from '@/entities/User'
-import { FormEvent, useCallback } from 'react'
-import { useAppSelector } from '@/shared/lib/hooks/useAppSelector'
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
-import {
-  getLoginState,
-  loginActions,
-  loginReducer,
-} from '@/features/Auth/Login'
-import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import { ButtonSize } from '@/shared/ui/Button/Button'
-import { useNavigate } from 'react-router-dom'
 import { Placeholders } from '@/shared/consts'
+import { usePostLoginMutation } from '@/entities/User/api'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ApiErrorMessage } from '@/shared/ui/ApiErrorMessage'
+import { loginFormSchema, LoginFormValues } from '@/features/Auth'
 
-const initialReducers: ReducerList = {
-  loginForm: loginReducer,
+const initialFormState: LoginFormValues = {
+  email: '',
+  password: '',
 }
 
 export const LoginForm = () => {
-  const { email, password, isLoading, error } = useAppSelector(getLoginState)
-  const dispatch = useAppDispatch()
+  const [loginUser, { isLoading, error: loginError }] = usePostLoginMutation()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: initialFormState,
+    mode: 'onChange',
+  })
 
-  const navigate = useNavigate()
-
-  const onChangeEmail = useCallback(
-    (value: string) => {
-      dispatch(loginActions.setEmail(value))
-    },
-    [dispatch]
-  )
-
-  const onChangePassword = useCallback(
-    (value: string) => {
-      dispatch(loginActions.setPassword(value))
-    },
-    [dispatch]
-  )
-
-  const handleSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      // const res = dispatch(login({email, password}))
-      const res = true
-      if (res) {
-        navigate(getRouteProfile())
-      }
-    },
-    [dispatch, email, password]
-  )
+  const onSubmit = async (data: LoginFormValues) => {
+    try {
+      await loginUser(data).unwrap()
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   return (
-    <DynamicModuleLoader reducers={initialReducers}>
-      <form className={cls.loginForm} onSubmit={handleSubmit}>
-        <label htmlFor="email" className={cls.loginForm__label}>
-          {Placeholders.features.auth.loginForm.labels.email}
-          <Input
-            id={'email'}
-            type={'email'}
-            value={email}
-            onChangeString={onChangeEmail}
-            placeholder={
-              Placeholders.features.auth.loginForm.placeholders.email
-            }
-            className={cls.loginForm__input}
-          />
-        </label>
-        <label htmlFor="password" className={cls.loginForm__label}>
-          {Placeholders.features.auth.loginForm.labels.password}
-          <PasswordInput
-            className={cls.loginForm__input}
-            value={password}
-            onChange={onChangePassword}
-          />
-        </label>
-        {error && <span className={cls.loginForm__errors}>{error}</span>}
-        <Button
-          type={'submit'}
-          theme={ButtonTheme.PRIMARY}
-          fullWidth={true}
-          size={ButtonSize.L}
-          disabled={isLoading}
-        >
-          {Placeholders.features.auth.loginForm.submit}
-        </Button>
-        <AppLink
-          to={getFullRouteForgotPassword()}
-          className={cls.loginForm__forgotButton}
-        >
-          {Placeholders.features.auth.loginForm.onRouteForgotPassword}
-        </AppLink>
-      </form>
-    </DynamicModuleLoader>
+    <form
+      className={cls.loginForm}
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+    >
+      <label htmlFor="email" className={cls.loginForm__label}>
+        {Placeholders.features.auth.loginForm.labels.email}
+        <Input
+          id={'email'}
+          type={'email'}
+          placeholder={Placeholders.features.auth.loginForm.placeholders.email}
+          className={cls.loginForm__input}
+          {...register('email')}
+        />
+        {errors.email && (
+          <span className={cls.loginForm__errors}>{errors.email.message}</span>
+        )}
+      </label>
+      <label htmlFor="password" className={cls.loginForm__label}>
+        {Placeholders.features.auth.loginForm.labels.password}
+        <PasswordInput
+          className={cls.loginForm__input}
+          {...register('password')}
+        />
+        {errors.password && (
+          <span className={cls.loginForm__errors}>
+            {errors.password.message}
+          </span>
+        )}
+      </label>
+      <ApiErrorMessage error={loginError} />
+      <Button
+        type={'submit'}
+        theme={ButtonTheme.PRIMARY}
+        fullWidth={true}
+        size={ButtonSize.L}
+        disabled={isLoading}
+      >
+        {Placeholders.features.auth.loginForm.submit}
+      </Button>
+      <AppLink
+        to={getFullRouteForgotPassword()}
+        className={cls.loginForm__forgotButton}
+      >
+        {Placeholders.features.auth.loginForm.onRouteForgotPassword}
+      </AppLink>
+    </form>
   )
 }

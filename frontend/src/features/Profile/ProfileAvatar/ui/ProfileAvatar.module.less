@@ -1,0 +1,15 @@
+@import '@/app/styles/mixins/interactive';
+
+.profileAvatar {
+  &__label {
+    .selectable(var(--hover-opacity));
+
+    width: 96px;
+    height: 96px;
+    border-radius: var(--border-radius-rounded);
+  }
+
+  &__input {
+    display: none;
+  }
+}

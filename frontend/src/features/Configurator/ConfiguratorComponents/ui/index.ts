@@ -1,2 +1,3 @@
 import { ConfiguratorComponentsAsync as ConfiguratorComponents } from './ConfiguratorComponents.async'
-export { ConfiguratorComponents }
+import { ConfiguratorComponentsSkeleton } from './ConfiguratorComponentsSkeleton'
+export { ConfiguratorComponents, ConfiguratorComponentsSkeleton }

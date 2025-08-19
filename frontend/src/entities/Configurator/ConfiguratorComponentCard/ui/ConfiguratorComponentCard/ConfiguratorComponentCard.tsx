@@ -1,6 +1,6 @@
 import cls from './ConfiguratorComponentCard.module.less'
 import {
-  ComponentNames,
+  ComponentTypes,
   ConfiguratorComponent,
   ConfiguratorComponentsConfig,
 } from '@/features/Configurator'
@@ -11,7 +11,7 @@ import { ConfiguratorComponentSelectButtons } from '@/entities/Configurator'
 import { useEffect, useRef, useState, useCallback } from 'react'
 
 interface ConfiguratorComponentCardProps {
-  componentName: ComponentNames
+  componentName: ComponentTypes
   component: ConfiguratorComponent
   compact?: boolean
   routeItem: string

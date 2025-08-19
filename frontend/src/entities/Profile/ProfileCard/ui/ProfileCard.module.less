@@ -4,6 +4,7 @@
 
 .profileCard {
   .flex(column);
+
   gap: 12px;
   width: 100%;
 
@@ -17,6 +18,7 @@
 
   &__personalInfo {
     .border();
+
     border-radius: var(--border-radius-l);
     padding: 24px 12px;
     width: 100%;
@@ -30,18 +32,8 @@
   &__userHeader {
     .flex(column, center);
     .borderBottom();
+
     padding-bottom: 16px;
-  }
-
-  &__avatar {
-    .selectable(var(--hover-opacity));
-    width: 96px;
-    height: 96px;
-    border-radius: var(--border-radius-rounded);
-
-    &_input {
-      display: none;
-    }
   }
 
   &__username {
@@ -57,6 +49,7 @@
 
   &__userStats {
     .flex(column, space-between);
+
     gap: 8px;
     margin-top: 16px;
   }
@@ -94,6 +87,7 @@
     &_header {
       margin-bottom: 24px;
       .flex(column);
+
       gap: 8px;
 
       @media @breakpoint-sm {

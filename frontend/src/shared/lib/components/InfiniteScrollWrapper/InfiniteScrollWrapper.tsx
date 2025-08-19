@@ -5,12 +5,14 @@ interface InfiniteScrollWrapperProps {
   onScrollEnd?: () => void
   withWrapperScroll?: boolean
   children: ReactNode
+  enabled?: boolean
 }
 
 export const InfiniteScrollWrapper = ({
   onScrollEnd,
   children,
   withWrapperScroll = true,
+  enabled = true,
 }: InfiniteScrollWrapperProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLDivElement>(null)
@@ -19,6 +21,7 @@ export const InfiniteScrollWrapper = ({
     wrapperRef,
     triggerRef,
     callback: onScrollEnd,
+    enabled,
   })
 
   if (withWrapperScroll) {

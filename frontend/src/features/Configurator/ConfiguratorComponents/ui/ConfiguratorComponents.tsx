@@ -5,11 +5,11 @@ import {
 } from '@/entities/Configurator'
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
 import {
-  ComponentNames,
+  ComponentTypes,
   ConfiguratorComponentMap,
   configuratorComponentsActions,
   ConfiguratorComponentsConfig,
-  getConfiguratorComponentsState,
+  getConfiguratorComponentsList,
 } from '@/features/Configurator'
 import { useEffect, useState } from 'react'
 import { AppLink } from '@/shared/ui/AppLink'
@@ -48,9 +48,8 @@ const ConfiguratorComponents = ({
 }: ConfiguratorComponentsProps) => {
   const [isLoading, setIsLoading] = useState(true)
   const dispatch = useAppDispatch()
-  const { components, componentIds /* isLoading */ } = useAppSelector(
-    getConfiguratorComponentsState
-  )
+  const components = useAppSelector(getConfiguratorComponentsList)
+  // const isLoading = useAppSelector(getConfiguratorComponentsIsLoading)
 
   useEffect(() => {
     // dispatch(getConfiguratorComponents(componentIds))
@@ -91,7 +90,7 @@ const ConfiguratorComponents = ({
     >
       {Object.entries(components).map(([key, value]) => {
         const componentConfig =
-          ConfiguratorComponentsConfig[key as ComponentNames]
+          ConfiguratorComponentsConfig[key as ComponentTypes]
 
         const routeCategory = getRouteCatalogCategory(componentConfig.category)
 
@@ -118,7 +117,7 @@ const ConfiguratorComponents = ({
         return (
           <li key={key} className={cls.configuratorComponents__component}>
             <ConfiguratorComponentCard
-              componentName={key as ComponentNames}
+              componentName={key as ComponentTypes}
               component={value}
               compact={carousel}
               routeItem={routeItem}

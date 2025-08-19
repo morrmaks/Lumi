@@ -53,7 +53,7 @@ const SelectComponent = <T extends string>({
   return (
     <div className={cls.select} ref={ref}>
       <Button
-        theme={ButtonTheme.OUTLINE}
+        theme={ButtonTheme.STATIC}
         onClick={() => setOpen(!isOpen)}
         className={cls.select__button}
       >
@@ -71,10 +71,15 @@ const SelectComponent = <T extends string>({
             <li key={opt.value} className={cls.select__menuItem}>
               <Button
                 className={cls.select__menuItem_button}
-                theme={ButtonTheme.OUTLINE}
+                theme={ButtonTheme.STATIC}
                 onClick={() => handleSelect(opt.value)}
               >
-                {value === opt.value && <Icon Svg={IconsMap.CHECK_MARK} />}
+                {value === opt.value && (
+                  <Icon
+                    Svg={IconsMap.CHECK_MARK}
+                    className={cls.select__menuItem_icon}
+                  />
+                )}
                 {opt.content}
               </Button>
             </li>

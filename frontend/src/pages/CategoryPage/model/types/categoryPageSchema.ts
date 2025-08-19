@@ -1,23 +1,37 @@
-import { SortFieldOptions, ViewFormat } from '@/pages/CategoryPage'
+import { SortFieldOptionKey, ViewFormat } from '@/pages/CategoryPage'
+import { IBreadcrumb } from '@/features/BreadcrumbNav'
+
+export interface ICategory {
+  id: string
+  name: string
+  description: string
+  slug: string
+  productCount: number
+}
+
+export interface ICategoryWithBreadcrumb {
+  category: ICategory
+  breadcrumb: IBreadcrumb[]
+}
 
 export interface ICategoryProduct {
   id: string
   image: string
-  title: string
-  rating: string
-  reviews: string
-  discountPrice: number
+  name: string
+  rating: number
+  reviews: number
   price: number
+  discountPrice: number
 }
 
 export interface CategoryPageSchema {
-  name: string
-  id: string
-  isLoading: boolean
+  category: ICategory
+  search: string
   page: number
   limit: number
   hasMore: boolean
   view: ViewFormat
-  sort: SortFieldOptions
+  sort: SortFieldOptionKey
   products: ICategoryProduct[]
+  inited: boolean
 }

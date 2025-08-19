@@ -23,7 +23,7 @@ export const PageLayout = ({
 
   useEffect(() => {
     if (name) {
-      dispatch(breadcrumbNavActions.setName({ path: pathname, name }))
+      dispatch(breadcrumbNavActions.setBreadcrumb({ path: pathname, name }))
     }
   }, [pathname, name])
 

@@ -3,6 +3,8 @@ import { CatalogCategoriesMap } from './catalogCategoriesMap'
 import { IconsMap } from './icons'
 import { IconTheme } from './iconTheme'
 import { Placeholders } from './placeholders'
+import { ApiMap } from './api'
+import { LocalStorage } from './localStorage'
 export * from './router'
 export {
   BreadcrumbMap,
@@ -10,4 +12,6 @@ export {
   IconsMap,
   IconTheme,
   Placeholders,
+  ApiMap,
+  LocalStorage,
 }
