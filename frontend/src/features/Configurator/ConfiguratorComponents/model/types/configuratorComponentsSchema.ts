@@ -1,20 +1,22 @@
 import { ComponentTypes } from '@/features/Configurator'
 
-export interface ConfiguratorComponent {
-  id: string
-  image: string
-  title: string
-  price: number
+export interface IConfiguratorComponentDto {
+  componentId: string
+  componentType: ComponentTypes
 }
 
-export type ConfiguratorComponentMap = Record<
-  ComponentTypes,
-  ConfiguratorComponent | null
->
+export interface IConfiguratorComponent {
+  id: string
+  image: string
+  name: string
+  discountPrice: number
+  componentType: ComponentTypes
+}
+
+export type ConfiguratorComponentMap = Record<ComponentTypes, string | null>
 
 export interface ConfiguratorComponentsSchema {
   components: ConfiguratorComponentMap
   price: number
-  isLoading: boolean
-  error?: string
+  isSynced: boolean
 }

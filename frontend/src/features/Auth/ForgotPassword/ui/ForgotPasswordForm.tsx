@@ -15,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ApiErrorMessage } from '@/shared/ui/ApiErrorMessage'
 import { useEffect } from 'react'
 import { forgotPasswordFormSchema, ForgotPasswordFormValues } from '../model'
+import { Loader } from '@/shared/ui/Loader'
 
 const initialFormState: ForgotPasswordFormValues = {
   email: '',
@@ -81,7 +82,11 @@ export const ForgotPasswordForm = () => {
         size={ButtonSize.L}
         disabled={isLoading}
       >
-        {Placeholders.features.auth.forgotPasswordForm.submit}
+        {isLoading ? (
+          <Loader delay={0} />
+        ) : (
+          Placeholders.features.auth.forgotPasswordForm.submit
+        )}
       </Button>
       <AppLink
         to={getFullRouteLogin()}

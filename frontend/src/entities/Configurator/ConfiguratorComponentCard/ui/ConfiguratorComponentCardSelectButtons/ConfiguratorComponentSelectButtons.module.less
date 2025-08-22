@@ -2,7 +2,7 @@
 @import '@/app/styles/mixins/interactive';
 
 .configuratorComponentSelectButtons {
-  .border();
+  //.border();
   .flex();
 
   border-radius: var(--border-radius-l);
@@ -13,6 +13,9 @@
   z-index: var(--z-configurator-select-buttons);
   top: calc(100% + 4px);
   left: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: var(--transition-speed);
 
   &__compact {
     .flex(column);
@@ -23,7 +26,13 @@
   }
 
   &__button {
+    .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
     border: none;
     font-weight: var(--font-bold);
+  }
+
+  &__open {
+    visibility: visible;
+    opacity: 1;
   }
 }

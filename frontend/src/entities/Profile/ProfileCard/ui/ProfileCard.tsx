@@ -1,7 +1,7 @@
 import cls from './ProfileCard.module.less'
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
 import { getUserData } from '@/entities/User'
-import { getWishlistProductsState } from '@/features/Wishlist'
+import { getWishlistProducts } from '@/features/Wishlist'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { useState } from 'react'
 import {
@@ -14,11 +14,12 @@ import { usePatchMeMutation } from '@/entities/User/api'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ProfileAvatar } from '@/features/Profile'
+import { Loader } from '@/shared/ui/Loader'
 
 export const ProfileCard = () => {
   const dispatch = useAppDispatch()
   const { name, email, phone, orders } = useAppSelector(getUserData)
-  const { products } = useAppSelector(getWishlistProductsState)
+  const wishlistProducts = useAppSelector(getWishlistProducts)
 
   const [editForm, setEditForm] = useState<boolean>(false)
   const [
@@ -71,7 +72,7 @@ export const ProfileCard = () => {
           <div className={cls.profileCard__wishlistProducts}>
             <span>{Placeholders.entities.profile.card.wishlistQuantity}</span>
             <span className={cls.profileCard__wishlistProducts_total}>
-              {products.length ?? 0}
+              {wishlistProducts.length ?? 0}
             </span>
           </div>
         </div>
@@ -86,9 +87,15 @@ export const ProfileCard = () => {
             onClick={handleEditForm}
             disabled={profileCardIsLoading}
           >
-            {editForm
-              ? Placeholders.entities.profile.card.onSaveInfo
-              : Placeholders.entities.profile.card.onEditInfo}
+            {editForm ? (
+              profileCardIsLoading ? (
+                <Loader delay={0} />
+              ) : (
+                Placeholders.features.auth.loginForm.submit
+              )
+            ) : (
+              Placeholders.entities.profile.card.onEditInfo
+            )}
           </Button>
         </div>
         <FormProvider {...methods}>

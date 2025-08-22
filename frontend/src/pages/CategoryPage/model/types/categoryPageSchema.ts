@@ -1,5 +1,6 @@
 import { SortFieldOptionKey, ViewFormat } from '@/pages/CategoryPage'
 import { IBreadcrumb } from '@/features/BreadcrumbNav'
+import { ComponentTypes } from '@/features/Configurator'
 
 export interface ICategory {
   id: string
@@ -22,6 +23,7 @@ export interface ICategoryProduct {
   reviews: number
   price: number
   discountPrice: number
+  componentType?: ComponentTypes
 }
 
 export interface CategoryPageSchema {

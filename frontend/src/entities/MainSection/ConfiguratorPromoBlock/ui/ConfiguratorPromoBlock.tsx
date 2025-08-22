@@ -1,7 +1,6 @@
 import { AppImage } from '@/shared/ui/AppImage'
 import cls from './ConfiguratorPromoBlock.module.less'
 import { AppLink } from '@/shared/ui/AppLink'
-import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { getRouteConfigurator, Placeholders } from '@/shared/consts'
 
 export const ConfiguratorPromoBlock = () => {
@@ -18,15 +17,6 @@ export const ConfiguratorPromoBlock = () => {
               .describeText
           }
         </p>
-        <Button
-          theme={ButtonTheme.STATIC}
-          className={cls.configuratorPromoBlock__button}
-        >
-          {
-            Placeholders.entities.mainSection.configuratorPromoBlock
-              .onRouteConfigurator
-          }
-        </Button>
       </div>
       <AppImage
         className={cls.configuratorPromoBlock__image}

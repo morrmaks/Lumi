@@ -110,13 +110,18 @@
 
   &:disabled {
     background-color: var(--muted-bg-color);
+    color: var(--muted-color);
+
+    svg {
+      stroke: var(--muted-color);
+    }
 
     &:hover {
       color: var(--primary-color);
       background-color: var(--muted-bg-color);
 
       svg {
-        stroke: var(--primary-color);
+        stroke: var(--muted-color);
       }
     }
   }

@@ -20,6 +20,16 @@ export const CategoryProducts = ({
 
   const skeletonCount = useSkeletonProductsCount()
 
+  if (!products.length && !isLoading && !isFetching && !categoryIsLoading) {
+    return (
+      <div className={cls.categoryProducts__empty}>
+        <h3 className={cls.categoryProducts__empty_title}>
+          Список товаров пуст
+        </h3>
+      </div>
+    )
+  }
+
   return (
     <ul
       className={classNames(cls.categoryProducts, {

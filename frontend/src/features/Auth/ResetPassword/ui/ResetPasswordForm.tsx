@@ -14,6 +14,7 @@ import {
   ResetPasswordFormValues,
 } from '@/features/Auth'
 import { ApiErrorMessage } from '@/shared/ui/ApiErrorMessage'
+import { Loader } from '@/shared/ui/Loader'
 
 const initialFormState: ResetPasswordFormValues = {
   code: '',
@@ -85,7 +86,11 @@ export const ResetPasswordForm = () => {
         size={ButtonSize.L}
         disabled={isLoading}
       >
-        {Placeholders.features.auth.resetPasswordForm.submit}
+        {isLoading ? (
+          <Loader delay={0} />
+        ) : (
+          Placeholders.features.auth.resetPasswordForm.submit
+        )}
       </Button>
     </form>
   )

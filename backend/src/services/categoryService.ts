@@ -8,12 +8,14 @@ import {
   ICategoryProductDto,
 } from "@/types/category";
 import { CategoryDto } from "@/dtos/categoryDto";
+import { ApiError } from "@/exeptions/apiError";
 
 class CategoryService {
   async getCategory(slug: string): Promise<ICategoryDto> {
-    const category = await CategoryModel.findOne({ slug });
+    if (!slug) throw ApiError.BadRequest("Категория не была передана");
 
-    if (!category) throw new Error("Категория не найдена");
+    const category = await CategoryModel.findOne({ slug });
+    if (!category) throw ApiError.NotFound("Категория не найдена");
 
     const productCount = await ProductModel.countDocuments({
       categoryId: category._id,
@@ -24,6 +26,7 @@ class CategoryService {
 
   async getCategories(): Promise<ICategoryDto[]> {
     const categories = await CategoryModel.find().exec();
+    if (!categories.length) throw ApiError.NotFound("Категории не найдены");
 
     const counts = await ProductModel.aggregate([
       { $group: { _id: "$categoryId", count: { $sum: 1 } } },
@@ -46,7 +49,13 @@ class CategoryService {
   async getProducts(
     categoryId: string,
     query: Record<string, any | undefined>,
-  ): Promise<ICategoryProductDto[]> {
+  ): Promise<{ products: ICategoryProductDto[]; hasMore: boolean }> {
+    if (!mongoose.Types.ObjectId.isValid(categoryId))
+      throw ApiError.BadRequest("Неверный id категории");
+
+    const category = await CategoryModel.findById(categoryId);
+    if (!category) throw ApiError.NotFound("Категория не найдена");
+
     const {
       field = "createdAt",
       order = "desc",
@@ -57,9 +66,6 @@ class CategoryService {
 
     const filter: Record<string, any> = { categoryId };
 
-    if (!mongoose.Types.ObjectId.isValid(categoryId))
-      throw new Error("Неверный id категории");
-
     if (search) {
       filter.$or = [
         { name: { $regex: search, $options: "i" } },
@@ -67,22 +73,35 @@ class CategoryService {
       ];
     }
 
+    const totalCount = await ProductModel.countDocuments(filter);
+    const hasMore = page * limit < totalCount;
+
     const products = await ProductModel.find(filter)
       .sort({ [field]: order === "asc" ? 1 : -1, _id: 1 })
       .skip((page - 1) * limit)
       .limit(limit)
       .exec();
-    return products.map((product) => new CategoryProductDto(product));
+    if (!products.length) throw ApiError.NotFound("Товары не найдены");
+
+    const categoryProducts = products.map(
+      (product) => new CategoryProductDto(product),
+    );
+    return {
+      products: categoryProducts,
+      hasMore,
+    };
   }
 
   async getCategoryBreadcrumb(
     categoryId: string,
   ): Promise<ICategoryBreadcrumb[]> {
     if (!mongoose.Types.ObjectId.isValid(categoryId))
-      throw new Error("Неверный id категории");
+      throw ApiError.BadRequest("Неверный id категории");
+
+    let currentCategory = await CategoryModel.findById(categoryId);
+    if (!currentCategory) throw ApiError.NotFound("Категория не найдена");
 
     const stack: ICategoryBreadcrumb[] = [];
-    let currentCategory = await CategoryModel.findById(categoryId);
 
     while (currentCategory) {
       stack.push({

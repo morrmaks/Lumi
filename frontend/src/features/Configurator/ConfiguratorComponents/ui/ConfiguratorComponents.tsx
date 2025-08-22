@@ -6,63 +6,76 @@ import {
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
 import {
   ComponentTypes,
-  ConfiguratorComponentMap,
   configuratorComponentsActions,
   ConfiguratorComponentsConfig,
   getConfiguratorComponentsList,
 } from '@/features/Configurator'
-import { useEffect, useState } from 'react'
+import { memo, useEffect } from 'react'
 import { AppLink } from '@/shared/ui/AppLink'
 import {
   getRouteCatalogCategory,
   getRouteCatalogItem,
 } from '@/shared/consts/router'
 import { ConfiguratorEmptyComponentCard } from '@/entities/Configurator/ConfiguratorEmptyComponentCard'
-import { classNames } from '@/shared/lib/utils'
-
-const ComponentsMock: Partial<ConfiguratorComponentMap> = {
-  ['graphics-card']: {
-    id: '21312',
-    image:
-      'https://images.unsplash.com/photo-1624701928517-44c8ac49d93c?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    title: 'Видеокарта',
-    price: 40231,
-  },
-  ['memory']: {
-    id: '21312',
-    image:
-      'https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    title: 'Оперативная память',
-    price: 6231,
-  },
-}
+import { classNames, getConfiguratorComponentIds } from '@/shared/lib/utils'
+import { useGetConfigureComponentsQuery } from '@/features/Configurator/api'
+import { createConfiguratorComponentsMap } from '@/features/Configurator'
+import { getTotalConfigPrice } from '@/pages/Configurator'
+import { FullEmptyConfiguratorComponents } from '@/features/Configurator'
 
 interface ConfiguratorComponentsProps {
   carousel?: boolean
   className?: string
 }
 
-const ConfiguratorComponents = ({
-  carousel = false,
-  className,
-}: ConfiguratorComponentsProps) => {
-  const [isLoading, setIsLoading] = useState(true)
-  const dispatch = useAppDispatch()
-  const components = useAppSelector(getConfiguratorComponentsList)
-  // const isLoading = useAppSelector(getConfiguratorComponentsIsLoading)
+const ConfiguratorComponents = memo(
+  ({ carousel = false, className }: ConfiguratorComponentsProps) => {
+    const dispatch = useAppDispatch()
+    const components = useAppSelector(getConfiguratorComponentsList)
+    const componentIds = getConfiguratorComponentIds(components)
 
-  useEffect(() => {
-    // dispatch(getConfiguratorComponents(componentIds))
-    dispatch(configuratorComponentsActions.setComponents(ComponentsMock))
+    const { data: componentsData, isLoading } = useGetConfigureComponentsQuery(
+      componentIds,
+      { skip: componentIds.length === 0 }
+    )
+    const configuratorComponentsMap =
+      createConfiguratorComponentsMap(componentsData)
 
-    const timeout = setTimeout(() => {
-      //имитация загрузки пока нет реальных запросов
-      dispatch(configuratorComponentsActions.setComponents(ComponentsMock))
-      setIsLoading(false)
-    }, 1500)
-  }, [])
+    useEffect(() => {
+      dispatch(
+        configuratorComponentsActions.setPrice(
+          getTotalConfigPrice(componentsData)
+        )
+      )
+    }, [componentsData, dispatch])
 
-  if (isLoading) {
+    if (isLoading) {
+      return (
+        <ul
+          className={classNames(
+            cls.configuratorComponents,
+            { [cls.configuratorComponents__carousel]: carousel },
+            [className]
+          )}
+        >
+          {[...new Array(8)].map((_, i) => (
+            <li key={i} className={cls.configuratorComponents__component}>
+              <ConfiguratorComponentCardSkeleton compact={carousel} />
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    if (componentIds.length === 0) {
+      return (
+        <FullEmptyConfiguratorComponents
+          carousel={carousel}
+          className={className}
+        />
+      )
+    }
+
     return (
       <ul
         className={classNames(
@@ -71,63 +84,51 @@ const ConfiguratorComponents = ({
           [className]
         )}
       >
-        {[...new Array(8)].map((_, i) => (
-          <li key={i}>
-            <ConfiguratorComponentCardSkeleton compact={carousel} />
-          </li>
-        ))}
+        {Object.entries(configuratorComponentsMap).map(([key, value]) => {
+          const componentConfig =
+            ConfiguratorComponentsConfig[key as ComponentTypes]
+
+          const routeCategory = getRouteCatalogCategory(
+            componentConfig.category
+          )
+
+          if (!value) {
+            return (
+              <AppLink
+                key={key}
+                to={routeCategory}
+                className={cls.configuratorComponents__emptyComponent}
+              >
+                <ConfiguratorEmptyComponentCard
+                  componentConfig={componentConfig}
+                  compact={carousel}
+                />
+              </AppLink>
+            )
+          }
+
+          const routeItem = getRouteCatalogItem(
+            componentConfig.category,
+            value.id
+          )
+
+          return (
+            <li key={key} className={cls.configuratorComponents__component}>
+              <ConfiguratorComponentCard
+                componentName={key as ComponentTypes}
+                component={value}
+                compact={carousel}
+                routeItem={routeItem}
+                routeCategory={routeCategory}
+              />
+            </li>
+          )
+        })}
       </ul>
     )
   }
+)
 
-  return (
-    <ul
-      className={classNames(
-        cls.configuratorComponents,
-        { [cls.configuratorComponents__carousel]: carousel },
-        [className]
-      )}
-    >
-      {Object.entries(components).map(([key, value]) => {
-        const componentConfig =
-          ConfiguratorComponentsConfig[key as ComponentTypes]
-
-        const routeCategory = getRouteCatalogCategory(componentConfig.category)
-
-        if (!value) {
-          return (
-            <AppLink
-              key={key}
-              to={routeCategory}
-              className={cls.configuratorComponents__emptyComponent}
-            >
-              <ConfiguratorEmptyComponentCard
-                componentConfig={componentConfig}
-                compact={carousel}
-              />
-            </AppLink>
-          )
-        }
-
-        const routeItem = getRouteCatalogItem(
-          componentConfig.category,
-          value.id
-        )
-
-        return (
-          <li key={key} className={cls.configuratorComponents__component}>
-            <ConfiguratorComponentCard
-              componentName={key as ComponentTypes}
-              component={value}
-              compact={carousel}
-              routeItem={routeItem}
-              routeCategory={routeCategory}
-            />
-          </li>
-        )
-      })}
-    </ul>
-  )
-}
+ConfiguratorComponents.displayName = 'ConfiguratorComponents'
 
 export default ConfiguratorComponents

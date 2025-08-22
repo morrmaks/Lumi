@@ -17,10 +17,12 @@ const allowedOrigins = [
 
 const app = express();
 
-// app.use(rateLimit({
-//   windowMs: 60 * 1000,
-//   limit: 100
-// }))
+app.use(
+  rateLimit({
+    windowMs: 60 * 1000,
+    limit: 100,
+  }),
+);
 app.use(helmet());
 app.use(compression());
 app.use(express.json());

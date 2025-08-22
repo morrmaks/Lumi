@@ -223,7 +223,10 @@ export const Placeholders = {
   entities: {
     category: {
       categoryProduct: {
+        onAddMoreToBasket: '1 в корзину',
         onAddToBasket: 'В корзину',
+        onRemoveFromConfigurator: 'Убрать',
+        onAddToConfigurator: 'В конфиг',
       },
     },
     configurator: {
@@ -275,7 +278,11 @@ export const Placeholders = {
       priceDifference: 'Экономия:',
       inStockQuantity: 'В наличии',
       onAddToBasket: 'В корзину',
+      onAddMoreToBasket: '1 в корзину',
       onAddToWishlist: 'В избранное',
+      onRemoveFromWishlist: 'Из избранного',
+      inWishlist: 'В избранном',
+      onRemoveFromConfigurator: 'Из конфигуратора',
       onAddToConfigurator: 'В конфигуратор',
       specs: {
         mainText: 'Технические характеристики',

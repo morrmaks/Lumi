@@ -3,15 +3,17 @@ import {
   configuratorComponentsActions,
 } from './slice/configuratorComponentsSlice'
 import type {
-  ConfiguratorComponent,
+  IConfiguratorComponent,
   ConfiguratorComponentMap,
   ConfiguratorComponentsSchema,
+  IConfiguratorComponentDto,
 } from './types/configuratorComponentsSchema'
 
 export * from './selectors/configuratorComponentsSelectors'
 export {
-  ConfiguratorComponent,
+  IConfiguratorComponent,
   ConfiguratorComponentMap,
+  IConfiguratorComponentDto,
   configuratorComponentsReducer,
   configuratorComponentsActions,
   ConfiguratorComponentsSchema,

@@ -1,10 +1,11 @@
-import { BannerModel, IBanner } from "@/models/bannerModel";
-import mongoose from "mongoose";
-import { IProduct } from "@/models/productModel";
+import { BannerModel } from "@/models/bannerModel";
+import { BannerDto } from "@/dtos/bannerDto";
+import { IBannerDto } from "@/types/banner";
 
 class BannerService {
-  async getAll(): Promise<IBanner[]> {
-    return BannerModel.find();
+  async getAll(): Promise<IBannerDto[]> {
+    const banners = await BannerModel.find();
+    return banners.map((banner) => new BannerDto(banner));
   }
 }
 

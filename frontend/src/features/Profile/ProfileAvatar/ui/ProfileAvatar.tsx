@@ -1,11 +1,11 @@
 import cls from './ProfileAvatar.module.less'
 import { AppImage } from '@/shared/ui/AppImage'
-import { ApiMap } from '@/shared/consts'
 import { Input } from '@/shared/ui/Input'
 import { useCallback } from 'react'
 import { usePatchAvatarMutation } from '@/entities/User/api'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { getUserData } from '@/entities/User'
+import { fullImageUrl } from '@/shared/lib/utils'
 
 export const ProfileAvatar = () => {
   const [setAvatar, { isLoading }] = usePatchAvatarMutation()
@@ -26,7 +26,7 @@ export const ProfileAvatar = () => {
     <div>
       <label htmlFor="avatar-upload">
         <AppImage
-          src={`${ApiMap.STATIC}${avatarUrl ?? ''}`}
+          src={fullImageUrl(avatarUrl ?? '')}
           alt={`avatar ${name}`}
           className={cls.profileAvatar__label}
         />

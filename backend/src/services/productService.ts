@@ -2,20 +2,23 @@ import { IProduct, ProductModel } from "@/models/productModel";
 import mongoose from "mongoose";
 import { ProductDto } from "@/dtos/productDto";
 import { IProductDto } from "@/types/product";
+import { ApiError } from "@/exeptions/apiError";
 
 class ProductService {
   async getProduct(productId: string): Promise<IProductDto> {
     if (!mongoose.Types.ObjectId.isValid(productId))
-      throw new Error("Неверный id товара");
-    const product = await ProductModel.findById(productId);
+      throw ApiError.BadRequest("Неверный id товара");
 
-    if (!product) throw new Error("Товар не найден");
+    const product = await ProductModel.findById(productId);
+    if (!product) throw ApiError.NotFound("Товар не найден");
 
     return new ProductDto(product);
   }
 
   async getProducts(): Promise<IProduct[]> {
-    return await ProductModel.find().exec();
+    const products = await ProductModel.find().exec();
+    if (!products.length) throw ApiError.NotFound("Товары не найдены");
+    return products;
   }
 }
 

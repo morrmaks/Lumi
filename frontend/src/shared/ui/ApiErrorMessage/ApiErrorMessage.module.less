@@ -1,5 +1,49 @@
 @import '@/app/styles/mixins/form-elements';
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/variables/global';
 
 .apiErrorMessage {
-  .error();
+  .border(1px, solid, var(--error-border-color));
+  border-radius: var(--border-radius-l);
+  padding: 8px 12px;
+  color: var(--error-color);
+  background-color: var(--error-bg-color);
+
+  &__header {
+    .flex(row, center, start);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    stroke: var(--error-color);
+    margin-right: 8px;
+  }
+
+  &__title {
+    font: var(--font-xs);
+    font-weight: var(--font-bold);
+    text-align: start;
+
+    @media @breakpoint-sm {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__errors {
+    .flex(column, start, start);
+    gap: 8px;
+    margin-top: 8px;
+    font: var(--font-xxs);
+
+    @media @breakpoint-sm {
+      font: var(--font-xs);
+    }
+  }
+
+  &__error {
+    text-align: start;
+  }
 }

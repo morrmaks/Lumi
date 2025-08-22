@@ -1,7 +1,7 @@
 import { rtkApi } from '@/shared/api'
 import { ApiMap } from '@/shared/consts'
 import { removeAccessToken, setAccessToken } from '@/shared/lib/utils'
-import { Settings, userActions } from '@/entities/User'
+import { cleanedUser, Settings, userActions } from '@/entities/User'
 import { forgotPasswordActions, ResetPasswordFormValues } from '@/features/Auth'
 import {
   ForgotPasswordFormValues,
@@ -12,8 +12,9 @@ import {
   ProfileCardFormValues,
   ProfileSettingsFormValues,
 } from '@/features/Profile'
-import { User } from '../model/types/user'
 import { IOrder } from '@/features/Order'
+import { wishlistApi } from '@/features/Wishlist'
+import { basketApi } from '@/features/Basket'
 
 interface UserDataObject {
   id: string
@@ -41,10 +42,18 @@ export const authApi = rtkApi.injectEndpoints({
         return response.user
       },
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled
-        if (data) {
-          dispatch(authApi.util.upsertQueryData('getMe', undefined, data))
-          dispatch(userActions.setUser(data))
+        try {
+          const { data } = await queryFulfilled
+          if (data) {
+            dispatch(authApi.util.upsertQueryData('getMe', undefined, data))
+            dispatch(userActions.setUser(data))
+
+            // dispatch(wishlistApi.endpoints.getWishlist.initiate(undefined, { subscribe: true }))
+            dispatch(basketApi.endpoints.getBasket.initiate())
+            // dispatch(configuratorApi.endpoints.getConfigurator.initiate())
+          }
+        } catch (e) {
+          console.log(e)
         }
       },
     }),
@@ -63,10 +72,14 @@ export const authApi = rtkApi.injectEndpoints({
         return response.user
       },
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled
-        if (data) {
-          dispatch(authApi.util.upsertQueryData('getMe', undefined, data))
-          dispatch(userActions.setUser(data))
+        try {
+          const { data } = await queryFulfilled
+          if (data) {
+            dispatch(authApi.util.upsertQueryData('getMe', undefined, data))
+            dispatch(userActions.setUser(data))
+          }
+        } catch (e) {
+          console.log(e)
         }
       },
     }),
@@ -112,22 +125,14 @@ export const authApi = rtkApi.injectEndpoints({
       },
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled
-        const cleanedUser: User = {
-          id: data.id,
-          name: data.name,
-          email: data.email,
-          avatarUrl: data.avatarUrl,
-          phone: data.phone,
-          orders: data.orders,
-          settings: {
-            orderNotifications: data.settings?.orderNotifications ?? false,
-            marketingNotifications:
-              data.settings?.marketingNotifications ?? false,
-            newsNotifications: data.settings?.newsNotifications ?? false,
-          },
-        }
+        console.log(data)
+        cleanedUser(data)
 
-        dispatch(userActions.setUser(cleanedUser))
+        dispatch(userActions.setUser(data))
+
+        dispatch(wishlistApi.endpoints.getWishlist.initiate())
+        // dispatch(basketApi.endpoints.getBasket.initiate())
+        // dispatch(configuratorApi.endpoints.getConfigurator.initiate())
       },
     }),
 
@@ -135,9 +140,13 @@ export const authApi = rtkApi.injectEndpoints({
       query: () => ({ url: ApiMap.GET_ME }),
       transformResponse: (response: UserDataObject) => response,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled
-        if (data) {
-          dispatch(userActions.setUser(data))
+        try {
+          const { data } = await queryFulfilled
+          if (data) {
+            dispatch(userActions.setUser(data))
+          }
+        } catch (e) {
+          console.log(e)
         }
       },
     }),

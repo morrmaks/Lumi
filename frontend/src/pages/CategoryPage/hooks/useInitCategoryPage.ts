@@ -6,6 +6,7 @@ import {
   ICategoryWithBreadcrumb,
 } from '@/pages/CategoryPage'
 import { useAppDispatch } from '@/shared/lib/hooks'
+import { breadcrumbNavActions } from '@/features/BreadcrumbNav'
 
 export const useInitCategoryPage = (
   dispatch: ReturnType<typeof useAppDispatch>,
@@ -16,6 +17,8 @@ export const useInitCategoryPage = (
   useEffect(() => {
     dispatch(categoryPageActions.resetCategoryPage())
     if (data?.category) dispatch(categoryPageActions.setCategory(data.category))
+    if (data?.breadcrumb)
+      dispatch(breadcrumbNavActions.setBreadcrumbs(data?.breadcrumb))
 
     const field = searchParams.get('field')
     const order = searchParams.get('order')

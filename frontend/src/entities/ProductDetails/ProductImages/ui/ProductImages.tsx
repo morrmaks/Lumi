@@ -1,6 +1,6 @@
 import cls from './ProductImages.module.less'
 import { AppImage } from '@/shared/ui/AppImage'
-import { classNames } from '@/shared/lib/utils'
+import { classNames, fullImageUrl } from '@/shared/lib/utils'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { getProductCard } from '@/pages/ProductPage'
@@ -8,7 +8,6 @@ import {
   ProductImageModal,
   ProductImagesSkeleton,
 } from '@/entities/ProductDetails'
-import { ApiMap } from '@/shared/consts'
 
 interface ProductImagesProps {
   isLoading: boolean
@@ -29,7 +28,7 @@ export const ProductImages = ({ isLoading }: ProductImagesProps) => {
   }, [images])
 
   const fullImageUrls = useMemo(
-    () => images.map((img) => `${ApiMap.STATIC}${img}`),
+    () => images.map((img) => fullImageUrl(img)),
     [images]
   )
 

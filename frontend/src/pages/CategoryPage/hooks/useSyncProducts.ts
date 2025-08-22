@@ -1,22 +1,26 @@
 import { useEffect } from 'react'
-import { categoryPageActions, ICategoryProduct } from '@/pages/CategoryPage'
+import { categoryPageActions } from '@/pages/CategoryPage'
 import { useAppDispatch } from '@/shared/lib/hooks'
+import { ApiError } from '@/shared/types'
+import { SerializedError } from '@reduxjs/toolkit'
+import { CategoryProductsWithHasMore } from '@/features/Category'
 
 export const useSyncProducts = (
-  products: ICategoryProduct[] | undefined,
+  productsData: CategoryProductsWithHasMore | undefined,
+  error: ApiError | SerializedError | undefined,
   page: number,
-  limit: number,
   dispatch: ReturnType<typeof useAppDispatch>
 ) => {
   useEffect(() => {
-    if (!products) return
-    if (page === 1) {
-      dispatch(categoryPageActions.setProducts(products))
-      console.log('page', page)
-    } else {
-      dispatch(categoryPageActions.addProducts(products))
-      console.log('page2', page)
+    if (!productsData || productsData.products.length === 0 || error) {
+      dispatch(categoryPageActions.setProducts([]))
+      return
     }
-    dispatch(categoryPageActions.setHasMore(products.length >= (limit ?? 8)))
-  }, [products, dispatch])
+    dispatch(categoryPageActions.setHasMore(productsData.hasMore))
+    if (page === 1) {
+      dispatch(categoryPageActions.setProducts(productsData.products))
+    } else {
+      dispatch(categoryPageActions.addProducts(productsData.products))
+    }
+  }, [productsData, dispatch, error])
 }

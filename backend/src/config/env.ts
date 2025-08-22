@@ -15,4 +15,6 @@ export const env = {
   CLIENT_DEV_URL: getEnv("CLIENT_DEV_URL"),
   CLIENT_PROD_URL: getEnv("CLIENT_PROD_URL"),
   CLIENT_PROD_NGINX: getEnv("CLIENT_PROD_NGINX"),
+  YOO_SHOP_ID: getEnv("YOO_SHOP_ID"),
+  YOO_SECRET_KEY: getEnv("YOO_SECRET_KEY"),
 };

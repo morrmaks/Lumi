@@ -9,23 +9,56 @@ import { AppFooter } from '@/widgets/AppFooter'
 import { BreadcrumbNav } from '@/features/BreadcrumbNav'
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
 import { useEffect } from 'react'
-import { wishlistProductsActions } from '@/features/Wishlist'
-import { basketProductsActions } from '@/features/Basket'
 import { useGetMeQuery } from '@/entities/User/api'
-import { getUserInited } from '@/entities/User'
+import { getUserInited, getUserIsAuth } from '@/entities/User'
 import { Loader } from '@/shared/ui/Loader'
+import {
+  useAddWishlistProductsMutation,
+  useGetWishlistQuery,
+} from '@/features/Wishlist/api/wishlistApi'
+import { initConfigurator, initWishlist } from '@/app/lib'
+import {
+  useAddBasketProductsMutation,
+  useGetBasketQuery,
+} from '@/features/Basket'
+import { initBasket } from '@/app/lib'
+import {
+  useGetConfigureQuery,
+  useSetConfigureMutation,
+} from '@/features/Configurator/api'
 
 export const App = () => {
-  const dispatch = useAppDispatch()
-  useGetMeQuery()
   useViewportHeightCssVar()
   const { md } = useBreakpoint()
+  const dispatch = useAppDispatch()
+  const isAuth = useAppSelector(getUserIsAuth)
   const isInited = useAppSelector(getUserInited)
 
+  const { data: user } = useGetMeQuery()
+  const { data: wishlistProductIds } = useGetWishlistQuery(undefined, {
+    skip: !isAuth,
+  })
+  const [addToWishlist] = useAddWishlistProductsMutation()
+  const [addToBasket] = useAddBasketProductsMutation()
+  const { data: basketProductIds } = useGetBasketQuery(undefined, {
+    skip: !isAuth,
+  })
+  const { data: configuratorComponents } = useGetConfigureQuery(undefined, {
+    skip: !isAuth,
+  })
+  const [setConfigurator] = useSetConfigureMutation()
+
   useEffect(() => {
-    dispatch(wishlistProductsActions.addProduct(['1', '2', '3', '4', '5'])) //это будет происходить при инициализации приложения
-    dispatch(basketProductsActions.addProduct({ id: '1', quantity: 1 })) //это будет происходить при инициализации приложения
-  }, [dispatch])
+    initWishlist(isAuth, wishlistProductIds, addToWishlist, dispatch)
+  }, [isAuth, wishlistProductIds, dispatch])
+
+  useEffect(() => {
+    initBasket(isAuth, basketProductIds, addToBasket, dispatch)
+  }, [isAuth, basketProductIds, dispatch])
+
+  useEffect(() => {
+    initConfigurator(isAuth, configuratorComponents, setConfigurator, dispatch)
+  }, [isAuth, configuratorComponents, dispatch])
 
   return (
     <div className={classNames('app', {}, [])}>

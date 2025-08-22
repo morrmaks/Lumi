@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ApiErrorMessage } from '@/shared/ui/ApiErrorMessage'
 import { registerFormSchema, RegisterFormValues } from '../model'
+import { Loader } from '@/shared/ui/Loader'
 
 const initialFormState: RegisterFormValues = {
   name: '',
@@ -90,7 +91,11 @@ export const RegisterForm = () => {
         size={ButtonSize.L}
         disabled={isLoading}
       >
-        {Placeholders.features.auth.registerForm.submit}
+        {isLoading ? (
+          <Loader delay={0} />
+        ) : (
+          Placeholders.features.auth.registerForm.submit
+        )}
       </Button>
     </form>
   )

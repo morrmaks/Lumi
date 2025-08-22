@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ApiErrorMessage } from '@/shared/ui/ApiErrorMessage'
 import { loginFormSchema, LoginFormValues } from '@/features/Auth'
+import { Loader } from '@/shared/ui/Loader'
 
 const initialFormState: LoginFormValues = {
   email: '',
@@ -76,7 +77,11 @@ export const LoginForm = () => {
         size={ButtonSize.L}
         disabled={isLoading}
       >
-        {Placeholders.features.auth.loginForm.submit}
+        {isLoading ? (
+          <Loader delay={0} />
+        ) : (
+          Placeholders.features.auth.loginForm.submit
+        )}
       </Button>
       <AppLink
         to={getFullRouteForgotPassword()}

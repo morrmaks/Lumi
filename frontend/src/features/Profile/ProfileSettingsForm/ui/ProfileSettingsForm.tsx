@@ -8,10 +8,10 @@ import {
 } from '@/features/Profile'
 import { Placeholders } from '@/shared/consts'
 import { usePatchPasswordMutation } from '@/entities/User/api'
-import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ApiErrorMessage } from '@/shared/ui/ApiErrorMessage'
+import { Loader } from '@/shared/ui/Loader'
 
 const initialFormState: ProfileSettingsFormValues = {
   currentPassword: '',
@@ -21,7 +21,6 @@ const initialFormState: ProfileSettingsFormValues = {
 export const ProfileSettingsForm = () => {
   const [updatePassword, { isSuccess, isLoading, error: changePasswordError }] =
     usePatchPasswordMutation()
-  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -88,7 +87,11 @@ export const ProfileSettingsForm = () => {
         fullWidth={true}
         className={cls.profileSettingsForm__button}
       >
-        {Placeholders.features.profile.settingsForm.submit}
+        {isLoading ? (
+          <Loader delay={0} />
+        ) : (
+          Placeholders.features.profile.settingsForm.submit
+        )}
       </Button>
       <ApiErrorMessage error={changePasswordError} />
     </form>

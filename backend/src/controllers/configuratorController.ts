@@ -4,11 +4,44 @@ import { configuratorService } from "@/services/configuratorService";
 class ConfiguratorController {
   async getConfigure(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
 
-      const data = await configuratorService.getConfigure(userId);
+      const components = await configuratorService.getConfigure(userId);
 
-      return res.json(data);
+      return res.json(components);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async setConfigure(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id: userId } = (req as any).user;
+      const { componentIds } = req.body;
+
+      const components = await configuratorService.setConfigure(
+        userId,
+        componentIds,
+      );
+
+      return res.json(components);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async getConfigureComponents(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const componentIds = (req.query.ids as string).split(",");
+
+      const products =
+        await configuratorService.getConfigureComponents(componentIds);
+
+      return res.json(products);
     } catch (e) {
       next(e);
     }
@@ -16,12 +49,15 @@ class ConfiguratorController {
 
   async addComponent(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
       const { componentId } = req.body;
 
-      const data = await configuratorService.addComponent(userId, componentId);
+      const component = await configuratorService.addComponent(
+        userId,
+        componentId,
+      );
 
-      return res.json(data);
+      return res.json(component);
     } catch (e) {
       next(e);
     }
@@ -29,15 +65,15 @@ class ConfiguratorController {
 
   async addComponents(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
       const { componentIds } = req.body;
 
-      const data = await configuratorService.addComponents(
+      const components = await configuratorService.addComponents(
         userId,
         componentIds,
       );
 
-      return res.json(data);
+      return res.json(components);
     } catch (e) {
       next(e);
     }
@@ -45,15 +81,15 @@ class ConfiguratorController {
 
   async deleteComponent(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
       const { componentId } = req.params;
 
-      const data = await configuratorService.deleteComponent(
+      const deletedComponentId = await configuratorService.deleteComponent(
         userId,
         componentId,
       );
 
-      return res.json(data);
+      return res.json(deletedComponentId);
     } catch (e) {
       next(e);
     }
@@ -61,7 +97,7 @@ class ConfiguratorController {
 
   async clearConfigure(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
 
       const data = await configuratorService.clearConfigure(userId);
 

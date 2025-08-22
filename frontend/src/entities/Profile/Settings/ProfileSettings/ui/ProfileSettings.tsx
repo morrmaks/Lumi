@@ -10,6 +10,7 @@ import {
   useDeleteUserMutation,
   usePostLogoutMutation,
 } from '@/entities/User/api'
+import { Loader } from '@/shared/ui/Loader'
 
 export const ProfileSettings = () => {
   const [deleteAccount, { isLoading: isLoadingDelete }] =
@@ -57,11 +58,17 @@ export const ProfileSettings = () => {
           className={cls.profileSettings__logoutButton}
           disabled={isLoadingLogout}
         >
-          <Icon
-            Svg={IconsMap.LOGOUT}
-            className={cls.profileSettings__logoutButton_icon}
-          />
-          {Placeholders.entities.profile.settings.safety.logout}
+          {isLoadingLogout ? (
+            <Loader delay={0} />
+          ) : (
+            <>
+              <Icon
+                Svg={IconsMap.LOGOUT}
+                className={cls.profileSettings__logoutButton_icon}
+              />
+              {Placeholders.entities.profile.settings.safety.logout}
+            </>
+          )}
         </Button>
         <div className={cls.profileSettings__deleteAccount}>
           <Button
@@ -70,7 +77,11 @@ export const ProfileSettings = () => {
             fullWidth={true}
             disabled={isLoadingDelete}
           >
-            {Placeholders.entities.profile.settings.safety.deleteAccount}
+            {isLoadingDelete ? (
+              <Loader delay={0} />
+            ) : (
+              Placeholders.entities.profile.settings.safety.deleteAccount
+            )}
           </Button>
           <p className={cls.profileSettings__deleteAccount_textWarning}>
             {Placeholders.entities.profile.settings.safety.deleteWarning}

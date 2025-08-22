@@ -1,5 +1,6 @@
 import { IProduct } from "@/models/productModel";
 import { ICategoryProductDto } from "@/types/category";
+import { ComponentType } from "@/types/product";
 
 class CategoryProductDto implements ICategoryProductDto {
   id: string;
@@ -9,6 +10,7 @@ class CategoryProductDto implements ICategoryProductDto {
   reviews: number;
   price: number;
   discountPrice: number;
+  componentType?: ComponentType;
 
   constructor(model: IProduct) {
     this.id = String(model._id);
@@ -18,6 +20,7 @@ class CategoryProductDto implements ICategoryProductDto {
     this.reviews = model.reviews;
     this.price = model.price;
     this.discountPrice = model.discountPrice;
+    this.componentType = model.componentType;
   }
 }
 

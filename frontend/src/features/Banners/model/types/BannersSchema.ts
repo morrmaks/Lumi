@@ -8,5 +8,4 @@ export interface IBannerCarousel {
 
 export interface BannersSchema {
   mainBannersCarousel: IBannerCarousel[]
-  isLoading: boolean
 }

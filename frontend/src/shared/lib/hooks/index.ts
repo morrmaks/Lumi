@@ -5,7 +5,9 @@ import { useInfiniteScroll } from './useInfiniteScroll'
 import { useResolvedBreadcrumbs } from './useResolvedBreadcrumbs'
 import { useViewportHeightCssVar } from './useViewportHeightCssVar'
 import { useDebounceValue } from './useDebounceValue'
+import { useAuthMutation } from './useAuthMutation'
 
+export * from './checks'
 export {
   useAppDispatch,
   useAppSelector,
@@ -14,4 +16,5 @@ export {
   useResolvedBreadcrumbs,
   useViewportHeightCssVar,
   useDebounceValue,
+  useAuthMutation,
 }

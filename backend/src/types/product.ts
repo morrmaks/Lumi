@@ -1,3 +1,5 @@
+import { IProduct } from "@/models/productModel";
+
 export type ComponentType =
   | "processor"
   | "graphics-card"
@@ -7,6 +9,10 @@ export type ComponentType =
   | "power-supplier"
   | "cooler"
   | "case";
+
+export interface ProductWithComponentType extends IProduct {
+  componentType: ComponentType;
+}
 
 export interface IProductDto {
   id: string;

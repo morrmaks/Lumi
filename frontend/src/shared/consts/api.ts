@@ -31,25 +31,29 @@ export const ApiMap = {
   GET_BASKET: '/basket',
   CLEAR_BASKET: '/basket',
   ADD_PRODUCT_TO_BASKET: '/basket/product',
-  DELETE_PRODUCT_FROM_BASKET: '/basket/product/:productId',
-  INCREASE_PRODUCT_QUANTITY: '/basket/product/:productId/increase',
-  DECREASE_PRODUCT_QUANTITY: '/basket/product/:productId/decrease',
   ADD_PRODUCTS_TO_BASKET: '/basket/products',
+  GET_BASKET_PRODUCTS: '/basket/products',
+  DELETE_PRODUCT_FROM_BASKET: '/basket/product',
+  INCREASE_PRODUCT_QUANTITY: '/basket/product',
+  DECREASE_PRODUCT_QUANTITY: '/basket/product',
 
   // Wishlist
   GET_WISHLIST: '/wishlist',
+  GET_WISHLIST_PRODUCTS: '/wishlist/products',
   CLEAR_WISHLIST: '/wishlist',
   ADD_PRODUCT_TO_WISHLIST: '/wishlist/product',
-  DELETE_PRODUCT_FROM_WISHLIST: '/wishlist/product/:productId',
+  DELETE_PRODUCT_FROM_WISHLIST: '/wishlist/product',
   ADD_PRODUCTS_TO_WISHLIST: '/wishlist/products',
   DELETE_PRODUCTS_FROM_WISHLIST: '/wishlist/products',
 
   // Configurator
+  SET_CONFIGURE: '/configurator',
   GET_CONFIGURE: '/configurator',
   CLEAR_CONFIGURE: '/configurator',
   ADD_COMPONENT: '/configurator/component',
-  DELETE_COMPONENT: '/configurator/component/:componentId',
+  DELETE_COMPONENT: '/configurator/component',
   ADD_COMPONENTS: '/configurator/components',
+  GET_CONFIGURE_COMPONENTS: '/configurator/components',
 
   // Orders
   GET_ORDERS: '/orders',

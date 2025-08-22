@@ -1,12 +1,19 @@
-import { IBasketItem } from '@/features/Basket/BasketProducts/ui/BasketProducts'
+import { IBasketItem, IBasketProduct } from '@/features/Basket'
 
-export const fullBasketPrices = (products: IBasketItem[]) => {
-  const discountPrice = products.reduce((acc, product) => {
-    return acc + product.discountPrice * product.quantity
+export const fullBasketPrices = (
+  basket: IBasketItem[],
+  products: IBasketProduct[]
+) => {
+  const discountPrice = basket.reduce((acc, item) => {
+    const product = products.find((prod) => prod.id === item.productId)
+    if (!product) return acc
+    return acc + product.discountPrice * item.quantity
   }, 0)
 
-  const price = products.reduce((acc, product) => {
-    return acc + product.price * product.quantity
+  const price = basket.reduce((acc, item) => {
+    const product = products.find((prod) => prod.id === item.productId)
+    if (!product) return acc
+    return acc + product.price * item.quantity
   }, 0)
 
   return { discountPrice, price }

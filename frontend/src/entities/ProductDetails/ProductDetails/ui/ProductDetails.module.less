@@ -90,6 +90,7 @@
 
     &_secondary {
       .flex();
+      flex-wrap: wrap;
 
       gap: 8px;
     }
@@ -109,6 +110,24 @@
       font: var(--font-xs);
       font-weight: var(--font-bold);
     }
+
+    &_basketActive {
+      .selectableIcon(var(--hover-opacity), var(--benefit-color));
+      background-color: var(--benefit-color);
+      color: var(--accent-color);
+    }
+
+    &_wishlistActive {
+      .selectableIcon(var(--hover-opacity), var(--danger-color));
+      background-color: var(--danger-color);
+      color: var(--accent-color);
+    }
+
+    &_configuratorActive {
+      .selectableIcon(var(--hover-opacity), var(--danger-color));
+      background-color: var(--danger-color);
+      color: var(--accent-color);
+    }
   }
 
   &__buttonIcon {
@@ -118,6 +137,18 @@
     @media @breakpoint-sm {
       width: 16px;
       height: 16px;
+    }
+
+    &_basketActive {
+      stroke: var(--accent-color);
+    }
+
+    &_wishlistActive {
+      stroke: var(--accent-color);
+    }
+
+    &_configuratorActive {
+      stroke: var(--accent-color);
     }
   }
 

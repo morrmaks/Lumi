@@ -2,72 +2,62 @@ import cls from './BasketCard.module.less'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
-import { getRouteCatalog } from '@/shared/consts/router'
+import { getRouteCatalogItem } from '@/shared/consts/router'
 import { AppLink } from '@/shared/ui/AppLink'
-import { getBasketProducts } from '@/features/Basket'
+import { getBasketProducts, IBasketProduct } from '@/features/Basket'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { AppImage } from '@/shared/ui/AppImage'
-import { getIconTheme } from '@/shared/lib/utils'
+import { fullImageUrl, getIconTheme } from '@/shared/lib/utils'
 import { getTotalPriceCard } from '@/entities/Basket'
-import { useCallback, useMemo } from 'react'
-
-interface IBasketItem {
-  id: string
-  image: string
-  title: string
-  rating: string
-  reviews: number
-  quantity: number
-  discountPrice: number
-  price: number
-}
+import { memo, useMemo } from 'react'
+import { useBasketCardActions } from '@/entities/Basket/BasketCard/hooks'
 
 interface BasketCardProps {
-  card: IBasketItem
-  onClickRemove: (id: string) => void
+  card: IBasketProduct
 }
 
-export const BasketCard = ({ card, onClickRemove }: BasketCardProps) => {
-  const { id, image, title, rating, reviews, quantity, discountPrice, price } =
-    card
+export const BasketCard = memo(({ card }: BasketCardProps) => {
+  const {
+    id,
+    image,
+    name,
+    rating,
+    reviews,
+    quantity,
+    discountPrice,
+    price,
+    categorySlug,
+  } = card
   const products = useAppSelector(getBasketProducts)
 
+  const { removeCard, decrementCard, incrementCard, isLoading } =
+    useBasketCardActions(id)
+
   const productQuantity =
-    products.find((product) => product.id === id)?.quantity || 1
+    products.find((product) => product.productId === id)?.quantity || 1
 
-  const getPriceCard = useMemo(() => {
-    return getTotalPriceCard(productQuantity, price)
-  }, [productQuantity, price])
+  const getPriceCard = useMemo(
+    () => getTotalPriceCard(productQuantity, price),
+    [productQuantity, price]
+  )
 
-  const getDiscountPriceCard = useMemo(() => {
-    return getTotalPriceCard(productQuantity, discountPrice)
-  }, [productQuantity, discountPrice])
-
-  const handleRemoveCard = useCallback(() => {
-    // dispatch(removeBasketProduct(id)) //это используется thunk запрос в котором диспатчится состояние избранного и изменяется значение в localStorage
-    onClickRemove(id)
-  }, [])
-
-  const decrementCartItem = useCallback(() => {
-    // dispatch(addBasketProduct(id))
-  }, [])
-
-  const incrementCartItem = useCallback(() => {
-    // dispatch(decreaseBasketProductQuantity(id))
-  }, [])
+  const getDiscountPriceCard = useMemo(
+    () => getTotalPriceCard(productQuantity, discountPrice),
+    [productQuantity, discountPrice]
+  )
 
   return (
     <div className={cls.basketCard}>
       <div className={cls.basketCard__content}>
-        <AppLink to={getRouteCatalog()}>
+        <AppLink to={getRouteCatalogItem(categorySlug, id)}>
           <div className={cls.basketCard__details}>
             <AppImage
-              src={image}
-              alt={title}
+              src={fullImageUrl(image)}
+              alt={name}
               className={cls.basketCard__image}
             />
             <div className={cls.basketCard__infoSection}>
-              <h3 className={cls.basketCard__title}>{title}</h3>
+              <h3 className={cls.basketCard__title}>{name}</h3>
               <div className={cls.basketCard__priceSection}>
                 <span className={cls.basketCard__discountPrice}>
                   {getDiscountPriceCard} ₽
@@ -96,8 +86,8 @@ export const BasketCard = ({ card, onClickRemove }: BasketCardProps) => {
               theme={ButtonTheme.OUTLINE}
               square={true}
               className={cls.basketCard__counterButton}
-              disabled={productQuantity === 1}
-              onClick={decrementCartItem}
+              disabled={productQuantity === 1 || isLoading}
+              onClick={decrementCard}
             >
               <Icon Svg={IconsMap.MINUS} />
             </Button>
@@ -108,7 +98,8 @@ export const BasketCard = ({ card, onClickRemove }: BasketCardProps) => {
               theme={ButtonTheme.OUTLINE}
               square={true}
               className={cls.basketCard__counterButton}
-              onClick={incrementCartItem}
+              onClick={incrementCard}
+              disabled={isLoading}
             >
               <Icon
                 Svg={IconsMap.PLUS}
@@ -119,7 +110,8 @@ export const BasketCard = ({ card, onClickRemove }: BasketCardProps) => {
           <Button
             theme={ButtonTheme.OUTLINE}
             square={true}
-            onClick={handleRemoveCard}
+            onClick={removeCard}
+            disabled={isLoading}
             className={cls.basketCard__deleteButton}
           >
             <Icon Svg={IconsMap.TRASH}></Icon>
@@ -128,4 +120,6 @@ export const BasketCard = ({ card, onClickRemove }: BasketCardProps) => {
       </div>
     </div>
   )
-}
+})
+
+BasketCard.displayName = 'BasketCard'

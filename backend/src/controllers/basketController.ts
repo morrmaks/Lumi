@@ -1,14 +1,27 @@
 import { NextFunction, Request, Response } from "express";
 import { basketService } from "@/services/basketService";
+import { wishlistService } from "@/services/wishlistService";
 
 class BasketController {
   async getBasket(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
 
-      const data = await basketService.getBasket(userId);
+      const basketItems = await basketService.getBasket(userId);
 
-      return res.json(data);
+      return res.json(basketItems);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async getBasketProducts(req: Request, res: Response, next: NextFunction) {
+    try {
+      const productIds = (req.query.ids as string).split(",");
+
+      const products = await basketService.getBasketProducts(productIds);
+
+      return res.json(products);
     } catch (e) {
       next(e);
     }
@@ -16,7 +29,7 @@ class BasketController {
 
   async addProduct(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
       const { productId } = req.body;
 
       const data = await basketService.addProduct(userId, productId);
@@ -29,10 +42,10 @@ class BasketController {
 
   async addProducts(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
-      const { productIds } = req.body;
+      const { id: userId } = (req as any).user;
+      const { productItems } = req.body;
 
-      const data = await basketService.addProducts(userId, productIds);
+      const data = await basketService.addProducts(userId, productItems);
 
       return res.json(data);
     } catch (e) {
@@ -42,7 +55,7 @@ class BasketController {
 
   async deleteProduct(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
       const { productId } = req.params;
 
       const data = await basketService.deleteProduct(userId, productId);
@@ -55,12 +68,13 @@ class BasketController {
 
   async increaseQuantity(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
       const { productId } = req.params;
+      console.log("productId", productId);
 
-      const data = await basketService.increaseQuantity(userId, productId);
+      const product = await basketService.increaseQuantity(userId, productId);
 
-      return res.json(data);
+      return res.json(product);
     } catch (e) {
       next(e);
     }
@@ -68,12 +82,12 @@ class BasketController {
 
   async decreaseQuantity(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
       const { productId } = req.params;
 
-      const data = await basketService.decreaseQuantity(userId, productId);
+      const product = await basketService.decreaseQuantity(userId, productId);
 
-      return res.json(data);
+      return res.json(product);
     } catch (e) {
       next(e);
     }
@@ -81,7 +95,7 @@ class BasketController {
 
   async clearBasket(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
 
       const data = await basketService.clearBasket(userId);
 

@@ -1,6 +1,6 @@
 import cls from './CategoryPage.module.less'
 import { useParams, useSearchParams } from 'react-router-dom'
-import { Suspense, useCallback, useEffect } from 'react'
+import { Suspense, useCallback } from 'react'
 import {
   useAppDispatch,
   useAppSelector,
@@ -32,7 +32,6 @@ import {
 } from '@/features/Configurator'
 import { Placeholders } from '@/shared/consts'
 import { CategoryPageSkeleton } from './CategoryPageSkeleton'
-import { breadcrumbNavActions } from '@/features/BreadcrumbNav'
 
 const initialReducers: ReducerList = {
   categoryPage: categoryPageReducer,
@@ -54,19 +53,14 @@ const CategoryPage = () => {
     data: productsData,
     isLoading: productsIsLoading,
     isFetching: productsIsFetching,
+    error: productsError,
   } = useGetCategoryProductsQuery(
     { id: category.id, search: debouncedSearch, sort, page, limit, view },
     { skip: !category.id }
   )
 
-  useEffect(() => {
-    if (data?.breadcrumb) {
-      dispatch(breadcrumbNavActions.setBreadcrumbs(data?.breadcrumb))
-    }
-  }, [data])
-
   useSyncQueryParams({ page, view, sort, search, limit })
-  useSyncProducts(productsData, page, limit, dispatch)
+  useSyncProducts(productsData, productsError, page, dispatch)
   useInitCategoryPage(dispatch, data, categoryId, searchParams)
 
   const onLoadNextPart = useCallback(() => {

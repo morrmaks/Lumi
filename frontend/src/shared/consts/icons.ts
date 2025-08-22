@@ -44,6 +44,7 @@ import ZapSvg from '@/shared/assets/icons/zap.svg'
 import RefreshSvg from '@/shared/assets/icons/refresh.svg'
 import GridSvg from '@/shared/assets/icons/grid.svg'
 import ListSvg from '@/shared/assets/icons/list.svg'
+import CircleSvg from '@/shared/assets/icons/circle-x.svg'
 
 export const IconsMap = {
   PROFILE: ProfileSvg,
@@ -92,6 +93,7 @@ export const IconsMap = {
   CHANGE: RefreshSvg,
   GRID: GridSvg,
   LIST: ListSvg,
+  ERROR: CircleSvg,
 } as const
 
 export type IconsMap = (typeof IconsMap)[keyof typeof IconsMap]

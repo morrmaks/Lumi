@@ -1,5 +1,5 @@
 import cls from './ProfileWishlist.module.less'
-import { getWishlistProductsState, WishlistProducts } from '@/features/Wishlist'
+import { getWishlistProducts, WishlistProducts } from '@/features/Wishlist'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
@@ -11,7 +11,7 @@ import { Suspense } from 'react'
 import { Placeholders } from '@/shared/consts'
 
 export const ProfileWishlist = () => {
-  const { products } = useAppSelector(getWishlistProductsState)
+  const products = useAppSelector(getWishlistProducts)
 
   return (
     <div className={cls.profileWishlist}>

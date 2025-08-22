@@ -17,5 +17,5 @@ export interface IProduct<C extends ComponentTypes = ComponentTypes> {
   images: string[]
   quantity?: number
   specs?: ISpecs<C>
-  componentType: C
+  componentType?: C
 }

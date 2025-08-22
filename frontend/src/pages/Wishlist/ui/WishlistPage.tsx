@@ -1,5 +1,5 @@
 import { PageLayout } from '@/widgets/PageLayout'
-import { getWishlistProductsState, WishlistProducts } from '@/features/Wishlist'
+import { getWishlistProducts, WishlistProducts } from '@/features/Wishlist'
 import { useAppSelector } from '@/shared/lib/hooks'
 import cls from './WishlistPage.module.less'
 import { Icon } from '@/shared/ui/Icon'
@@ -12,7 +12,7 @@ import { Suspense } from 'react'
 import { Placeholders } from '@/shared/consts'
 
 const WishlistPage = () => {
-  const { products } = useAppSelector(getWishlistProductsState)
+  const products = useAppSelector(getWishlistProducts)
 
   return (
     <PageLayout>

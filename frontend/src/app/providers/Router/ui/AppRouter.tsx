@@ -42,7 +42,7 @@ export const AppRouter = () => {
   }, [])
 
   return (
-    <Suspense key={location.pathname} fallback={<Loader />}>
+    <Suspense fallback={<Loader />}>
       <Routes>{renderRoutes(routeConfig)}</Routes>
     </Suspense>
   )

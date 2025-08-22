@@ -8,6 +8,7 @@ import { useCallback, useState } from 'react'
 import { Settings } from '@/entities/User'
 import { Placeholders } from '@/shared/consts'
 import { usePatchSettingsMutation } from '@/entities/User/api'
+import { Loader } from '@/shared/ui/Loader'
 
 export const SettingList = () => {
   const dispatch = useAppDispatch()
@@ -56,7 +57,11 @@ export const SettingList = () => {
         ))}
       </ul>
       <Button disabled={isLoading} onClick={handleSaveSettings}>
-        {Placeholders.entities.profile.settings.notifications.onSave}
+        {isLoading ? (
+          <Loader delay={0} />
+        ) : (
+          Placeholders.entities.profile.settings.notifications.onSave
+        )}
       </Button>
     </div>
   )

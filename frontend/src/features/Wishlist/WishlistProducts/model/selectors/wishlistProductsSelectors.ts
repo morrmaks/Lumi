@@ -1,4 +1,4 @@
 import { StateSchema } from '@/app/providers/StoreProvider'
 
-export const getWishlistProductsState = (state: StateSchema) =>
-  state?.wishlistProducts ?? { products: [] }
+export const getWishlistProducts = (state: StateSchema) =>
+  state?.wishlistProducts.products ?? []

@@ -29,8 +29,6 @@ const BasketSchema = new Schema<IBasket>({
   updatedAt: { type: Date, default: Date.now },
 });
 
-// BasketSchema.index({ userId: 1 })
-
 const BasketModel = model<IBasket>("Basket", BasketSchema);
 
 export { BasketModel };

@@ -36,6 +36,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@a2seven/yoo-checkout": "^1.1.4",
     "bcrypt": "^6.0.0",
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",

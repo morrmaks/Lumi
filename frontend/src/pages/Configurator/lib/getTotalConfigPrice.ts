@@ -1,7 +1,10 @@
-import { ConfiguratorComponentMap } from '@/features/Configurator'
+import { IConfiguratorComponent } from '@/features/Configurator'
 
-export const getTotalConfigPrice = (components: ConfiguratorComponentMap) => {
+export const getTotalConfigPrice = (
+  components: IConfiguratorComponent[] | undefined
+) => {
+  if (!components) return 0
   return Object.values(components)
-    .filter(Boolean)
-    .reduce((acc, component) => acc + (component?.price ?? 0), 0)
+    .filter((component) => component !== null)
+    .reduce((acc, component) => acc + (component?.discountPrice ?? 0), 0)
 }

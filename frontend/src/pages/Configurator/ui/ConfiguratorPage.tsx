@@ -4,20 +4,34 @@ import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { Progress } from '@/shared/ui/Progress'
 import {
   ConfiguratorComponents,
+  getArrayRecommendations,
   getConfiguratorComponentsList,
+  getConfiguratorPrice,
 } from '@/features/Configurator'
 import { useAppSelector } from '@/shared/lib/hooks'
-import {
-  getConfiguratorProgress,
-  getTotalConfigPrice,
-} from '@/pages/Configurator'
+import { getConfiguratorProgress } from '@/pages/Configurator'
 import { Loader } from '@/shared/ui/Loader'
-import { Suspense } from 'react'
-import { Placeholders } from '@/shared/consts'
+import { Suspense, useCallback } from 'react'
+import { getRouteAuth, Placeholders } from '@/shared/consts'
+import { getUserIsAuth } from '@/entities/User'
+import { useNavigate } from 'react-router-dom'
 
 const ConfiguratorPage = () => {
+  const navigate = useNavigate()
+  const isAuth = useAppSelector(getUserIsAuth)
+  const price = useAppSelector(getConfiguratorPrice)
   const components = useAppSelector(getConfiguratorComponentsList)
   const { total, filled, progress } = getConfiguratorProgress(components)
+
+  const createOrder = useCallback(() => {
+    if (!isAuth) return navigate(getRouteAuth())
+    console.log('createOrder')
+  }, [isAuth, navigate])
+
+  const saveConfigure = useCallback(() => {
+    if (!isAuth) return navigate(getRouteAuth())
+    console.log('saveConfigure')
+  }, [isAuth, navigate])
 
   return (
     <PageLayout>
@@ -76,18 +90,19 @@ const ConfiguratorPage = () => {
                 {Placeholders.pages.configurator.total.price}
               </span>
               <span className={cls.configuratorPage__totalPrice_amount}>
-                {getTotalConfigPrice(components)} ₽
+                {price} ₽
               </span>
             </div>
             <div className={cls.configuratorPage__totalButtons}>
               <Button
                 className={cls.configuratorPage__totalButtons_button}
-                onClick={() => {}}
+                onClick={createOrder}
               >
                 {Placeholders.pages.configurator.total.onPlaceAnOrder}
               </Button>
               <Button
                 theme={ButtonTheme.OUTLINE}
+                onClick={saveConfigure}
                 className={cls.configuratorPage__totalButtons_button}
               >
                 {Placeholders.pages.configurator.total.onCopyLinkConfig}
@@ -98,7 +113,9 @@ const ConfiguratorPage = () => {
                 {Placeholders.pages.configurator.total.recommendation}
               </h4>
               <ul className={cls.configuratorPage__recommendation_list}>
-                <li>• Добавьте систему охлаждения</li>
+                {getArrayRecommendations(components).map((recommendation) => (
+                  <li key={recommendation}>• {recommendation}</li>
+                ))}
               </ul>
             </div>
           </div>

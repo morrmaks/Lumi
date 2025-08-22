@@ -1,0 +1,154 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/decorators.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/variables/global.less';
+
+.categoryProductList {
+  .flex(row, space-between, space-between);
+  .border();
+
+  background: var(--card-bg-color);
+  border-radius: var(--border-radius-l);
+  width: 100%;
+
+  &__image {
+    flex-shrink: 0;
+    aspect-ratio: 1;
+    width: 160px;
+    height: 160px;
+    border-radius: var(--border-radius-l);
+  }
+
+  &__details {
+    .flex(row, start, space-between);
+
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+  }
+
+  &__infoSection {
+    .flex(column, start, start);
+  }
+
+  &__title {
+    font: var(--font-xs);
+    font-weight: var(--font-bold);
+
+    @media @breakpoint-lg {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__ratingContainer {
+    .flex();
+
+    font: var(--font-xxs);
+    gap: 4px;
+
+    @media @breakpoint-md {
+      font: var(--font-xs);
+    }
+  }
+
+  &__reviews {
+    color: var(--muted-color);
+  }
+
+  &__actions {
+    .flex(column, end, start);
+
+    gap: 8px;
+    height: 100%;
+  }
+
+  &__buttons {
+    .flex(row, start, space-between);
+
+    gap: 8px;
+  }
+
+  &__buttonContainer {
+    .flex(column, start, space-between);
+    width: 100%;
+
+    gap: 8px;
+  }
+
+  &__priceSection {
+    .flex(column, end, center);
+  }
+
+  &__discountPrice {
+    font: var(--font-m);
+    white-space: nowrap;
+    font-weight: var(--font-bold);
+    color: var(--secondary-color);
+  }
+
+  &__price {
+    color: var(--muted-color);
+    text-decoration: line-through;
+  }
+
+  &__button {
+    .flex();
+
+    width: 100%;
+    gap: 8px;
+    white-space: nowrap;
+    padding: 0 10px;
+
+    &_basketActive {
+      .selectableIcon(var(--hover-opacity), var(--benefit-color));
+      background-color: var(--benefit-color);
+      color: var(--accent-color);
+    }
+
+    &_configuratorActive {
+      .selectableIcon(var(--hover-opacity), var(--danger-color));
+      background-color: var(--danger-color);
+      color: var(--accent-color);
+    }
+  }
+
+  &__wishlistButton {
+    background: none;
+    border: none;
+
+    &_active {
+      fill: var(--secondary-color);
+      stroke: var(--secondary-color);
+      .selectableIcon(1, transparent, var(--secondary-color));
+    }
+  }
+
+  &__wishlistIcon {
+    .selectableIcon(1, transparent, var(--secondary-color));
+
+    &_active {
+      fill: var(--secondary-color);
+      stroke: var(--secondary-color);
+      .selectableIcon(1, transparent, var(--secondary-color));
+    }
+  }
+
+  &__buttonIcon {
+    width: 12px;
+    height: 12px;
+
+    @media @breakpoint-sm {
+      width: 16px;
+      height: 16px;
+    }
+
+    &_basketActive {
+      stroke: var(--accent-color);
+    }
+
+    &_configuratorActive {
+      stroke: var(--accent-color);
+    }
+  }
+}

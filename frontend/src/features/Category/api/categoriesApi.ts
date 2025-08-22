@@ -19,10 +19,15 @@ interface CategoryProductsPayload {
   view: ViewFormat
 }
 
+export interface CategoryProductsWithHasMore {
+  products: ICategoryProduct[]
+  hasMore: boolean
+}
+
 export const categoriesApi = rtkApi.injectEndpoints({
   endpoints: (build) => ({
     getCategoryProducts: build.query<
-      ICategoryProduct[],
+      CategoryProductsWithHasMore,
       CategoryProductsPayload
     >({
       query({ id, search, sort, page, limit, view }) {
@@ -41,7 +46,7 @@ export const categoriesApi = rtkApi.injectEndpoints({
           method: 'GET',
         }
       },
-      transformResponse: (response: ICategoryProduct[]) => response,
+      transformResponse: (response: CategoryProductsWithHasMore) => response,
     }),
     getCategories: build.query<ICategory[], void>({
       query() {

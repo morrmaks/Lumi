@@ -17,8 +17,6 @@ const WishlistSchema = new Schema<IWishlist>({
   updatedAt: { type: Date, default: Date.now },
 });
 
-// WishlistSchema.index({ userId: 1 })
-
 const WishlistModel = model<IWishlist>("Wishlist", WishlistSchema);
 
 export { WishlistModel };

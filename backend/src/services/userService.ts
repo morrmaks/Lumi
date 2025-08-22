@@ -1,5 +1,5 @@
 import { mailService } from "@/services/mailService";
-import { IUser, IUserSettings, UserModel } from "@/models/userModel";
+import { IUserSettings, UserModel } from "@/models/userModel";
 import { ApiError } from "@/exeptions/apiError";
 import bcrypt from "bcrypt";
 import { UserDto } from "@/dtos/userDto";
@@ -13,15 +13,15 @@ class UserService {
     email: string,
     password: string,
   ): Promise<{ accessToken: string; refreshToken: string; user: UserDto }> {
+    if (!email || !password)
+      throw ApiError.BadRequest("Email и пароль обязательны");
+
     const user = await UserModel.findOne({ email });
-    if (!user) {
+    if (!user)
       throw ApiError.BadRequest("Пользователь с таким email не найден");
-    }
 
     const isPassEquals = await bcrypt.compare(password, user.password);
-    if (!isPassEquals) {
-      throw ApiError.BadRequest("Неверный пароль");
-    }
+    if (!isPassEquals) throw ApiError.BadRequest("Неверный пароль");
 
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
@@ -40,6 +40,9 @@ class UserService {
     email: string,
     password: string,
   ): Promise<{ accessToken: string; refreshToken: string; user: UserDto }> {
+    if (!name || !email || !password)
+      throw ApiError.BadRequest("Имя, email и пароль обязательны");
+
     const candidate = await UserModel.findOne({ email });
     if (candidate) {
       throw ApiError.BadRequest(
@@ -62,10 +65,11 @@ class UserService {
   }
 
   async forgotPassword(email: string): Promise<string> {
+    if (!email) throw ApiError.BadRequest("Email обязателен");
+
     const user = await UserModel.findOne({ email });
-    if (!user) {
+    if (!user)
       throw ApiError.BadRequest("Пользователь с таким email не найден");
-    }
 
     const code = await mailService.generateUniqueCode();
     user.resetPasswordCode = code;
@@ -81,7 +85,10 @@ class UserService {
     email: string,
     code: string,
     password: string,
-  ): Promise<UserDto> {
+  ): Promise<{ accessToken: string; refreshToken: string; user: UserDto }> {
+    if (!email || !code || !password)
+      throw ApiError.BadRequest("Все поля обязательны");
+
     const user = await UserModel.findOne({
       email,
       resetPasswordCode: code,
@@ -98,27 +105,24 @@ class UserService {
     await user.save();
 
     const userDto = new UserDto(user);
-    return userDto;
+    const tokens = tokenService.generateTokens({ ...userDto });
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return { ...tokens, user: userDto };
   }
 
   async refresh(
     refreshToken: string,
   ): Promise<{ accessToken: string; refreshToken: string; user: UserDto }> {
-    if (!refreshToken) {
-      throw ApiError.UnauthorizedError();
-    }
+    if (!refreshToken) throw ApiError.Unauthorized();
 
     const userData = tokenService.validateRefreshToken(refreshToken);
     const tokenFromDb = tokenService.findToken(refreshToken);
-    if (!userData || !tokenFromDb) {
-      throw ApiError.UnauthorizedError();
-    }
+    if (!userData || !tokenFromDb) throw ApiError.Unauthorized();
 
     const user = await UserModel.findById(userData.id);
 
-    if (!user) {
-      throw ApiError.UnauthorizedError();
-    }
+    if (!user) throw ApiError.Unauthorized();
 
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
@@ -128,18 +132,22 @@ class UserService {
   }
 
   async getMe(userId: string): Promise<UserDto> {
+    if (!userId) throw ApiError.Unauthorized();
+
     const user = await UserModel.findById(userId);
-    if (!user) {
-      throw ApiError.BadRequest("Пользователь не найден");
-    }
+    if (!user) throw ApiError.NotFound("Пользователь не найден");
+
     const userDto = new UserDto(user);
     return userDto;
   }
 
   async updateAvatar(userId: string, filename: string): Promise<string> {
+    if (!userId || !filename)
+      throw ApiError.BadRequest("Пользователь и файл обязательны");
+
     const user = await UserModel.findById(userId);
     if (!user) {
-      throw ApiError.BadRequest("Пользователь не найден");
+      throw ApiError.NotFound("Пользователь не найден");
     }
 
     if (user.avatarUrl) {
@@ -154,9 +162,7 @@ class UserService {
     }
 
     user.avatarUrl = `avatars/${filename}`;
-
     await user.save();
-
     return user.avatarUrl;
   }
 
@@ -164,24 +170,21 @@ class UserService {
     userId: string,
     userData: { name: string; email: string; phone?: string },
   ): Promise<UserDto> {
+    if (!userId) throw ApiError.Unauthorized();
     const user = await UserModel.findById(userId);
-    if (!user) {
-      throw ApiError.BadRequest("Пользователь не найден");
-    }
+    if (!user) throw ApiError.NotFound("Пользователь не найден");
 
     const candidate = await UserModel.findOne({ email: userData.email });
-    if (candidate && candidate.id !== userId) {
+    if (candidate && candidate.id !== userId)
       throw ApiError.BadRequest(
         `Пользователь с почтовым адресом ${userData.email} уже существует`,
       );
-    }
 
     const phoneCandidate = await UserModel.findOne({ phone: userData.phone });
-    if (phoneCandidate && phoneCandidate.id !== userId) {
+    if (phoneCandidate && phoneCandidate.id !== userId)
       throw ApiError.BadRequest(
         `Пользователь с номером телефона ${userData.phone} уже существует`,
       );
-    }
 
     user.email = userData.email;
     user.name = userData.name;
@@ -198,20 +201,16 @@ class UserService {
     currentPassword: string,
     newPassword: string,
   ): Promise<boolean> {
+    if (!userId) throw ApiError.Unauthorized();
+
     const user = await UserModel.findById(userId);
-    if (!user) {
-      throw ApiError.BadRequest("Пользователь не найден");
-    }
+    if (!user) throw ApiError.NotFound("Пользователь не найден");
 
     const isPassEquals = await bcrypt.compare(currentPassword, user.password);
-    if (!isPassEquals) {
-      throw ApiError.BadRequest("Текущий пароль неверный");
-    }
+    if (!isPassEquals) throw ApiError.BadRequest("Текущий пароль неверный");
 
-    const hashPassword = await bcrypt.hash(newPassword, 3);
-    user.password = hashPassword;
+    user.password = await bcrypt.hash(newPassword, 3);
     await user.save();
-
     return true;
   }
 
@@ -219,10 +218,10 @@ class UserService {
     userId: string,
     settings: Partial<IUserSettings>,
   ): Promise<IUserSettings> {
+    if (!userId) throw ApiError.Unauthorized();
+
     const user = await UserModel.findById(userId);
-    if (!user) {
-      throw ApiError.BadRequest("Пользователь не найден", { userId });
-    }
+    if (!user) throw ApiError.NotFound("Пользователь не найден");
 
     user.settings = { ...settings, ...user.settings };
     user.save();
@@ -232,9 +231,7 @@ class UserService {
 
   async deleteUser(userId: string, refreshToken: string): Promise<boolean> {
     const user = await UserModel.findById(userId);
-    if (!user) {
-      throw ApiError.BadRequest("Пользователь не найден");
-    }
+    if (!user) throw ApiError.NotFound("Пользователь не найден");
 
     await tokenService.removeToken(refreshToken);
     await UserModel.findByIdAndDelete(userId).exec();

@@ -8,22 +8,25 @@ interface ConfiguratorComponentCardSelectButtonsProps {
   compact?: boolean
   routeItem: string
   routeCategory: string
+  isOpen: boolean
 }
 
 export const ConfiguratorComponentSelectButtons = ({
   compact = false,
   routeItem,
   routeCategory,
+  isOpen,
 }: ConfiguratorComponentCardSelectButtonsProps) => {
   return (
     <div
       className={classNames(cls.configuratorComponentSelectButtons, {
         [cls.configuratorComponentSelectButtons__compact]: compact,
+        [cls.configuratorComponentSelectButtons__open]: isOpen,
       })}
     >
       <AppLink to={routeItem}>
         <Button
-          theme={ButtonTheme.OUTLINE}
+          theme={ButtonTheme.STATIC}
           className={cls.configuratorComponentSelectButtons__button}
         >
           {
@@ -34,7 +37,7 @@ export const ConfiguratorComponentSelectButtons = ({
       </AppLink>
       <AppLink to={routeCategory}>
         <Button
-          theme={ButtonTheme.OUTLINE}
+          theme={ButtonTheme.STATIC}
           className={cls.configuratorComponentSelectButtons__button}
         >
           {

@@ -4,11 +4,23 @@ import { wishlistService } from "@/services/wishlistService";
 class WishlistController {
   async getWishlist(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
 
-      const data = await wishlistService.getWishlist(userId);
+      const productIds = await wishlistService.getWishlist(userId);
 
-      return res.json(data);
+      return res.json(productIds);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async getWishlistProducts(req: Request, res: Response, next: NextFunction) {
+    try {
+      const productIds = (req.query.ids as string).split(",");
+
+      const products = await wishlistService.getWishlistProducts(productIds);
+
+      return res.json(products);
     } catch (e) {
       next(e);
     }
@@ -16,12 +28,12 @@ class WishlistController {
 
   async addProduct(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
       const { productId } = req.body;
 
-      const data = await wishlistService.addProduct(userId, productId);
+      const product = await wishlistService.addProduct(userId, productId);
 
-      return res.json(data);
+      return res.json(product);
     } catch (e) {
       next(e);
     }
@@ -29,12 +41,12 @@ class WishlistController {
 
   async addProducts(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
       const { productIds } = req.body;
 
-      const data = await wishlistService.addProducts(userId, productIds);
+      const products = await wishlistService.addProducts(userId, productIds);
 
-      return res.json(data);
+      return res.json(products);
     } catch (e) {
       next(e);
     }
@@ -42,12 +54,12 @@ class WishlistController {
 
   async deleteProduct(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
       const { productId } = req.params;
 
-      const data = await wishlistService.deleteProduct(userId, productId);
+      const deletedId = await wishlistService.deleteProduct(userId, productId);
 
-      return res.json(data);
+      return res.json(deletedId);
     } catch (e) {
       next(e);
     }
@@ -55,12 +67,15 @@ class WishlistController {
 
   async deleteProducts(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
       const { productIds } = req.body;
 
-      const data = await wishlistService.deleteProducts(userId, productIds);
+      const deletedIds = await wishlistService.deleteProducts(
+        userId,
+        productIds,
+      );
 
-      return res.json(data);
+      return res.json(deletedIds);
     } catch (e) {
       next(e);
     }
@@ -68,7 +83,7 @@ class WishlistController {
 
   async clearWishlist(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = (req as any).user;
+      const { id: userId } = (req as any).user;
 
       const data = await wishlistService.clearWishlist(userId);
 

@@ -1,51 +1,98 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
-  ConfiguratorComponent,
-  ConfiguratorComponentMap,
+  IConfiguratorComponentDto,
   ConfiguratorComponentsSchema,
 } from '../types/configuratorComponentsSchema'
-import { ComponentTypes } from '../../consts/ComponentTypes'
-
-const emptyComponentMap = Object.values(ComponentTypes).reduce((acc, name) => {
-  acc[name] = null
-  return acc
-}, {} as ConfiguratorComponentMap)
+import { authApi } from '@/entities/User/api'
+import { LocalStorage } from '@/shared/consts'
+import { EmptyConfigureComponentIdsMap } from '../../consts/EmptyConfigureComponentsMap'
 
 const initialState: ConfiguratorComponentsSchema = {
-  components: emptyComponentMap,
+  components: EmptyConfigureComponentIdsMap,
   price: 0,
-  isLoading: false,
+  isSynced: false,
 }
 
 const configuratorComponentsSlice = createSlice({
   name: 'configuratorComponents',
   initialState,
   reducers: {
+    setPrice: (state, action: PayloadAction<number>) => {
+      state.price = action.payload
+    },
     setComponents: (
       state,
-      action: PayloadAction<Partial<ConfiguratorComponentMap>>
+      action: PayloadAction<IConfiguratorComponentDto[]>
     ) => {
-      Object.entries(action.payload).forEach(
-        ([componentName, componentInfo]) => {
-          if (componentName in state.components) {
-            state.components[componentName as ComponentTypes] = componentInfo
-          }
+      action.payload.forEach(({ componentType, componentId }) => {
+        if (componentType in state.components) {
+          state.components[componentType] = componentId
         }
+      })
+
+      if (state.isSynced) return
+      localStorage.setItem(
+        LocalStorage.CONFIGURATOR,
+        JSON.stringify(state.components)
       )
     },
-    setComponent: (
-      state,
-      action: PayloadAction<{
-        name: ComponentTypes
-        component: ConfiguratorComponent
-      }>
-    ) => {
-      const { name, component } = action.payload
-      state.components[name] = component
+    setComponent: (state, action: PayloadAction<IConfiguratorComponentDto>) => {
+      const { componentType, componentId } = action.payload
+      state.components[componentType] = componentId
+
+      if (state.isSynced) return
+      localStorage.setItem(
+        LocalStorage.CONFIGURATOR,
+        JSON.stringify(state.components)
+      )
     },
-    resetState: () => initialState,
+    removeComponent: (
+      state,
+      action: PayloadAction<IConfiguratorComponentDto>
+    ) => {
+      state.components[action.payload.componentType] = null
+
+      if (state.isSynced) return
+      localStorage.setItem(
+        LocalStorage.CONFIGURATOR,
+        JSON.stringify(state.components)
+      )
+    },
+    resetComponents: (state) => {
+      state.components = EmptyConfigureComponentIdsMap
+      if (state.isSynced) return
+      localStorage.removeItem(LocalStorage.CONFIGURATOR)
+    },
   },
-  //отслеживается авторизация, если произошла, от
+  extraReducers: (builder) => {
+    builder.addMatcher(authApi.endpoints.postLogout.matchFulfilled, (state) => {
+      state.components = EmptyConfigureComponentIdsMap
+      state.isSynced = false
+    })
+    builder.addMatcher(authApi.endpoints.postLogin.matchFulfilled, (state) => {
+      state.components = EmptyConfigureComponentIdsMap
+      state.isSynced = true
+    })
+    builder.addMatcher(
+      authApi.endpoints.postRegister.matchFulfilled,
+      (state) => {
+        state.components = EmptyConfigureComponentIdsMap
+        state.isSynced = true
+      }
+    )
+    builder.addMatcher(
+      authApi.endpoints.postResetPassword.matchFulfilled,
+      (state) => {
+        state.components = EmptyConfigureComponentIdsMap
+        state.isSynced = true
+      }
+    )
+    builder.addMatcher(authApi.endpoints.getMe.matchFulfilled, (state) => {
+      state.components = EmptyConfigureComponentIdsMap
+      state.isSynced = true
+      localStorage.removeItem(LocalStorage.CONFIGURATOR)
+    })
+  },
 })
 
 export const { actions: configuratorComponentsActions } =

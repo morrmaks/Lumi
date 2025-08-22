@@ -9,7 +9,6 @@ import { AuthSchema, UserSchema } from '@/entities/User'
 import { ConfiguratorComponentsSchema } from '@/features/Configurator'
 import { CategoryPageSchema } from '@/pages/CategoryPage'
 import { ProductPageSchema } from '@/pages/ProductPage'
-import { BannersSchema } from '@/features/Banners'
 import { rtkApi } from '@/shared/api'
 
 export interface StateSchema {
@@ -24,7 +23,6 @@ export interface StateSchema {
   configuratorComponents: ConfiguratorComponentsSchema
   categoryPage?: CategoryPageSchema
   productPage?: ProductPageSchema
-  banners?: BannersSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

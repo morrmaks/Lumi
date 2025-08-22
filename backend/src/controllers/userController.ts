@@ -80,8 +80,13 @@ class UserController {
         );
       }
       const { email, code, password } = req.body;
-      const userData = await userService.resetPassword(email, code, password);
-      return res.json(userData);
+      const { accessToken, refreshToken, user } =
+        await userService.resetPassword(email, code, password);
+      res.cookie("refreshToken", refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      });
+      return res.json({ accessToken, user });
     } catch (e) {
       next(e);
     }
