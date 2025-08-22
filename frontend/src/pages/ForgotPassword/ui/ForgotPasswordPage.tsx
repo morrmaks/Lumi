@@ -1,18 +1,18 @@
 import cls from './ForgotPasswordPage.module.less'
 import { ForgotPasswordForm } from '@/features/Auth/ForgotPassword'
 import { PageLayout } from '@/widgets/PageLayout'
+import { Placeholders } from '@/shared/consts'
 
 const ForgotPasswordPage = () => {
   return (
     <PageLayout noPadding>
       <div className={cls.forgotPasswordPage}>
         <div className={cls.forgotPasswordPage__header}>
-          <h2 className={cls.forgotPasswordPage__title}>
-            Восстановление пароля
-          </h2>
+          <h3 className={cls.forgotPasswordPage__title}>
+            {Placeholders.pages.forgotPassword.mainText}
+          </h3>
           <p className={cls.forgotPasswordPage__description}>
-            Введите email, который был указан при регистрации. Мы отправим вам
-            код для восстановления пароля.
+            {Placeholders.pages.forgotPassword.describeText}
           </p>
         </div>
         <ForgotPasswordForm />

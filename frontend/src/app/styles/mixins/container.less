@@ -1,3 +1,5 @@
+@import './decorators';
+
 .flex(@direction: row, @align: center, @justify: center) {
   display: flex;
   flex-direction: @direction;
@@ -18,4 +20,17 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.insetShadowContainer(@shadowColor: var(--shadow-color)) {
+  .insetShadow(@shadowColor);
+
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  border-radius: var(--border-radius-xl);
+  pointer-events: none;
 }

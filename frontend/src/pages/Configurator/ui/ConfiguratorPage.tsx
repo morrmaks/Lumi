@@ -4,25 +4,44 @@ import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { Progress } from '@/shared/ui/Progress'
 import {
   ConfiguratorComponents,
-  getConfiguratorComponentsState,
+  getArrayRecommendations,
+  getConfiguratorComponentsList,
+  getConfiguratorPrice,
 } from '@/features/Configurator'
 import { useAppSelector } from '@/shared/lib/hooks'
-import {
-  getConfiguratorProgress,
-  getTotalConfigPrice,
-} from '@/pages/Configurator'
+import { getConfiguratorProgress } from '@/pages/Configurator'
+import { Loader } from '@/shared/ui/Loader'
+import { Suspense, useCallback } from 'react'
+import { getRouteAuth, Placeholders } from '@/shared/consts'
+import { getUserIsAuth } from '@/entities/User'
+import { useNavigate } from 'react-router-dom'
 
 const ConfiguratorPage = () => {
-  const { components } = useAppSelector(getConfiguratorComponentsState)
+  const navigate = useNavigate()
+  const isAuth = useAppSelector(getUserIsAuth)
+  const price = useAppSelector(getConfiguratorPrice)
+  const components = useAppSelector(getConfiguratorComponentsList)
   const { total, filled, progress } = getConfiguratorProgress(components)
+
+  const createOrder = useCallback(() => {
+    if (!isAuth) return navigate(getRouteAuth())
+    console.log('createOrder')
+  }, [isAuth, navigate])
+
+  const saveConfigure = useCallback(() => {
+    if (!isAuth) return navigate(getRouteAuth())
+    console.log('saveConfigure')
+  }, [isAuth, navigate])
 
   return (
     <PageLayout>
       <div className={cls.configuratorPage}>
         <div className={cls.configuratorPage__header}>
-          <h2 className={cls.configuratorPage__title}>Конфигуратор ПК</h2>
+          <h2 className={cls.configuratorPage__title}>
+            {Placeholders.pages.configurator.mainText}
+          </h2>
           <p className={cls.configuratorPage__description}>
-            Соберите идеальный компьютер под ваши задачи и бюджет
+            {Placeholders.pages.configurator.describeText}
           </p>
         </div>
 
@@ -31,64 +50,72 @@ const ConfiguratorPage = () => {
             <div className={cls.configuratorPage__components_header}>
               <div className={cls.configuratorPage__components_headerContainer}>
                 <h3 className={cls.configuratorPage__components_title}>
-                  Компоненты сборки
+                  {Placeholders.pages.configurator.sectionComponents.mainText}
                 </h3>
                 <p className={cls.configuratorPage__components_componentCounts}>
                   {filled} из {total} выбрано
                 </p>
               </div>
               <Progress value={progress} />
-              <div></div>
             </div>
             <div className={cls.configuratorPage__componentList_container}>
-              <ConfiguratorComponents />
+              <Suspense fallback={<Loader />}>
+                <ConfiguratorComponents />
+              </Suspense>
             </div>
           </div>
 
           <div className={cls.configuratorPage__total}>
             <h3 className={cls.configuratorPage__total_title}>
-              Итого по сборке
+              {Placeholders.pages.configurator.total.mainText}
             </h3>
             <div className={cls.configuratorPage__total_details}>
               <div className={cls.configuratorPage__total_componentCounts}>
-                <span>Выбрано компонентов:</span>
+                <span>
+                  {Placeholders.pages.configurator.total.componentsQuantity}
+                </span>
                 <span>
                   {filled}/{total}
                 </span>
               </div>
               <div className={cls.configuratorPage__total_compatibility}>
-                <span>Совместимость:</span>
+                <span>
+                  {Placeholders.pages.configurator.total.compatibility}
+                </span>
                 <span>Отлично</span>
               </div>
             </div>
             <div className={cls.configuratorPage__totalPrice}>
               <span className={cls.configuratorPage__totalPrice_title}>
-                Общая стоимость:
+                {Placeholders.pages.configurator.total.price}
               </span>
               <span className={cls.configuratorPage__totalPrice_amount}>
-                {getTotalConfigPrice(components)} ₽
+                {price} ₽
               </span>
             </div>
             <div className={cls.configuratorPage__totalButtons}>
               <Button
                 className={cls.configuratorPage__totalButtons_button}
-                onClick={() => {}}
+                onClick={createOrder}
               >
-                Заказать сборку
+                {Placeholders.pages.configurator.total.onPlaceAnOrder}
               </Button>
               <Button
                 theme={ButtonTheme.OUTLINE}
+                onClick={saveConfigure}
                 className={cls.configuratorPage__totalButtons_button}
               >
-                Сохранить конфигурацию
+                {Placeholders.pages.configurator.total.onCopyLinkConfig}
               </Button>
             </div>
             <div className={cls.configuratorPage__recommendation}>
               <h4 className={cls.configuratorPage__recommendation_title}>
-                Рекомендации:
+                {Placeholders.pages.configurator.total.recommendation}
               </h4>
               <ul className={cls.configuratorPage__recommendation_list}>
-                <li>• Добавьте систему охлаждения</li>
+                {getArrayRecommendations(components).map((recommendation) => (
+                  <li key={recommendation}>• {recommendation}</li>
+                ))}
               </ul>
             </div>
           </div>

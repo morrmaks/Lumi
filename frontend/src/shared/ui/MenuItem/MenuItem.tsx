@@ -4,12 +4,12 @@ import { Icon } from '@/shared/ui/Icon'
 import { classNames } from '@/shared/lib/utils'
 import { useCallback, useEffect, useTransition } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
+import { useAppDispatch } from '@/shared/lib/hooks'
 import {
   dropdownMenuActions,
   getDropdownMenuState,
 } from '@/entities/DropdownMenu'
-import { useAppSelector } from '@/shared/lib/hooks/useAppSelector'
+import { useAppSelector } from '@/shared/lib/hooks'
 
 interface MenuItemProps {
   to: string

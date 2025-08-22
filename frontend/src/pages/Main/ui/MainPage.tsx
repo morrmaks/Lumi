@@ -1,11 +1,20 @@
-import { BugButton } from '@/app/providers/ErrorBoundary'
+import { PageLayout } from '@/widgets/PageLayout'
+import {
+  BannerCarousel,
+  CategoriesSection,
+  ConfiguratorPromoBlock,
+} from '@/entities/MainSection'
+import cls from './MainPage.module.less'
 
 const MainPage = () => {
   return (
-    <div>
-      <h1>Главная</h1>
-      <BugButton></BugButton>
-    </div>
+    <PageLayout>
+      <div className={cls.mainPage}>
+        <BannerCarousel />
+        <CategoriesSection />
+        <ConfiguratorPromoBlock />
+      </div>
+    </PageLayout>
   )
 }
 

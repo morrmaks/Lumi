@@ -1,12 +1,26 @@
 @import '@/app/styles/mixins/container';
 @import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
 
 .categoryFilters {
-  .flex(row, center, space-between);
+  .flex(column, start, space-between);
+  width: 100%;
   margin-bottom: 24px;
+
+  gap: 12px;
+
+  @media @breakpoint-sm {
+    .flex(row, center, space-between);
+  }
+
+  &__sortFilters {
+    .flex();
+    gap: 12px;
+  }
 
   &__viewFormat {
     .flex();
+
     gap: 12px;
   }
 
@@ -17,6 +31,17 @@
 
     &_active {
       stroke: var(--secondary-color);
+    }
+  }
+
+  &__search {
+    width: 100%;
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-l);
+    z-index: var(--z-configurator-scrollbar);
+
+    @media @breakpoint-md {
+      max-width: 50%;
     }
   }
 }

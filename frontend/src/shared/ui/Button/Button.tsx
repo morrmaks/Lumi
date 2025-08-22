@@ -1,5 +1,5 @@
 import { classNames } from '@/shared/lib/utils'
-import { ButtonHTMLAttributes } from 'react'
+import { ButtonHTMLAttributes, memo } from 'react'
 import cls from './Button.module.less'
 import { Mods } from '@/shared/lib/utils/classNames/classNames'
 
@@ -32,7 +32,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   resetPadding?: boolean
 }
 
-export const Button = ({
+const ButtonComponent = ({
   children,
   className,
   disabled = false,
@@ -63,3 +63,5 @@ export const Button = ({
     </button>
   )
 }
+
+export const Button = memo(ButtonComponent)

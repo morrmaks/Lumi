@@ -1,5 +1,6 @@
 @import '@/app/styles/mixins/interactive';
 @import '@/app/styles/mixins/container';
+@import '@/app/styles/variables/global';
 
 .select {
   position: relative;
@@ -7,6 +8,7 @@
 
   &__menu {
     .border();
+
     border-radius: var(--border-radius-l);
     background-color: var(--bg-color);
     position: absolute;
@@ -20,26 +22,36 @@
   &__menuItem {
     &_button {
       .flex(row, center, start);
+
       gap: 4px;
       border: none;
       width: 100%;
       font-weight: var(--font-bold);
+      .selectable();
     }
 
-    &_active {
-      background-color: var(--accent-bg-color);
-      color: var(--accent-color);
+    &:hover {
+      .select__menuItem_icon {
+        stroke: var(--secondary-color);
+      }
     }
   }
 
   &__button {
     .flex();
+
+    white-space: nowrap;
     gap: 8px;
     border: none;
     font-weight: var(--font-bold);
+    .selectable();
 
     &:hover {
       border-radius: var(--border-radius-m);
+
+      .select__icon {
+        stroke: var(--secondary-color);
+      }
     }
   }
 

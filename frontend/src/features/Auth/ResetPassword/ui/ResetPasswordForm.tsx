@@ -2,98 +2,96 @@ import { Input } from '@/shared/ui/Input'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import cls from './ResetPasswordForm.module.less'
 import { PasswordInput } from '@/entities/User'
-import { FormEvent, useCallback } from 'react'
-import { useAppSelector } from '@/shared/lib/hooks/useAppSelector'
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
-import {
-  getResetPasswordState,
-  resetPasswordActions,
-  resetPasswordReducer,
-} from '@/features/Auth/ResetPassword'
-import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
+import { useAppSelector } from '@/shared/lib/hooks'
 import { ButtonSize } from '@/shared/ui/Button/Button'
-import { useNavigate } from 'react-router-dom'
-import { getFullRouteLogin } from '@/shared/consts/router'
+import { Placeholders } from '@/shared/consts'
+import { usePostResetPasswordMutation } from '@/entities/User/api'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  getForgotPasswordEmail,
+  resetPasswordFormSchema,
+  ResetPasswordFormValues,
+} from '@/features/Auth'
+import { ApiErrorMessage } from '@/shared/ui/ApiErrorMessage'
+import { Loader } from '@/shared/ui/Loader'
 
-const initialReducers: ReducerList = {
-  resetPasswordForm: resetPasswordReducer,
+const initialFormState: ResetPasswordFormValues = {
+  code: '',
+  password: '',
 }
 
 export const ResetPasswordForm = () => {
-  const { codeFromEmail, newPassword, isLoading, error } = useAppSelector(
-    getResetPasswordState
-  )
-  const dispatch = useAppDispatch()
+  const email = useAppSelector(getForgotPasswordEmail)
+  const [resetPasswordUser, { isLoading, error: resetPasswordError }] =
+    usePostResetPasswordMutation()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ResetPasswordFormValues>({
+    resolver: zodResolver(resetPasswordFormSchema),
+    defaultValues: initialFormState,
+    mode: 'onChange',
+  })
 
-  const navigate = useNavigate()
-
-  const onChangeCode = useCallback(
-    (value: string) => {
-      dispatch(resetPasswordActions.setCodeFromEmail(value))
-    },
-    [dispatch]
-  )
-
-  const onChangePassword = useCallback(
-    (value: string) => {
-      dispatch(resetPasswordActions.setNewPassword(value))
-    },
-    [dispatch]
-  )
-
-  const handleSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      // const res = dispatch(resetPassword({codeFromEmail, newPassword}))
-      const res = true
-      if (res) {
-        navigate(getFullRouteLogin())
-      }
-    },
-    [dispatch, codeFromEmail, newPassword]
-  )
+  const onSubmit = async (data: ResetPasswordFormValues) => {
+    try {
+      await resetPasswordUser({ email: email, ...data }).unwrap()
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   return (
-    <DynamicModuleLoader reducers={initialReducers}>
-      <form className={cls.resetPasswordForm} onSubmit={handleSubmit}>
-        <label
-          htmlFor="code-from-email"
-          className={cls.resetPasswordForm__label}
-        >
-          Код из письма
-          <Input
-            id={'code-from-email'}
-            type={'number'}
-            value={codeFromEmail}
-            onChangeString={onChangeCode}
-            placeholder={'Введите код'}
-            className={cls.resetPasswordForm__input}
-          />
-        </label>
-        <label htmlFor="password" className={cls.resetPasswordForm__label}>
-          Новый пароль
-          <PasswordInput
-            className={cls.resetPasswordForm__input}
-            value={newPassword}
-            onChange={onChangePassword}
-          />
-        </label>
-        {error && (
+    <form
+      className={cls.resetPasswordForm}
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+    >
+      <label htmlFor="code-from-email" className={cls.resetPasswordForm__label}>
+        {Placeholders.features.auth.resetPasswordForm.labels.code}
+        <Input
+          id={'code-from-email'}
+          type={'number'}
+          placeholder={
+            Placeholders.features.auth.resetPasswordForm.labels.password
+          }
+          className={cls.resetPasswordForm__input}
+          {...register('code')}
+        />
+        {errors.code && (
           <span className={cls.resetPasswordForm__errors}>
-            {error}
-            sdfsdf
+            {errors.code.message}
           </span>
         )}
-        <Button
-          type={'submit'}
-          theme={ButtonTheme.PRIMARY}
-          fullWidth={true}
-          size={ButtonSize.L}
-          disabled={isLoading}
-        >
-          Войти
-        </Button>
-      </form>
-    </DynamicModuleLoader>
+      </label>
+      <label htmlFor="password" className={cls.resetPasswordForm__label}>
+        {Placeholders.features.auth.resetPasswordForm.labels.password}
+        <PasswordInput
+          className={cls.resetPasswordForm__input}
+          {...register('password')}
+        />
+        {errors.password && (
+          <span className={cls.resetPasswordForm__errors}>
+            {errors.password.message}
+          </span>
+        )}
+      </label>
+      <ApiErrorMessage error={resetPasswordError} />
+      <Button
+        type={'submit'}
+        theme={ButtonTheme.PRIMARY}
+        fullWidth={true}
+        size={ButtonSize.L}
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <Loader delay={0} />
+        ) : (
+          Placeholders.features.auth.resetPasswordForm.submit
+        )}
+      </Button>
+    </form>
   )
 }

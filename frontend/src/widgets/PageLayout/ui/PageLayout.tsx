@@ -23,9 +23,13 @@ export const PageLayout = ({
 
   useEffect(() => {
     if (name) {
-      dispatch(breadcrumbNavActions.setName({ path: pathname, name }))
+      dispatch(breadcrumbNavActions.setBreadcrumb({ path: pathname, name }))
     }
   }, [pathname, name])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
 
   return (
     <section

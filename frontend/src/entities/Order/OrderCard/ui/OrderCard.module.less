@@ -6,6 +6,7 @@
 .orderCard {
   .selectable();
   .border();
+
   border-radius: var(--border-radius-l);
   background-color: var(--card-bg-color);
   width: 100%;
@@ -17,6 +18,7 @@
 
   &__info {
     .flex(column, space-between, space-between);
+
     gap: 8px;
     margin-top: 16px;
 
@@ -27,6 +29,7 @@
 
   &__meta {
     .flex(row, start, space-between);
+
     flex-wrap: wrap;
     gap: 8px;
     align-self: stretch;
@@ -38,6 +41,7 @@
 
   &__status {
     .border();
+
     font: var(--font-xxs);
     font-weight: var(--font-bold);
     padding: 2px 10px;
@@ -47,6 +51,7 @@
 
   &__title {
     .ellipsis();
+
     font: var(--font-s);
     font-weight: var(--font-bold);
   }

@@ -2,6 +2,7 @@ import cls from './OrderCard.module.less'
 import { IOrder } from '@/features/Order'
 import { useState } from 'react'
 import { ProfileOrderModal } from '@/entities/Order'
+import { Placeholders } from '@/shared/consts'
 
 interface OrderCardProps {
   card: IOrder
@@ -21,7 +22,9 @@ export const OrderCard = ({ card }: OrderCardProps) => {
         <span className={cls.orderCard__status}>{status}</span>
         <div className={cls.orderCard__info}>
           <div className={cls.orderCard__meta}>
-            <p className={cls.orderCard__title}>{`Заказ ${id}`}</p>
+            <p className={cls.orderCard__title}>
+              {`${Placeholders.entities.order.card.mainText} ${id}`}
+            </p>
             <p
               className={cls.orderCard__date}
             >{`${date} • ${products.length} шт`}</p>

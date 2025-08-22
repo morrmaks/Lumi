@@ -1,8 +1,5 @@
 import {
-  profileCardActions,
-  profileCardReducer,
-} from './slice/profileCardSlice'
-import { type ProfileCardSchema } from './types/profileCardSchema'
-
-export * from './selectors/profileCardSelectors'
-export { profileCardActions, profileCardReducer, ProfileCardSchema }
+  profileCardFormSchema,
+  type ProfileCardFormValues,
+} from './types/ProfileCardFormSchema'
+export { profileCardFormSchema, ProfileCardFormValues }

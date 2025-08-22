@@ -1,5 +1,6 @@
 import { Button } from '@/shared/ui/Button'
 import { useEffect, useState } from 'react'
+import { Placeholders } from '@/shared/consts'
 
 export const BugButton = () => {
   const [error, setError] = useState<boolean>(false)
@@ -13,5 +14,9 @@ export const BugButton = () => {
     setError(true)
   }
 
-  return <Button onClick={onThrow}>Throw error</Button>
+  return (
+    <Button onClick={onThrow}>
+      {Placeholders.app.errorBoundary.bugButtonText}
+    </Button>
+  )
 }

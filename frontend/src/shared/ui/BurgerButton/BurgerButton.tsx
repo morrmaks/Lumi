@@ -1,12 +1,12 @@
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import cls from './BurgerButton.module.less'
 import { classNames } from '@/shared/lib/utils'
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
+import { useAppDispatch } from '@/shared/lib/hooks'
 import {
   dropdownMenuActions,
   getDropdownMenuState,
 } from '@/entities/DropdownMenu'
-import { useAppSelector } from '@/shared/lib/hooks/useAppSelector'
+import { useAppSelector } from '@/shared/lib/hooks'
 
 interface BurgerButtonProps {
   className?: string

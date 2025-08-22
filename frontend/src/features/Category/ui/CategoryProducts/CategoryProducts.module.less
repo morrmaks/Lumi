@@ -18,4 +18,20 @@
     margin: 0 auto;
     .flex(column, space-between, start);
   }
+
+  &__empty {
+    width: 100%;
+
+    &_title {
+      text-align: center;
+      color: var(--muted-color);
+      font: var(--font-xs);
+      font-weight: var(--font-bold);
+
+      @media @breakpoint-md {
+        font: var(--font-xs);
+        font-weight: var(--font-bold);
+      }
+    }
+  }
 }

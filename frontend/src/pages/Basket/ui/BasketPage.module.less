@@ -4,11 +4,15 @@
 @import '@/app/styles/variables/global.less';
 
 .basketPage {
+  .flex(column, center);
+
   width: 100%;
 
   &__emptyBasket {
     .flex(column);
     .border();
+    width: 100%;
+    text-align: center;
 
     border-radius: var(--border-radius-l);
     padding: 24px;
@@ -25,21 +29,32 @@
     }
 
     &_title {
-      font: var(--font-m);
+      font: var(--font-s);
       font-weight: var(--font-bold);
       margin-bottom: 8px;
+
+      @media @breakpoint-sm {
+        font: var(--font-m);
+        font-weight: var(--font-bold);
+      }
     }
 
     &_description {
-      font: var(--font-s);
+      font: var(--font-xs);
       color: var(--muted-color);
       margin-bottom: 24px;
+
+      @media @breakpoint-sm {
+        font: var(--font-s);
+        font-weight: var(--font-bold);
+      }
     }
   }
 
   &__header {
-    .flex(row, center, space-between);
+    .flex(row, center, start);
 
+    width: 100%;
     gap: 48px;
     margin-bottom: 32px;
   }

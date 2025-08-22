@@ -7,83 +7,93 @@ import {
 } from '@/shared/consts/router'
 import { AppLink } from '@/shared/ui/AppLink'
 import { useNavigate } from 'react-router-dom'
-import { FormEvent, useCallback } from 'react'
-import { useAppSelector } from '@/shared/lib/hooks/useAppSelector'
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
-import {
-  forgotPasswordActions,
-  forgotPasswordReducer,
-  getForgotPasswordState,
-} from '@/features/Auth/ForgotPassword'
-import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
 import { ButtonSize } from '@/shared/ui/Button/Button'
-import { userActions } from '@/entities/User'
+import { Placeholders } from '@/shared/consts'
+import { usePostForgotPasswordMutation } from '@/entities/User/api'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ApiErrorMessage } from '@/shared/ui/ApiErrorMessage'
+import { useEffect } from 'react'
+import { forgotPasswordFormSchema, ForgotPasswordFormValues } from '../model'
+import { Loader } from '@/shared/ui/Loader'
 
-const initialReducers: ReducerList = {
-  forgotPasswordForm: forgotPasswordReducer,
+const initialFormState: ForgotPasswordFormValues = {
+  email: '',
 }
 
 export const ForgotPasswordForm = () => {
-  const { email, isLoading, error } = useAppSelector(getForgotPasswordState)
-  const dispatch = useAppDispatch()
+  const [
+    forgotPasswordUser,
+    { isSuccess, isLoading, error: forgotPasswordError },
+  ] = usePostForgotPasswordMutation()
   const navigate = useNavigate()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ForgotPasswordFormValues>({
+    resolver: zodResolver(forgotPasswordFormSchema),
+    defaultValues: initialFormState,
+    mode: 'onChange',
+  })
 
-  const onChangeEmail = useCallback(
-    (value: string) => {
-      dispatch(forgotPasswordActions.setEmail(value))
-    },
-    [dispatch]
-  )
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(getFullRouteResetPassword(), { replace: true })
+    }
+  }, [isSuccess])
 
-  const handleSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      // const res = dispatch(sendCodeOnEmail({email}))
-      dispatch(userActions.setIsForgotPassword()) //устанавливается после ответа в запросе строкой выше
-      const res = true
-      if (res) {
-        navigate(getFullRouteResetPassword(), { replace: true })
-      }
-    },
-    [dispatch, email]
-  )
+  const onSubmit = async (data: ForgotPasswordFormValues) => {
+    try {
+      await forgotPasswordUser(data).unwrap()
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   return (
-    <DynamicModuleLoader reducers={initialReducers}>
-      <form className={cls.forgotPasswordForm} onSubmit={handleSubmit}>
-        <label htmlFor="email" className={cls.forgotPasswordForm__label}>
-          Email
-          <Input
-            id={'email'}
-            type={'email'}
-            value={email}
-            onChangeString={onChangeEmail}
-            placeholder={'email@mail.com'}
-            className={cls.forgotPasswordForm__input}
-          />
-        </label>
-        {error && (
+    <form
+      className={cls.forgotPasswordForm}
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+    >
+      <label htmlFor="email" className={cls.forgotPasswordForm__label}>
+        {Placeholders.features.auth.forgotPasswordForm.labels.email}
+        <Input
+          id={'email'}
+          type={'email'}
+          placeholder={
+            Placeholders.features.auth.forgotPasswordForm.placeholders.email
+          }
+          className={cls.forgotPasswordForm__input}
+          {...register('email')}
+        />
+        {errors.email && (
           <span className={cls.forgotPasswordForm__errors}>
-            {error}
-            sdfsdf
+            {errors.email.message}
           </span>
         )}
-        <Button
-          type={'submit'}
-          theme={ButtonTheme.PRIMARY}
-          fullWidth={true}
-          size={ButtonSize.L}
-          disabled={isLoading}
-        >
-          Отправить код
-        </Button>
-        <AppLink
-          to={getFullRouteLogin()}
-          className={cls.forgotPasswordForm__backLoginButton}
-        >
-          ← Вернуться ко входу
-        </AppLink>
-      </form>
-    </DynamicModuleLoader>
+      </label>
+      <ApiErrorMessage error={forgotPasswordError} />
+      <Button
+        type={'submit'}
+        theme={ButtonTheme.PRIMARY}
+        fullWidth={true}
+        size={ButtonSize.L}
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <Loader delay={0} />
+        ) : (
+          Placeholders.features.auth.forgotPasswordForm.submit
+        )}
+      </Button>
+      <AppLink
+        to={getFullRouteLogin()}
+        className={cls.forgotPasswordForm__backLoginButton}
+      >
+        {Placeholders.features.auth.forgotPasswordForm.onRouteLogin}
+      </AppLink>
+    </form>
   )
 }

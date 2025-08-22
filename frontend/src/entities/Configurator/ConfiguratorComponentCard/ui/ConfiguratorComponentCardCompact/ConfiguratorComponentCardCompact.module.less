@@ -1,0 +1,30 @@
+@import '@/app/styles/mixins/decorators';
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.configuratorComponentCardCompact {
+  .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
+  .flex(column, center, space-between);
+
+  border-radius: var(--border-radius-l);
+  background-color: var(--bg-color);
+  padding: 12px 8px;
+  gap: 8px;
+  height: 100%;
+
+  &__container {
+  }
+
+  &__image {
+    border-radius: var(--border-radius-l);
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+
+  &__price {
+    font: var(--font-xs);
+    font-weight: var(--font-bold);
+  }
+}

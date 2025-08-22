@@ -1,55 +1,51 @@
 import cls from './ProductDetails.module.less'
 import { Icon } from '@/shared/ui/Icon'
-import { IconsMap } from '@/shared/consts'
-import { getIconTheme } from '@/shared/lib/utils'
+import { IconsMap, Placeholders } from '@/shared/consts'
+import { classNames, getIconTheme } from '@/shared/lib/utils'
 import {
   getProductDetailsDiscountAmount,
   ProductDetailsSkeleton,
+  ProductSpecs,
+  useProductActions,
 } from '@/entities/ProductDetails'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
-import { MouseEvent, useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useAppSelector } from '@/shared/lib/hooks'
-import { getProductCard, getProductIsLoading } from '@/pages/ProductPage'
+import { getProductCard } from '@/pages/ProductPage'
 
-export const ProductDetails = () => {
+interface ProductDetailsProps {
+  isLoading: boolean
+}
+
+export const ProductDetails = ({ isLoading }: ProductDetailsProps) => {
   const {
     id,
-    images,
-    title,
+    name,
     description,
     specs,
     rating,
     reviews,
     discountPrice,
     price,
-    componentName,
+    componentType,
+    quantity,
   } = useAppSelector(getProductCard)
-  const isLoading = useAppSelector(getProductIsLoading)
+
+  const {
+    handleAddToBasket,
+    handleToggleWishlist,
+    handleToggleConfigurator,
+    isInWishlist,
+    isInBasket,
+    isInConfigurator,
+    isLoadingWishlist,
+    isLoadingBasket,
+    isLoadingConfigurator,
+  } = useProductActions(id, componentType)
 
   const discountAmount = useMemo(
     () => getProductDetailsDiscountAmount(price, discountPrice),
     [price, discountPrice]
-  )
-
-  const handleAddToBasket = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-    // dispatch(addBasketProduct(id))
-    //используется thunk запрос в котором диспатчится состояние корзины и изменяется значение в localStorage
-  }, [])
-
-  const handleAddToWishlist = useCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
-      // dispatch(addBasketProduct(componentName, id))
-      //используется thunk запрос в котором диспатчится состояние избранного и изменяется значение в localStorage
-    },
-    []
-  )
-
-  const handleAddToConfigurator = useCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
-      // dispatch(addConfiguratorComponent(id))
-      //используется thunk запрос в котором диспатчится состояние избранного и изменяется значение в localStorage
-    },
-    []
   )
 
   if (isLoading) {
@@ -59,7 +55,7 @@ export const ProductDetails = () => {
   return (
     <div className={cls.productDetails}>
       <div className={cls.productDetails__header}>
-        <h2 className={cls.productDetails__title}>{title}</h2>
+        <h2 className={cls.productDetails__title}>{name}</h2>
 
         <div className={cls.productDetails__ratingContainer}>
           <Icon
@@ -81,64 +77,106 @@ export const ProductDetails = () => {
             {discountPrice} ₽
           </span>
           <span className={cls.productDetails__discountAmount}>
-            Экономия: {discountAmount} ₽
+            {`${Placeholders.entities.productDetails.priceDifference} ${discountAmount} ₽`}
           </span>
+        </div>
+
+        <div className={cls.productDetails__stockSection}>
+          <p>{`${Placeholders.entities.productDetails.inStockQuantity} ${quantity} шт.`}</p>
         </div>
 
         <div className={cls.productDetails__buttons}>
           <Button
+            theme={isInBasket ? ButtonTheme.OUTLINE : ButtonTheme.PRIMARY}
             onClick={handleAddToBasket}
-            className={cls.productDetails__button}
+            className={classNames(
+              cls.productDetails__button,
+              { [cls.productDetails__button_basketActive]: isInBasket },
+              []
+            )}
+            disabled={isLoadingBasket}
           >
             <Icon
-              Svg={IconsMap.BASKET}
-              className={cls.productDetails__buttonIcon}
+              Svg={isInBasket ? IconsMap.PLUS : IconsMap.BASKET}
+              className={classNames(
+                cls.productDetails__buttonIcon,
+                { [cls.productDetails__buttonIcon_basketActive]: isInBasket },
+                []
+              )}
             />
-            В корзину
+            {isInBasket
+              ? Placeholders.entities.productDetails.onAddMoreToBasket
+              : Placeholders.entities.productDetails.onAddToBasket}
           </Button>
           <div className={cls.productDetails__buttons_secondary}>
             <Button
               theme={ButtonTheme.OUTLINE}
-              onClick={handleAddToWishlist}
-              className={cls.productDetails__button}
+              onClick={handleToggleWishlist}
+              className={classNames(
+                cls.productDetails__button,
+                { [cls.productDetails__button_wishlistActive]: isInWishlist },
+                []
+              )}
+              disabled={isLoadingWishlist}
             >
               <Icon
-                Svg={IconsMap.WISHLIST}
-                className={cls.productDetails__buttonIcon}
+                Svg={isInWishlist ? IconsMap.TRASH : IconsMap.WISHLIST}
+                className={classNames(
+                  cls.productDetails__buttonIcon,
+                  {
+                    [cls.productDetails__buttonIcon_wishlistActive]:
+                      isInWishlist,
+                  },
+                  []
+                )}
               />
-              В избранное
+              {isInWishlist
+                ? Placeholders.entities.productDetails.onRemoveFromWishlist
+                : Placeholders.entities.productDetails.onAddToWishlist}
             </Button>
-            <Button
-              theme={ButtonTheme.OUTLINE}
-              onClick={handleAddToConfigurator}
-              className={cls.productDetails__button}
-            >
-              <Icon
-                Svg={IconsMap.CONFIGURATOR}
-                className={cls.productDetails__buttonIcon}
-              />
-              В конфигуратор
-            </Button>
+            {componentType && (
+              <Button
+                theme={ButtonTheme.OUTLINE}
+                onClick={handleToggleConfigurator}
+                className={classNames(
+                  cls.productDetails__button,
+                  {
+                    [cls.productDetails__button_configuratorActive]:
+                      isInConfigurator,
+                  },
+                  []
+                )}
+                disabled={isLoadingConfigurator}
+              >
+                <Icon
+                  Svg={
+                    isInConfigurator ? IconsMap.TRASH : IconsMap.CONFIGURATOR
+                  }
+                  className={classNames(
+                    cls.productDetails__buttonIcon,
+                    {
+                      [cls.productDetails__buttonIcon_configuratorActive]:
+                        isInConfigurator,
+                    },
+                    []
+                  )}
+                />
+                {isInConfigurator
+                  ? Placeholders.entities.productDetails
+                      .onRemoveFromConfigurator
+                  : Placeholders.entities.productDetails.onAddToConfigurator}
+              </Button>
+            )}
           </div>
         </div>
-
-        <div className={cls.productDetails__specs}>
-          <h3 className={cls.productDetails__specs_title}>
-            Технические характеристики
-          </h3>
-          <ul className={cls.productDetails__specList}>
-            {specs.map(({ label, value }) => (
-              <li key={label} className={cls.productDetails__spec}>
-                <span className={cls.productDetails__spec_label}>{label}</span>
-                <div className={cls.productDetails__spec_line}></div>
-                <span className={cls.productDetails__spec_value}>{value}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {componentType && (
+          <ProductSpecs specs={specs || {}} componentType={componentType} />
+        )}
 
         <div className={cls.productDetails__description}>
-          <h3 className={cls.productDetails__description_title}>Описание</h3>
+          <h3 className={cls.productDetails__description_title}>
+            {Placeholders.entities.productDetails.description.mainText}
+          </h3>
           <p className={cls.productDetails__description_text}>{description}</p>
         </div>
       </div>

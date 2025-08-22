@@ -1,34 +1,34 @@
 import cls from './CategoryProducts.module.less'
 import { CategoryProduct, CategoryProductSkeleton } from '@/entities/Category'
 import { classNames } from '@/shared/lib/utils'
-import { useAppSelector, useBreakpoint } from '@/shared/lib/hooks'
-import {
-  getCategoryIsLoading,
-  getCategoryView,
-  ICategoryProduct,
-  ViewFormat,
-} from '@/pages/CategoryPage'
-import { useMemo } from 'react'
+import { useAppSelector } from '@/shared/lib/hooks'
+import { getCategoryState, ViewFormat } from '@/pages/CategoryPage'
+import { useSkeletonProductsCount } from '@/features/Category'
 
 interface CategoryProductsProps {
-  products: ICategoryProduct[]
+  isLoading: boolean
+  isFetching: boolean
+  categoryIsLoading: boolean
 }
 
-export const CategoryProducts = ({ products }: CategoryProductsProps) => {
-  const { sm, md } = useBreakpoint()
-  const isLoading = useAppSelector(getCategoryIsLoading)
-  const view = useAppSelector(getCategoryView)
+export const CategoryProducts = ({
+  isLoading,
+  isFetching,
+  categoryIsLoading,
+}: CategoryProductsProps) => {
+  const { view, products } = useAppSelector(getCategoryState)
 
-  const skeletonCount = useMemo(() => {
-    switch (true) {
-      case md:
-        return 4
-      case sm:
-        return 3
-      default:
-        return 2
-    }
-  }, [sm, md])
+  const skeletonCount = useSkeletonProductsCount()
+
+  if (!products.length && !isLoading && !isFetching && !categoryIsLoading) {
+    return (
+      <div className={cls.categoryProducts__empty}>
+        <h3 className={cls.categoryProducts__empty_title}>
+          Список товаров пуст
+        </h3>
+      </div>
+    )
+  }
 
   return (
     <ul
@@ -41,7 +41,7 @@ export const CategoryProducts = ({ products }: CategoryProductsProps) => {
           <CategoryProduct product={product} view={view} />
         </li>
       ))}
-      {isLoading &&
+      {(isLoading || isFetching || categoryIsLoading) &&
         [...new Array(skeletonCount)].map((_, i) => (
           <li key={i}>
             <CategoryProductSkeleton view={view} />

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { BreadcrumbNavSchema } from '@/features/BreadcrumbNav'
+import { BreadcrumbNavSchema, IBreadcrumb } from '@/features/BreadcrumbNav'
 
 const initialState: BreadcrumbNavSchema = {}
 
@@ -7,7 +7,12 @@ const breadcrumbNavSlice = createSlice({
   name: 'breadcrumbNav',
   initialState,
   reducers: {
-    setName(state, action: PayloadAction<{ path: string; name: string }>) {
+    setBreadcrumbs(state, action: PayloadAction<IBreadcrumb[]>) {
+      action.payload.forEach((bc) => {
+        state[bc.path] = bc.name
+      })
+    },
+    setBreadcrumb(state, action: PayloadAction<IBreadcrumb>) {
       const { path, name } = action.payload
       state[path] = name
     },

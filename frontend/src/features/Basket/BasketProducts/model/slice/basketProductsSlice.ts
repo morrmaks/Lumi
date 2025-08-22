@@ -1,69 +1,126 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
-  BasketProduct,
+  IBasketItem,
   BasketProductsSchema,
 } from '../types/basketProductsSchema'
+import { authApi } from '@/entities/User/api'
+import { LocalStorage } from '@/shared/consts'
 
 const initialState: BasketProductsSchema = {
   products: [],
-  isLoading: false,
+  isSynced: false,
 }
 
 const basketProductsSlice = createSlice({
   name: 'basketProducts',
   initialState,
   reducers: {
-    addProduct(state, action: PayloadAction<BasketProduct>) {
-      const product = action.payload
-      const index = state.products.findIndex((p) => p.id === product.id)
+    addProduct(state, action: PayloadAction<string>) {
+      const productId = action.payload
+      const existing = state.products.find((p) => p.productId === productId)
 
-      if (index !== -1) {
-        state.products[index] = product
+      if (existing) {
+        existing.quantity++
       } else {
-        state.products.push(product)
+        state.products.push({ productId, quantity: 1 })
       }
 
-      localStorage.setItem('Lumi_basket', JSON.stringify(state.products))
+      if (state.isSynced) return
+      localStorage.setItem(LocalStorage.BASKET, JSON.stringify(state.products))
     },
-    addManyProducts(state, action: PayloadAction<BasketProduct[]>) {
-      const newProducts = action.payload
+    addManyProducts(state, action: PayloadAction<string[]>) {
+      const newProductIds = action.payload
 
-      newProducts.forEach((product) => {
-        const index = state.products.findIndex((p) => p.id === product.id)
+      newProductIds.forEach((productId) => {
+        const existing = state.products.find((p) => p.productId === productId)
 
-        if (index !== -1) {
-          state.products[index].quantity = product.quantity
+        if (existing) {
+          existing.quantity++
         } else {
-          state.products.push(product)
+          state.products.push({ productId, quantity: 1 })
         }
       })
 
-      localStorage.setItem('Lumi_basket', JSON.stringify(state.products))
+      if (state.isSynced) return
+      localStorage.setItem(LocalStorage.BASKET, JSON.stringify(state.products))
     },
-    decreaseProductQuantity(state, action: PayloadAction<BasketProduct>) {
-      const product = action.payload
-      const index = state.products.findIndex((p) => p.id === product.id)
+    setSomeProducts(state, action: PayloadAction<IBasketItem[]>) {
+      const newProducts = action.payload
 
-      state.products[index].quantity = product.quantity
+      newProducts.forEach((newProduct) => {
+        const index = state.products.findIndex(
+          (p) => p.productId === newProduct.productId
+        )
 
-      localStorage.setItem('Lumi_basket', JSON.stringify(state.products))
+        if (index !== -1) {
+          state.products[index] = newProduct
+        } else {
+          state.products.push(newProduct)
+        }
+      })
+
+      if (state.isSynced) return
+      localStorage.setItem(LocalStorage.BASKET, JSON.stringify(state.products))
     },
-    removeProduct(state, action: PayloadAction<BasketProduct>) {
-      const itemToRemove = action.payload
+    setProducts(state, action: PayloadAction<IBasketItem[]>) {
+      state.products = action.payload
+    },
+    decreaseProductQuantity(state, action: PayloadAction<string>) {
+      const productId = action.payload
+      const existProduct = state.products.find((p) => p.productId === productId)
+
+      if (existProduct) {
+        existProduct.quantity--
+      }
+
+      if (state.isSynced) return
+      localStorage.setItem(LocalStorage.BASKET, JSON.stringify(state.products))
+    },
+    removeProduct(state, action: PayloadAction<string>) {
+      const idToRemove = action.payload
 
       state.products = state.products.filter(
-        (product) => itemToRemove.id !== product.id
+        (product) => idToRemove !== product.productId
       )
 
+      if (state.isSynced) return
       if (state.products.length === 0) {
-        localStorage.removeItem('Lumi_basket')
+        localStorage.removeItem(LocalStorage.BASKET)
       } else {
-        localStorage.setItem('Lumi_basket', JSON.stringify(state.products))
+        localStorage.setItem(
+          LocalStorage.BASKET,
+          JSON.stringify(state.products)
+        )
       }
     },
     resetProducts(state: BasketProductsSchema) {
       state.products = []
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(authApi.endpoints.postLogout.matchFulfilled, (state) => {
+      state.products = []
+      state.isSynced = false
+    })
+    builder.addMatcher(authApi.endpoints.getMe.matchFulfilled, (state) => {
+      state.isSynced = true
+      localStorage.removeItem(LocalStorage.BASKET)
+    })
+    builder.addMatcher(authApi.endpoints.postLogin.matchFulfilled, (state) => {
+      state.isSynced = true
+    })
+    builder.addMatcher(
+      authApi.endpoints.postRegister.matchFulfilled,
+      (state) => {
+        state.isSynced = true
+      }
+    )
+    builder.addMatcher(
+      authApi.endpoints.postResetPassword.matchFulfilled,
+      (state) => {
+        state.isSynced = true
+      }
+    )
   },
 })
 

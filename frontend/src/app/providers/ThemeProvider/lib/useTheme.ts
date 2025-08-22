@@ -1,5 +1,6 @@
-import { LOCAL_STORAGE_THEME_KEY, Theme, ThemeContext } from './ThemeContext'
+import { Theme, ThemeContext } from './ThemeContext'
 import { useContext } from 'react'
+import { LocalStorage } from '@/shared/consts'
 
 export const useTheme = () => {
   const { theme, setTheme } = useContext(ThemeContext)
@@ -14,7 +15,7 @@ export const useTheme = () => {
       const nextTheme = theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT
 
       setTheme?.(nextTheme)
-      localStorage.setItem(LOCAL_STORAGE_THEME_KEY, nextTheme)
+      localStorage.setItem(LocalStorage.THEME, nextTheme)
     }
 
     if ('startViewTransition' in document) {

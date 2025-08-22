@@ -7,23 +7,34 @@
 
   &__header {
     .flex(column, start, start);
+
     gap: 8px;
     margin-bottom: 32px;
   }
 
   &__title {
-    font: var(--font-xl);
+    font: var(--font-l);
     font-weight: var(--font-bold);
+
+    @media @breakpoint-sm {
+      font: var(--font-xl);
+      font-weight: var(--font-bold);
+    }
   }
 
   &__description {
-    font: var(--font-s);
+    font: var(--font-xs);
     color: var(--muted-color);
+
+    @media @breakpoint-sm {
+      font: var(--font-s);
+    }
   }
 
   &__content {
     position: relative;
     .flex(column, space-between, center);
+
     gap: 32px;
 
     @media @breakpoint-lg {
@@ -41,6 +52,7 @@
 
     &_headerContainer {
       .flex(row, center, space-between);
+
       gap: 8px;
       margin-bottom: 8px;
     }
@@ -63,6 +75,7 @@
 
   &__component {
     .border();
+
     border-radius: var(--border-radius-l);
     background-color: var(--card-bg-color);
     padding: 24px 12px;
@@ -73,16 +86,20 @@
   }
 
   &__componentList {
-    .flex(column, space-between, center);
+    .flex(column, center, start);
+
     gap: 16px;
 
     &_container {
+      .flex(column, center, start);
+
       margin-top: 24px;
     }
   }
 
   &__total {
     .border();
+
     border-radius: var(--border-radius-l);
     background-color: var(--card-bg-color);
     height: max-content;
@@ -106,17 +123,20 @@
 
     &_details {
       .borderBottom();
+
       margin-top: 24px;
       padding-bottom: 16px;
     }
 
     &_componentCounts {
       .flex(row, center, space-between);
+
       gap: 8px;
     }
 
     &_compatibility {
       .flex(row, center, space-between);
+
       gap: 8px;
       margin-top: 8px;
     }
@@ -124,6 +144,7 @@
 
   &__totalButtons {
     .flex(column);
+
     gap: 8px;
     margin-top: 16px;
 
@@ -134,6 +155,7 @@
 
   &__totalPrice {
     .flex(row, center, space-between);
+
     margin-top: 16px;
     gap: 8px;
 
@@ -152,6 +174,7 @@
 
   &__recommendation {
     .borderTop();
+
     margin-top: 16px;
     padding-top: 16px;
     color: var(--muted-color);
@@ -161,6 +184,8 @@
     }
 
     &_list {
+      .flex(column, start, start);
+      gap: 8px;
       margin-top: 8px;
     }
   }

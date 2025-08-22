@@ -1,47 +1,55 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
   CategoryPageSchema,
+  ICategory,
   ICategoryProduct,
-  SortFieldOptions,
+  SortFieldOptionKey,
   ViewFormat,
 } from '@/pages/CategoryPage'
+import { LocalStorage } from '@/shared/consts'
 
 const initialState: CategoryPageSchema = {
-  name: '',
-  id: '',
+  category: {
+    id: '',
+    name: '',
+    description: '',
+    slug: '',
+    productCount: 0,
+  },
   page: 1,
   limit: 8,
   hasMore: true,
+  search: '',
   view: ViewFormat.GRID,
-  sort: SortFieldOptions.REVIEWS_ASC,
+  sort: 'CREATED_DESC',
   products: [],
-  isLoading: false,
+  inited: false,
 }
 
 export const categoryPageSlice = createSlice({
   name: 'categoryPage',
   initialState,
   reducers: {
-    setIsLoading(state, action: PayloadAction<boolean>) {
-      state.isLoading = action.payload
-    },
-    setName(state, action: PayloadAction<string>) {
-      state.name = action.payload
-    },
-    setId(state, action: PayloadAction<string>) {
-      state.id = action.payload
+    setCategory(state, action: PayloadAction<ICategory>) {
+      state.category = action.payload
     },
     setPage(state, action: PayloadAction<number>) {
       state.page = action.payload
+    },
+    setSearch(state, action: PayloadAction<string>) {
+      state.search = action.payload
     },
     setHasMore(state, action: PayloadAction<boolean>) {
       state.hasMore = action.payload
     },
     setView(state, action: PayloadAction<ViewFormat>) {
       state.view = action.payload
-      localStorage.setItem('Lumi_categoryPage_view', action.payload)
+      localStorage.setItem(LocalStorage.PRODUCTS_VIEW, action.payload)
     },
-    setSort(state, action: PayloadAction<SortFieldOptions>) {
+    setLimit(state, action: PayloadAction<number>) {
+      state.limit = action.payload
+    },
+    setSort(state, action: PayloadAction<SortFieldOptionKey>) {
       state.sort = action.payload
     },
     setProducts(state, action: PayloadAction<ICategoryProduct[]>) {
@@ -54,8 +62,25 @@ export const categoryPageSlice = createSlice({
       state.page = 1
       state.products = []
       state.hasMore = true
-      state.id = ''
-      state.name = ''
+      state.search = ''
+      state.category = initialState.category
+    },
+    initFilters(
+      state,
+      action: PayloadAction<
+        Pick<CategoryPageSchema, 'search' | 'sort' | 'view'>
+      >
+    ) {
+      if (!state.inited) {
+        state.search = action.payload.search
+        state.view = action.payload.view
+        state.sort = action.payload.sort
+        state.view = action.payload.view
+        state.limit = action.payload.view === ViewFormat.GRID ? 8 : 4
+
+        localStorage.setItem(LocalStorage.PRODUCTS_VIEW, action.payload.view)
+      }
+      state.inited = true
     },
   },
 })

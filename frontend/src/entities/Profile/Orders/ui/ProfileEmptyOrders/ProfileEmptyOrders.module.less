@@ -1,0 +1,40 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/variables/global';
+
+.profileEmpryOrders {
+  .flex(column, center, start);
+  padding: 24px;
+
+  text-align: center;
+
+  @media @breakpoint-lg {
+    padding: 48px;
+  }
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    stroke: var(--muted-color);
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    margin-bottom: 8px;
+    font: var(--font-m);
+    font-weight: var(--font-bold);
+  }
+
+  &__description {
+    margin-bottom: 24px;
+    color: var(--muted-color);
+  }
+
+  &__buttons {
+    .flex(column);
+    gap: 12px;
+
+    @media @breakpoint-sm {
+      .flex();
+    }
+  }
+}

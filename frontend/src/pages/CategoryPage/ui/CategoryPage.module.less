@@ -10,21 +10,53 @@
 
     gap: 48px;
     margin-bottom: 32px;
+
+    &_skeleton {
+      margin: 24px 0 32px;
+    }
   }
 
   &__title {
-    font: var(--font-xl);
+    font: var(--font-l);
     font-weight: var(--font-bold);
+
+    @media @breakpoint-sm {
+      font: var(--font-xl);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__description {
+    margin-top: 8px;
+    font: var(--font-xs);
+    color: var(--muted-color);
+
+    @media @breakpoint-sm {
+      font: var(--font-s);
+    }
+  }
+
+  &__productQuantity {
+    margin-top: 8px;
+    font: var(--font-xxs);
+    color: var(--primary-color);
+
+    @media @breakpoint-sm {
+      font: var(--font-xs);
+    }
   }
 
   &__productsSecton {
   }
 
   &__configuratorCarousel {
+    .flex();
+
+    position: relative;
     margin-bottom: 24px;
-    background-color: var(--muted-bg-color);
+    background-color: var(--card-bg-color);
     border-radius: var(--border-radius-l);
     padding: 12px;
-    z-index: 10;
+    z-index: var(--z-configurator-scrollbar);
   }
 }

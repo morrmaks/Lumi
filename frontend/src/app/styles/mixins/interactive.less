@@ -19,7 +19,7 @@
 
   &:hover {
     opacity: @opacity;
-    background-color: @background;
+    background: @background;
     stroke: @stroke;
   }
 }
@@ -51,4 +51,30 @@
   &:hover {
     transform: scale(@scale);
   }
+}
+
+.scrollbar() {
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--scrollbar-bg-color);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-hover-color);
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-color) var(--scrollbar-bg-color);
 }

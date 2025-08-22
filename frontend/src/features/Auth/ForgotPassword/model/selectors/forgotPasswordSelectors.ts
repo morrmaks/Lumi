@@ -1,4 +1,7 @@
 import { StateSchema } from '@/app/providers/StoreProvider'
 
-export const getForgotPasswordState = (state: StateSchema) =>
-  state?.forgotPasswordForm ?? { email: '', isLoading: false }
+export const getForgotPasswordEmail = (state: StateSchema) =>
+  state?.forgotPassword.email ?? ''
+
+export const getIsForgotPassword = (state: StateSchema) =>
+  state?.forgotPassword.isForgotPassword ?? false

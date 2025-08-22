@@ -4,6 +4,7 @@ import cls from './BreadcrumbNav.module.less'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { useResolvedBreadcrumbs } from '@/shared/lib/hooks'
+import { Placeholders } from '@/shared/consts'
 
 export const BreadcrumbNav = () => {
   const crumbs = useResolvedBreadcrumbs()
@@ -15,7 +16,7 @@ export const BreadcrumbNav = () => {
       <ul className={cls.breadcrumbNav__list}>
         <li>
           <AppLink to={getRouteMain()} className={cls.breadcrumbNav__item_link}>
-            Главная
+            {Placeholders.features.breadcrumbNav.onRouteMain}
           </AppLink>
         </li>
         {crumbs.map(({ name, path, isLast }, index) => {

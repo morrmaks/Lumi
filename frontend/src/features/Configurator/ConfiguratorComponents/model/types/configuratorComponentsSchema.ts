@@ -1,23 +1,22 @@
-import { ComponentNames } from '@/features/Configurator'
+import { ComponentTypes } from '@/features/Configurator'
 
-export interface ConfiguratorComponent {
-  id: string
-  image: string
-  title: string
-  price: number
+export interface IConfiguratorComponentDto {
+  componentId: string
+  componentType: ComponentTypes
 }
 
-export type ConfiguratorComponentIdsMap = Partial<
-  Record<ComponentNames, string>
->
-export type ConfiguratorComponentMap = Record<
-  ComponentNames,
-  ConfiguratorComponent | null
->
+export interface IConfiguratorComponent {
+  id: string
+  image: string
+  name: string
+  discountPrice: number
+  componentType: ComponentTypes
+}
+
+export type ConfiguratorComponentMap = Record<ComponentTypes, string | null>
 
 export interface ConfiguratorComponentsSchema {
-  componentIds: ConfiguratorComponentIdsMap
   components: ConfiguratorComponentMap
-  isLoading: boolean
-  error?: string
+  price: number
+  isSynced: boolean
 }

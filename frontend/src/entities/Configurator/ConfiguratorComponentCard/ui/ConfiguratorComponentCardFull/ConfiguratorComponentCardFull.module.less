@@ -1,0 +1,100 @@
+@import '@/app/styles/mixins/decorators';
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.configuratorComponentCardFull {
+  .flex(row, center, space-between);
+  .border();
+  cursor: default;
+
+  border-radius: var(--border-radius-l);
+  background-color: var(--card-bg-color);
+  padding: 24px 12px;
+  gap: 16px;
+  width: 100%;
+
+  @media @breakpoint-sm {
+    padding: 24px;
+  }
+
+  &__itemLink {
+    .flex(row, center, start);
+    .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
+    gap: 16px;
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  &__categoryLink {
+  }
+
+  &__actions {
+    .flex(row, center, end);
+
+    gap: 16px;
+    width: max-content;
+
+    @media @breakpoint-sm {
+      .flex(row, center, end);
+    }
+  }
+
+  &__image {
+    border-radius: var(--border-radius-l);
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+
+  &__meta {
+    .flex(column, start, start);
+  }
+
+  &__title {
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+  }
+
+  &__productName {
+    color: var(--muted-color);
+  }
+
+  &__priceSection {
+    .flex();
+
+    gap: 16px;
+  }
+
+  &__price {
+    white-space: nowrap;
+    margin-top: 8px;
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+  }
+
+  &__changeIcon {
+    .selectableIcon(var(--hover-opacity), transparent, var(--secondary-color));
+    flex-shrink: 0;
+    transition: transform 0.5s ease-in-out;
+
+    &:hover {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__buttons {
+    .flex(column, center, space-between);
+
+    gap: 8px;
+  }
+
+  &__deleteButton {
+    background: none;
+    border: none;
+  }
+
+  &__deleteIcon {
+    .selectableIcon(1, transparent, var(--danger-color));
+  }
+}

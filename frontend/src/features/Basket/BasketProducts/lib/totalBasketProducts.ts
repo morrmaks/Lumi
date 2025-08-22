@@ -1,4 +1,4 @@
-import { IBasketItem } from '@/features/Basket/BasketProducts/ui/BasketProducts'
+import { IBasketItem } from '@/features/Basket'
 
 export const totalBasketProducts = (products: IBasketItem[]) => {
   return products.reduce((acc, product) => {

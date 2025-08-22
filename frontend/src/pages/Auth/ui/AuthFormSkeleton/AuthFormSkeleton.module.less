@@ -1,0 +1,41 @@
+@import '@/app/styles/mixins/form-elements';
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/variables/global';
+
+.authFormSkeleton {
+  .flex(column, start, start);
+
+  margin-top: 8px;
+  border-radius: var(--border-radius-l);
+  background-color: var(--card-bg-color);
+  width: 100%;
+  padding: 24px;
+
+  &__title {
+    margin-bottom: 24px;
+  }
+
+  &__form {
+    .flex(column, start, start);
+
+    gap: 16px;
+    width: 100%;
+  }
+
+  &__label {
+    .flex(column, start, start);
+
+    width: 100%;
+    gap: 8px;
+  }
+
+  &__input {
+    .input();
+
+    width: 100%;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}

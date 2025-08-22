@@ -6,6 +6,7 @@
 .productDetails {
   &__header {
     .flex(column, start, start);
+
     gap: 12px;
   }
 
@@ -31,6 +32,7 @@
 
   &__priceSection {
     .flex(column, start, start);
+
     gap: 4px;
     margin-top: 24px;
     background-color: var(--card-bg-color);
@@ -63,22 +65,40 @@
 
   &__discountAmount {
     margin-top: 8px;
+    font-weight: var(--font-bold);
+    color: var(--benefit-color);
+  }
+
+  &__stockSection {
+    .flex(column, start, start);
+
+    gap: 4px;
+    margin-top: 8px;
+    background-color: var(--benefit-bg-color);
+    padding: 16px;
+    width: 100%;
+    border-radius: var(--border-radius-l);
+    font-weight: var(--font-bold);
     color: var(--benefit-color);
   }
 
   &__buttons {
     .flex(column, space-between);
+
     gap: 8px;
     width: 100%;
 
     &_secondary {
       .flex();
+      flex-wrap: wrap;
+
       gap: 8px;
     }
   }
 
   &__button {
     .flex();
+
     gap: 8px;
     white-space: nowrap;
     padding: 0 10px;
@@ -90,6 +110,24 @@
       font: var(--font-xs);
       font-weight: var(--font-bold);
     }
+
+    &_basketActive {
+      .selectableIcon(var(--hover-opacity), var(--benefit-color));
+      background-color: var(--benefit-color);
+      color: var(--accent-color);
+    }
+
+    &_wishlistActive {
+      .selectableIcon(var(--hover-opacity), var(--danger-color));
+      background-color: var(--danger-color);
+      color: var(--accent-color);
+    }
+
+    &_configuratorActive {
+      .selectableIcon(var(--hover-opacity), var(--danger-color));
+      background-color: var(--danger-color);
+      color: var(--accent-color);
+    }
   }
 
   &__buttonIcon {
@@ -100,69 +138,32 @@
       width: 16px;
       height: 16px;
     }
+
+    &_basketActive {
+      stroke: var(--accent-color);
+    }
+
+    &_wishlistActive {
+      stroke: var(--accent-color);
+    }
+
+    &_configuratorActive {
+      stroke: var(--accent-color);
+    }
   }
 
   &__specs {
     .border();
+
+    padding: 16px;
     border-radius: var(--border-radius-l);
     background-color: var(--card-bg-color);
-    padding: 16px;
     width: 100%;
-
-    @media @breakpoint-sm {
-      padding: 24px;
-    }
-
-    &_title {
-      font: var(--font-s);
-      font-weight: var(--font-bold);
-
-      @media @breakpoint-sm {
-        font: var(--font-m);
-        font-weight: var(--font-bold);
-      }
-    }
-  }
-
-  &__specList {
-    .flex(column, space-between, start);
-    margin-top: 16px;
-    gap: 8px;
-
-    @media @breakpoint-sm {
-      margin-top: 24px;
-    }
-  }
-
-  &__spec {
-    .flex(row, end, space-between);
-    font: var(--font-xxs);
-
-    @media @breakpoint-sm {
-      font: var(--font-xs);
-    }
-
-    &_label {
-      color: var(--muted-color);
-      flex-shrink: 1;
-      flex-grow: 0;
-    }
-
-    &_value {
-      font-weight: var(--font-bold);
-      flex-shrink: 0;
-    }
-
-    &_line {
-      .borderBottom(1px, dashed);
-      width: 100%;
-      margin: 2px 6px;
-      flex: 1;
-    }
   }
 
   &__description {
     .border();
+
     border-radius: var(--border-radius-l);
     background-color: var(--card-bg-color);
     padding: 16px;

@@ -7,8 +7,6 @@ export const Theme = {
 
 export type Theme = (typeof Theme)[keyof typeof Theme]
 
-export const LOCAL_STORAGE_THEME_KEY = 'Lumi_theme'
-
 interface ThemeContextProps {
   theme?: Theme
   setTheme?: (theme: Theme) => void

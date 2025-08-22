@@ -1,19 +1,21 @@
-import { ComponentNames } from '@/features/Configurator'
+import { ComponentTypes, ComponentTypeToKey } from '@/features/Configurator'
+import { ProductSpecsMap } from '@/entities/ProductDetails'
 
-export interface ISpec {
-  label: string
-  value: string | number
-}
+export type ISpecs<C extends ComponentTypes> = Partial<
+  Record<keyof (typeof ProductSpecsMap)[ComponentTypeToKey[C]], string | number>
+>
 
-export interface IProduct {
+export interface IProduct<C extends ComponentTypes = ComponentTypes> {
   id: string
-  images: string[]
-  title: string
+  name: string
   description: string
-  specs: ISpec[]
-  rating: string
-  reviews: number
-  discountPrice: number
+  categoryId: string
   price: number
-  componentName: ComponentNames
+  discountPrice: number
+  rating: number
+  reviews: number
+  images: string[]
+  quantity?: number
+  specs?: ISpecs<C>
+  componentType?: C
 }

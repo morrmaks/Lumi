@@ -18,6 +18,7 @@
 
 .primaryButton {
   .gradient();
+
   color: var(--accent-color);
   transition: var(--transition-speed);
   font: var(--font-xs);
@@ -51,8 +52,9 @@
 
   &:disabled {
     .border();
+
     opacity: var(--hover-opacity);
-    background-color: var(--muted-bg-color);
+
     &:hover {
       //opacity: var(--hover-opacity);
     }
@@ -76,8 +78,9 @@
 
   &:disabled {
     .border();
+
     opacity: var(--hover-opacity);
-    background-color: var(--muted-bg-color);
+
     &:hover {
       //opacity: var(--hover-opacity);
     }
@@ -107,13 +110,18 @@
 
   &:disabled {
     background-color: var(--muted-bg-color);
+    color: var(--muted-color);
+
+    svg {
+      stroke: var(--muted-color);
+    }
 
     &:hover {
       color: var(--primary-color);
       background-color: var(--muted-bg-color);
 
       svg {
-        stroke: var(--primary-color);
+        stroke: var(--muted-color);
       }
     }
   }

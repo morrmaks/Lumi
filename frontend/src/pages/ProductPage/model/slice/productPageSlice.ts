@@ -1,31 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ProductPageSchema } from '@/pages/ProductPage'
 import { IProduct } from '@/features/Product'
-import { ComponentNames } from '@/features/Configurator'
+import { ComponentTypes } from '@/features/Configurator'
 
 const initialState: ProductPageSchema = {
   product: {
     id: '',
+    categoryId: '',
     images: [],
-    title: '',
+    name: '',
     description: '',
-    componentName: ComponentNames.GPU,
-    specs: [],
-    rating: '',
+    componentType: ComponentTypes.GPU,
+    specs: {},
+    rating: 1,
     reviews: 0,
     discountPrice: 0,
     price: 0,
   },
-  isLoading: false,
 }
 
 export const productPageSlice = createSlice({
   name: 'productPage',
   initialState,
   reducers: {
-    setIsLoading(state, action: PayloadAction<boolean>) {
-      state.isLoading = action.payload
-    },
     setProduct(state, action: PayloadAction<IProduct>) {
       state.product = action.payload
     },

@@ -1,6 +1,7 @@
 import { PageLayout } from '@/widgets/PageLayout'
 import cls from './CatalogPage.module.less'
 import { CatalogCategories } from '@/features/Catalog'
+import { Placeholders } from '@/shared/consts'
 
 const CatalogPage = () => {
   return (
@@ -8,9 +9,11 @@ const CatalogPage = () => {
       <div className={cls.catalogPage}>
         <div className={cls.catalogPage__header}>
           <div>
-            <h2 className={cls.catalogPage__title}>Каталог</h2>
+            <h2 className={cls.catalogPage__title}>
+              {Placeholders.pages.catalog.mainText}
+            </h2>
             <p className={cls.catalogPage__description}>
-              Выберите категорию для просмотра товаров
+              {Placeholders.pages.catalog.describeText}
             </p>
           </div>
         </div>

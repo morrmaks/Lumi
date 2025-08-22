@@ -1,22 +1,21 @@
-import { LoginSchema } from 'src/features/Auth'
 import { DropdownMenuSchema } from '@/entities/DropdownMenu'
 import { Reducer, ReducersMapObject, UnknownAction } from 'redux'
 import { EnhancedStore } from '@reduxjs/toolkit'
-import { RegisterSchema } from 'src/features/Auth'
-import { ResetPasswordSchema } from 'src/features/Auth'
 import { ForgotPasswordSchema } from 'src/features/Auth'
 import { BreadcrumbNavSchema } from '@/features/BreadcrumbNav'
 import { WishlistProductsSchema } from '@/features/Wishlist'
 import { BasketProductsSchema } from '@/features/Basket'
-import { UserSchema } from '@/entities/User'
-import { ProfileCardSchema } from '@/features/Profile'
-import { ProfileSettingsSchema } from '@/features/Profile'
+import { AuthSchema, UserSchema } from '@/entities/User'
 import { ConfiguratorComponentsSchema } from '@/features/Configurator'
 import { CategoryPageSchema } from '@/pages/CategoryPage'
 import { ProductPageSchema } from '@/pages/ProductPage'
+import { rtkApi } from '@/shared/api'
 
 export interface StateSchema {
+  [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>
   user: UserSchema
+  auth: AuthSchema
+  forgotPassword: ForgotPasswordSchema
   dropdownMenu: DropdownMenuSchema
   breadcrumbNav: BreadcrumbNavSchema
   wishlistProducts: WishlistProductsSchema
@@ -24,12 +23,6 @@ export interface StateSchema {
   configuratorComponents: ConfiguratorComponentsSchema
   categoryPage?: CategoryPageSchema
   productPage?: ProductPageSchema
-  loginForm?: LoginSchema
-  registerForm?: RegisterSchema
-  forgotPasswordForm?: ForgotPasswordSchema
-  resetPasswordForm?: ResetPasswordSchema
-  profileCardForm?: ProfileCardSchema
-  profileSettingsForm?: ProfileSettingsSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

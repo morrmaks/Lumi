@@ -12,6 +12,7 @@ export const ProductDetailsSkeleton = () => {
         <div className={cls.productDetails__priceSection}>
           <Skeleton width={120} height={90} border={'6px'} />
         </div>
+        <Skeleton height={50} className={cls.productDetails__stockSection} />
         <Skeleton
           height={90}
           border={'6px'}

@@ -2,15 +2,17 @@ import {
   basketProductsReducer,
   basketProductsActions,
 } from './slice/basketProductsSlice'
-import {
-  type BasketProduct,
-  type BasketProductsSchema,
+import type {
+  IBasketProduct,
+  IBasketItem,
+  BasketProductsSchema,
 } from './types/basketProductsSchema'
 
 export * from './selectors/basketProductsSelectors'
 export {
   basketProductsReducer,
   basketProductsActions,
-  BasketProduct,
+  IBasketProduct,
+  IBasketItem,
   BasketProductsSchema,
 }

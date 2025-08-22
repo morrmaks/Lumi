@@ -4,10 +4,11 @@ import { Navigate } from 'react-router-dom'
 import { getRouteMain } from '@/shared/consts/router'
 import { PageLayout } from '@/widgets/PageLayout'
 import { useAppSelector } from '@/shared/lib/hooks'
-import { getUserIsForgotPassword } from '@/entities/User'
+import { Placeholders } from '@/shared/consts'
+import { getIsForgotPassword } from '@/features/Auth'
 
 const ResetPasswordPage = () => {
-  const isAllowed = useAppSelector(getUserIsForgotPassword)
+  const isAllowed = useAppSelector(getIsForgotPassword)
 
   if (!isAllowed) {
     return <Navigate to={getRouteMain()} replace />
@@ -17,9 +18,11 @@ const ResetPasswordPage = () => {
     <PageLayout noPadding>
       <div className={cls.resetPasswordPage}>
         <div className={cls.resetPasswordPage__header}>
-          <h2 className={cls.resetPasswordPage__title}>Сброс пароля</h2>
+          <h3 className={cls.resetPasswordPage__title}>
+            {Placeholders.pages.resetPassword.mainText}
+          </h3>
           <p className={cls.resetPasswordPage__description}>
-            {`Введите код из письма, отправленного на почту, и установите новый пароль`}
+            {Placeholders.pages.resetPassword.describeText}
           </p>
         </div>
         <ResetPasswordForm />

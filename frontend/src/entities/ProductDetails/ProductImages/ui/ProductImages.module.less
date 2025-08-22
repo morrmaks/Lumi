@@ -25,6 +25,7 @@
     width: 100%;
     min-height: 100%;
     aspect-ratio: 1;
+    cursor: pointer;
 
     &_container {
       width: 100%;
@@ -45,6 +46,7 @@
 
   &__selector {
     .flex(row, start, start);
+
     gap: 4px;
     order: 2;
     width: 100%;
@@ -56,6 +58,7 @@
 
     @media @breakpoint-lg {
       .flex(column, start, start);
+
       width: auto;
       overflow-y: auto;
       max-height: 100%;
@@ -66,6 +69,7 @@
   &__image {
     .selectableBorder(transparent, var(--secondary-color));
     .border(2px, solid, transparent);
+
     width: 60px;
     height: 60px;
     aspect-ratio: 1;

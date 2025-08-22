@@ -1,67 +1,97 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
-  ConfiguratorComponentIdsMap,
-  ConfiguratorComponent,
-  ConfiguratorComponentMap,
+  IConfiguratorComponentDto,
   ConfiguratorComponentsSchema,
 } from '../types/configuratorComponentsSchema'
-import { ComponentNames } from '../../consts/ComponentNames'
-
-const emptyComponentMap = Object.values(ComponentNames).reduce((acc, name) => {
-  acc[name] = null
-  return acc
-}, {} as ConfiguratorComponentMap)
+import { authApi } from '@/entities/User/api'
+import { LocalStorage } from '@/shared/consts'
+import { EmptyConfigureComponentIdsMap } from '../../consts/EmptyConfigureComponentsMap'
 
 const initialState: ConfiguratorComponentsSchema = {
-  componentIds: {},
-  components: emptyComponentMap,
-  isLoading: false,
+  components: EmptyConfigureComponentIdsMap,
+  price: 0,
+  isSynced: false,
 }
 
 const configuratorComponentsSlice = createSlice({
   name: 'configuratorComponents',
   initialState,
   reducers: {
+    setPrice: (state, action: PayloadAction<number>) => {
+      state.price = action.payload
+    },
     setComponents: (
       state,
-      action: PayloadAction<Partial<ConfiguratorComponentMap>>
+      action: PayloadAction<IConfiguratorComponentDto[]>
     ) => {
-      Object.entries(action.payload).forEach(
-        ([componentName, componentInfo]) => {
-          if (componentName in state.components) {
-            state.components[componentName as ComponentNames] = componentInfo
-          }
-        }
-      )
-    },
-    setComponent: (
-      state,
-      action: PayloadAction<{
-        name: ComponentNames
-        component: ConfiguratorComponent
-      }>
-    ) => {
-      const { name, component } = action.payload
-      state.components[name] = component
-    },
-    setComponentIds: (
-      state,
-      action: PayloadAction<ConfiguratorComponentIdsMap>
-    ) => {
-      Object.entries(action.payload).forEach(([componentName, componentId]) => {
-        if (componentName in state.componentIds) {
-          state.componentIds[componentName as ComponentNames] = componentId
+      action.payload.forEach(({ componentType, componentId }) => {
+        if (componentType in state.components) {
+          state.components[componentType] = componentId
         }
       })
+
+      if (state.isSynced) return
+      localStorage.setItem(
+        LocalStorage.CONFIGURATOR,
+        JSON.stringify(state.components)
+      )
     },
-    setComponentId: (
+    setComponent: (state, action: PayloadAction<IConfiguratorComponentDto>) => {
+      const { componentType, componentId } = action.payload
+      state.components[componentType] = componentId
+
+      if (state.isSynced) return
+      localStorage.setItem(
+        LocalStorage.CONFIGURATOR,
+        JSON.stringify(state.components)
+      )
+    },
+    removeComponent: (
       state,
-      action: PayloadAction<{ name: ComponentNames; id: string }>
+      action: PayloadAction<IConfiguratorComponentDto>
     ) => {
-      const { name, id } = action.payload
-      state.componentIds[name] = id
+      state.components[action.payload.componentType] = null
+
+      if (state.isSynced) return
+      localStorage.setItem(
+        LocalStorage.CONFIGURATOR,
+        JSON.stringify(state.components)
+      )
     },
-    resetState: () => initialState,
+    resetComponents: (state) => {
+      state.components = EmptyConfigureComponentIdsMap
+      if (state.isSynced) return
+      localStorage.removeItem(LocalStorage.CONFIGURATOR)
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(authApi.endpoints.postLogout.matchFulfilled, (state) => {
+      state.components = EmptyConfigureComponentIdsMap
+      state.isSynced = false
+    })
+    builder.addMatcher(authApi.endpoints.postLogin.matchFulfilled, (state) => {
+      state.components = EmptyConfigureComponentIdsMap
+      state.isSynced = true
+    })
+    builder.addMatcher(
+      authApi.endpoints.postRegister.matchFulfilled,
+      (state) => {
+        state.components = EmptyConfigureComponentIdsMap
+        state.isSynced = true
+      }
+    )
+    builder.addMatcher(
+      authApi.endpoints.postResetPassword.matchFulfilled,
+      (state) => {
+        state.components = EmptyConfigureComponentIdsMap
+        state.isSynced = true
+      }
+    )
+    builder.addMatcher(authApi.endpoints.getMe.matchFulfilled, (state) => {
+      state.components = EmptyConfigureComponentIdsMap
+      state.isSynced = true
+      localStorage.removeItem(LocalStorage.CONFIGURATOR)
+    })
   },
 })
 

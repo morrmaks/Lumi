@@ -1,7 +1,7 @@
-import { IWishlistItem } from '@/features/Wishlist/WishlistProducts/ui/WishlistProducts'
+import { IWishlistProduct } from '@/features/Wishlist'
 
 export const fullSelectDiscountPrice = (
-  products: IWishlistItem[],
+  products: IWishlistProduct[],
   select: string[]
 ): number => {
   return products.reduce((acc, prod) => {
