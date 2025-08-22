@@ -14,6 +14,7 @@ export const AppRoutes = {
   BASKET: 'basket',
   SEARCH: 'search',
   NOT_FOUND: 'not-found',
+  ORDER: 'order',
 } as const
 
 export type AppRoutes = (typeof AppRoutes)[keyof typeof AppRoutes]
@@ -34,6 +35,7 @@ export const getRouteCatalogItem = (category: string, id: string) =>
 export const getRouteWishlist = () => '/wishlist'
 export const getRouteBasket = () => '/basket'
 export const getRouteSearch = () => '/search'
+export const getRouteOrder = () => '/order'
 
 export const getFullRouteLogin = () => '/auth/login'
 export const getFullRouteRegister = () => '/auth/register'

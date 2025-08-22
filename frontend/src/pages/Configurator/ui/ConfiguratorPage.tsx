@@ -12,9 +12,10 @@ import { useAppSelector } from '@/shared/lib/hooks'
 import { getConfiguratorProgress } from '@/pages/Configurator'
 import { Loader } from '@/shared/ui/Loader'
 import { Suspense, useCallback } from 'react'
-import { getRouteAuth, Placeholders } from '@/shared/consts'
+import { getRouteAuth, getRouteOrder, Placeholders } from '@/shared/consts'
 import { getUserIsAuth } from '@/entities/User'
 import { useNavigate } from 'react-router-dom'
+import { AppLink } from '@/shared/ui/AppLink'
 
 const ConfiguratorPage = () => {
   const navigate = useNavigate()
@@ -22,11 +23,6 @@ const ConfiguratorPage = () => {
   const price = useAppSelector(getConfiguratorPrice)
   const components = useAppSelector(getConfiguratorComponentsList)
   const { total, filled, progress } = getConfiguratorProgress(components)
-
-  const createOrder = useCallback(() => {
-    if (!isAuth) return navigate(getRouteAuth())
-    console.log('createOrder')
-  }, [isAuth, navigate])
 
   const saveConfigure = useCallback(() => {
     if (!isAuth) return navigate(getRouteAuth())
@@ -94,12 +90,14 @@ const ConfiguratorPage = () => {
               </span>
             </div>
             <div className={cls.configuratorPage__totalButtons}>
-              <Button
-                className={cls.configuratorPage__totalButtons_button}
-                onClick={createOrder}
+              <AppLink
+                to={getRouteOrder()}
+                className={cls.configuratorPage__totalButtons_link}
               >
-                {Placeholders.pages.configurator.total.onPlaceAnOrder}
-              </Button>
+                <Button className={cls.configuratorPage__totalButtons_button}>
+                  {Placeholders.pages.configurator.total.onPlaceAnOrder}
+                </Button>
+              </AppLink>
               <Button
                 theme={ButtonTheme.OUTLINE}
                 onClick={saveConfigure}

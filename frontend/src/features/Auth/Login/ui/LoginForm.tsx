@@ -59,10 +59,7 @@ export const LoginForm = () => {
       </label>
       <label htmlFor="password" className={cls.loginForm__label}>
         {Placeholders.features.auth.loginForm.labels.password}
-        <PasswordInput
-          className={cls.loginForm__input}
-          {...register('password')}
-        />
+        <PasswordInput {...register('password')} />
         {errors.password && (
           <span className={cls.loginForm__errors}>
             {errors.password.message}

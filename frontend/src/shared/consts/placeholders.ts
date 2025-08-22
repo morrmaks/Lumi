@@ -95,6 +95,11 @@ export const Placeholders = {
       mainText: 'Поиск',
       describeText: 'Поиск по сайту не работает',
     },
+    order: {
+      mainText: 'Оформление заказа',
+      describeText: 'Заполните форму, чтобы оформить заказ',
+      formTitle: 'Укажите свои данные',
+    },
   },
   widgets: {
     footer: {
@@ -157,6 +162,19 @@ export const Placeholders = {
           code: 'Введите код',
         },
         submit: 'Войти',
+      },
+    },
+    order: {
+      orderForm: {
+        labels: {
+          address: 'Адрес доставки',
+          paymentMethod: 'Способ оплаты',
+        },
+        submit: 'Сделать заказ',
+        submitWithPayment: 'Перейти к оплате',
+      },
+      addressInput: {
+        placeholder: 'Город, улица, дом, квартира',
       },
     },
     catalog: {

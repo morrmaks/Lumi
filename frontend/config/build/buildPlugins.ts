@@ -5,19 +5,23 @@ import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import { config } from 'dotenv'
 
 export const buildPlugins = ({
   isDev,
   paths,
 }: BuildOptions): webpack.WebpackPluginInstance[] => {
   const isProd = !isDev
+  const env = config().parsed || {}
 
   const plugins = [
     new HtmlWebpackPlugin({
       template: paths.html,
     }),
     new webpack.ProgressPlugin(),
-
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(env),
+    }),
     new ForkTsCheckerWebpackPlugin({
       typescript: {
         diagnosticOptions: {

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import cls from './BasketProducts.module.less'
 import { BasketCard, BasketCardSkeleton } from '@/entities/Basket'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
@@ -14,15 +14,11 @@ import {
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { AppLink } from '@/shared/ui/AppLink'
-import { getRouteAuth, getRouteCatalog } from '@/shared/consts/router'
+import { getRouteCatalog, getRouteOrder } from '@/shared/consts/router'
 import { Placeholders } from '@/shared/consts'
-import { useNavigate } from 'react-router-dom'
-import { getUserIsAuth } from '@/entities/User'
 
 const BasketProducts = () => {
   const [products, setProducts] = useState<IBasketProduct[]>([])
-  const navigate = useNavigate()
-  const isAuth = useAppSelector(getUserIsAuth)
   const basketItems = useAppSelector(getBasketProducts)
 
   const { data: basketProducts, isLoading } = useGetBasketProductsQuery(
@@ -50,11 +46,6 @@ const BasketProducts = () => {
     () => totalBasketProducts(basketItems),
     [basketItems]
   )
-
-  const createOrder = useCallback(() => {
-    if (!isAuth) return navigate(getRouteAuth())
-    console.log('createOrder')
-  }, [isAuth, navigate])
 
   return (
     <div className={cls.basketProducts}>
@@ -108,14 +99,15 @@ const BasketProducts = () => {
             <span>{discountPrice} ₽</span>
           </div>
         </div>
-        <Button
-          theme={ButtonTheme.PRIMARY}
-          className={cls.basketProducts__orderButton}
-          onClick={createOrder}
-        >
-          <Icon Svg={IconsMap.PAYMENT} />
-          {Placeholders.features.basket.products.onPlaceAnOrder}
-        </Button>
+        <AppLink to={getRouteOrder()} className={cls.basketProducts__orderLink}>
+          <Button
+            theme={ButtonTheme.PRIMARY}
+            className={cls.basketProducts__orderButton}
+          >
+            <Icon Svg={IconsMap.PAYMENT} />
+            {Placeholders.features.basket.products.onPlaceAnOrder}
+          </Button>
+        </AppLink>
       </div>
     </div>
   )

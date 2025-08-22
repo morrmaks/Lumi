@@ -68,10 +68,7 @@ export const ResetPasswordForm = () => {
       </label>
       <label htmlFor="password" className={cls.resetPasswordForm__label}>
         {Placeholders.features.auth.resetPasswordForm.labels.password}
-        <PasswordInput
-          className={cls.resetPasswordForm__input}
-          {...register('password')}
-        />
+        <PasswordInput {...register('password')} />
         {errors.password && (
           <span className={cls.resetPasswordForm__errors}>
             {errors.password.message}

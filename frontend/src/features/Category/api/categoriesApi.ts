@@ -56,6 +56,13 @@ export const categoriesApi = rtkApi.injectEndpoints({
         }
       },
       transformResponse: (response: ICategory[]) => response,
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+        } catch (e) {
+          console.log(e)
+        }
+      },
     }),
     getCategory: build.query<ICategoryWithBreadcrumb, string>({
       query(id) {

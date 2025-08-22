@@ -34,7 +34,7 @@ export const ProfileOrders = () => {
           </li>
         ))}
       </ul>
-      {!showAll && (
+      {!showAll && orders?.length && (
         <Button
           onClick={() => setShowAll(true)}
           theme={ButtonTheme.OUTLINE}

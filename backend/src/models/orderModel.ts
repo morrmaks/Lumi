@@ -1,4 +1,5 @@
 import mongoose, { model, Schema, Document } from "mongoose";
+import { OrderStatus, PaymentMethods } from "@/consts/order";
 
 export interface IOrder extends Document {
   userId: mongoose.Types.ObjectId;
@@ -7,11 +8,11 @@ export interface IOrder extends Document {
     quantity: number;
   }[];
   total: number;
-  status: string;
-  date: string;
+  status: OrderStatus;
+  date: Date;
   trackNumber: string;
   address: string;
-  paymentMethod: string;
+  paymentMethod: PaymentMethods;
 }
 
 const OrderSchema = new Schema<IOrder>({
@@ -19,7 +20,6 @@ const OrderSchema = new Schema<IOrder>({
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
-    unique: true,
   },
   products: [
     {
@@ -31,15 +31,22 @@ const OrderSchema = new Schema<IOrder>({
       quantity: { type: Number, default: 1 },
     },
   ],
-  total: { type: Number, Required: true },
-  status: { type: String, Required: true },
-  date: { type: String, Required: true },
-  trackNumber: { type: String, Required: true },
-  address: { type: String, Required: true },
-  paymentMethod: { type: String, Required: true },
+  total: { type: Number, required: true },
+  status: {
+    type: String,
+    enum: Object.values(OrderStatus),
+    default: OrderStatus.PENDING,
+    required: true,
+  },
+  date: { type: Date, default: Date.now, required: true },
+  trackNumber: { type: String, required: true },
+  address: { type: String, required: true },
+  paymentMethod: {
+    type: String,
+    enum: Object.values(PaymentMethods),
+    required: true,
+  },
 });
-
-// OrderSchema.index({ userId: 1 })
 
 const OrderModel = model<IOrder>("Order", OrderSchema);
 

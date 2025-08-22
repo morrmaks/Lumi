@@ -12,6 +12,13 @@ export const productApi = rtkApi.injectEndpoints({
         }
       },
       transformResponse: (response: IBannerCarousel[]) => response,
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+        } catch (e) {
+          console.log(e)
+        }
+      },
     }),
   }),
 })

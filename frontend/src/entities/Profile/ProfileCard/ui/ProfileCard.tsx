@@ -1,5 +1,5 @@
 import cls from './ProfileCard.module.less'
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
+import { useAppSelector } from '@/shared/lib/hooks'
 import { getUserData } from '@/entities/User'
 import { getWishlistProducts } from '@/features/Wishlist'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
@@ -17,7 +17,6 @@ import { ProfileAvatar } from '@/features/Profile'
 import { Loader } from '@/shared/ui/Loader'
 
 export const ProfileCard = () => {
-  const dispatch = useAppDispatch()
   const { name, email, phone, orders } = useAppSelector(getUserData)
   const wishlistProducts = useAppSelector(getWishlistProducts)
 
@@ -91,7 +90,7 @@ export const ProfileCard = () => {
               profileCardIsLoading ? (
                 <Loader delay={0} />
               ) : (
-                Placeholders.features.auth.loginForm.submit
+                Placeholders.entities.profile.card.onSaveInfo
               )
             ) : (
               Placeholders.entities.profile.card.onEditInfo

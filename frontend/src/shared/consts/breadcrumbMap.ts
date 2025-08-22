@@ -10,6 +10,7 @@ export const BreadcrumbMap = {
   catalog: 'Каталог',
   basket: 'Корзина',
   search: 'Поиск',
+  order: 'Оформление заказа',
 } as const
 
 export type BreadcrumbMap = (typeof BreadcrumbMap)[keyof typeof BreadcrumbMap]

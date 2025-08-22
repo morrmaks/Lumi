@@ -73,10 +73,7 @@ export const RegisterForm = () => {
       </label>
       <label htmlFor="password" className={cls.registerForm__label}>
         {Placeholders.features.auth.registerForm.labels.password}
-        <PasswordInput
-          className={cls.registerForm__input}
-          {...register('password')}
-        />
+        <PasswordInput {...register('password')} />
         {errors.password && (
           <span className={cls.registerForm__errors}>
             {errors.password.message}

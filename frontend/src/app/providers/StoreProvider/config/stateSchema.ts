@@ -9,10 +9,11 @@ import { AuthSchema, UserSchema } from '@/entities/User'
 import { ConfiguratorComponentsSchema } from '@/features/Configurator'
 import { CategoryPageSchema } from '@/pages/CategoryPage'
 import { ProductPageSchema } from '@/pages/ProductPage'
-import { rtkApi } from '@/shared/api'
+import { rtkApi, yaSuggeestApi } from '@/shared/api'
 
 export interface StateSchema {
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>
+  [yaSuggeestApi.reducerPath]: ReturnType<typeof yaSuggeestApi.reducer>
   user: UserSchema
   auth: AuthSchema
   forgotPassword: ForgotPasswordSchema

@@ -51,6 +51,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={cls.input__wrapper}>
+        {IconComponent && (
+          <Icon
+            className={cls.input__icon}
+            Svg={IconComponent}
+            onClick={onIconClick}
+          />
+        )}
         <input
           className={classNames(cls.input, {}, [className])}
           ref={ref}
@@ -59,13 +66,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           onChange={handleChange}
           {...otherProps}
         />
-        {IconComponent && (
-          <Icon
-            className={cls.input__icon}
-            Svg={IconComponent}
-            onClick={onIconClick}
-          />
-        )}
       </div>
     )
   }
