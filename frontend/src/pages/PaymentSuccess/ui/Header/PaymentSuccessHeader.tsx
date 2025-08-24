@@ -22,9 +22,7 @@ export const PaymentSuccessHeader = ({
         Svg={IconsMap.SUCCESS}
         className={cls.paymentSuccessHeader__icon_success}
       />
-      <h2 className={cls.paymentSuccessHeader__title}>
-        {texts.mainText}
-      </h2>
+      <h2 className={cls.paymentSuccessHeader__title}>{texts.mainText}</h2>
       <p className={cls.paymentSuccessHeader__description}>
         {texts.describeText}
       </p>

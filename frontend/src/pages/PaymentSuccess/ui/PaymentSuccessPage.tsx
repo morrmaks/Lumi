@@ -1,12 +1,16 @@
 import cls from './PaymentSuccessPage.module.less'
 import { getRouteMain } from '@/shared/consts'
 import { PageLayout } from '@/widgets/PageLayout'
-import { OrderForm, PaymentMethods, useGetOrderValidateQuery } from '@/features/Order'
+import { PaymentMethods, useGetOrderValidateQuery } from '@/features/Order'
 import { Loader } from '@/shared/ui/Loader'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Navigate } from 'react-router-dom'
 import { PaymentSuccessHeader } from './Header'
-import { PaymentSuccessInfoCards, PaymentSuccessNextSteps, PaymentSuccessPayInfo } from '@/pages/PaymentSuccess'
+import {
+  PaymentSuccessInfoCards,
+  PaymentSuccessNextSteps,
+  PaymentSuccessPayInfo,
+} from '@/pages/PaymentSuccess'
 import { OrderStatus, PaymentStatus } from '@/entities/Order'
 
 const PaymentSuccessPage = () => {
@@ -18,10 +22,12 @@ const PaymentSuccessPage = () => {
 
   if (!isLoading && !data?.orderNumber) return <Navigate to={getRouteMain()} />
 
-  const showPaymentSection = data?.paymentMethod === PaymentMethods.CASH
-    || data?.paymentStatus === PaymentStatus.PENDING
-  const isPaid = data?.status === OrderStatus.PAID
-    || data?.paymentStatus === PaymentStatus.SUCCEEDED
+  const showPaymentSection =
+    data?.paymentMethod === PaymentMethods.CASH ||
+    data?.paymentStatus === PaymentStatus.PENDING
+  const isPaid =
+    data?.status === OrderStatus.PAID ||
+    data?.paymentStatus === PaymentStatus.SUCCEEDED
 
   return (
     <PageLayout>
@@ -32,12 +38,12 @@ const PaymentSuccessPage = () => {
             isPaid={isPaid}
           />
           <PaymentSuccessInfoCards />
-          {showPaymentSection && data?.paymentUrl && !isPaid &&
+          {showPaymentSection && data?.paymentUrl && !isPaid && (
             <PaymentSuccessPayInfo
               paymentMethod={data.paymentMethod}
               paymentUrl={data.paymentUrl}
             />
-          }
+          )}
         </div>
         <PaymentSuccessNextSteps />
       </div>

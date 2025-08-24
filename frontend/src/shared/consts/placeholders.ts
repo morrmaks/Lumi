@@ -114,13 +114,14 @@ export const Placeholders = {
       orderNumberText: 'Номер заказа:',
       paymentInfo: {
         mainText: 'Способ оплаты',
-        describeText: 'Если хотите, вы можете оплатить заказ онлайн прямо сейчас.',
+        describeText:
+          'Если хотите, вы можете оплатить заказ онлайн прямо сейчас.',
         buttonText: 'Оплатить онлайн',
       },
       nextSteps: {
         mainText: 'Что дальше?',
-      }
-    }
+      },
+    },
   },
   widgets: {
     footer: {

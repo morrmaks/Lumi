@@ -30,11 +30,11 @@ export const PaymentSuccessPayInfo = ({
           {Placeholders.pages.paymentSuccess.paymentInfo.mainText}
         </h3>
       </div>
-      {paymentMethod &&
+      {paymentMethod && (
         <p className={cls.paymentSuccessPayInfo__method}>
           {PaymentMethodsMap[paymentMethod]}
         </p>
-      }
+      )}
       <p className={cls.paymentSuccessPayInfo__description}>
         {Placeholders.pages.paymentSuccess.paymentInfo.describeText}
       </p>

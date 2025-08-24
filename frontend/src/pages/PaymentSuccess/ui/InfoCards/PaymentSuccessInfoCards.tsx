@@ -10,21 +10,17 @@ export const PaymentSuccessInfoCards = () => {
       {InfoCardsConfig.map(({ icon, name, title, description }) => (
         <li
           key={title}
-          className={classNames(
-            cls.paymentSuccessInfoCards__card,
-            {}, [cls[`paymentSuccessInfoCards__card_${name}`]]
-          )}
+          className={classNames(cls.paymentSuccessInfoCards__card, {}, [
+            cls[`paymentSuccessInfoCards__card_${name}`],
+          ])}
         >
           <Icon
             Svg={IconsMap[icon]}
-            className={classNames(
-              cls.paymentSuccessInfoCards__cardIcon,
-              {}, [cls[`paymentSuccessInfoCards__cardIcon_${name}`]]
-            )}
+            className={classNames(cls.paymentSuccessInfoCards__cardIcon, {}, [
+              cls[`paymentSuccessInfoCards__cardIcon_${name}`],
+            ])}
           />
-          <h3 className={cls.paymentSuccessInfoCards__card_title}>
-            {title}
-          </h3>
+          <h3 className={cls.paymentSuccessInfoCards__card_title}>{title}</h3>
           <p className={cls.paymentSuccessInfoCards__card_description}>
             {description}
           </p>

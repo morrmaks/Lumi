@@ -1,7 +1,12 @@
 import { rtkApi } from '@/shared/api'
 
 import { ApiMap } from '@/shared/consts'
-import { IOrder, IOrderProductFull, OrderFormValues, PaymentMethods } from '@/features/Order'
+import {
+  IOrder,
+  IOrderProductFull,
+  OrderFormValues,
+  PaymentMethods,
+} from '@/features/Order'
 import { IOrderProduct } from '@/features/Order/model/types/OrderSchema'
 import { OrderStatus, PaymentStatus } from '@/entities/Order'
 
@@ -81,8 +86,7 @@ export const orderApi = rtkApi.injectEndpoints({
         }
       },
       invalidatesTags: ['Orders'],
-      transformResponse: (response: CreateOrderResponse) =>
-        response,
+      transformResponse: (response: CreateOrderResponse) => response,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
