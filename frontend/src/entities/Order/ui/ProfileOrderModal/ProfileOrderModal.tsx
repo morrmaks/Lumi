@@ -26,6 +26,7 @@ interface OrderModalProps {
 export const ProfileOrderModal = ({ onClose, card }: OrderModalProps) => {
   const {
     id,
+    orderNumber,
     total,
     status,
     date,
@@ -55,7 +56,7 @@ export const ProfileOrderModal = ({ onClose, card }: OrderModalProps) => {
           />
           <h3
             className={cls.profileOrderModal__header_title}
-          >{`${Placeholders.entities.order.profileOrderModal.mainText} ${id}`}</h3>
+          >{`${Placeholders.entities.order.profileOrderModal.mainText} ${orderNumber}`}</h3>
         </div>
         <OrderStatusSection
           status={status}

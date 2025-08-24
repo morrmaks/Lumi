@@ -100,6 +100,27 @@ export const Placeholders = {
       describeText: 'Заполните форму, чтобы оформить заказ',
       formTitle: 'Укажите свои данные',
     },
+    paymentSuccess: {
+      mainText: 'Заказ оформлен',
+      describeText: 'Спасибо за покупку',
+      createdOrder: {
+        mainText: 'Ваш заказ успешно создан',
+        describeText: 'Спасибо за покупку! Мы приступили к обработке заказа',
+      },
+      paidOrder: {
+        mainText: 'Ваш заказ успешно создан и оплачен',
+        describeText: 'Спасибо за покупку! Мы приступили к обработке заказа',
+      },
+      orderNumberText: 'Номер заказа:',
+      paymentInfo: {
+        mainText: 'Способ оплаты',
+        describeText: 'Если хотите, вы можете оплатить заказ онлайн прямо сейчас.',
+        buttonText: 'Оплатить онлайн',
+      },
+      nextSteps: {
+        mainText: 'Что дальше?',
+      }
+    }
   },
   widgets: {
     footer: {

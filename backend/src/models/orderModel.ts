@@ -1,8 +1,13 @@
 import mongoose, { model, Schema, Document } from "mongoose";
 import { OrderStatus, PaymentMethods, PaymentStatus } from "@/consts/order";
+import { customAlphabet } from "nanoid";
+import { ApiError } from "@/exeptions/apiError";
+
+const nanoid = customAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 8);
 
 export interface IOrder extends Document {
   _id: mongoose.Types.ObjectId;
+  orderNumber: string;
   userId: mongoose.Types.ObjectId;
   products: {
     productId: mongoose.Types.ObjectId;
@@ -24,6 +29,12 @@ export interface IOrder extends Document {
 
 const OrderSchema = new Schema<IOrder>(
   {
+    orderNumber: {
+      type: String,
+      required: true,
+      unique: true,
+      default: () => nanoid(),
+    },
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
@@ -87,6 +98,30 @@ OrderSchema.pre("validate", function (next) {
     const rand = Math.random().toString(36).slice(2, 8).toUpperCase();
     this.trackNumber = `TRK-${ts}-${rand}`;
   }
+  next();
+});
+
+OrderSchema.pre("save", async function (next) {
+  if (!this.isNew) return next();
+
+  let unique = false;
+  let attempts = 0;
+
+  while (!unique && attempts < 5) {
+    const newOrderNumber = nanoid();
+    const exists = await OrderModel.exists({ orderNumber: newOrderNumber });
+    if (!exists) {
+      this.orderNumber = newOrderNumber;
+      unique = true;
+    }
+    attempts++;
+  }
+
+  if (!unique)
+    throw ApiError.Conflict(
+      "Заказ с таким номером уже существует, попробуйте ещё раз",
+    );
+
   next();
 });
 

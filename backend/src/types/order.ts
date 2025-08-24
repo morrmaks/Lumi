@@ -7,6 +7,7 @@ export interface IOrderProduct {
 
 export interface IOrderDto {
   id: string;
+  orderNumber: string;
   total: number;
   status: string;
   date: string;

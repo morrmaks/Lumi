@@ -69,8 +69,6 @@ class OrderController {
 
   async paymentValidate(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log("запрос1", req.params);
-      console.log("запрос1", req.query);
       const { orderId } = req.params;
       const query = req.query;
       const response = await orderService.paymentValidate(orderId);

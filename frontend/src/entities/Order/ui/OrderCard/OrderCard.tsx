@@ -11,7 +11,7 @@ interface OrderCardProps {
 
 export const OrderCard = ({ card }: OrderCardProps) => {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const { id, total, status, date, products } = card
+  const { orderNumber, total, status, date, products } = card
 
   function handleModalClose() {
     setShowModal(false)
@@ -33,7 +33,7 @@ export const OrderCard = ({ card }: OrderCardProps) => {
         <div className={cls.orderCard__info}>
           <div className={cls.orderCard__meta}>
             <p className={cls.orderCard__title}>
-              {`${Placeholders.entities.order.card.mainText} ${id}`}
+              {`${Placeholders.entities.order.card.mainText} ${orderNumber}`}
             </p>
             <p
               className={cls.orderCard__date}

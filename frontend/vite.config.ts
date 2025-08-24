@@ -12,7 +12,7 @@ export default defineConfig({
           floatPrecision: 2,
         },
       },
-      include: '**/*.svg',
+      include: '**/*.svg?react',
     }),
   ],
   resolve: {

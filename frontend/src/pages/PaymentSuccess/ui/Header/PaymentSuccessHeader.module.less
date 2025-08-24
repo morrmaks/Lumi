@@ -1,0 +1,85 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.paymentSuccessHeader {
+  .flex(column, center);
+  margin-bottom: 32px;
+  width: 100%;
+
+  &__title {
+    margin-top: 32px;
+    font: var(--font-m);
+    font-weight: var(--font-bold);
+
+    @media @breakpoint-sm {
+      font: var(--font-l);
+      font-weight: var(--font-bold);
+    }
+
+    @media @breakpoint-lg {
+      font: var(--font-xl);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__description {
+    margin-top: 16px;
+    font: var(--font-xs);
+    color: var(--muted-color);
+
+    @media @breakpoint-sm {
+      font: var(--font-s);
+    }
+
+    @media @breakpoint-lg {
+      font: var(--font-m);
+    }
+  }
+
+  &__icon {
+    &_success {
+      width: 96px;
+      height: 96px;
+      stroke: var(--secondary-color);
+      margin-bottom: 16px;
+    }
+
+    &_orderNumber {
+      width: 20px;
+      height: 20px;
+      stroke: var(--benefit-color);
+    }
+
+    &_copy {
+      .selectableScale();
+      width: 12px;
+      height: 12px;
+      stroke: var(--benefit-color);
+    }
+  }
+
+  &__orderNumber {
+    .flex();
+    .border();
+    gap: 8px;
+    padding: 2px 10px;
+    font: var(--font-xxs);
+    font-weight: var(--font-bold);
+    border-radius: var(--border-radius-rounded);
+    background-color: var(--bg-color);
+    color: var(--benefit-accent-color);
+
+    &_container {
+      .flex(row, center, center);
+      .border(1px, solid, var(--benefit-color));
+      margin-top: 24px;
+      padding: 16px;
+      background-color: var(--benefit-bg-color);
+      border-radius: var(--border-radius-l);
+      color: var(--muted-color);
+      width: max-content;
+      gap: 8px;
+    }
+  }
+}

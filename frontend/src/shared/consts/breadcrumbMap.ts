@@ -11,6 +11,7 @@ export const BreadcrumbMap = {
   basket: 'Корзина',
   search: 'Поиск',
   order: 'Оформление заказа',
+  ['payment-success']: 'Успешный заказ',
 } as const
 
 export type BreadcrumbMap = (typeof BreadcrumbMap)[keyof typeof BreadcrumbMap]

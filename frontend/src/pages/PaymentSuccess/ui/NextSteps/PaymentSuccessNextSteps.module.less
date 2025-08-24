@@ -1,0 +1,52 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/variables/global';
+
+.paymentSuccessNextSteps {
+  .grid(repeat(1, 1fr), row, 48px);
+  margin-bottom: 28px;
+  max-width: var(--max-page-width);
+
+  @media @breakpoint-sm {
+    .grid(repeat(2, 1fr), row, 32px);
+  }
+
+  @media @breakpoint-lg {
+    .grid(repeat(4, 1fr), row, 32px);
+  }
+
+  &__container {
+    .flex(column, center);
+    width: 100%;
+    gap: 16px;
+    margin-top: 48px;
+    padding: 24px;
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-l);
+  }
+
+  &__step {
+    .flex(column, center);
+    gap: 4px;
+
+    &_number {
+      .flex(row, center, center);
+      width: 32px;
+      height: 32px;
+      border-radius: var(--border-radius-rounded);
+      background-color: var(--secondary-color);
+      font-weight: var(--font-bold);
+      color: var(--accent-color);
+      margin-bottom: 4px;
+    }
+
+    &_title {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+    }
+
+    &_description {
+      font: var(--font-xxs);
+      color: var(--muted-color);
+    }
+  }
+}

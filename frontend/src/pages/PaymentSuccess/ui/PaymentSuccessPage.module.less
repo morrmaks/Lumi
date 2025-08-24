@@ -1,42 +1,15 @@
 @import '@/app/styles/mixins/container';
+@import '@/app/styles/variables/global';
+@import '@/app/styles/mixins/decorators';
+@import '@/app/styles/mixins/interactive';
 
-.orderPage {
-  .flex(column);
+.paymentSuccessPage {
+  .flex(column, center);
 
   text-align: center;
   width: 100%;
-  max-width: var(--max-auth-content-width);
 
-  &__header {
-    margin-bottom: 32px;
-    width: 100%;
-  }
-
-  &__title {
-    margin-bottom: 8px;
-    font: var(--font-xl);
-    font-weight: var(--font-bold);
-  }
-
-  &__description {
-    font: var(--font-s);
-    color: var(--muted-color);
-  }
-
-  &__form {
-    .border();
-    .shadow(0, 2px, 8px);
-
-    width: 100%;
-    border-radius: var(--border-radius-l);
-    margin-top: 8px;
-    background-color: var(--bg-color);
-
-    &_title {
-      padding: 24px;
-      font: var(--font-l);
-      font-weight: var(--font-bold);
-      text-align: start;
-    }
+  &__mainContainer {
+    max-width: var(--max-payment-success-width);
   }
 }

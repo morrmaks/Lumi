@@ -7,7 +7,7 @@ declare module '*.less' {
   export default classes
 }
 
-declare module '*.svg' {
+declare module '*.svg?react' {
   import React from 'react'
 
   const SVG: React.FC<React.SVGProps<SVGSVGElement>>
