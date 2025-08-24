@@ -1,10 +1,14 @@
 import { Input } from '@/shared/ui/Input'
 import cls from './SearchInput.module.less'
 import { Placeholders } from '@/shared/consts'
-import { useAppDispatch, useAppSelector, useDebounceCallback, useDebounceValue } from '@/shared/lib/hooks'
+import {
+  useAppDispatch,
+  useAppSelector,
+  useDebounceCallback,
+} from '@/shared/lib/hooks'
 import { getCategorySearch } from '@/pages/CategoryPage'
 import { categoryPageActions } from '@/pages/CategoryPage'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const SearchInput = () => {
   const search = useAppSelector(getCategorySearch)

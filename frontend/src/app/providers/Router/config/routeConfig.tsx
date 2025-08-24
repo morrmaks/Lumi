@@ -14,7 +14,8 @@ import {
   getRouteBasket,
   getRouteCatalogCategory,
   getRouteCatalogItem,
-  getRouteOrder, getRoutePaymentSuccess,
+  getRouteOrder,
+  getRoutePaymentSuccess,
 } from '@/shared/consts/router'
 import { Navigate, RouteProps } from 'react-router-dom'
 

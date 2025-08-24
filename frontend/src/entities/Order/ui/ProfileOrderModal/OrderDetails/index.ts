@@ -1,2 +1,2 @@
-import { OrderDetails } from './OrderDetails';
+import { OrderDetails } from './OrderDetails'
 export { OrderDetails }

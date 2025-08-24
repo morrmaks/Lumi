@@ -28,8 +28,7 @@ export const Placeholders = {
     },
     resetPassword: {
       mainText: 'Сброс пароля',
-      describeFirstPartText:
-        'Введите код из письма, отправленного на почту',
+      describeFirstPartText: 'Введите код из письма, отправленного на почту',
       describeSecondPartText: 'и установите новый пароль',
     },
     basket: {

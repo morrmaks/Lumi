@@ -54,7 +54,9 @@ export const ResetPasswordForm = () => {
         <Input
           id={'code-from-email'}
           type={'number'}
-          placeholder={Placeholders.features.auth.resetPasswordForm.placeholders.code}
+          placeholder={
+            Placeholders.features.auth.resetPasswordForm.placeholders.code
+          }
           disabled={isLoading}
           className={cls.resetPasswordForm__input}
           {...register('code')}

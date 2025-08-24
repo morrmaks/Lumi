@@ -1,6 +1,10 @@
 import cls from './OrderDetails.module.less'
 import { Placeholders } from '@/shared/consts'
-import { PaymentMethodsMap, PaymentStatus, PaymentStatusMap } from '@/entities/Order'
+import {
+  PaymentMethodsMap,
+  PaymentStatus,
+  PaymentStatusMap,
+} from '@/entities/Order'
 import { PaymentMethods } from '@/features/Order'
 
 interface OrderDetailsProps {
@@ -24,18 +28,22 @@ export const OrderDetails = ({
           <h5 className={cls.orderDetails__address_title}>
             {Placeholders.entities.order.profileOrderModal.details.address}
           </h5>
-          <p className={cls.orderDetails__address}>
-            {address}
-          </p>
+          <p className={cls.orderDetails__address}>{address}</p>
         </div>
         <div className={cls.orderDetails__payment}>
           <h5 className={cls.orderDetails__payment_title}>
-            {Placeholders.entities.order.profileOrderModal.details.orderPaymentText}
+            {
+              Placeholders.entities.order.profileOrderModal.details
+                .orderPaymentText
+            }
           </h5>
           <div className={cls.orderDetails__paymentContainers}>
             <div className={cls.orderDetails__paymentContainer}>
               <span className={cls.orderDetails__paymentContainer_title}>
-                {Placeholders.entities.order.profileOrderModal.details.paymentMethod}
+                {
+                  Placeholders.entities.order.profileOrderModal.details
+                    .paymentMethod
+                }
               </span>
               <div className={cls.orderDetails__payment_line}></div>
               <span className={cls.orderDetails__paymentContainer_method}>
@@ -44,7 +52,10 @@ export const OrderDetails = ({
             </div>
             <div className={cls.orderDetails__paymentContainer}>
               <span className={cls.orderDetails__paymentContainer_title}>
-                {Placeholders.entities.order.profileOrderModal.details.paymentStatus}
+                {
+                  Placeholders.entities.order.profileOrderModal.details
+                    .paymentStatus
+                }
               </span>
               <div className={cls.orderDetails__payment_line}></div>
               <span className={cls.orderDetails__paymentContainer_method}>

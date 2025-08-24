@@ -28,8 +28,8 @@ const ConfiguratorPage = () => {
 
   const handleOrder = useCallback(() => {
     const products = Object.values(components)
-      .filter(id => id !== null)
-      .map(id => ({ productId: id, quantity: 1 }))
+      .filter((id) => id !== null)
+      .map((id) => ({ productId: id, quantity: 1 }))
 
     dispatch(orderActions.setProducts(products))
     dispatch(orderActions.setIsFromOrderLink(true))
@@ -103,7 +103,7 @@ const ConfiguratorPage = () => {
               >
                 {Placeholders.pages.configurator.total.onPlaceAnOrder}
               </Button>
-              {!isAuth &&
+              {!isAuth && (
                 <AppLink
                   to={getRouteAuth()}
                   className={cls.configuratorPage__totalButtons_link}
@@ -115,7 +115,7 @@ const ConfiguratorPage = () => {
                     {Placeholders.pages.configurator.total.onCopyLinkConfig}
                   </Button>
                 </AppLink>
-              }
+              )}
             </div>
             <div className={cls.configuratorPage__recommendation}>
               <h4 className={cls.configuratorPage__recommendation_title}>

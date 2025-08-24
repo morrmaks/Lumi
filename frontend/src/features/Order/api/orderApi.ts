@@ -1,17 +1,8 @@
 import { rtkApi } from '@/shared/api'
-import {
-  ICategory,
-  ICategoryProduct,
-  ICategoryWithBreadcrumb,
-  SortFieldOptionKey,
-  SortFieldOptions,
-  ViewFormat,
-} from '@/pages/CategoryPage'
-import { getQueryParams } from '@/shared/lib/url'
+
 import { ApiMap } from '@/shared/consts'
 import { IOrder, IOrderProductFull, OrderFormValues } from '@/features/Order'
 import { IOrderProduct } from '@/features/Order/model/types/OrderSchema'
-import { userActions } from '@/entities/User'
 
 export const orderApi = rtkApi.injectEndpoints({
   endpoints: (build) => ({
@@ -48,8 +39,7 @@ export const orderApi = rtkApi.injectEndpoints({
         }
       },
     }),
-    getOrderValidate: build.query<
-      { success: boolean }, string>({
+    getOrderValidate: build.query<{ success: boolean }, string>({
       query(orderId) {
         return {
           url: `${ApiMap.GET_ORDER}/${orderId}/payment/validate`,
@@ -76,7 +66,8 @@ export const orderApi = rtkApi.injectEndpoints({
         }
       },
       invalidatesTags: ['Orders'],
-      transformResponse: (response: { orderId: string; paymentUrl: string }) => response,
+      transformResponse: (response: { orderId: string; paymentUrl: string }) =>
+        response,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
@@ -125,5 +116,5 @@ export const {
   useGetOrderQuery,
   useGetOrderValidateQuery,
   useCreateOrderMutation,
-  usePayOrderMutation
+  usePayOrderMutation,
 } = orderApi

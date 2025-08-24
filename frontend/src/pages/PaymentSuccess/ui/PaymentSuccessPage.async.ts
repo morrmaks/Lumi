@@ -1,2 +1,4 @@
 import { lazy } from 'react'
-export const PaymentSuccessPageAsync = lazy(() => import('./PaymentSuccessPage'))
+export const PaymentSuccessPageAsync = lazy(
+  () => import('./PaymentSuccessPage')
+)

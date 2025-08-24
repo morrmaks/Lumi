@@ -50,9 +50,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     )
 
     return (
-      <div className={classNames(cls.input__wrapper,
-        {[cls.input__wrapper_disabled]: disabled}, []
-      )}>
+      <div
+        className={classNames(
+          cls.input__wrapper,
+          { [cls.input__wrapper_disabled]: disabled },
+          []
+        )}
+      >
         {IconComponent && (
           <Icon
             className={cls.input__icon}

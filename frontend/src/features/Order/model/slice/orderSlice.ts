@@ -15,7 +15,7 @@ const orderSlice = createSlice({
     },
     setProducts(state, action: PayloadAction<IOrderProduct[]>) {
       state.products = action.payload
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -25,7 +25,7 @@ const orderSlice = createSlice({
         state.products = []
       }
     )
-  }
+  },
 })
 
 export const { actions: orderActions } = orderSlice

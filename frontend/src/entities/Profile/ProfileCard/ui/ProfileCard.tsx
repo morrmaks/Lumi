@@ -10,7 +10,7 @@ import {
   ProfileCardFormValues,
 } from '@/features/Profile/ProfileCardForm'
 import { Placeholders } from '@/shared/consts'
-import { useGetOrdersCountQuery, usePatchMeMutation } from '@/entities/User/api'
+import { usePatchMeMutation } from '@/entities/User/api'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ProfileAvatar } from '@/features/Profile'

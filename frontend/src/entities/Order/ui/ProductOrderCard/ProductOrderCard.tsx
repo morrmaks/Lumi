@@ -21,7 +21,10 @@ export const ProductOrderCard = ({ card }: ProductCardProps) => {
   )
 
   return (
-    <AppLink to={getRouteCatalogItem(categorySlug, id)} className={cls.productOrderCard}>
+    <AppLink
+      to={getRouteCatalogItem(categorySlug, id)}
+      className={cls.productOrderCard}
+    >
       <div className={cls.productOrderCard__meta}>
         <AppImage
           className={cls.productOrderCard__image}
@@ -30,9 +33,7 @@ export const ProductOrderCard = ({ card }: ProductCardProps) => {
         />
         <div>
           <h5 className={cls.productOrderCard__title}>{name}</h5>
-          <span
-            className={cls.productOrderCard__quantity}
-          >
+          <span className={cls.productOrderCard__quantity}>
             {`${Placeholders.entities.order.profileOrderCard.productsQuantity} ${quantity}`}
           </span>
         </div>

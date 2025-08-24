@@ -22,7 +22,9 @@ export const OrderCard = ({ card }: OrderCardProps) => {
       <div className={cls.orderCard} onClick={() => setShowModal(true)}>
         <div className={cls.orderCard__status_container}>
           <span
-            className={classNames(cls.orderCard__statusIcon, {}, [cls[`orderCard__statusIcon_${status}`]])}
+            className={classNames(cls.orderCard__statusIcon, {}, [
+              cls[`orderCard__statusIcon_${status}`],
+            ])}
           ></span>
           <span className={cls.orderCard__status}>
             {OrderStatusMap[status]}

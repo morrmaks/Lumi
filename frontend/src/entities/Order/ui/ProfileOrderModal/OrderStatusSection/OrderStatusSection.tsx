@@ -1,9 +1,6 @@
 import cls from './OrderStatusSection.module.less'
 import { IconsMap, Placeholders } from '@/shared/consts'
-import {
-  OrderStatus,
-  OrderStatusMap,
-} from '@/entities/Order'
+import { OrderStatus, OrderStatusMap } from '@/entities/Order'
 import { copyToClipboard, formattedDate } from '@/shared/lib/utils'
 import { Icon } from '@/shared/ui/Icon'
 

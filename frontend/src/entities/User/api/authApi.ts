@@ -22,10 +22,7 @@ export const authApi = rtkApi.injectEndpoints({
         method: 'POST',
         body: credentials,
       }),
-      transformResponse: (response: {
-        accessToken: string
-        user: User
-      }) => {
+      transformResponse: (response: { accessToken: string; user: User }) => {
         setAccessToken(response.accessToken)
         return response.user
       },
@@ -48,10 +45,7 @@ export const authApi = rtkApi.injectEndpoints({
         method: 'POST',
         body: credentials,
       }),
-      transformResponse: (response: {
-        accessToken: string
-        user: User
-      }) => {
+      transformResponse: (response: { accessToken: string; user: User }) => {
         setAccessToken(response.accessToken)
         return response.user
       },
@@ -101,10 +95,7 @@ export const authApi = rtkApi.injectEndpoints({
         method: 'POST',
         body: payload,
       }),
-      transformResponse: (response: {
-        accessToken: string
-        user: User
-      }) => {
+      transformResponse: (response: { accessToken: string; user: User }) => {
         setAccessToken(response.accessToken)
         return response.user
       },

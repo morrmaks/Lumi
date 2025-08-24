@@ -1,6 +1,6 @@
 import cls from './CategoryPage.module.less'
 import { useParams, useSearchParams } from 'react-router-dom'
-import { Suspense, useCallback, useEffect } from 'react'
+import { Suspense, useCallback } from 'react'
 import {
   useAppDispatch,
   useAppSelector,

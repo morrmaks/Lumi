@@ -1,4 +1,9 @@
-import type { IOrderProduct, IOrder, OrderSchema, IOrderProductFull } from './types/OrderSchema'
+import type {
+  IOrderProduct,
+  IOrder,
+  OrderSchema,
+  IOrderProductFull,
+} from './types/OrderSchema'
 import { type OrderFormValues, orderFormSchema } from './types/OrderFormSchema'
 import { orderActions, orderReducer } from './slice/orderSlice'
 

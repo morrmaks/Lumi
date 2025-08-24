@@ -1,2 +1,2 @@
-import { OrderStatusSection } from './OrderStatusSection';
+import { OrderStatusSection } from './OrderStatusSection'
 export { OrderStatusSection }

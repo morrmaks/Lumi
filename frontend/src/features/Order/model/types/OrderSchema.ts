@@ -31,4 +31,3 @@ export interface OrderSchema {
   isFromOrderLink: boolean
   products: IOrderProduct[]
 }
-

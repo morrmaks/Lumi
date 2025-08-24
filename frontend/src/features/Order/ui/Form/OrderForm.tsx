@@ -8,11 +8,7 @@ import { ApiErrorMessage } from '@/shared/ui/ApiErrorMessage'
 import { Loader } from '@/shared/ui/Loader'
 import { Select, SelectOption } from '@/shared/ui/Select'
 import { useMemo } from 'react'
-import {
-  getOrderProducts,
-  orderFormSchema,
-  OrderFormValues,
-} from '../../model'
+import { getOrderProducts, orderFormSchema, OrderFormValues } from '../../model'
 import { AddressInput } from '../AddressInput'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from '@/shared/lib/hooks'

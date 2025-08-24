@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react'
 
-export const useDebounceCallback = <T>(callback: (arg: T) => void, delay: number = 300) => {
+export const useDebounceCallback = <T>(
+  callback: (arg: T) => void,
+  delay: number = 300
+) => {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {

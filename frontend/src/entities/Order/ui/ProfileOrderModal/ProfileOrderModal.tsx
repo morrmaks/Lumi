@@ -3,7 +3,6 @@ import { IconsMap } from '@/shared/consts/icons'
 import { Modal } from '@/shared/ui/Modal'
 import {
   IOrder,
-  PaymentMethods,
   useGetOrderProductsQuery,
   usePayOrderMutation,
 } from '@/features/Order'
