@@ -1,6 +1,6 @@
 import { BreadcrumbMap } from './breadcrumbMap'
 import { CatalogCategoriesMap } from './catalogCategoriesMap'
-import { IconsMap } from './icons'
+import { IconsMap, type IconsMapKeys } from './icons'
 import { IconTheme } from './iconTheme'
 import { Placeholders } from './placeholders'
 import { ApiMap } from './api'
@@ -10,6 +10,7 @@ export {
   BreadcrumbMap,
   CatalogCategoriesMap,
   IconsMap,
+  IconsMapKeys,
   IconTheme,
   Placeholders,
   ApiMap,

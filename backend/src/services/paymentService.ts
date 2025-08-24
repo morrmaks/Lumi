@@ -41,7 +41,7 @@ class PaymentService {
       );
       await mailService.sendOrderPaid(
         userEmail,
-        order._id.toString(),
+        order.orderNumber,
         order.total,
       );
     }

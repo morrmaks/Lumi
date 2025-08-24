@@ -35,7 +35,6 @@ export const AddressInput = forwardRef<HTMLInputElement, AddressInputProps>(
     }
 
     const handleSelect = (value: string) => {
-      console.log(value)
       onChange(value)
       setSuggesionsShow(false)
     }

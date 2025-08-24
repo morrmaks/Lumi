@@ -17,6 +17,7 @@ export interface IOrderProductFull {
 
 export interface IOrder {
   id: string
+  orderNumber: string
   total: number
   status: OrderStatus
   date: string

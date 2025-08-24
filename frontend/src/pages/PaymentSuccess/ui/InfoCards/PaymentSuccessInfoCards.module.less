@@ -1,0 +1,59 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/variables/global';
+
+.paymentSuccessInfoCards {
+  .grid(1fr, row, 16px);
+  justify-content: center;
+  width: 100%;
+
+  @media @breakpoint-md {
+    .grid(repeat(auto-fit, minmax(160px,300px)), column, 16px);
+  }
+
+  &__card {
+    .flex(column, center);
+    gap: 8px;
+    padding: 24px;
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-l);
+
+    &_email {
+      .border(1px, solid, var(--info-card-email-color));
+    }
+
+    &_delivery {
+      .border(1px, solid, var(--info-card-delivery-color));
+    }
+
+    &_notice {
+      .border(1px, solid, var(--info-card-notice-color));
+    }
+
+    &_title {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+    }
+
+    &_description {
+      color: var(--muted-color);
+    }
+  }
+
+  &__cardIcon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 4px;
+
+    &_email {
+      stroke: var(--info-card-email-color);
+    }
+
+    &_delivery {
+      stroke: var(--info-card-delivery-color);
+    }
+
+    &_notice {
+      stroke: var(--info-card-notice-color);
+    }
+  }
+}

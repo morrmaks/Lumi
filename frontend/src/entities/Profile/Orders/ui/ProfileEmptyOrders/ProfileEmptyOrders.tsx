@@ -27,7 +27,7 @@ export const ProfileEmptyOrders = () => {
         </AppLink>
         <AppLink to={getRouteBasket()}>
           <Button theme={ButtonTheme.OUTLINE}>
-            {Placeholders.entities.profile.orders.emptyOrders.onRouteCatalog}
+            {Placeholders.entities.profile.orders.emptyOrders.onRouteBasket}
           </Button>
         </AppLink>
       </div>

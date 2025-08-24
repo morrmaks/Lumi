@@ -40,17 +40,17 @@ class MailService {
 
   async sendOrderCreated(
     email: string,
-    orderId: string,
+    orderNumber: string,
     total: number,
     paymentUrl: string,
   ): Promise<void> {
     await this.transporter.sendMail({
       from: env.SMTP_USER,
       to: email,
-      subject: `Новый заказ #${orderId}`,
+      subject: `Новый заказ #${orderNumber}`,
       html: `
         <div>
-          <h2>Ваш заказ #${orderId} успешно создан</h2>
+          <h2>Ваш заказ #${orderNumber} успешно создан</h2>
           <p>Сумма: ${total} руб.</p>
           <p>Перейти к оплате: <a href="${paymentUrl}">Оплатить</a></p>
         </div>
@@ -60,16 +60,16 @@ class MailService {
 
   async sendOrderPaid(
     email: string,
-    orderId: string,
+    orderNumber: string,
     total: number,
   ): Promise<void> {
     await this.transporter.sendMail({
       from: env.SMTP_USER,
       to: email,
-      subject: `Заказ #${orderId} оплачен`,
+      subject: `Заказ #${orderNumber} оплачен`,
       html: `
         <div>
-          <h2>Ваш заказ #${orderId} оплачен</h2>
+          <h2>Ваш заказ #${orderNumber} оплачен</h2>
           <p>Сумма: ${total} руб.</p>
           <p>Спасибо за доверие!</p>
         </div>

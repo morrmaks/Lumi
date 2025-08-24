@@ -104,13 +104,24 @@ class OrderService {
     return payment.confirmation.confirmation_url;
   }
 
-  async paymentValidate(orderId: string): Promise<{ success: boolean }> {
+  async paymentValidate(orderId: string): Promise<{
+    orderNumber: string;
+    status: OrderStatus;
+    paymentStatus?: PaymentStatus;
+    paymentUrl?: string;
+    paymentMethod?: PaymentMethods;
+  }> {
     const order = await this._findOrderById(orderId);
-
     if (!order.payment || !order.payment?.paymentId)
       throw ApiError.Forbidden("Оплата еще не создана");
 
-    return { success: true };
+    return {
+      orderNumber: order.orderNumber,
+      status: order.status,
+      paymentStatus: order.payment?.status,
+      paymentUrl: order.payment?.confirmationUrl,
+      paymentMethod: order.paymentMethod,
+    };
   }
 
   private async _findOrderById(orderId: string): Promise<IOrder> {
@@ -148,7 +159,7 @@ class OrderService {
   private async _createPaymentForOrder(order: IOrder): Promise<Payment> {
     const payment = await paymentService.createPayment(
       order.total,
-      `Оплата заказа #${order._id}`,
+      `Оплата заказа #${order.orderNumber}`,
       order._id.toString(),
     );
 
@@ -165,7 +176,7 @@ class OrderService {
     if (user?.email) {
       await mailService.sendOrderCreated(
         user.email,
-        order._id.toString(),
+        order.orderNumber,
         total,
         paymentUrl,
       );

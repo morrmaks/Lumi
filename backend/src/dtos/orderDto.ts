@@ -4,6 +4,7 @@ import { PaymentStatus } from "@/consts/order";
 
 class OrderDto implements IOrderDto {
   id: string;
+  orderNumber: string;
   total: number;
   status: string;
   date: string;
@@ -15,6 +16,7 @@ class OrderDto implements IOrderDto {
 
   constructor(model: IOrder) {
     this.id = String(model._id);
+    this.orderNumber = model.orderNumber;
     this.total = model.total;
     this.status = model.status;
     this.products = model.products.map((p) => ({

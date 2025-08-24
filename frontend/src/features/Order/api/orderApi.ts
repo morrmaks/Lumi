@@ -1,8 +1,28 @@
 import { rtkApi } from '@/shared/api'
 
 import { ApiMap } from '@/shared/consts'
-import { IOrder, IOrderProductFull, OrderFormValues } from '@/features/Order'
+import {
+  IOrder,
+  IOrderProductFull,
+  OrderFormValues,
+  PaymentMethods,
+} from '@/features/Order'
 import { IOrderProduct } from '@/features/Order/model/types/OrderSchema'
+import { OrderStatus, PaymentStatus } from '@/entities/Order'
+
+interface CreateOrderResponse {
+  orderId: string
+  orderNumber: string
+  paymentUrl: string
+}
+
+interface OrderValidateResponse {
+  orderNumber: string
+  status: OrderStatus
+  paymentStatus?: PaymentStatus
+  paymentUrl?: string
+  paymentMethod?: PaymentMethods
+}
 
 export const orderApi = rtkApi.injectEndpoints({
   endpoints: (build) => ({
@@ -39,7 +59,7 @@ export const orderApi = rtkApi.injectEndpoints({
         }
       },
     }),
-    getOrderValidate: build.query<{ success: boolean }, string>({
+    getOrderValidate: build.query<OrderValidateResponse, string>({
       query(orderId) {
         return {
           url: `${ApiMap.GET_ORDER}/${orderId}/payment/validate`,
@@ -55,7 +75,7 @@ export const orderApi = rtkApi.injectEndpoints({
       },
     }),
     createOrder: build.mutation<
-      { orderId: string; paymentUrl: string },
+      CreateOrderResponse,
       OrderFormValues & { products: IOrderProduct[] }
     >({
       query(data) {
@@ -66,8 +86,7 @@ export const orderApi = rtkApi.injectEndpoints({
         }
       },
       invalidatesTags: ['Orders'],
-      transformResponse: (response: { orderId: string; paymentUrl: string }) =>
-        response,
+      transformResponse: (response: CreateOrderResponse) => response,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
