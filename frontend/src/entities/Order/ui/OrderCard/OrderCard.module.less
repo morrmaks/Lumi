@@ -1,0 +1,96 @@
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/mixins/decorators.less';
+@import '@/app/styles/variables/global.less';
+
+.orderCard {
+  .selectable();
+  .border();
+
+  border-radius: var(--border-radius-l);
+  background-color: var(--card-bg-color);
+  width: 100%;
+  padding: 12px;
+
+  @media @breakpoint-sm {
+    padding: 16px;
+  }
+
+  &__info {
+    .flex(column, space-between, space-between);
+
+    gap: 8px;
+    margin-top: 16px;
+
+    @media @breakpoint-sm {
+      .flex(row, start, space-between);
+    }
+  }
+
+  &__meta {
+    .flex(row, start, space-between);
+
+    flex-wrap: wrap;
+    gap: 8px;
+    align-self: stretch;
+
+    @media @breakpoint-sm {
+      .flex(column, start, space-between);
+    }
+  }
+
+  &__status {
+    font: var(--font-xxs);
+    font-weight: var(--font-bold);
+    color: var(--primary-color);
+
+    &_container {
+      .flex();
+      .border();
+
+      width: max-content;
+      gap: 8px;
+      padding: 2px 10px;
+      border-radius: var(--border-radius-rounded);
+    }
+  }
+
+  &__statusIcon {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--border-radius-rounded);
+
+    &_pending {
+      background-color: var(--order-status-pending-color);
+    }
+
+    &_paid {
+      background-color: var(--order-status-paid-color);
+    }
+
+    &_shipped {
+      background-color: var(--order-status-shipped-color);
+    }
+
+    &_cancelled {
+      background-color: var(--order-status-canceled-color);
+    }
+  }
+
+  &__title {
+    .ellipsis();
+
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+  }
+
+  &__date {
+    color: var(--muted-color);
+  }
+
+  &__totalPrice {
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+    color: var(--secondary-color);
+  }
+}

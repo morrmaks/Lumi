@@ -1,0 +1,51 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.profileOrderModal {
+  &__header {
+    .flex(row, center, start);
+
+    gap: 8px;
+    margin-bottom: 24px;
+
+    &_title {
+      .ellipsis();
+      font: var(--font-m);
+      font-weight: var(--font-bold);
+    }
+
+    &_icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+  }
+
+  &__sectionTotalPrice {
+    .flex(column, start, space-between);
+    gap: 12px;
+    width: 100%;
+    margin-top: 12px;
+
+    &_container {
+      .flex(row, center, space-between);
+      width: 100%;
+    }
+
+    &_title {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__orderPrice {
+    font: var(--font-m);
+    font-weight: var(--font-bold);
+    color: var(--secondary-color);
+  }
+
+  &__orderPayment {
+    width: 100%;
+  }
+}

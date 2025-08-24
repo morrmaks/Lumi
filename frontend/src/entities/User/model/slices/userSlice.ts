@@ -11,6 +11,11 @@ const userSlice = createSlice({
     setUser(state, action: PayloadAction<User>) {
       state.user = action.payload
     },
+    setOrdersCount(state, action: PayloadAction<number>) {
+      if (state.user) {
+        state.user.ordersCount = action.payload
+      }
+    },
     setUserSettings: (state, action: PayloadAction<Settings>) => {
       if (state.user) {
         state.user.settings = action.payload

@@ -15,7 +15,7 @@ class TokenService {
     const accessToken = jwt.sign(payload, env.JWT_ACCESS_SECRET, {
       expiresIn: "15m",
     });
-    const refreshToken = jwt.sign(payload, env.JWT_ACCESS_SECRET, {
+    const refreshToken = jwt.sign(payload, env.JWT_REFRESH_SECRET, {
       expiresIn: "30d",
     });
     return {
@@ -43,6 +43,7 @@ class TokenService {
       if (isTokenPayload(userData)) return userData;
       return null;
     } catch (e) {
+      console.log(e);
       return null;
     }
   }

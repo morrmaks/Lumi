@@ -116,6 +116,16 @@ class UserController {
     }
   }
 
+  async getOrdersCount(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id: userId } = (req as any).user;
+      const ordersCount = await userService.getOrdersCount(userId);
+      return res.json(ordersCount);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async updateAvatar(req: Request, res: Response, next: NextFunction) {
     try {
       const file = req.file;

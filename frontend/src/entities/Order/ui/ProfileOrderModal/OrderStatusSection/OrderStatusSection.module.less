@@ -1,0 +1,57 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.orderStatusSection {
+  .flex(column, start, space-between);
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--muted-bg-color);
+  border-radius: var(--border-radius-l);
+
+  @media @breakpoint-sm {
+    .flex(row, center, space-between);
+  }
+
+  &__status {
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+
+    &_container {
+      .flex(column, start);
+
+      gap: 8px;
+    }
+  }
+
+  &__date {
+    color: var(--muted-color);
+  }
+
+  &__trackNumber {
+    .flex(row, center);
+    text-align: right;
+
+    gap: 8px;
+
+    &_title {
+      color: var(--muted-color);
+    }
+
+    &_container {
+      .flex(row, center, start);
+
+      gap: 8px;
+
+      @media @breakpoint-sm {
+        .flex(column, end, center);
+        gap: 4px;
+        text-align: right;
+      }
+    }
+
+    &_copyIcon {
+      .selectableIcon(var(--hover-opacity), transparent, var(--primary-color));
+    }
+  }
+}

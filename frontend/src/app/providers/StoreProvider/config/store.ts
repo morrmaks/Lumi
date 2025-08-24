@@ -10,11 +10,13 @@ import { authReducer, userReducer } from '@/entities/User'
 import { configuratorComponentsReducer } from '@/features/Configurator'
 import { rtkApi, yaSuggeestApi } from '@/shared/api'
 import { forgotPasswordReducer } from '@/features/Auth'
+import { orderReducer } from '@/features/Order'
 
 export const createReduxStore = (initialState?: StateSchema) => {
   const rootReducers: ReducersMapObject<StateSchema> = {
     user: userReducer,
     auth: authReducer,
+    order: orderReducer,
     forgotPassword: forgotPasswordReducer,
     dropdownMenu: dropdownMenuReducer,
     breadcrumbNav: breadcrumbNavReducer,

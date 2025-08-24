@@ -14,7 +14,7 @@ import {
   getRouteBasket,
   getRouteCatalogCategory,
   getRouteCatalogItem,
-  getRouteOrder,
+  getRouteOrder, getRoutePaymentSuccess,
 } from '@/shared/consts/router'
 import { Navigate, RouteProps } from 'react-router-dom'
 
@@ -34,6 +34,7 @@ import { BasketPage } from '@/pages/Basket'
 import { CategoryPage } from '@/pages/CategoryPage'
 import { ProductPage } from '@/pages/ProductPage'
 import { OrderPage } from '@/pages/Order'
+import PaymentSuccessPage from '@/pages/PaymentSuccess/ui/PaymentSuccessPage'
 
 export type RouteConfigProps = {
   subRoutes?: RouteConfig
@@ -119,5 +120,11 @@ export const routeConfig: RouteConfig = {
   [AppRoutes.ORDER]: {
     path: getRouteOrder(),
     element: <OrderPage />,
+    authOnly: true,
+  },
+  [AppRoutes.PAYMENT_SUCCESS]: {
+    path: getRoutePaymentSuccess(),
+    element: <PaymentSuccessPage />,
+    authOnly: true,
   },
 }

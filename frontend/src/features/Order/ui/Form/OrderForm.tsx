@@ -1,7 +1,7 @@
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import cls from './OrderForm.module.less'
 import { ButtonSize } from '@/shared/ui/Button/Button'
-import { Placeholders } from '@/shared/consts'
+import { getRoutePaymentSuccess, Placeholders } from '@/shared/consts'
 import { Controller, useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ApiErrorMessage } from '@/shared/ui/ApiErrorMessage'
@@ -9,12 +9,15 @@ import { Loader } from '@/shared/ui/Loader'
 import { Select, SelectOption } from '@/shared/ui/Select'
 import { useMemo } from 'react'
 import {
+  getOrderProducts,
   orderFormSchema,
   OrderFormValues,
-  PaymentMethods,
-  useCreateOrderMutation,
-} from '@/features/Order'
+} from '../../model'
 import { AddressInput } from '../AddressInput'
+import { useNavigate } from 'react-router-dom'
+import { useAppSelector } from '@/shared/lib/hooks'
+import { PaymentMethods } from '../../consts'
+import { useCreateOrderMutation } from '@/features/Order'
 
 const initialFormState: OrderFormValues = {
   address: '',
@@ -22,6 +25,8 @@ const initialFormState: OrderFormValues = {
 }
 
 export const OrderForm = () => {
+  const navigate = useNavigate()
+  const products = useAppSelector(getOrderProducts)
   const [createOrder, { isLoading, error: orderError }] =
     useCreateOrderMutation()
   const {
@@ -32,20 +37,27 @@ export const OrderForm = () => {
   } = useForm<OrderFormValues>({
     resolver: zodResolver(orderFormSchema),
     defaultValues: initialFormState,
-    mode: 'onChange',
   })
 
   const paymentMethodOptions = useMemo<SelectOption<PaymentMethods>[]>(
     () => [
-      { value: 'card', content: 'Картой' },
-      { value: 'cash', content: 'При получении' },
+      { value: PaymentMethods.CARD, content: 'Картой' },
+      { value: PaymentMethods.CASH, content: 'При получении' },
     ],
     []
   )
 
   const onSubmit = async (data: OrderFormValues) => {
     try {
-      await createOrder(data).unwrap()
+      const orderResponse = await createOrder({
+        ...data,
+        products,
+      }).unwrap()
+      if (paymentMethods === PaymentMethods.CARD) {
+        window.location.href = orderResponse.paymentUrl
+      } else {
+        navigate(`${getRoutePaymentSuccess()}?orderId=${orderResponse.orderId}`)
+      }
     } catch (e) {
       console.error(e)
     }
@@ -72,6 +84,7 @@ export const OrderForm = () => {
               id={'address'}
               value={field.value}
               onChange={field.onChange}
+              disabled={isLoading}
             />
           )}
         />

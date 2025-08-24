@@ -1,2 +1,2 @@
-import { PaymentMethods } from './PaymentMethods'
-export { PaymentMethods }
+import { PaymentMethods, type PaymentMethodsKey } from './PaymentMethods'
+export { PaymentMethods, PaymentMethodsKey }

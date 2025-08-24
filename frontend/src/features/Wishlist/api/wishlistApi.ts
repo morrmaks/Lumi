@@ -59,7 +59,6 @@ export const wishlistApi = rtkApi.injectEndpoints({
         url: ApiMap.CLEAR_WISHLIST,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Wishlist'],
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         await queryFulfilled
         dispatch(wishlistProductsActions.resetProducts())

@@ -1,7 +1,8 @@
-import mongoose, { model, Schema, Document } from "mongoose";
+import mongoose, { model, Schema, Document, Types } from "mongoose";
 import { ComponentType } from "@/types/product";
 
 export interface IProduct extends Document {
+  _id: Types.ObjectId;
   name: string;
   description: string;
   categoryId: mongoose.Types.ObjectId;

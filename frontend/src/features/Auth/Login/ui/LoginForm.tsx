@@ -51,6 +51,7 @@ export const LoginForm = () => {
           type={'email'}
           placeholder={Placeholders.features.auth.loginForm.placeholders.email}
           className={cls.loginForm__input}
+          disabled={isLoading}
           {...register('email')}
         />
         {errors.email && (
@@ -59,7 +60,7 @@ export const LoginForm = () => {
       </label>
       <label htmlFor="password" className={cls.loginForm__label}>
         {Placeholders.features.auth.loginForm.labels.password}
-        <PasswordInput {...register('password')} />
+        <PasswordInput {...register('password')} disabled={isLoading} />
         {errors.password && (
           <span className={cls.loginForm__errors}>
             {errors.password.message}

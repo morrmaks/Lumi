@@ -20,13 +20,15 @@ const app = express();
 app.use(
   rateLimit({
     windowMs: 60 * 1000,
-    limit: 100,
+    limit: 1000,
   }),
 );
 app.use(helmet());
 app.use(compression());
 app.use(express.json());
 app.use(cookieParser());
+// app.use(cors());
+app.set("trust proxy", true);
 app.use(
   cors({
     origin: (origin, callback) => {

@@ -12,5 +12,5 @@ export const getUserData = (state: StateSchema) =>
       marketingNotifications: false,
       newsNotifications: false,
     },
-    orders: [],
+    ordersCount: 0,
   }

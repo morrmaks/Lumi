@@ -54,9 +54,8 @@ export const ResetPasswordForm = () => {
         <Input
           id={'code-from-email'}
           type={'number'}
-          placeholder={
-            Placeholders.features.auth.resetPasswordForm.labels.password
-          }
+          placeholder={Placeholders.features.auth.resetPasswordForm.placeholders.code}
+          disabled={isLoading}
           className={cls.resetPasswordForm__input}
           {...register('code')}
         />
@@ -68,7 +67,7 @@ export const ResetPasswordForm = () => {
       </label>
       <label htmlFor="password" className={cls.resetPasswordForm__label}>
         {Placeholders.features.auth.resetPasswordForm.labels.password}
-        <PasswordInput {...register('password')} />
+        <PasswordInput {...register('password')} disabled={isLoading} />
         {errors.password && (
           <span className={cls.resetPasswordForm__errors}>
             {errors.password.message}

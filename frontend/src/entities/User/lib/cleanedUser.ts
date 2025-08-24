@@ -7,7 +7,7 @@ export const cleanedUser = (data: User): User => {
     email: data.email,
     avatarUrl: data.avatarUrl,
     phone: data.phone,
-    orders: data.orders,
+    ordersCount: data.ordersCount,
     settings: {
       orderNotifications: data.settings?.orderNotifications ?? false,
       marketingNotifications: data.settings?.marketingNotifications ?? false,

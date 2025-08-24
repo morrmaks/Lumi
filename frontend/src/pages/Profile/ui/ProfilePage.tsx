@@ -6,9 +6,11 @@ import { classNames } from '@/shared/lib/utils'
 import { useState } from 'react'
 import { ProfilePageTabContentMap } from '../consts'
 import { Placeholders } from '@/shared/consts'
+import { useGetOrdersCountQuery } from '@/entities/User/api'
 
 const ProfilePage = () => {
   const [tab, setTab] = useState<ProfilePageTabs>(ProfilePageTabs.PROFILE)
+  useGetOrdersCountQuery()
 
   return (
     <PageLayout>

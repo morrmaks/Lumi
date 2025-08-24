@@ -15,7 +15,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["vite/client", "node"]
     //    "types": ["jest", "@testing-library/jest-dom", "@wdio/globals/types"]
   },
   "ts-node": {

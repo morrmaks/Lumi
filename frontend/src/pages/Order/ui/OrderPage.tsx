@@ -1,14 +1,15 @@
 import cls from './OrderPage.module.less'
-import { Placeholders } from '@/shared/consts'
+import { getRouteAuth, Placeholders } from '@/shared/consts'
 import { PageLayout } from '@/widgets/PageLayout'
-import { OrderForm } from '@/features/Order'
+import { getIsFromOrderLink, OrderForm } from '@/features/Order'
 import { getUserIsAuth } from '@/entities/User'
 import { useAppSelector } from '@/shared/lib/hooks'
+import { Navigate } from 'react-router-dom'
 
 const OrderPage = () => {
-  const isAuth = useAppSelector(getUserIsAuth)
+  const isFromOrderLink = useAppSelector(getIsFromOrderLink)
 
-  // if (!isAuth) return <Navigate to={getRouteAuth()}/>
+  if (!isFromOrderLink) return <Navigate to={getRouteAuth()}/>
 
   return (
     <PageLayout>

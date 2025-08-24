@@ -1,4 +1,7 @@
 export const ApiMap = {
+  YA_SUGGEST: 'https://suggest-maps.yandex.ru/v1/',
+  // BASE_API: 'https://locally-famed-cotinga.cloudpub.ru/api',
+  // STATIC: 'https://locally-famed-cotinga.cloudpub.ru/static/',
   BASE_API: 'http://localhost:4000/api',
   STATIC: 'http://localhost:4000/static/',
 
@@ -12,6 +15,7 @@ export const ApiMap = {
 
   // User
   GET_ME: '/user/me',
+  GET_ORDERS_COUNT: '/user/me/orders-count',
   UPDATE_USER: '/user/me',
   UPDATE_AVATAR: '/user/me/avatar',
   UPDATE_SETTINGS: '/user/me/settings',
@@ -57,8 +61,10 @@ export const ApiMap = {
 
   // Orders
   GET_ORDERS: '/orders',
-  GET_ORDER: '/orders/:id',
+  GET_ORDER: '/orders',
+  GET_ORDER_PRODUCTS: '/orders',
   CREATE_ORDER: '/orders',
+  PAY_ORDER: '/orders',
 
   // Health
   HEALTH: '/health',

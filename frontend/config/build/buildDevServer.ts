@@ -8,10 +8,12 @@ export const buildDevServer = ({
     port: port,
     compress: true,
     hot: true,
+    host: '0.0.0.0',
     open: true,
     historyApiFallback: {
       disableDotRule: true,
       index: '/index.html',
     },
+    allowedHosts: 'all',
   }
 }

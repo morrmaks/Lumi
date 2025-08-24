@@ -28,8 +28,9 @@ export const Placeholders = {
     },
     resetPassword: {
       mainText: 'Сброс пароля',
-      describeText:
-        'Введите код из письма, отправленного на почту, и установите новый пароль',
+      describeFirstPartText:
+        'Введите код из письма, отправленного на почту',
+      describeSecondPartText: 'и установите новый пароль',
     },
     basket: {
       mainText: 'Корзина',
@@ -283,11 +284,17 @@ export const Placeholders = {
         mainText: 'Заказ',
         dateOrder: 'Заказ от',
         trackNumber: 'Номер отслеживания',
-        productsMainText: 'Товары',
+        products: {
+          mainText: 'Товары',
+          notFoundText: 'Товары не найдены',
+        },
+        onPayment: 'Оплатить',
         details: {
           mainText: 'Детали заказа',
           address: 'Адрес доставки',
-          paymentMethod: 'Метод оплаты',
+          orderPaymentText: 'Оплата заказа',
+          paymentMethod: 'Способ оплаты',
+          paymentStatus: 'Статус',
           totalPrice: 'Итого к оплате',
         },
       },

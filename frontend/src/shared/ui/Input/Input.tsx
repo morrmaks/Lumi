@@ -17,6 +17,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   value?: string
   onChangeFile?: (file: string | File | null) => void
   onChangeString?: (value: string) => void
+  disabled?: boolean
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -29,6 +30,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       onChangeFile,
       onChangeString,
       value,
+      disabled,
       ...otherProps
     },
     ref
@@ -38,11 +40,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const handleChange = useCallback(
       (e: ChangeEvent<HTMLInputElement>) => {
         if (type === 'file' && onChangeFile) {
-          console.log(1)
           const file = e.target.files?.[0] || null
           onChangeFile?.(file)
         } else {
-          console.log(e.target.value)
           onChangeString?.(e.target.value)
         }
       },
@@ -50,7 +50,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     )
 
     return (
-      <div className={cls.input__wrapper}>
+      <div className={classNames(cls.input__wrapper,
+        {[cls.input__wrapper_disabled]: disabled}, []
+      )}>
         {IconComponent && (
           <Icon
             className={cls.input__icon}
@@ -64,6 +66,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           type={type}
           value={value}
           onChange={handleChange}
+          disabled={disabled}
           {...otherProps}
         />
       </div>

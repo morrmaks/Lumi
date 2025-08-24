@@ -10,12 +10,14 @@ import { ConfiguratorComponentsSchema } from '@/features/Configurator'
 import { CategoryPageSchema } from '@/pages/CategoryPage'
 import { ProductPageSchema } from '@/pages/ProductPage'
 import { rtkApi, yaSuggeestApi } from '@/shared/api'
+import { OrderSchema } from '@/features/Order'
 
 export interface StateSchema {
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>
   [yaSuggeestApi.reducerPath]: ReturnType<typeof yaSuggeestApi.reducer>
   user: UserSchema
   auth: AuthSchema
+  order: OrderSchema
   forgotPassword: ForgotPasswordSchema
   dropdownMenu: DropdownMenuSchema
   breadcrumbNav: BreadcrumbNavSchema

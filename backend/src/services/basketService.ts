@@ -3,38 +3,21 @@ import mongoose from "mongoose";
 import { IProduct, ProductModel } from "@/models/productModel";
 import { IBasketDto } from "@/types/basket";
 import { CategoryModel, ICategory } from "@/models/categoryModel";
-import { WishlistDto } from "@/dtos/wishlistDto";
 import { BasketDto } from "@/dtos/basketDto";
-import { WishlistModel } from "@/models/wishlistModel";
 import { ApiError } from "@/exeptions/apiError";
 
 class BasketService {
   async getBasket(userId: string): Promise<IBasket["items"]> {
     const basket = await BasketModel.findOne({ userId }).select("items").exec();
-
-    if (!basket) return [];
-
-    return basket.items;
+    return basket?.items || [];
   }
 
   async getBasketProducts(productIds: string[]): Promise<IBasketDto[]> {
     if (!productIds.length)
       throw ApiError.BadRequest("Товары не были переданы");
 
-    const products = await ProductModel.find<IProduct>({
-      _id: { $in: productIds },
-    });
-    if (!products.length) throw ApiError.NotFound("Товары не найдены");
-
-    const categoryIds = [
-      ...new Set(products.map((product) => product.categoryId)),
-    ];
-    const categories = await CategoryModel.find<ICategory>({
-      _id: { $in: categoryIds },
-    }).exec();
-    const categoryMap = Object.fromEntries(
-      categories.map((category) => [category._id, category.slug]),
-    );
+    const products = await this._getValidProductsOrThrow(productIds);
+    const categoryMap = await this._getCategoryMapProducts(products);
 
     return products.map(
       (product) =>
@@ -45,31 +28,17 @@ class BasketService {
   async addProduct(userId: string, productId: string): Promise<string> {
     const product = await ProductModel.findById(productId);
     if (!product) throw ApiError.NotFound("Товар не найден");
-    let basket = await BasketModel.findOne<IBasket>({ userId });
+    let basket = await this._getOrCreateBasket(userId);
 
-    if (!basket) {
-      basket = new BasketModel({
-        userId,
-        items: [
-          {
-            productId: new mongoose.Types.ObjectId(productId),
-            quantity: 1,
-          },
-        ],
+    const item = basket.items.find(
+      (item) => item.productId.toString() === productId,
+    );
+    if (item) item.quantity++;
+    else
+      basket.items.push({
+        productId: new mongoose.Types.ObjectId(productId),
+        quantity: 1,
       });
-    } else {
-      const item = basket.items.find(
-        (item) => item.productId.toString() === productId,
-      );
-      if (item) {
-        item.quantity++;
-      } else {
-        basket.items.push({
-          productId: new mongoose.Types.ObjectId(productId),
-          quantity: 1,
-        });
-      }
-    }
 
     basket.updatedAt = new Date();
     await basket.save();
@@ -84,51 +53,36 @@ class BasketService {
       throw ApiError.BadRequest("Список переданных товаров пуст");
 
     const productIds = productItems.map((item) => item.productId.toString());
-    const products = await ProductModel.find({ _id: { $in: productIds } });
-    if (products.length !== productIds.length)
-      throw ApiError.NotFound("Некоторые товары не найдены");
+    await this._getValidProductsOrThrow(productIds);
 
-    let basket = await BasketModel.findOne<IBasket>({ userId });
-
+    let basket = await this._getOrCreateBasket(userId);
     const changedItems: IBasket["items"] = [];
 
-    if (!basket) {
-      basket = new BasketModel({
-        userId,
-        items: productItems,
-      });
-    } else {
-      for (const productItem of productItems) {
-        const item = basket.items.find(
-          (item) =>
-            item.productId.toString() === productItem.productId.toString(),
-        );
-        if (item) {
-          item.quantity += productItem.quantity;
-        } else {
-          const newItem = {
-            productId: new mongoose.Types.ObjectId(productItem.productId),
-            quantity: productItem.quantity,
-          };
-          basket.items.push(newItem);
-          changedItems.push(newItem);
-        }
+    for (const item of productItems) {
+      const existing = basket.items.find(
+        (i) => i.productId.toString() === item.productId.toString(),
+      );
+      if (existing) existing.quantity += item.quantity;
+      else {
+        const newItem = {
+          productId: new mongoose.Types.ObjectId(item.productId),
+          quantity: item.quantity,
+        };
+        basket.items.push(newItem);
+        changedItems.push(newItem);
       }
     }
 
     basket.updatedAt = new Date();
     await basket.save();
-
     return changedItems;
   }
 
   async deleteProduct(userId: string, productId: string): Promise<string> {
-    let basket = await BasketModel.findOne<IBasket>({ userId });
-    if (!basket) throw ApiError.NotFound("Корзина не найдена");
-
+    const basket = await this._getBasketOrThrow(userId);
     const before = basket.items.length;
     basket.items = basket.items.filter(
-      (item) => item.productId.toString() !== productId,
+      (i) => i.productId.toString() !== productId,
     );
     if (before === basket.items.length)
       throw ApiError.NotFound("Товар не найден в корзине");
@@ -139,48 +93,79 @@ class BasketService {
   }
 
   async increaseQuantity(userId: string, productId: string): Promise<string> {
-    let basket = await BasketModel.findOne<IBasket>({ userId });
-    if (!basket) throw ApiError.NotFound("Корзина не найдена");
-
-    const item = basket.items.find(
-      (item) => item.productId.toString() === productId,
+    const { parent, item } = await this._getBasketItemOrThrow(
+      userId,
+      productId,
     );
-    if (!item) throw ApiError.NotFound("Товар не найден в корзине");
-
-    if (item) {
-      item.quantity++;
-    }
-
-    basket.updatedAt = new Date();
-    await basket.save();
+    item.quantity++;
+    parent.updatedAt = new Date();
+    await parent.save();
     return productId;
   }
 
   async decreaseQuantity(userId: string, productId: string): Promise<string> {
-    let basket = await BasketModel.findOne<IBasket>({ userId });
-    if (!basket) throw ApiError.NotFound("Корзина не найдена");
-
-    const item = basket.items.find(
-      (item) => item.productId.toString() === productId,
+    const { parent, item } = await this._getBasketItemOrThrow(
+      userId,
+      productId,
     );
-    if (!item) throw ApiError.NotFound("Товар не найден в корзине");
-
-    if (item) {
-      item.quantity--;
-    }
-
-    basket.updatedAt = new Date();
-    await basket.save();
+    item.quantity--;
+    parent.updatedAt = new Date();
+    await parent.save();
     return productId;
   }
 
   async clearBasket(userId: string): Promise<IBasket> {
-    let basket = await BasketModel.findOne<IBasket>({ userId });
-    if (!basket) throw ApiError.NotFound("Корзина не найдена");
-
+    const basket = await this._getBasketOrThrow(userId);
     basket.items = [];
     basket.updatedAt = new Date();
     return await basket.save();
+  }
+
+  private async _getBasketOrThrow(userId: string): Promise<IBasket> {
+    let basket = await BasketModel.findOne<IBasket>({ userId });
+    if (!basket) throw ApiError.NotFound("Корзина не найдена");
+    return basket;
+  }
+
+  private async _getOrCreateBasket(userId: string): Promise<IBasket> {
+    let basket = await BasketModel.findOne<IBasket>({ userId });
+    if (!basket) basket = new BasketModel({ userId, items: [] });
+    return basket;
+  }
+
+  private async _getValidProductsOrThrow(
+    productIds: string[],
+  ): Promise<IProduct[]> {
+    const products = await ProductModel.find({ _id: { $in: productIds } });
+    if (products.length !== productIds.length)
+      throw ApiError.NotFound("Некоторые товары не найдены");
+    return products;
+  }
+
+  private async _getBasketItemOrThrow(
+    userId: string,
+    productId: string,
+  ): Promise<{ parent: IBasket; item: IBasket["items"][number] }> {
+    const basket = await this._getBasketOrThrow(userId);
+    const item = basket.items.find(
+      (item) => item.productId.toString() === productId,
+    );
+    if (!item) throw ApiError.NotFound("Товар не найден в корзине");
+    return { item, parent: basket };
+  }
+
+  private async _getCategoryMapProducts(
+    products: IProduct[],
+  ): Promise<Record<string, string>> {
+    const categoryIds = [
+      ...new Set(products.map((product) => product.categoryId)),
+    ];
+    const categories = await CategoryModel.find<ICategory>({
+      _id: { $in: categoryIds },
+    }).exec();
+    return Object.fromEntries(
+      categories.map((category) => [category._id, category.slug]),
+    );
   }
 }
 

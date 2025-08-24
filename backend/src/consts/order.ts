@@ -14,3 +14,11 @@ export const PaymentMethods = {
 
 export type PaymentMethods =
   (typeof PaymentMethods)[keyof typeof PaymentMethods];
+
+export const PaymentStatus = {
+  PENDING: "pending",
+  SUCCEEDED: "succeeded",
+  CANCELLED: "cancelled",
+} as const;
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus];

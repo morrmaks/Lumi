@@ -1,6 +1,6 @@
 import cls from './CategoryPage.module.less'
 import { useParams, useSearchParams } from 'react-router-dom'
-import { Suspense, useCallback } from 'react'
+import { Suspense, useCallback, useEffect } from 'react'
 import {
   useAppDispatch,
   useAppSelector,
@@ -55,7 +55,7 @@ const CategoryPage = () => {
     isFetching: productsIsFetching,
     error: productsError,
   } = useGetCategoryProductsQuery(
-    { id: category.id, search: debouncedSearch, sort, page, limit, view },
+    { id: category.id, search, sort, page, limit, view },
     { skip: !category.id }
   )
 

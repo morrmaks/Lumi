@@ -1,2 +1,2 @@
-import { classNames } from './classNames'
-export { classNames }
+import { classNames, type Mods } from './classNames'
+export { classNames, Mods }

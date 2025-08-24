@@ -10,14 +10,14 @@ import {
   ProfileCardFormValues,
 } from '@/features/Profile/ProfileCardForm'
 import { Placeholders } from '@/shared/consts'
-import { usePatchMeMutation } from '@/entities/User/api'
+import { useGetOrdersCountQuery, usePatchMeMutation } from '@/entities/User/api'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ProfileAvatar } from '@/features/Profile'
 import { Loader } from '@/shared/ui/Loader'
 
 export const ProfileCard = () => {
-  const { name, email, phone, orders } = useAppSelector(getUserData)
+  const { name, email, phone, ordersCount } = useAppSelector(getUserData)
   const wishlistProducts = useAppSelector(getWishlistProducts)
 
   const [editForm, setEditForm] = useState<boolean>(false)
@@ -65,7 +65,7 @@ export const ProfileCard = () => {
           <div className={cls.profileCard__orders}>
             <span>{Placeholders.entities.profile.card.ordersQuantity}</span>
             <span className={cls.profileCard__orders_total}>
-              {orders?.length ?? 0}
+              {ordersCount ?? 0}
             </span>
           </div>
           <div className={cls.profileCard__wishlistProducts}>

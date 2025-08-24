@@ -35,6 +35,7 @@ export const AddressInput = forwardRef<HTMLInputElement, AddressInputProps>(
     }
 
     const handleSelect = (value: string) => {
+      console.log(value)
       onChange(value)
       setSuggesionsShow(false)
     }
@@ -71,7 +72,7 @@ export const AddressInput = forwardRef<HTMLInputElement, AddressInputProps>(
               <li
                 key={suggestion + i}
                 className={cls.addressInput__suggestion}
-                onClick={() => handleSelect(value)}
+                onClick={() => handleSelect(suggestion)}
               >
                 {suggestion}
               </li>
