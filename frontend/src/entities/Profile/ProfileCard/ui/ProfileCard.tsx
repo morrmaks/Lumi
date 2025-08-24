@@ -1,5 +1,5 @@
 import cls from './ProfileCard.module.less'
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
+import { useAppSelector } from '@/shared/lib/hooks'
 import { getUserData } from '@/entities/User'
 import { getWishlistProducts } from '@/features/Wishlist'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
@@ -17,8 +17,7 @@ import { ProfileAvatar } from '@/features/Profile'
 import { Loader } from '@/shared/ui/Loader'
 
 export const ProfileCard = () => {
-  const dispatch = useAppDispatch()
-  const { name, email, phone, orders } = useAppSelector(getUserData)
+  const { name, email, phone, ordersCount } = useAppSelector(getUserData)
   const wishlistProducts = useAppSelector(getWishlistProducts)
 
   const [editForm, setEditForm] = useState<boolean>(false)
@@ -66,7 +65,7 @@ export const ProfileCard = () => {
           <div className={cls.profileCard__orders}>
             <span>{Placeholders.entities.profile.card.ordersQuantity}</span>
             <span className={cls.profileCard__orders_total}>
-              {orders?.length ?? 0}
+              {ordersCount ?? 0}
             </span>
           </div>
           <div className={cls.profileCard__wishlistProducts}>
@@ -91,7 +90,7 @@ export const ProfileCard = () => {
               profileCardIsLoading ? (
                 <Loader delay={0} />
               ) : (
-                Placeholders.features.auth.loginForm.submit
+                Placeholders.entities.profile.card.onSaveInfo
               )
             ) : (
               Placeholders.entities.profile.card.onEditInfo

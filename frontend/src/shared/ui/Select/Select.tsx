@@ -14,6 +14,7 @@ interface SelectProps<T extends string> {
   value: T
   options: SelectOption<T>[]
   onChange: (value: T) => void
+  className?: string
   placeholder?: string
 }
 
@@ -21,6 +22,7 @@ const SelectComponent = <T extends string>({
   value,
   options,
   onChange,
+  className,
   placeholder = 'Выберите',
 }: SelectProps<T>) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -51,25 +53,27 @@ const SelectComponent = <T extends string>({
   }, [])
 
   return (
-    <div className={cls.select} ref={ref}>
+    <div className={classNames(cls.select, {}, [className])} ref={ref}>
       <Button
         theme={ButtonTheme.STATIC}
         onClick={() => setOpen(!isOpen)}
         className={cls.select__button}
+        type={'button'}
       >
-        {selectedLabel}
         <Icon
           Svg={IconsMap.CHEVRON_UP}
           className={classNames(cls.select__icon, {
             [cls.select__icon_active]: isOpen,
           })}
         />
+        {selectedLabel}
       </Button>
       {isOpen && (
         <ul className={cls.select__menu}>
           {options.map((opt) => (
             <li key={opt.value} className={cls.select__menuItem}>
               <Button
+                type={'button'}
                 className={cls.select__menuItem_button}
                 theme={ButtonTheme.STATIC}
                 onClick={() => handleSelect(opt.value)}

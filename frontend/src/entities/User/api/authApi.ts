@@ -1,7 +1,7 @@
 import { rtkApi } from '@/shared/api'
 import { ApiMap } from '@/shared/consts'
 import { removeAccessToken, setAccessToken } from '@/shared/lib/utils'
-import { cleanedUser, Settings, userActions } from '@/entities/User'
+import { Settings, userActions } from '@/entities/User'
 import { forgotPasswordActions, ResetPasswordFormValues } from '@/features/Auth'
 import {
   ForgotPasswordFormValues,
@@ -12,32 +12,17 @@ import {
   ProfileCardFormValues,
   ProfileSettingsFormValues,
 } from '@/features/Profile'
-import { IOrder } from '@/features/Order'
-import { wishlistApi } from '@/features/Wishlist'
-import { basketApi } from '@/features/Basket'
-
-interface UserDataObject {
-  id: string
-  email: string
-  name: string
-  avatarUrl?: string
-  phone?: string
-  settings?: Settings
-  orders?: IOrder[]
-}
+import { User } from '../model/types/user'
 
 export const authApi = rtkApi.injectEndpoints({
   endpoints: (build) => ({
-    postLogin: build.mutation<UserDataObject, LoginFormValues>({
+    postLogin: build.mutation<User, LoginFormValues>({
       query: (credentials) => ({
         url: ApiMap.LOGIN,
         method: 'POST',
         body: credentials,
       }),
-      transformResponse: (response: {
-        accessToken: string
-        user: UserDataObject
-      }) => {
+      transformResponse: (response: { accessToken: string; user: User }) => {
         setAccessToken(response.accessToken)
         return response.user
       },
@@ -47,10 +32,6 @@ export const authApi = rtkApi.injectEndpoints({
           if (data) {
             dispatch(authApi.util.upsertQueryData('getMe', undefined, data))
             dispatch(userActions.setUser(data))
-
-            // dispatch(wishlistApi.endpoints.getWishlist.initiate(undefined, { subscribe: true }))
-            dispatch(basketApi.endpoints.getBasket.initiate())
-            // dispatch(configuratorApi.endpoints.getConfigurator.initiate())
           }
         } catch (e) {
           console.log(e)
@@ -58,16 +39,13 @@ export const authApi = rtkApi.injectEndpoints({
       },
     }),
 
-    postRegister: build.mutation<UserDataObject, RegisterFormValues>({
+    postRegister: build.mutation<User, RegisterFormValues>({
       query: (credentials) => ({
         url: ApiMap.REGISTER,
         method: 'POST',
         body: credentials,
       }),
-      transformResponse: (response: {
-        accessToken: string
-        user: UserDataObject
-      }) => {
+      transformResponse: (response: { accessToken: string; user: User }) => {
         setAccessToken(response.accessToken)
         return response.user
       },
@@ -98,17 +76,18 @@ export const authApi = rtkApi.injectEndpoints({
         method: 'POST',
         body: payload,
       }),
-      transformResponse: (response: string) => response,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled
-        if (data) {
-          dispatch(forgotPasswordActions.setEmail(data))
+        try {
+          const { data } = await queryFulfilled
+          if (data) dispatch(forgotPasswordActions.setEmail(data))
+        } catch (e) {
+          console.log(e)
         }
       },
     }),
 
     postResetPassword: build.mutation<
-      UserDataObject,
+      User,
       ResetPasswordFormValues & { email: string }
     >({
       query: (payload) => ({
@@ -116,34 +95,16 @@ export const authApi = rtkApi.injectEndpoints({
         method: 'POST',
         body: payload,
       }),
-      transformResponse: (response: {
-        accessToken: string
-        user: UserDataObject
-      }) => {
+      transformResponse: (response: { accessToken: string; user: User }) => {
         setAccessToken(response.accessToken)
         return response.user
       },
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled
-        console.log(data)
-        cleanedUser(data)
-
-        dispatch(userActions.setUser(data))
-
-        dispatch(wishlistApi.endpoints.getWishlist.initiate())
-        // dispatch(basketApi.endpoints.getBasket.initiate())
-        // dispatch(configuratorApi.endpoints.getConfigurator.initiate())
-      },
-    }),
-
-    getMe: build.query<UserDataObject, void>({
-      query: () => ({ url: ApiMap.GET_ME }),
-      transformResponse: (response: UserDataObject) => response,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
           if (data) {
             dispatch(userActions.setUser(data))
+            dispatch(authApi.util.upsertQueryData('getMe', undefined, data))
           }
         } catch (e) {
           console.log(e)
@@ -151,18 +112,46 @@ export const authApi = rtkApi.injectEndpoints({
       },
     }),
 
-    patchMe: build.mutation<UserDataObject, ProfileCardFormValues>({
+    getMe: build.query<User, void>({
+      query: () => ({ url: ApiMap.GET_ME }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          if (data) dispatch(userActions.setUser(data))
+        } catch (e) {
+          console.log(e)
+        }
+      },
+    }),
+
+    getOrdersCount: build.query<number, void>({
+      query: () => ({ url: ApiMap.GET_ORDERS_COUNT }),
+      keepUnusedDataFor: 0,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          if (data) dispatch(userActions.setOrdersCount(data))
+        } catch (e) {
+          console.log(e)
+        }
+      },
+    }),
+
+    patchMe: build.mutation<User, ProfileCardFormValues>({
       query: (payload) => ({
         url: ApiMap.UPDATE_USER,
         method: 'PATCH',
         body: payload,
       }),
-      transformResponse: (response: UserDataObject) => response,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled
-        if (data) {
-          dispatch(authApi.util.upsertQueryData('getMe', undefined, data))
-          dispatch(userActions.setUser(data))
+        try {
+          const { data } = await queryFulfilled
+          if (data) {
+            dispatch(authApi.util.upsertQueryData('getMe', undefined, data))
+            dispatch(userActions.setUser(data))
+          }
+        } catch (e) {
+          console.log(e)
         }
       },
     }),
@@ -173,11 +162,12 @@ export const authApi = rtkApi.injectEndpoints({
         method: 'PATCH',
         body: payload,
       }),
-      transformResponse: (response: string) => response,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled
-        if (data) {
-          dispatch(userActions.setUserAvatar(data))
+        try {
+          const { data } = await queryFulfilled
+          if (data) dispatch(userActions.setUserAvatar(data))
+        } catch (e) {
+          console.log(e)
         }
       },
     }),
@@ -188,11 +178,12 @@ export const authApi = rtkApi.injectEndpoints({
         method: 'PATCH',
         body: payload,
       }),
-      transformResponse: (response: Settings) => response,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled
-        if (data) {
-          dispatch(userActions.setUserSettings(data))
+        try {
+          const { data } = await queryFulfilled
+          if (data) dispatch(userActions.setUserSettings(data))
+        } catch (e) {
+          console.log(e)
         }
       },
     }),
@@ -206,7 +197,6 @@ export const authApi = rtkApi.injectEndpoints({
         method: 'PATCH',
         body: payload,
       }),
-      transformResponse: (response: { message: string }) => response,
     }),
 
     deleteUser: build.mutation<{ message: string }, void>({
@@ -226,6 +216,7 @@ export const {
   usePostForgotPasswordMutation,
   usePostResetPasswordMutation,
   useGetMeQuery,
+  useGetOrdersCountQuery,
   usePatchMeMutation,
   usePatchAvatarMutation,
   usePatchSettingsMutation,

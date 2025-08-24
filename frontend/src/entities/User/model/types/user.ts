@@ -1,5 +1,3 @@
-import { IOrder } from '@/features/Order'
-
 export interface Settings {
   orderNotifications: boolean
   marketingNotifications: boolean
@@ -13,7 +11,7 @@ export interface User {
   avatarUrl?: string
   phone?: string
   settings?: Settings
-  orders?: IOrder[]
+  ordersCount?: number
 }
 
 export interface UserSchema {

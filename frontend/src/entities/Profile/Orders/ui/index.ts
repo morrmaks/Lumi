@@ -1,3 +1,4 @@
+import { ProfileOrdersSkeleton } from './ProfileOrdersSkeleton'
 import { ProfileEmptyOrders } from './ProfileEmptyOrders'
 import { ProfileOrders } from './ProfileOrders'
-export { ProfileEmptyOrders, ProfileOrders }
+export { ProfileOrdersSkeleton, ProfileEmptyOrders, ProfileOrders }

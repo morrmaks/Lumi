@@ -59,8 +59,8 @@ export const ProfileSettingsForm = () => {
         {Placeholders.features.profile.settingsForm.labels.currentPassword}
         <PasswordInput
           id={'current-password'}
-          className={cls.profileSettingsForm__input}
           {...register('currentPassword')}
+          disabled={isLoading}
         />
         {errors.currentPassword && (
           <span className={cls.profileSettingsForm__errors}>
@@ -72,8 +72,8 @@ export const ProfileSettingsForm = () => {
         {Placeholders.features.profile.settingsForm.labels.newPassword}
         <PasswordInput
           id={'new-password'}
-          className={cls.profileSettingsForm__input}
           {...register('newPassword')}
+          disabled={isLoading}
         />
         {errors.newPassword && (
           <span className={cls.profileSettingsForm__errors}>

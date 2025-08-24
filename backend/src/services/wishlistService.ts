@@ -1,9 +1,10 @@
 import { WishlistModel, IWishlist } from "@/models/wishlistModel";
 import { IProduct, ProductModel } from "@/models/productModel";
-import mongoose, { MergeType, Document } from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { WishlistDto } from "@/dtos/wishlistDto";
 import { IWishlistDto } from "@/types/wishlist";
 import { CategoryModel } from "@/models/categoryModel";
+import { ApiError } from "@/exeptions/apiError";
 
 class WishlistService {
   async getWishlist(userId: string): Promise<string[]> {
@@ -12,24 +13,19 @@ class WishlistService {
       .exec();
 
     if (!wishlist) return [];
-
     return wishlist.productIds.map((productId) => productId.toString());
   }
 
   async getWishlistProducts(productIds: string[]): Promise<IWishlistDto[]> {
-    if (!productIds.length) throw new Error("Товары не были переданы");
+    if (!productIds.length)
+      throw ApiError.BadRequest("Товары не были переданы");
 
-    const products = await ProductModel.find({ _id: { $in: productIds } });
+    const products = await ProductModel.find<IProduct>({
+      _id: { $in: productIds },
+    });
+    if (!products.length) throw ApiError.NotFound("Товары не найдены");
 
-    const categoryIds = [
-      ...new Set(products.map((product) => product.categoryId)),
-    ];
-    const categories = await CategoryModel.find({
-      _id: { $in: categoryIds },
-    }).exec();
-    const categoryMap = Object.fromEntries(
-      categories.map((category) => [category._id, category.slug]),
-    );
+    const categoryMap = await this._getCategoryMapProducts(products);
 
     return products.map(
       (product) =>
@@ -38,8 +34,7 @@ class WishlistService {
   }
 
   async addProduct(userId: string, productId: string): Promise<string> {
-    const product = await ProductModel.findById(productId);
-    if (!product) throw new Error("Товар не найден");
+    await this._getProductOrThrow(productId);
 
     let wishlist = await WishlistModel.findOne({ userId });
     if (!wishlist) {
@@ -49,16 +44,15 @@ class WishlistService {
       });
     } else if (!wishlist.productIds.some((id) => id.toString() === productId)) {
       wishlist.productIds.push(new mongoose.Types.ObjectId(productId));
-      wishlist.updatedAt = new Date();
-      await wishlist.save();
     }
+    await this._saveWishlist(wishlist);
 
     return productId;
   }
 
   async addProducts(userId: string, productIds: string[]): Promise<string[]> {
     const products = await ProductModel.find({ _id: { $in: productIds } });
-    if (!products) throw new Error("Товар не найден");
+    if (!products) throw ApiError.NotFound("Товар не найден");
 
     let wishlist = await WishlistModel.findOne({ userId });
     if (!wishlist) {
@@ -76,22 +70,18 @@ class WishlistService {
       }
     }
 
-    wishlist.updatedAt = new Date();
-    await wishlist.save();
+    await this._saveWishlist(wishlist);
     return productIds;
   }
 
   async deleteProduct(userId: string, productId: string): Promise<string> {
-    let wishlist = await WishlistModel.findOne({ userId });
-    if (!wishlist) throw new Error("Избранное не найдено");
+    let wishlist = await this._getWishlistOrThrow(userId);
 
     wishlist.productIds = wishlist.productIds.filter(
       (id) => id.toString() !== productId,
     );
 
-    wishlist.updatedAt = new Date();
-    await wishlist.save();
-
+    await this._saveWishlist(wishlist);
     return productId;
   }
 
@@ -99,29 +89,52 @@ class WishlistService {
     userId: string,
     productIds: string[],
   ): Promise<string[]> {
-    let wishlist = await WishlistModel.findOne({ userId });
-    if (!wishlist) throw new Error("Избранное не найдено");
+    let wishlist = await this._getWishlistOrThrow(userId);
 
     wishlist.productIds = wishlist.productIds.filter(
       (id) => !productIds.includes(id.toString()),
     );
 
-    wishlist.updatedAt = new Date();
-    await wishlist.save();
-
+    await this._saveWishlist(wishlist);
     return productIds;
   }
 
   async clearWishlist(userId: string): Promise<Array<string>> {
-    let wishlist = await WishlistModel.findOne({ userId });
-    if (!wishlist) throw new Error("Избранное не найдено");
-
+    let wishlist = await this._getWishlistOrThrow(userId);
     wishlist.productIds = [];
+    await this._saveWishlist(wishlist);
+    return [];
+  }
 
+  private async _getProductOrThrow(productId: string): Promise<IProduct> {
+    const product = await ProductModel.findById(productId);
+    if (!product) throw ApiError.NotFound("Товар не найден");
+    return product;
+  }
+
+  private async _getWishlistOrThrow(userId: string): Promise<IWishlist> {
+    let wishlist = await WishlistModel.findOne({ userId });
+    if (!wishlist) throw ApiError.NotFound("Избранное не найдено");
+    return wishlist;
+  }
+
+  private async _saveWishlist(wishlist: IWishlist) {
     wishlist.updatedAt = new Date();
     await wishlist.save();
+  }
 
-    return [];
+  private async _getCategoryMapProducts(
+    products: IProduct[],
+  ): Promise<Record<string, string>> {
+    const categoryIds = [
+      ...new Set(products.map((product) => product.categoryId)),
+    ];
+    const categories = await CategoryModel.find({
+      _id: { $in: categoryIds },
+    }).exec();
+    return Object.fromEntries(
+      categories.map((category) => [category._id, category.slug]),
+    );
   }
 }
 

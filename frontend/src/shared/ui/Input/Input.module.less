@@ -8,10 +8,6 @@
   border-radius: var(--border-radius-l);
   background-color: var(--input-bg-color);
 
-  &:hover {
-    .border(1px, solid, var(--input-hover-border));
-  }
-
   &::placeholder {
     color: var(--muted-color);
   }
@@ -24,23 +20,29 @@
     cursor: not-allowed;
     color: var(--muted-color);
     background-color: var(--muted-bg-color);
-
-    &:hover {
-      .border();
-    }
   }
 
   &__wrapper {
-    .flex();
-    align-items: center;
+    margin: 8px 0;
+    .selectableScale(1.01);
+    .flex(row, center, space-between);
 
     position: relative;
+
+    &_disabled {
+      .selectableScale(1);
+    }
   }
 
   &__icon {
     .selectable();
 
+    &:hover {
+      .input:hover {
+      }
+    }
+
     position: absolute;
-    right: 16px;
+    left: 16px;
   }
 }

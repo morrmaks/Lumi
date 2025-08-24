@@ -1,22 +1,27 @@
 import { NextFunction, Request, Response } from "express";
 import { bannerService } from "@/services/bannerService";
+import { paymentService } from "@/services/paymentService";
 
 class PaymentController {
   async createPayment(req: Request, res: Response, next: NextFunction) {
     try {
       const { amount, description, orderId } = req.body;
 
-      const banners = await bannerService.getAll();
-      return res.json(banners);
+      const payment = await paymentService.createPayment(
+        amount,
+        description,
+        orderId,
+      );
+      return res.json(payment);
     } catch (e) {
       next(e);
     }
   }
 
-  async getPayment(req: Request, res: Response, next: NextFunction) {
+  async paymentWebhook(req: Request, res: Response, next: NextFunction) {
     try {
-      const banners = await bannerService.getAll();
-      return res.json(banners);
+      await paymentService.handleWebhook(req.body);
+      return res.sendStatus(200);
     } catch (e) {
       next(e);
     }

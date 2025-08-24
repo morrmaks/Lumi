@@ -13,10 +13,7 @@ import { ApiError } from "@/exeptions/apiError";
 class CategoryService {
   async getCategory(slug: string): Promise<ICategoryDto> {
     if (!slug) throw ApiError.BadRequest("Категория не была передана");
-
-    const category = await CategoryModel.findOne({ slug });
-    if (!category) throw ApiError.NotFound("Категория не найдена");
-
+    const category = await this._getCategoryBySlugOrThrow(slug);
     const productCount = await ProductModel.countDocuments({
       categoryId: category._id,
     });
@@ -50,11 +47,7 @@ class CategoryService {
     categoryId: string,
     query: Record<string, any | undefined>,
   ): Promise<{ products: ICategoryProductDto[]; hasMore: boolean }> {
-    if (!mongoose.Types.ObjectId.isValid(categoryId))
-      throw ApiError.BadRequest("Неверный id категории");
-
-    const category = await CategoryModel.findById(categoryId);
-    if (!category) throw ApiError.NotFound("Категория не найдена");
+    const category = await this._getCategoryByIdOrThrow(categoryId);
 
     const {
       field = "createdAt",
@@ -95,13 +88,10 @@ class CategoryService {
   async getCategoryBreadcrumb(
     categoryId: string,
   ): Promise<ICategoryBreadcrumb[]> {
-    if (!mongoose.Types.ObjectId.isValid(categoryId))
-      throw ApiError.BadRequest("Неверный id категории");
-
-    let currentCategory = await CategoryModel.findById(categoryId);
-    if (!currentCategory) throw ApiError.NotFound("Категория не найдена");
+    const category = await this._getCategoryByIdOrThrow(categoryId);
 
     const stack: ICategoryBreadcrumb[] = [];
+    let currentCategory: ICategory | null = category;
 
     while (currentCategory) {
       stack.push({
@@ -122,6 +112,23 @@ class CategoryService {
     }
 
     return breadcrumb;
+  }
+
+  private async _getCategoryByIdOrThrow(
+    categoryId: string,
+  ): Promise<ICategory> {
+    if (!mongoose.Types.ObjectId.isValid(categoryId))
+      throw ApiError.BadRequest("Неверный id категории");
+
+    const category = await CategoryModel.findById(categoryId);
+    if (!category) throw ApiError.NotFound("Категория не найдена");
+    return category;
+  }
+
+  private async _getCategoryBySlugOrThrow(slug: string): Promise<ICategory> {
+    const category = await CategoryModel.findOne({ slug });
+    if (!category) throw ApiError.NotFound("Категория не найдена");
+    return category;
   }
 }
 

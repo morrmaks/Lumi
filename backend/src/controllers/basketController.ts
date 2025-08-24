@@ -70,7 +70,6 @@ class BasketController {
     try {
       const { id: userId } = (req as any).user;
       const { productId } = req.params;
-      console.log("productId", productId);
 
       const product = await basketService.increaseQuantity(userId, productId);
 

@@ -66,6 +66,7 @@ export const ForgotPasswordForm = () => {
             Placeholders.features.auth.forgotPasswordForm.placeholders.email
           }
           className={cls.forgotPasswordForm__input}
+          disabled={isLoading}
           {...register('email')}
         />
         {errors.email && (

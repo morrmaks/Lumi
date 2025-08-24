@@ -5,4 +5,10 @@ export interface IConfiguratorDto {
   componentType: ComponentType;
 }
 
-export interface IConfiguratorProductDto {}
+export interface IConfiguratorProductDto {
+  id: string;
+  image: string;
+  name: string;
+  discountPrice: number;
+  componentType: ComponentType;
+}

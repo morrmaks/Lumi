@@ -1,5 +1,5 @@
 import { mailService } from "@/services/mailService";
-import { IUserSettings, UserModel } from "@/models/userModel";
+import { IUser, IUserSettings, UserModel } from "@/models/userModel";
 import { ApiError } from "@/exeptions/apiError";
 import bcrypt from "bcrypt";
 import { UserDto } from "@/dtos/userDto";
@@ -7,32 +7,21 @@ import { tokenService } from "@/services/tokenService";
 import path from "path";
 import * as fs from "node:fs";
 import { DeleteResult } from "mongodb";
+import { OrderModel } from "@/models/orderModel";
 
 class UserService {
   async login(
     email: string,
     password: string,
   ): Promise<{ accessToken: string; refreshToken: string; user: UserDto }> {
-    if (!email || !password)
-      throw ApiError.BadRequest("Email и пароль обязательны");
+    const user = await this._findUserByEmail(email);
+    await this._checkPassword(password, user);
 
-    const user = await UserModel.findOne({ email });
-    if (!user)
-      throw ApiError.BadRequest("Пользователь с таким email не найден");
-
-    const isPassEquals = await bcrypt.compare(password, user.password);
-    if (!isPassEquals) throw ApiError.BadRequest("Неверный пароль");
-
-    const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens({ ...userDto });
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
-    return { ...tokens, user: userDto };
+    return await this._generateAuthTokens(user);
   }
 
   async logout(refreshToken: string): Promise<DeleteResult> {
-    const token = await tokenService.removeToken(refreshToken);
-    return token;
+    return await tokenService.removeToken(refreshToken);
   }
 
   async registration(
@@ -42,34 +31,20 @@ class UserService {
   ): Promise<{ accessToken: string; refreshToken: string; user: UserDto }> {
     if (!name || !email || !password)
       throw ApiError.BadRequest("Имя, email и пароль обязательны");
+    await this._checkEmailNotExists(email);
 
-    const candidate = await UserModel.findOne({ email });
-    if (candidate) {
-      throw ApiError.BadRequest(
-        `Пользователь с почтовым адресом ${email} уже существует`,
-      );
-    }
     const hashPassword = await bcrypt.hash(password, 3);
-
     const user = await UserModel.create({
       name,
       email,
       password: hashPassword,
     });
 
-    const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens({ ...userDto });
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
-    return { ...tokens, user: userDto };
+    return await this._generateAuthTokens(user);
   }
 
   async forgotPassword(email: string): Promise<string> {
-    if (!email) throw ApiError.BadRequest("Email обязателен");
-
-    const user = await UserModel.findOne({ email });
-    if (!user)
-      throw ApiError.BadRequest("Пользователь с таким email не найден");
+    const user = await this._findUserByEmail(email);
 
     const code = await mailService.generateUniqueCode();
     user.resetPasswordCode = code;
@@ -77,7 +52,6 @@ class UserService {
     await user.save();
 
     await mailService.sendVerificationCode(email, code);
-
     return email;
   }
 
@@ -94,21 +68,15 @@ class UserService {
       resetPasswordCode: code,
       resetPasswordExpire: { $gt: Date.now() },
     });
-    if (!user) {
+    if (!user)
       throw ApiError.BadRequest("Неверный код или срок действия истек");
-    }
 
-    const hashPassword = await bcrypt.hash(password, 3);
-    user.password = hashPassword;
+    user.password = await bcrypt.hash(password, 3);
     user.resetPasswordCode = undefined;
     user.resetPasswordExpire = undefined;
     await user.save();
 
-    const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens({ ...userDto });
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
-    return { ...tokens, user: userDto };
+    return await this._generateAuthTokens(user);
   }
 
   async refresh(
@@ -117,49 +85,27 @@ class UserService {
     if (!refreshToken) throw ApiError.Unauthorized();
 
     const userData = tokenService.validateRefreshToken(refreshToken);
-    const tokenFromDb = tokenService.findToken(refreshToken);
+    const tokenFromDb = await tokenService.findToken(refreshToken);
     if (!userData || !tokenFromDb) throw ApiError.Unauthorized();
 
-    const user = await UserModel.findById(userData.id);
-
-    if (!user) throw ApiError.Unauthorized();
-
-    const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens({ ...userDto });
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
-    return { ...tokens, user: userDto };
+    const user = await this._findUserById(userData.id);
+    return await this._generateAuthTokens(user);
   }
 
   async getMe(userId: string): Promise<UserDto> {
-    if (!userId) throw ApiError.Unauthorized();
+    const user = await this._findUserById(userId);
+    return new UserDto(user);
+  }
 
-    const user = await UserModel.findById(userId);
-    if (!user) throw ApiError.NotFound("Пользователь не найден");
-
-    const userDto = new UserDto(user);
-    return userDto;
+  async getOrdersCount(userId: string): Promise<number> {
+    const user = await this._findUserById(userId);
+    return await OrderModel.countDocuments({ userId: user._id }).exec();
   }
 
   async updateAvatar(userId: string, filename: string): Promise<string> {
-    if (!userId || !filename)
-      throw ApiError.BadRequest("Пользователь и файл обязательны");
+    const user = await this._findUserById(userId);
 
-    const user = await UserModel.findById(userId);
-    if (!user) {
-      throw ApiError.NotFound("Пользователь не найден");
-    }
-
-    if (user.avatarUrl) {
-      const oldPath = path.join(
-        process.cwd(),
-        "static/avatars",
-        path.basename(user.avatarUrl),
-      );
-      if (fs.existsSync(oldPath)) {
-        fs.unlinkSync(oldPath);
-      }
-    }
+    if (user.avatarUrl) await this._deleteOldAvatar(user.avatarUrl);
 
     user.avatarUrl = `avatars/${filename}`;
     await user.save();
@@ -170,30 +116,18 @@ class UserService {
     userId: string,
     userData: { name: string; email: string; phone?: string },
   ): Promise<UserDto> {
-    if (!userId) throw ApiError.Unauthorized();
-    const user = await UserModel.findById(userId);
-    if (!user) throw ApiError.NotFound("Пользователь не найден");
+    const user = await this._findUserById(userId);
 
-    const candidate = await UserModel.findOne({ email: userData.email });
-    if (candidate && candidate.id !== userId)
-      throw ApiError.BadRequest(
-        `Пользователь с почтовым адресом ${userData.email} уже существует`,
-      );
-
-    const phoneCandidate = await UserModel.findOne({ phone: userData.phone });
-    if (phoneCandidate && phoneCandidate.id !== userId)
-      throw ApiError.BadRequest(
-        `Пользователь с номером телефона ${userData.phone} уже существует`,
-      );
+    await this._checkEmailNotUsedByOthers(userData.email, userId);
+    if (userData.phone)
+      await this._checkPhoneNotUsedByOthers(userData.phone, userId);
 
     user.email = userData.email;
     user.name = userData.name;
     user.phone = userData.phone;
-
     await user.save();
 
-    const userDto = new UserDto(user);
-    return userDto;
+    return new UserDto(user);
   }
 
   async updatePassword(
@@ -201,13 +135,8 @@ class UserService {
     currentPassword: string,
     newPassword: string,
   ): Promise<boolean> {
-    if (!userId) throw ApiError.Unauthorized();
-
-    const user = await UserModel.findById(userId);
-    if (!user) throw ApiError.NotFound("Пользователь не найден");
-
-    const isPassEquals = await bcrypt.compare(currentPassword, user.password);
-    if (!isPassEquals) throw ApiError.BadRequest("Текущий пароль неверный");
+    const user = await this._findUserById(userId);
+    await this._checkPassword(currentPassword, user);
 
     user.password = await bcrypt.hash(newPassword, 3);
     await user.save();
@@ -218,24 +147,83 @@ class UserService {
     userId: string,
     settings: Partial<IUserSettings>,
   ): Promise<IUserSettings> {
-    if (!userId) throw ApiError.Unauthorized();
-
-    const user = await UserModel.findById(userId);
-    if (!user) throw ApiError.NotFound("Пользователь не найден");
-
+    const user = await this._findUserById(userId);
     user.settings = { ...settings, ...user.settings };
-    user.save();
-
+    await user.save();
     return user.settings;
   }
 
   async deleteUser(userId: string, refreshToken: string): Promise<boolean> {
-    const user = await UserModel.findById(userId);
-    if (!user) throw ApiError.NotFound("Пользователь не найден");
+    const user = await this._findUserById(userId);
 
     await tokenService.removeToken(refreshToken);
     await UserModel.findByIdAndDelete(userId).exec();
     return true;
+  }
+
+  private async _findUserByEmail(email: string): Promise<IUser> {
+    if (!email) throw ApiError.BadRequest("Email и обязателен");
+
+    const user = await UserModel.findOne<IUser>({ email });
+    if (!user)
+      throw ApiError.BadRequest("Пользователь с таким email не найден");
+
+    return user;
+  }
+
+  private async _findUserById(userId: string): Promise<IUser> {
+    if (!userId) throw ApiError.Unauthorized();
+
+    const user = await UserModel.findById<IUser>(userId);
+    if (!user) throw ApiError.NotFound("Пользователь не найден");
+    return user;
+  }
+
+  private async _checkPassword(password: string, user: IUser) {
+    const isPassEquals = await bcrypt.compare(password, user.password);
+    if (!isPassEquals) throw ApiError.BadRequest("Неверный пароль");
+  }
+
+  private async _checkEmailNotExists(email: string) {
+    const candidate = await UserModel.findOne({ email });
+    if (candidate)
+      throw ApiError.BadRequest(
+        `Пользователь с почтовым адресом ${email} уже существует`,
+      );
+  }
+
+  private async _checkEmailNotUsedByOthers(email: string, userId: string) {
+    const candidate = await UserModel.findOne({ email });
+    if (candidate && candidate.id !== userId)
+      throw ApiError.BadRequest(
+        `Пользователь с почтовым адресом ${email} уже существует`,
+      );
+  }
+
+  private async _checkPhoneNotUsedByOthers(phone: string, userId: string) {
+    const candidate = await UserModel.findOne({ phone });
+    if (candidate && candidate.id !== userId)
+      throw ApiError.BadRequest(
+        `Пользователь с номером телефона ${phone} уже существует`,
+      );
+  }
+
+  private async _deleteOldAvatar(avatarUrl: string) {
+    const oldPath = path.join(
+      process.cwd(),
+      "static/avatars",
+      path.basename(avatarUrl),
+    );
+    if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+  }
+
+  private async _generateAuthTokens(
+    user: IUser,
+  ): Promise<{ accessToken: string; refreshToken: string; user: UserDto }> {
+    const userDto = new UserDto(user);
+    const tokens = tokenService.generateTokens({ ...userDto });
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    return { ...tokens, user: userDto };
   }
 }
 

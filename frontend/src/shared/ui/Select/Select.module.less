@@ -7,10 +7,11 @@
   appearance: none;
 
   &__menu {
-    .border();
+    //.border();
+    .shadow(0, 2px, 4px);
 
     border-radius: var(--border-radius-l);
-    background-color: var(--bg-color);
+    background-color: var(--card-bg-color);
     position: absolute;
     z-index: var(--z-category-filters);
     top: calc(100% + 4px);
@@ -23,10 +24,12 @@
     &_button {
       .flex(row, center, start);
 
+      background-color: var(--card-bg-color);
       gap: 4px;
       border: none;
       width: 100%;
       font-weight: var(--font-bold);
+      font: var(--font-xs);
       .selectable();
     }
 
@@ -39,25 +42,24 @@
 
   &__button {
     .flex();
+    .hoverShadow();
+    .selectableScale(1.03);
+    .selectableIcon(1, var(--muted-bg-color), var(--muted-color));
 
+    height: 100%;
+    padding: 16px;
     white-space: nowrap;
     gap: 8px;
     border: none;
-    font-weight: var(--font-bold);
-    .selectable();
-
-    &:hover {
-      border-radius: var(--border-radius-m);
-
-      .select__icon {
-        stroke: var(--secondary-color);
-      }
-    }
+    font: var(--font-xs);
+    color: var(--muted-color);
+    background-color: var(--card-bg-color);
   }
 
   &__icon {
     transition: var(--transition-speed);
     transform: rotate(180deg);
+    stroke: var(--muted-color);
 
     &_active {
       transform: rotate(0deg);

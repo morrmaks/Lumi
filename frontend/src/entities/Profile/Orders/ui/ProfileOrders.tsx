@@ -1,18 +1,19 @@
 import cls from './ProfileOrders.module.less'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
-import { useAppSelector } from '@/shared/lib/hooks'
-import { getUserData } from '@/entities/User'
 import { useState } from 'react'
 import { OrderCard } from '@/entities/Order'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { Placeholders } from '@/shared/consts'
-import { ProfileEmptyOrders } from '@/entities/Profile'
+import { ProfileEmptyOrders, ProfileOrdersSkeleton } from '@/entities/Profile'
+import { useGetOrdersQuery } from '@/features/Order'
 
 export const ProfileOrders = () => {
   const [showAll, setShowAll] = useState<boolean>(false)
-  const { orders } = useAppSelector(getUserData)
+  const { data: orders, isLoading } = useGetOrdersQuery()
 
+  const profileEmptyOrdersVisible = Boolean(!orders?.length && !isLoading)
+  const showMoreButtonVisible = Boolean(orders?.length && orders.length > 3)
   const displayedOrders = (showAll ? orders : orders?.slice(0, 3)) || []
 
   return (
@@ -26,7 +27,11 @@ export const ProfileOrders = () => {
           {Placeholders.entities.profile.orders.mainText}
         </h2>
       </div>
-      {!orders?.length && <ProfileEmptyOrders />}
+
+      {isLoading && <ProfileOrdersSkeleton />}
+
+      {profileEmptyOrdersVisible && <ProfileEmptyOrders />}
+
       <ul className={cls.profileOrders__list}>
         {displayedOrders.map((card) => (
           <li key={card.id} className={cls.profileOrders__order}>
@@ -34,7 +39,7 @@ export const ProfileOrders = () => {
           </li>
         ))}
       </ul>
-      {!showAll && (
+      {showMoreButtonVisible && (
         <Button
           onClick={() => setShowAll(true)}
           theme={ButtonTheme.OUTLINE}

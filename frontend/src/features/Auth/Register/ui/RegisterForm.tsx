@@ -51,6 +51,7 @@ export const RegisterForm = () => {
           type={'text'}
           placeholder={Placeholders.features.profile.cardForm.placeholders.name}
           className={cls.registerForm__input}
+          disabled={isLoading}
           {...register('name')}
         />
       </label>
@@ -63,6 +64,7 @@ export const RegisterForm = () => {
             Placeholders.features.auth.registerForm.placeholders.email
           }
           className={cls.registerForm__input}
+          disabled={isLoading}
           {...register('email')}
         />
         {errors.email && (
@@ -73,10 +75,7 @@ export const RegisterForm = () => {
       </label>
       <label htmlFor="password" className={cls.registerForm__label}>
         {Placeholders.features.auth.registerForm.labels.password}
-        <PasswordInput
-          className={cls.registerForm__input}
-          {...register('password')}
-        />
+        <PasswordInput {...register('password')} />
         {errors.password && (
           <span className={cls.registerForm__errors}>
             {errors.password.message}

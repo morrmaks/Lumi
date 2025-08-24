@@ -1,4 +1,5 @@
 @import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
 
 .form() {
   .flex(column);
@@ -14,11 +15,27 @@
 }
 
 .input {
-  margin: 8px 0;
   width: 100%;
-  padding: 8px 12px;
+  background-color: var(--card-bg-color);
+  border-radius: var(--border-radius-l);
   font-weight: var(--font-regular);
   color: var(--primary-color);
+  padding: 16px 12px;
+  .selectableIcon(1, var(--muted-bg-color));
+  border: none;
+
+  &:hover {
+    .shadow(0, 4px, 8px, 0);
+    border: none;
+
+    &:focus {
+      .focusStroke();
+    }
+  }
+
+  &:disabled {
+    .shadow(0, 0, 0, 0);
+  }
 }
 
 .error {

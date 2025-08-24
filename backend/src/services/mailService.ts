@@ -37,6 +37,45 @@ class MailService {
       `,
     });
   }
+
+  async sendOrderCreated(
+    email: string,
+    orderId: string,
+    total: number,
+    paymentUrl: string,
+  ): Promise<void> {
+    await this.transporter.sendMail({
+      from: env.SMTP_USER,
+      to: email,
+      subject: `Новый заказ #${orderId}`,
+      html: `
+        <div>
+          <h2>Ваш заказ #${orderId} успешно создан</h2>
+          <p>Сумма: ${total} руб.</p>
+          <p>Перейти к оплате: <a href="${paymentUrl}">Оплатить</a></p>
+        </div>
+      `,
+    });
+  }
+
+  async sendOrderPaid(
+    email: string,
+    orderId: string,
+    total: number,
+  ): Promise<void> {
+    await this.transporter.sendMail({
+      from: env.SMTP_USER,
+      to: email,
+      subject: `Заказ #${orderId} оплачен`,
+      html: `
+        <div>
+          <h2>Ваш заказ #${orderId} оплачен</h2>
+          <p>Сумма: ${total} руб.</p>
+          <p>Спасибо за доверие!</p>
+        </div>
+      `,
+    });
+  }
 }
 
 const mailService = new MailService();

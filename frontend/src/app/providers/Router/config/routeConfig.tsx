@@ -14,6 +14,8 @@ import {
   getRouteBasket,
   getRouteCatalogCategory,
   getRouteCatalogItem,
+  getRouteOrder,
+  getRoutePaymentSuccess,
 } from '@/shared/consts/router'
 import { Navigate, RouteProps } from 'react-router-dom'
 
@@ -32,6 +34,8 @@ import { SearchPage } from '@/pages/Search'
 import { BasketPage } from '@/pages/Basket'
 import { CategoryPage } from '@/pages/CategoryPage'
 import { ProductPage } from '@/pages/ProductPage'
+import { OrderPage } from '@/pages/Order'
+import PaymentSuccessPage from '@/pages/PaymentSuccess/ui/PaymentSuccessPage'
 
 export type RouteConfigProps = {
   subRoutes?: RouteConfig
@@ -113,5 +117,15 @@ export const routeConfig: RouteConfig = {
   [AppRoutes.NOT_FOUND]: {
     path: '*',
     element: <NotFoundPage />,
+  },
+  [AppRoutes.ORDER]: {
+    path: getRouteOrder(),
+    element: <OrderPage />,
+    authOnly: true,
+  },
+  [AppRoutes.PAYMENT_SUCCESS]: {
+    path: getRoutePaymentSuccess(),
+    element: <PaymentSuccessPage />,
+    authOnly: true,
   },
 }

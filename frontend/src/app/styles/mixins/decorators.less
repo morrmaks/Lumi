@@ -34,10 +34,10 @@
   box-shadow: @offsetX @offsetY @blurRadius @spreadRadius @color;
 }
 
-.insetShadow(@shadowColor: var(--shadow-color)) {
+.insetShadow(@shadowColor: var(--shadow-color-light)) {
   box-shadow:
-    inset -10px 0 20px -5px var(--shadow-color),
-    inset 10px 0 20px -5px var(--shadow-color);
+    inset -10px 0 20px -5px var(--shadow-color-light),
+    inset 10px 0 20px -5px var(--shadow-color-light);
 }
 
 .textShadow(@offsetX: 0, @offsetY: 0, @blurRadius: 4px, @color: var(--shadow-color)) {

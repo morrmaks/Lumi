@@ -1,0 +1,31 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.orderProducts {
+  margin-top: 24px;
+  padding-bottom: 24px;
+  .borderBottom();
+
+  &__title {
+    font: var(--font-s);
+    font-weight: var(--font-bold);
+  }
+
+  &__list {
+    .flex(column, center, center);
+
+    margin-top: 12px;
+    gap: 12px;
+
+    &_product {
+      .border();
+      .hoverShadow();
+
+      width: 100%;
+      border-radius: var(--border-radius-l);
+      padding: 12px;
+      background-color: var(--card-bg-color);
+    }
+  }
+}

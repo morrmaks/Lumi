@@ -8,30 +8,33 @@ import {
   getConfiguratorComponentsList,
   getConfiguratorPrice,
 } from '@/features/Configurator'
-import { useAppSelector } from '@/shared/lib/hooks'
+import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
 import { getConfiguratorProgress } from '@/pages/Configurator'
 import { Loader } from '@/shared/ui/Loader'
 import { Suspense, useCallback } from 'react'
-import { getRouteAuth, Placeholders } from '@/shared/consts'
+import { getRouteAuth, getRouteOrder, Placeholders } from '@/shared/consts'
 import { getUserIsAuth } from '@/entities/User'
 import { useNavigate } from 'react-router-dom'
+import { AppLink } from '@/shared/ui/AppLink'
+import { orderActions } from '@/features/Order'
 
 const ConfiguratorPage = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const isAuth = useAppSelector(getUserIsAuth)
   const price = useAppSelector(getConfiguratorPrice)
   const components = useAppSelector(getConfiguratorComponentsList)
   const { total, filled, progress } = getConfiguratorProgress(components)
 
-  const createOrder = useCallback(() => {
-    if (!isAuth) return navigate(getRouteAuth())
-    console.log('createOrder')
-  }, [isAuth, navigate])
+  const handleOrder = useCallback(() => {
+    const products = Object.values(components)
+      .filter((id) => id !== null)
+      .map((id) => ({ productId: id, quantity: 1 }))
 
-  const saveConfigure = useCallback(() => {
-    if (!isAuth) return navigate(getRouteAuth())
-    console.log('saveConfigure')
-  }, [isAuth, navigate])
+    dispatch(orderActions.setProducts(products))
+    dispatch(orderActions.setIsFromOrderLink(true))
+    navigate(getRouteOrder())
+  }, [navigate, components])
 
   return (
     <PageLayout>
@@ -96,17 +99,23 @@ const ConfiguratorPage = () => {
             <div className={cls.configuratorPage__totalButtons}>
               <Button
                 className={cls.configuratorPage__totalButtons_button}
-                onClick={createOrder}
+                onClick={handleOrder}
               >
                 {Placeholders.pages.configurator.total.onPlaceAnOrder}
               </Button>
-              <Button
-                theme={ButtonTheme.OUTLINE}
-                onClick={saveConfigure}
-                className={cls.configuratorPage__totalButtons_button}
-              >
-                {Placeholders.pages.configurator.total.onCopyLinkConfig}
-              </Button>
+              {!isAuth && (
+                <AppLink
+                  to={getRouteAuth()}
+                  className={cls.configuratorPage__totalButtons_link}
+                >
+                  <Button
+                    theme={ButtonTheme.OUTLINE}
+                    className={cls.configuratorPage__totalButtons_button}
+                  >
+                    {Placeholders.pages.configurator.total.onCopyLinkConfig}
+                  </Button>
+                </AppLink>
+              )}
             </div>
             <div className={cls.configuratorPage__recommendation}>
               <h4 className={cls.configuratorPage__recommendation_title}>

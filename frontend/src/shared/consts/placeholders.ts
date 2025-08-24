@@ -28,8 +28,8 @@ export const Placeholders = {
     },
     resetPassword: {
       mainText: 'Сброс пароля',
-      describeText:
-        'Введите код из письма, отправленного на почту, и установите новый пароль',
+      describeFirstPartText: 'Введите код из письма, отправленного на почту',
+      describeSecondPartText: 'и установите новый пароль',
     },
     basket: {
       mainText: 'Корзина',
@@ -95,6 +95,11 @@ export const Placeholders = {
       mainText: 'Поиск',
       describeText: 'Поиск по сайту не работает',
     },
+    order: {
+      mainText: 'Оформление заказа',
+      describeText: 'Заполните форму, чтобы оформить заказ',
+      formTitle: 'Укажите свои данные',
+    },
   },
   widgets: {
     footer: {
@@ -157,6 +162,19 @@ export const Placeholders = {
           code: 'Введите код',
         },
         submit: 'Войти',
+      },
+    },
+    order: {
+      orderForm: {
+        labels: {
+          address: 'Адрес доставки',
+          paymentMethod: 'Способ оплаты',
+        },
+        submit: 'Сделать заказ',
+        submitWithPayment: 'Перейти к оплате',
+      },
+      addressInput: {
+        placeholder: 'Город, улица, дом, квартира',
       },
     },
     catalog: {
@@ -265,11 +283,17 @@ export const Placeholders = {
         mainText: 'Заказ',
         dateOrder: 'Заказ от',
         trackNumber: 'Номер отслеживания',
-        productsMainText: 'Товары',
+        products: {
+          mainText: 'Товары',
+          notFoundText: 'Товары не найдены',
+        },
+        onPayment: 'Оплатить',
         details: {
           mainText: 'Детали заказа',
           address: 'Адрес доставки',
-          paymentMethod: 'Метод оплаты',
+          orderPaymentText: 'Оплата заказа',
+          paymentMethod: 'Способ оплаты',
+          paymentStatus: 'Статус',
           totalPrice: 'Итого к оплате',
         },
       },

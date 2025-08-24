@@ -7,6 +7,7 @@ import { authMiddleware } from "@/middlewares/authMiddleware";
 const router = express.Router();
 
 router.get("/me", userController.getMe);
+router.get("/me/orders-count", userController.getOrdersCount);
 router.patch(
   "/me/avatar",
   uploadAvatar.single("avatar"),

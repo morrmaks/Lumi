@@ -55,7 +55,7 @@ const CategoryPage = () => {
     isFetching: productsIsFetching,
     error: productsError,
   } = useGetCategoryProductsQuery(
-    { id: category.id, search: debouncedSearch, sort, page, limit, view },
+    { id: category.id, search, sort, page, limit, view },
     { skip: !category.id }
   )
 

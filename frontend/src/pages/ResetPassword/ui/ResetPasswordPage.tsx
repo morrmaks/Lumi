@@ -5,10 +5,11 @@ import { getRouteMain } from '@/shared/consts/router'
 import { PageLayout } from '@/widgets/PageLayout'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { Placeholders } from '@/shared/consts'
-import { getIsForgotPassword } from '@/features/Auth'
+import { getForgotPasswordEmail, getIsForgotPassword } from '@/features/Auth'
 
 const ResetPasswordPage = () => {
   const isAllowed = useAppSelector(getIsForgotPassword)
+  const email = useAppSelector(getForgotPasswordEmail)
 
   if (!isAllowed) {
     return <Navigate to={getRouteMain()} replace />
@@ -22,7 +23,8 @@ const ResetPasswordPage = () => {
             {Placeholders.pages.resetPassword.mainText}
           </h3>
           <p className={cls.resetPasswordPage__description}>
-            {Placeholders.pages.resetPassword.describeText}
+            {`${Placeholders.pages.resetPassword.describeFirstPartText} ${email}
+              ${Placeholders.pages.resetPassword.describeSecondPartText}`}
           </p>
         </div>
         <ResetPasswordForm />

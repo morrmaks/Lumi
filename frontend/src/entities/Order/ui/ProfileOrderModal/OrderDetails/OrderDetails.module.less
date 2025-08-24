@@ -1,0 +1,81 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive';
+@import '@/app/styles/variables/global';
+
+.orderDetails {
+  .flex(column, start, space-between);
+  .borderBottom();
+
+  gap: 12px;
+  margin-top: 24px;
+  padding-bottom: 20px;
+
+  &__container {
+    .flex(column, space-between, center);
+
+    width: 100%;
+    gap: 16px;
+  }
+
+  &__title {
+    font: var(--font-m);
+    font-weight: var(--font-bold);
+  }
+
+  &__address {
+    color: var(--muted-color);
+
+    &_container {
+      .flex(column, start, space-between);
+
+      gap: 8px;
+    }
+
+    &_title {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+    }
+  }
+
+  &__payment {
+    .flex(column, start, space-between);
+    gap: 12px;
+
+    &_title {
+      font: var(--font-s);
+      font-weight: var(--font-bold);
+    }
+
+    &_line {
+      .borderBottom(1px, dashed, var(--muted-color));
+      flex-shrink: 1;
+      height: 10px;
+      margin: 0 8px;
+      flex-grow: 0;
+      width: 100%;
+    }
+  }
+
+  &__paymentContainers {
+    .flex(column, start, start);
+    width: 100%;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  &__paymentContainer {
+    .flex(row, center, space-between);
+    width: 100%;
+
+    &_title {
+      flex-shrink: 0;
+      font: var(--font-xs);
+      font-weight: var(--font-bold);
+    }
+
+    &_method {
+      flex-shrink: 0;
+      color: var(--muted-color);
+    }
+  }
+}

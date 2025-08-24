@@ -1,0 +1,28 @@
+@import '@/app/styles/mixins/form-elements.less';
+@import '@/app/styles/mixins/container.less';
+@import '@/app/styles/mixins/interactive.less';
+@import '@/app/styles/mixins/decorators.less';
+
+.orderForm {
+  padding-top: 24px;
+  .form();
+
+  &__label {
+    .label();
+  }
+
+  &__input {
+    .input();
+  }
+
+  &__errors {
+    .error();
+  }
+
+  &__select {
+    .hoverShadow();
+    margin-top: 8px;
+    width: max-content;
+    border-radius: var(--border-radius-l);
+  }
+}

@@ -23,7 +23,7 @@ router.use("/user", authMiddleware, userRouter);
 router.use("/categories", categoriesRouter);
 router.use("/products", productsRouter);
 router.use("/banners", bannerRouter);
-router.use("/orders", orderRouter);
+router.use("/orders", authMiddleware, orderRouter);
 router.use("/payment", paymentRouter);
 
 export { router };
