@@ -15,7 +15,7 @@ RUN cp -r /app/frontend/build/* /app/build/
 WORKDIR /app/backend
 COPY backend/package*.json ./
 ENV npm_config_ignore_scripts=true
-RUN npm ci --omit=dev
+RUN npm ci
 COPY backend/ .
 RUN npm run build
 
