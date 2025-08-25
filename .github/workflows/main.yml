@@ -1,0 +1,78 @@
+name: CI & Docker Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  test-lint-build:
+    runs-on: ubuntu-latest
+    concurrency: ci-${{ github.ref}}
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Starting Node.js ${{matrix.node-version}}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node-version}}
+
+      - name: Install backend dependencies
+        run: cd backend && npm ci
+
+      - name: Backend build
+        run: cd backend && npm run build
+
+      - name: Install frontend dependencies
+        run: cd frontend && npm ci
+
+      - name: Frontend lint
+        run: npm run lint:ts
+
+      - name: Frontend build
+        run: npm run build:prod
+
+  build-and-push-docker:
+    needs: test-lint-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Log in to DockerHub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build and push backend
+        run: |
+          docker build \
+            --build-arg NODE_ENV=production \
+            --build-arg PORT=4000 \
+            --build-arg DB_URL=${{ secrets.DB_URL }} \
+            --build-arg JWT_ACCESS_SECRET=${{ secrets.JWT_ACCESS_SECRET }} \
+            --build-arg JWT_REFRESH_SECRET=${{ secrets.JWT_REFRESH_SECRET }} \
+            --build-arg SMTP_HOST=${{ secrets.SMTP_HOST }} \
+            --build-arg SMTP_PORT=${{ secrets.SMTP_PORT }} \
+            --build-arg SMTP_USER=${{ secrets.SMTP_USER }} \
+            --build-arg SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }} \
+            --build-arg API_URL=${{ secrets.API_URL }} \
+            --build-arg CLIENT_URL=${{ secrets.CLIENT_URL }} \
+            --build-arg YOO_SHOP_ID=${{ secrets.YOO_SHOP_ID }} \
+            --build-arg YOO_SECRET_KEY=${{ secrets.YOO_SECRET_KEY }} \
+            -t ${{ secrets.DOCKER_USERNAME }}/lumi-backend ./backend
+          docker push ${{ secrets.DOCKER_USERNAME }}/lumi-backend
+
+      - name: Build and push frontend
+        run: |
+          docker build \
+            --build-arg BASE_API=/api \
+            --build-arg STATIC=/static/ \
+            --build-arg YA_SUGGEST_API_KEY=${{ secrets.YA_SUGGEST_API_KEY }} \
+            -t ${{ secrets.DOCKER_USERNAME }}/lumi-frontend ./frontend
+          docker push ${{ secrets.DOCKER_USERNAME }}/lumi-frontend

@@ -1,9 +1,11 @@
+import { getEnv } from '@/shared/lib/utils/env'
+
 export const ApiMap = {
   YA_SUGGEST: 'https://suggest-maps.yandex.ru/v1/',
   // BASE_API: 'https://locally-famed-cotinga.cloudpub.ru/api',
   // STATIC: 'https://locally-famed-cotinga.cloudpub.ru/static/',
-  BASE_API: 'http://localhost:4000/api',
-  STATIC: 'http://localhost:4000/static/',
+  BASE_API: getEnv('BASE_API'),
+  STATIC: getEnv('STATIC'),
 
   // Auth
   REGISTER: '/auth/register',

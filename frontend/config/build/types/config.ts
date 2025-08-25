@@ -10,6 +10,8 @@ export interface BuildPaths {
   build: string
   html: string
   src: string
+  envStack: string
+  envFile: string
 }
 
 export interface BuildOptions {
