@@ -50,10 +50,12 @@ jobs:
 
       - name: Build and push backend
         run: |
+          echo "Building backend..."
           docker build \
-            --build-arg DB_URL=${{ secrets.DB_URL }} \
+            --build-arg DB_URL="${{ secrets.DB_URL }}" \
             -t ${{ secrets.DOCKER_USERNAME }}/lumi-backend ./backend
           docker push ${{ secrets.DOCKER_USERNAME }}/lumi-backend
+        shell: bash
 
       - name: Build and push frontend
         run: |
