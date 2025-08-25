@@ -12,9 +12,10 @@ export const env = {
   SMTP_USER: getEnv("SMTP_USER"),
   SMTP_PASSWORD: getEnv("SMTP_PASSWORD"),
   API_URL: getEnv("API_URL"),
-  CLIENT_DEV_URL: getEnv("CLIENT_DEV_URL"),
-  CLIENT_PROD_URL: getEnv("CLIENT_PROD_URL"),
-  CLIENT_PROD_NGINX: getEnv("CLIENT_PROD_NGINX"),
+  CLIENT_URL:
+    getEnv("NODE_ENV") === "production"
+      ? getEnv("CLIENT_URL")
+      : getEnv("CLIENT_DEV_URL"),
   YOO_SHOP_ID: getEnv("YOO_SHOP_ID"),
   YOO_SECRET_KEY: getEnv("YOO_SECRET_KEY"),
 };

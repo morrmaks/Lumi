@@ -8,7 +8,7 @@ import { wishlistProductsReducer } from '@/features/Wishlist'
 import { basketProductsReducer } from '@/features/Basket'
 import { authReducer, userReducer } from '@/entities/User'
 import { configuratorComponentsReducer } from '@/features/Configurator'
-import { rtkApi, yaSuggeestApi } from '@/shared/api'
+import { rtkApi, yaSuggestApi } from '@/shared/api'
 import { forgotPasswordReducer } from '@/features/Auth'
 import { orderReducer } from '@/features/Order'
 
@@ -23,7 +23,7 @@ export const createReduxStore = (initialState?: StateSchema) => {
     wishlistProducts: wishlistProductsReducer,
     basketProducts: basketProductsReducer,
     configuratorComponents: configuratorComponentsReducer,
-    [yaSuggeestApi.reducerPath]: yaSuggeestApi.reducer,
+    [yaSuggestApi.reducerPath]: yaSuggestApi.reducer,
     [rtkApi.reducerPath]: rtkApi.reducer,
   }
 
@@ -35,7 +35,7 @@ export const createReduxStore = (initialState?: StateSchema) => {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat([
         rtkApi.middleware,
-        yaSuggeestApi.middleware,
+        yaSuggestApi.middleware,
       ]),
   })
 

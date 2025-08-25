@@ -9,12 +9,12 @@ import { AuthSchema, UserSchema } from '@/entities/User'
 import { ConfiguratorComponentsSchema } from '@/features/Configurator'
 import { CategoryPageSchema } from '@/pages/CategoryPage'
 import { ProductPageSchema } from '@/pages/ProductPage'
-import { rtkApi, yaSuggeestApi } from '@/shared/api'
+import { rtkApi, yaSuggestApi } from '@/shared/api'
 import { OrderSchema } from '@/features/Order'
 
 export interface StateSchema {
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>
-  [yaSuggeestApi.reducerPath]: ReturnType<typeof yaSuggeestApi.reducer>
+  [yaSuggestApi.reducerPath]: ReturnType<typeof yaSuggestApi.reducer>
   user: UserSchema
   auth: AuthSchema
   order: OrderSchema

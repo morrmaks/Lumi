@@ -8,13 +8,6 @@ import { router } from "@/router";
 import { errorMiddleware } from "@/middlewares/errorMiddleware";
 import path from "path";
 import { env } from "@/config/env";
-
-const allowedOrigins = [
-  env.CLIENT_DEV_URL,
-  env.CLIENT_PROD_URL,
-  env.CLIENT_PROD_NGINX,
-];
-
 const app = express();
 
 app.set("trust proxy", 1);
@@ -31,13 +24,7 @@ app.use(cookieParser());
 // app.use(cors());
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error(`Not allowed by CORS: ${origin}`));
-      }
-    },
+    origin: env.CLIENT_URL,
     credentials: true,
   }),
 );

@@ -4,7 +4,7 @@ WORKDIR /app
 RUN apk add --no-cache curl
 COPY package*.json ./
 RUN npm ci
-COPY . .
+COPY ../.. .
 RUN npm run build
 
 FROM node:20-alpine AS runner
@@ -18,6 +18,6 @@ COPY --from=builder /app/dist ./dist
 
 ENV NODE_ENV=production
 ENV PORT=4000
-EXPOSE ${PORT}
+EXPOSE 4000
 
 CMD ["node", "dist/src/index.js"]
