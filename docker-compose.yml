@@ -8,7 +8,7 @@ services:
         STATIC: /static/
         YA_SUGGEST_API_KEY: ${YA_SUGGEST_API_KEY}
     ports:
-      - "9000:80"
+      - "9000:9000"
     depends_on:
       backend:
         condition: service_healthy
