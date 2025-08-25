@@ -5,11 +5,11 @@ RUN npm ci
 COPY frontend/ .
 RUN npm run build:prod
 
+
 FROM node:20-alpine AS backend-build
 WORKDIR /app
-RUN apk add --no-cache curl
 COPY backend/package*.json ./
-RUN npm ci
+RUN npm ci --omit=dev
 COPY backend/ .
 RUN npm run build
 
@@ -20,10 +20,9 @@ RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=frontend-build /app/build /usr/share/nginx/html
 
-COPY --from=backend-build /app/dist /app/backend
+COPY --from=backend-build /app/dist /app/backend/dist
+COPY --from=backend-build /app/node_modules /app/backend/node_modules
 COPY backend/package*.json /app/backend/
-WORKDIR /app/backend
-RUN npm ci --omit=dev
 
 ENV NODE_ENV=production
 ENV PORT=4000
