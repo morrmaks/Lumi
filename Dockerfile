@@ -9,7 +9,8 @@ RUN npm run build:prod
 FROM node:20-alpine AS backend-build
 WORKDIR /app
 COPY backend/package*.json ./
-RUN npm ci --omit=dev
+RUN npm set-script prepare "" \
+    && npm ci --omit=dev
 COPY backend/ .
 RUN npm run build
 
