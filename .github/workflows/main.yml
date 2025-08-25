@@ -48,6 +48,11 @@ jobs:
       - name: Log in to DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
+      - name: Debug files
+        run: |
+          ls -la
+          head -n 40 Dockerfile
+
       - name: Build and push backend
         run: |
           docker build \
@@ -67,5 +72,6 @@ jobs:
             --build-arg CLIENT_URL="${{ secrets.CLIENT_URL }}" \
             --build-arg YOO_SHOP_ID="${{ secrets.YOO_SHOP_ID }}" \
             --build-arg YOO_SECRET_KEY="${{ secrets.YOO_SECRET_KEY }}" \
+            -f ./Dockerfile \
             -t ${{ secrets.DOCKER_USERNAME }}/lumi-app .
           docker push ${{ secrets.DOCKER_USERNAME }}/lumi-app
