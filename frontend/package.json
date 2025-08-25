@@ -14,7 +14,8 @@
   },
   "homepage": "https://github.com/morrmaks/Lumi#readme",
   "scripts": {
-    "start:vite": "vite",
+    "start:dev:vite": "vite",
+    "start:dev:webpack": "webpack serve --env mode=development port=3000",
     "start:webpack": "webpack serve --env port=3000",
     "build:prod": "webpack --env mode=production",
     "build:dev": "webpack --env mode=development",

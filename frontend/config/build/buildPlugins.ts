@@ -12,7 +12,14 @@ export const buildPlugins = ({
   paths,
 }: BuildOptions): webpack.WebpackPluginInstance[] => {
   const isProd = !isDev
-  const env = config().parsed || {}
+
+  let env = {}
+  const envFiles = [paths.envStack, paths.envFile]
+
+  envFiles.forEach((file) => {
+    const parsed = config({ path: file }).parsed || {}
+    env = { ...env, ...parsed }
+  })
 
   const plugins = [
     new HtmlWebpackPlugin({

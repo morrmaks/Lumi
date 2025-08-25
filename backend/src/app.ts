@@ -17,6 +17,7 @@ const allowedOrigins = [
 
 const app = express();
 
+app.set("trust proxy", 1);
 app.use(
   rateLimit({
     windowMs: 60 * 1000,
@@ -28,7 +29,6 @@ app.use(compression());
 app.use(express.json());
 app.use(cookieParser());
 // app.use(cors());
-app.set("trust proxy", true);
 app.use(
   cors({
     origin: (origin, callback) => {
