@@ -50,8 +50,7 @@ jobs:
 
       - name: Build and push backend
         run: |
-          docker build --build-arg NODE_ENV=production \
-            --build-arg PORT=4000 \
+          docker build --build-arg NODE_ENV=production --build-arg PORT=4000 \
             --build-arg DB_URL=${{ secrets.DB_URL }} \
             --build-arg JWT_ACCESS_SECRET=${{ secrets.JWT_ACCESS_SECRET }} \
             --build-arg JWT_REFRESH_SECRET=${{ secrets.JWT_REFRESH_SECRET }} \
