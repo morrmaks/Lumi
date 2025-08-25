@@ -9,7 +9,10 @@ export default (env: BuildEnv) => {
     build: path.resolve(__dirname, 'build'),
     html: path.resolve(__dirname, 'public', 'index.html'),
     src: path.resolve(__dirname, 'src'),
-    envStack: path.resolve(__dirname, env.mode === 'development' ? '.env.development' : '.env.production'),
+    envStack: path.resolve(
+      __dirname,
+      env.mode === 'development' ? '.env.development' : '.env.production'
+    ),
     envFile: path.resolve(__dirname, '.env'),
   }
 

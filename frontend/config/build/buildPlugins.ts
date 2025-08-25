@@ -6,7 +6,6 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import { config } from 'dotenv'
-import path from 'path'
 
 export const buildPlugins = ({
   isDev,
@@ -15,12 +14,9 @@ export const buildPlugins = ({
   const isProd = !isDev
 
   let env = {}
-  const envFiles = [
-    paths.envStack,
-    paths.envFile,
-  ]
+  const envFiles = [paths.envStack, paths.envFile]
 
-  envFiles.forEach(file => {
+  envFiles.forEach((file) => {
     const parsed = config({ path: file }).parsed || {}
     env = { ...env, ...parsed }
   })
