@@ -1,44 +1,40 @@
-FROM node:20-alpine AS frontend-build
-WORKDIR /app
+
+FROM node:20-alpine AS build
+
+RUN apk add --no-cache curl bash
+
+WORKDIR /app/frontend
 COPY frontend/package*.json ./
 RUN npm ci
 COPY frontend/ .
 RUN npm run build:prod
 
+RUN mkdir -p /app/build
+RUN cp -r /app/frontend/build/* /app/build/
 
-FROM node:20-alpine AS backend-build
-WORKDIR /app
+WORKDIR /app/backend
 COPY backend/package*.json ./
 ENV npm_config_ignore_scripts=true
 RUN npm ci --omit=dev
 COPY backend/ .
 RUN npm run build
 
-FROM nginx:stable-alpine
+FROM node:20-alpine
+
+RUN apk add --no-cache nginx bash
+
 WORKDIR /app
 
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=frontend-build /app/build /usr/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/backend /app/backend
 
-COPY --from=backend-build /app/dist /app/backend/dist
-COPY --from=backend-build /app/node_modules /app/backend/node_modules
-COPY backend/package*.json /app/backend/
+COPY --from=build /app/backend/node_modules /app/backend/node_modules
 
-ENV NODE_ENV=production
-ENV PORT=4000
-#ENV DB_URL=${DB_URL}
-#ENV JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
-#ENV JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
-#ENV SMTP_HOST=${SMTP_HOST}
-#ENV SMTP_PORT=${SMTP_PORT}
-#ENV SMTP_USER=${SMTP_USER}
-#ENV SMTP_PASSWORD=${SMTP_PASSWORD}
-#ENV API_URL=${API_URL}
-#ENV CLIENT_URL=${CLIENT_URL}
-#ENV YOO_SHOP_ID=${YOO_SHOP_ID}
-#ENV YOO_SECRET_KEY=${YOO_SECRET_KEY}
+COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
 EXPOSE 80
 
-CMD sh -c "node /app/backend/dist/src/index.js & nginx -g 'daemon off;'"
+CMD ["/app/start.sh"]
