@@ -48,6 +48,15 @@ jobs:
       - name: Log in to DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
+      - name: Build and push frontend
+        run: |
+          docker build \
+            --build-arg BASE_API=/api \
+            --build-arg STATIC=/static/ \
+            --build-arg YA_SUGGEST_API_KEY=${{ secrets.YA_SUGGEST_API_KEY }} \
+            -t ${{ secrets.DOCKER_USERNAME }}/lumi-frontend ./frontend
+          docker push ${{ secrets.DOCKER_USERNAME }}/lumi-frontend
+
       - name: Build and push backend
         run: |
           docker build \
@@ -66,12 +75,3 @@ jobs:
           --build-arg YOO_SECRET_KEY=${{ secrets.YOO_SECRET_KEY }} \
           -t ${{ secrets.DOCKER_USERNAME }}/lumi-backend ./backend
           docker push ${{ secrets.DOCKER_USERNAME }}/lumi-backend
-
-      - name: Build and push frontend
-        run: |
-          docker build \
-            --build-arg BASE_API=/api \
-            --build-arg STATIC=/static/ \
-            --build-arg YA_SUGGEST_API_KEY=${{ secrets.YA_SUGGEST_API_KEY }} \
-            -t ${{ secrets.DOCKER_USERNAME }}/lumi-frontend ./frontend
-          docker push ${{ secrets.DOCKER_USERNAME }}/lumi-frontend
