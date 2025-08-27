@@ -79,9 +79,9 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@v0.1.8
         with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          host: "${{ secrets.SERVER_IP }}"
+          username: "${{ secrets.SERVER_USER }}"
+          key: "${{ secrets.SERVER_SSH_KEY }}"
           script: |
             docker-compose -f /root/lumi-docker-compose.yml pull
             docker-compose -f /root/lumi-docker-compose.yml up -d
