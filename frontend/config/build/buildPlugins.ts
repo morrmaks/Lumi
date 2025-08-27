@@ -29,7 +29,9 @@ export const buildPlugins = ({
     new webpack.DefinePlugin({
       'process.env.BASE_API': JSON.stringify(process.env.BASE_API),
       'process.env.STATIC': JSON.stringify(process.env.STATIC),
-      'process.env.YA_SUGGEST_API_KEY': JSON.stringify(process.env.YA_SUGGEST_API_KEY),
+      'process.env.YA_SUGGEST_API_KEY': JSON.stringify(
+        process.env.YA_SUGGEST_API_KEY
+      ),
     }),
     new ForkTsCheckerWebpackPlugin({
       typescript: {
