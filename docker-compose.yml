@@ -1,29 +1,33 @@
+version: "3.9"
+
 services:
+  backend:
+    image: morrmaks/lumi-backend:latest
+    container_name: lumi-backend
+    env_file:
+      - /root/lumi-backend-config/.env
+    networks:
+      - lumi-net
+    ports:
+      - "4000:4000"
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/api/health"]
+      interval: 10s
+      retries: 5
+
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: ../Dockerfile
-      args:
-        BASE_API: ${BASE_API}
-        STATIC: ${STATIC}
-        YA_SUGGEST_API_KEY: ${YA_SUGGEST_API_KEY}
+    image: morrmaks/lumi-frontend:latest
+    container_name: lumi-frontend
+    networks:
+      - lumi-net
     ports:
       - "80:80"
     depends_on:
       backend:
         condition: service_healthy
-    restart: on-failure
+    restart: always
 
-  backend:
-    build:
-      context: ./backend
-      dockerfile: ../Dockerfile
-    env_file:
-      - ./backend/.env
-    expose:
-      - "4000"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4000/api/health"]
-      interval: 10s
-      retries: 5
-    restart: on-failure
+networks:
+  lumi-net:
+    external: true

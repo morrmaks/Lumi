@@ -75,3 +75,13 @@ jobs:
             --build-arg YOO_SECRET_KEY="${{ secrets.YOO_SECRET_KEY }}" \
             -t ${{ secrets.DOCKER_USERNAME }}/lumi-backend ./backend
           docker push ${{ secrets.DOCKER_USERNAME }}/lumi-backend
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            docker-compose -f /root/lumi-docker-compose.yml pull
+            docker-compose -f /root/lumi-docker-compose.yml up -d
