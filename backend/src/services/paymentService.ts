@@ -79,8 +79,7 @@ class PaymentService {
       capture: true,
       confirmation: {
         type: "redirect",
-        return_url: `https://greatly-gainful-rockhopper.cloudpub.ru/payment-success?orderId=${orderId}`,
-        // return_url: `${env.CLIENT_PROD_URL}/payment/success`,
+        return_url: `${env.CLIENT_URL}/payment-success?orderId=${orderId}`,
       },
       description,
       metadata: { orderId },

@@ -60,19 +60,6 @@ jobs:
       - name: Build and push backend
         run: |
           docker build \
-            --build-arg NODE_ENV="${{ secrets.NODE_ENV }}" \
-            --build-arg PORT="${{ secrets.PORT }}" \
-            --build-arg DB_URL="${{ secrets.DB_URL }}" \
-            --build-arg JWT_ACCESS_SECRET="${{ secrets.JWT_ACCESS_SECRET }}" \
-            --build-arg JWT_REFRESH_SECRET="${{ secrets.JWT_REFRESH_SECRET }}" \
-            --build-arg SMTP_HOST="${{ secrets.SMTP_HOST }}" \
-            --build-arg SMTP_PORT="${{ secrets.SMTP_PORT }}" \
-            --build-arg SMTP_USER="${{ secrets.SMTP_USER }}" \
-            --build-arg SMTP_PASSWORD="${{ secrets.SMTP_PASSWORD }}" \
-            --build-arg API_URL="${{ secrets.API_URL }}" \
-            --build-arg CLIENT_URL="${{ secrets.CLIENT_URL }}" \
-            --build-arg YOO_SHOP_ID="${{ secrets.YOO_SHOP_ID }}" \
-            --build-arg YOO_SECRET_KEY="${{ secrets.YOO_SECRET_KEY }}" \
             -t ${{ secrets.DOCKER_USERNAME }}/lumi-backend ./backend
           docker push ${{ secrets.DOCKER_USERNAME }}/lumi-backend
 
@@ -83,5 +70,6 @@ jobs:
           username: "${{ secrets.SERVER_USER }}"
           key: "${{ secrets.SERVER_SSH_KEY }}"
           script: |
-            docker-compose -f /root/lumi-docker-compose.yml pull
-            docker-compose -f /root/lumi-docker-compose.yml up -d
+            docker compose -f lumi-docker-compose.yml pull
+            docker compose -f lumi-docker-compose.yml down
+            docker compose -f lumi-docker-compose.yml up -d --remove-orphans --force-recreate
