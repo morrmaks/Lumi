@@ -1,6 +1,8 @@
 import nodemailer from "nodemailer";
 import { env } from "@/config/env";
-import { IUser, UserModel } from "@/models/userModel";
+import { Logger } from "@/lib/logger";
+
+const logger = new Logger("MAIL");
 
 class MailService {
   transporter;
@@ -9,7 +11,7 @@ class MailService {
     this.transporter = nodemailer.createTransport({
       host: env.SMTP_HOST,
       port: Number(env.SMTP_PORT),
-      secure: false,
+      secure: Number(env.SMTP_PORT) === 465,
       auth: {
         user: env.SMTP_USER,
         pass: env.SMTP_PASSWORD,
@@ -23,8 +25,23 @@ class MailService {
       .padStart(length, "0");
   }
 
+  async sendMailSafe(
+    mailOptions: Parameters<typeof this.transporter.sendMail>[0],
+  ) {
+    try {
+      const info = await this.transporter.sendMail(mailOptions);
+      logger.info("Email отправлен:", {
+        messageId: info.messageId,
+        to: mailOptions.to,
+      });
+    } catch (e) {
+      console.error("Ошибка отправки email:", { error: e, to: mailOptions.to });
+      throw e;
+    }
+  }
+
   async sendVerificationCode(email: string, code: string): Promise<void> {
-    await this.transporter.sendMail({
+    await this.sendMailSafe({
       from: env.SMTP_USER,
       to: email,
       subject: "Верификация аккаунта",
@@ -44,7 +61,7 @@ class MailService {
     total: number,
     paymentUrl: string,
   ): Promise<void> {
-    await this.transporter.sendMail({
+    await this.sendMailSafe({
       from: env.SMTP_USER,
       to: email,
       subject: `Новый заказ #${orderNumber}`,
@@ -63,7 +80,7 @@ class MailService {
     orderNumber: string,
     total: number,
   ): Promise<void> {
-    await this.transporter.sendMail({
+    await this.sendMailSafe({
       from: env.SMTP_USER,
       to: email,
       subject: `Заказ #${orderNumber} оплачен`,

@@ -19,8 +19,11 @@ services:
     container_name: lumi-frontend
     networks:
       - lumi-net
+    volumes:
+      - /etc/nginx/ssl:/etc/nginx/ssl:ro
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       backend:
         condition: service_healthy
