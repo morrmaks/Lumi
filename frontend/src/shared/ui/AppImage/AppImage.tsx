@@ -4,7 +4,7 @@ import {
   ImgHTMLAttributes,
   memo,
   ReactElement,
-  useCallback,
+  useCallback, useEffect,
   useLayoutEffect,
   useState,
 } from 'react'
@@ -39,28 +39,36 @@ export const CustomImage = ({
   const [hasError, setHasError] = useState(false)
   const [timeoutReached, setTimeoutReached] = useState(false)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    if (!src) return
+
+    let isMounted = true
     const img = new Image()
-    console.log('таймер пошел')
+
     const timeout = setTimeout(() => {
-      console.log('таймер прошел')
+      if (!isMounted) return
       setTimeoutReached(true)
       setIsLoading(false)
-    }, 10000)
+    }, 30000)
 
-    img.src = src ?? ''
+    img.src = src
     img.onload = () => {
-      setIsLoading(false)
+      if (!isMounted) return
       clearTimeout(timeout)
+      setIsLoading(false)
     }
     img.onerror = () => {
-      setHasError(true)
+      if (!isMounted) return
       clearTimeout(timeout)
+      setHasError(true)
       setIsLoading(false)
       setTimeoutReached(true)
     }
 
-    return () => clearTimeout(timeout)
+    return () => {
+      isMounted = false
+      clearTimeout(timeout)
+    }
   }, [src])
 
   const handleClick = useCallback(
