@@ -4,7 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import CopyPlugin from 'copy-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import { config } from 'dotenv'
 
@@ -28,9 +28,7 @@ export const buildPlugins = ({
       favicon: paths.favicon,
     }),
     new CopyPlugin({
-      patterns: [
-        { from: paths.favicon, to: '' },
-      ]
+      patterns: [{ from: paths.favicon, to: '' }],
     }),
     new webpack.ProgressPlugin(),
     new webpack.DefinePlugin({
