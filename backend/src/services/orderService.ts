@@ -152,7 +152,7 @@ class OrderService {
       const quantity =
         products.find((p) => p.productId === product._id.toString())
           ?.quantity || 1;
-      return sum + product.price * quantity;
+      return sum + product.discountPrice * quantity;
     }, 0);
   }
 
