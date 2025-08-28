@@ -46,6 +46,7 @@ import GridSvg from '@/shared/assets/icons/grid.svg?react'
 import ListSvg from '@/shared/assets/icons/list.svg?react'
 import CircleSvg from '@/shared/assets/icons/circle-x.svg?react'
 import CircleCheckSvg from '@/shared/assets/icons/circle-check.svg?react'
+import ShoppingBagSvg from '@/shared/assets/icons/shopping-bag.svg?react'
 
 export const IconsMap = {
   PROFILE: ProfileSvg,
@@ -96,6 +97,7 @@ export const IconsMap = {
   LIST: ListSvg,
   ERROR: CircleSvg,
   SUCCESS: CircleCheckSvg,
+  SHOP: ShoppingBagSvg
 } as const
 
 export type IconsMap = (typeof IconsMap)[keyof typeof IconsMap]

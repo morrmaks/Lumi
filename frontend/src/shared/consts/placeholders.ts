@@ -118,6 +118,10 @@ export const Placeholders = {
           'Если хотите, вы можете оплатить заказ онлайн прямо сейчас.',
         buttonText: 'Оплатить онлайн',
       },
+      linkButtons: {
+        onRouteCatalog: 'Продолжить покупки',
+        onRouteWishlist: 'Избранные товары',
+      },
       nextSteps: {
         mainText: 'Что дальше?',
       },

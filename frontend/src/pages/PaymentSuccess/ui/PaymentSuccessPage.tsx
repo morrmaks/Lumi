@@ -8,6 +8,7 @@ import { Navigate } from 'react-router-dom'
 import { PaymentSuccessHeader } from './Header'
 import {
   PaymentSuccessInfoCards,
+  PaymentSuccessLinkButtons,
   PaymentSuccessNextSteps,
   PaymentSuccessPayInfo,
 } from '@/pages/PaymentSuccess'
@@ -18,9 +19,9 @@ const PaymentSuccessPage = () => {
   const orderId = searchParams.get('orderId')
   const { data, isLoading } = useGetOrderValidateQuery(orderId ?? skipToken)
 
-  if (isLoading) return <Loader />
-
-  if (!isLoading && !data?.orderNumber) return <Navigate to={getRouteMain()} />
+  // if (isLoading) return <Loader />
+  //
+  // if (!isLoading && !data?.orderNumber) return <Navigate to={getRouteMain()} />
 
   const showPaymentSection =
     data?.paymentMethod === PaymentMethods.CASH ||
@@ -44,6 +45,7 @@ const PaymentSuccessPage = () => {
               paymentUrl={data.paymentUrl}
             />
           )}
+          <PaymentSuccessLinkButtons />
         </div>
         <PaymentSuccessNextSteps />
       </div>

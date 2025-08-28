@@ -1,0 +1,36 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/variables/global';
+@import '@/app/styles/mixins/interactive';
+
+.paymentSuccessLinkButtons {
+  .flex(column, center);
+  gap: 8px;
+  margin-top: 32px;
+  width: 100%;
+
+  @media @breakpoint-sm {
+    .flex();
+    gap: 12px;
+  }
+
+  &__link {
+    width: 100%;
+
+    @media @breakpoint-sm {
+      width: auto;
+    }
+  }
+
+  &__button {
+    .flex();
+    gap: 16px;
+    width: 100%;
+
+    @media @breakpoint-sm {
+      width: auto;
+    }
+
+    &_icon {
+    }
+  }
+}
