@@ -1,7 +1,7 @@
 import cls from './ProductImages.module.less'
 import { AppImage } from '@/shared/ui/AppImage'
-import { classNames, fullImageUrl } from '@/shared/lib/utils'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { classNames } from '@/shared/lib/utils'
+import { useCallback, useEffect, useState } from 'react'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { getProductCard } from '@/pages/ProductPage'
 import {
@@ -23,14 +23,9 @@ export const ProductImages = ({ isLoading }: ProductImagesProps) => {
 
   useEffect(() => {
     if (images) {
-      setFullImage({ src: fullImageUrls[0], index: 0 })
+      setFullImage({ src: images[0], index: 0 })
     }
   }, [images])
-
-  const fullImageUrls = useMemo(
-    () => images.map((img) => fullImageUrl(img)),
-    [images]
-  )
 
   const changeFullImage = useCallback((image: string, index: number) => {
     setFullImage((prev) => {
@@ -52,7 +47,7 @@ export const ProductImages = ({ isLoading }: ProductImagesProps) => {
   return (
     <div className={cls.productImages}>
       <div className={cls.productImages__selector}>
-        {fullImageUrls.map((image, i) => (
+        {images.map((image, i) => (
           <AppImage
             key={image}
             src={image}
@@ -67,7 +62,7 @@ export const ProductImages = ({ isLoading }: ProductImagesProps) => {
       </div>
       <div className={cls.productImages__fullImage_container}>
         <AppImage
-          src={fullImage.src ?? fullImageUrls[0]}
+          src={fullImage.src ?? images[0]}
           alt={name}
           onClick={handleImageModalOpen}
           className={cls.productImages__fullImage}

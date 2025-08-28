@@ -5,7 +5,6 @@ import { AppImage } from '@/shared/ui/AppImage'
 import { useMemo } from 'react'
 import { getPriceOrderCard } from '@/entities/Order'
 import { Placeholders } from '@/shared/consts'
-import { fullImageUrl } from '@/shared/lib/utils'
 import { IOrderProductFull } from '@/features/Order'
 
 interface ProductCardProps {
@@ -28,7 +27,7 @@ export const ProductOrderCard = ({ card }: ProductCardProps) => {
       <div className={cls.productOrderCard__meta}>
         <AppImage
           className={cls.productOrderCard__image}
-          src={fullImageUrl(image)}
+          src={image}
           alt={name}
         />
         <div>

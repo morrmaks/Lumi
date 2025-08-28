@@ -9,7 +9,6 @@ import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { AppImage } from '@/shared/ui/AppImage'
 import { useCallback } from 'react'
-import { fullImageUrl } from '@/shared/lib/utils'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { getUserIsAuth } from '@/entities/User'
 import {
@@ -60,7 +59,7 @@ export const ConfiguratorComponentCardFull = ({
           className={cls.configuratorComponentCardFull__itemLink}
         >
           <AppImage
-            src={fullImageUrl(image)}
+            src={image}
             alt={name}
             className={cls.configuratorComponentCardFull__image}
           />

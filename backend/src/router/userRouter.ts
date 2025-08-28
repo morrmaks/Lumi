@@ -1,8 +1,7 @@
 import express from "express";
 import { body } from "express-validator";
 import { userController } from "@/controllers/userController";
-import { uploadAvatar } from "@/middlewares/uploadMiddleware";
-import { authMiddleware } from "@/middlewares/authMiddleware";
+import { avatarStorage } from "@/middlewares/uploadMiddleware";
 
 const router = express.Router();
 
@@ -10,7 +9,7 @@ router.get("/me", userController.getMe);
 router.get("/me/orders-count", userController.getOrdersCount);
 router.patch(
   "/me/avatar",
-  uploadAvatar.single("avatar"),
+  avatarStorage.single("avatar"),
   userController.updateAvatar,
 );
 router.patch(

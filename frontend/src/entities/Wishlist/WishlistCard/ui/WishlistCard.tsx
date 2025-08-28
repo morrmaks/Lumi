@@ -7,7 +7,7 @@ import { getRouteCatalogItem } from '@/shared/consts/router'
 import { AppLink } from '@/shared/ui/AppLink'
 import { AppImage } from '@/shared/ui/AppImage'
 import { useBreakpoint } from '@/shared/lib/hooks'
-import { fullImageUrl, getIconTheme } from '@/shared/lib/utils'
+import { getIconTheme } from '@/shared/lib/utils'
 import { Placeholders } from '@/shared/consts'
 import { IWishlistProduct } from '@/features/Wishlist'
 import { memo, useCallback } from 'react'
@@ -60,7 +60,7 @@ export const WishlistCard = memo(
           <AppLink to={getRouteCatalogItem(categorySlug, id)}>
             <div className={cls.wishlistCard__details}>
               <AppImage
-                src={fullImageUrl(image)}
+                src={image}
                 alt={name}
                 className={cls.wishlistCard__image}
               />

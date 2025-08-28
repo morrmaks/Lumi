@@ -1,7 +1,6 @@
 export const ApiMap = {
   YA_SUGGEST: 'https://suggest-maps.yandex.ru/v1/',
   BASE_API: process.env.BASE_API,
-  STATIC: process.env.STATIC,
 
   // Auth
   REGISTER: '/auth/register',

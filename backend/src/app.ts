@@ -6,7 +6,6 @@ import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import { router } from "@/router";
 import { errorMiddleware } from "@/middlewares/errorMiddleware";
-import path from "path";
 import { env } from "@/config/env";
 const app = express();
 
@@ -25,14 +24,6 @@ app.use(
   cors({
     origin: env.CLIENT_URL,
     credentials: true,
-  }),
-);
-app.use(
-  "/static",
-  express.static(path.join(process.cwd(), "static"), {
-    setHeaders: (res) => {
-      res.set("Cross-Origin-Resource-Policy", "cross-origin");
-    },
   }),
 );
 app.use("/api", router);

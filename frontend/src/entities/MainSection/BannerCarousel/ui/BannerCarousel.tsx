@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { IconsMap } from '@/shared/consts'
 import { Icon } from '@/shared/ui/Icon'
 import cls from './BannerCarousel.module.less'
-import { classNames, fullImageUrl } from '@/shared/lib/utils'
+import { classNames } from '@/shared/lib/utils'
 import { AppImage } from '@/shared/ui/AppImage'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { AppLink } from '@/shared/ui/AppLink'
@@ -84,7 +84,7 @@ export const BannerCarousel = () => {
           >
             <AppLink to={route}>
               <AppImage
-                src={fullImageUrl(image)}
+                src={image}
                 alt={title}
                 className={cls.bannerCarousel__bannerItem_image}
               />

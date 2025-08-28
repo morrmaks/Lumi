@@ -5,7 +5,6 @@ import { useCallback } from 'react'
 import { usePatchAvatarMutation } from '@/entities/User/api'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { getUserData } from '@/entities/User'
-import { fullImageUrl } from '@/shared/lib/utils'
 
 export const ProfileAvatar = () => {
   const [setAvatar, { isLoading }] = usePatchAvatarMutation()
@@ -26,7 +25,7 @@ export const ProfileAvatar = () => {
     <div>
       <label htmlFor="avatar-upload">
         <AppImage
-          src={fullImageUrl(avatarUrl ?? '')}
+          src={avatarUrl ?? ''}
           alt={`avatar ${name}`}
           className={cls.profileAvatar__label}
         />

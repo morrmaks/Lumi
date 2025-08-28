@@ -3,7 +3,6 @@ import { ComponentTypes, IConfiguratorComponent } from '@/features/Configurator'
 import { AppImage } from '@/shared/ui/AppImage'
 import { ConfiguratorComponentSelectButtons } from '@/entities/Configurator'
 import { useState, useCallback, MouseEvent } from 'react'
-import { fullImageUrl } from '@/shared/lib/utils'
 
 interface ConfiguratorComponentCardCompactProps {
   componentName: ComponentTypes
@@ -37,7 +36,7 @@ export const ConfiguratorComponentCardCompact = ({
     >
       <div className={cls.configuratorComponentCardCompact}>
         <AppImage
-          src={fullImageUrl(image)}
+          src={image}
           alt={name}
           className={cls.configuratorComponentCardCompact__image}
         />

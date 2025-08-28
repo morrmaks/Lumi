@@ -3,7 +3,7 @@ import { getRouteCatalogItem, IconsMap, Placeholders } from '@/shared/consts'
 import cls from './CategoryProductGrid.module.less'
 import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { Icon } from '@/shared/ui/Icon'
-import { classNames, fullImageUrl, getIconTheme } from '@/shared/lib/utils'
+import { classNames, getIconTheme } from '@/shared/lib/utils'
 import { AppImage } from '@/shared/ui/AppImage'
 import { getCategory, ICategoryProduct } from '@/pages/CategoryPage'
 import { useAppSelector } from '@/shared/lib/hooks'
@@ -59,7 +59,7 @@ export const CategoryProductGrid = memo(
           />
         </Button>
         <AppImage
-          src={fullImageUrl(image)}
+          src={image}
           alt={name}
           className={cls.categoryProductGrid__image}
         />

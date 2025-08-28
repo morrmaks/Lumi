@@ -2,6 +2,7 @@ import { env } from "@/config/env";
 import mongoose from "mongoose";
 import app from "./app";
 import { Logger } from "@/lib/logger";
+import { ProductModel } from "@/models/productModel";
 
 const logger = new Logger("MAIN");
 

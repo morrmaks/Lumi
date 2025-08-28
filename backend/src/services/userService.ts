@@ -8,6 +8,7 @@ import path from "path";
 import * as fs from "node:fs";
 import { DeleteResult } from "mongodb";
 import { OrderModel } from "@/models/orderModel";
+import { bucketService } from "@/services/bucketService";
 
 class UserService {
   async login(
@@ -102,12 +103,21 @@ class UserService {
     return await OrderModel.countDocuments({ userId: user._id }).exec();
   }
 
-  async updateAvatar(userId: string, filename: string): Promise<string> {
+  async updateAvatar(
+    userId: string,
+    buffer: Buffer,
+    contentType: string,
+    filename: string,
+  ): Promise<string> {
     const user = await this._findUserById(userId);
+    if (user.avatarUrl) {
+      const oldKey = new URL(user.avatarUrl).pathname.slice(1);
+      await bucketService.deleteFile(oldKey);
+    }
 
-    if (user.avatarUrl) await this._deleteOldAvatar(user.avatarUrl);
+    const key = `avatars/${Date.now()}-${Math.round(Math.random() * 1e9)}-${filename}`;
 
-    user.avatarUrl = `avatars/${filename}`;
+    user.avatarUrl = await bucketService.uploadFile(buffer, key, contentType);
     await user.save();
     return user.avatarUrl;
   }
@@ -206,15 +216,6 @@ class UserService {
       throw ApiError.BadRequest(
         `Пользователь с номером телефона ${phone} уже существует`,
       );
-  }
-
-  private async _deleteOldAvatar(avatarUrl: string) {
-    const oldPath = path.join(
-      process.cwd(),
-      "static/avatars",
-      path.basename(avatarUrl),
-    );
-    if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
   }
 
   private async _generateAuthTokens(

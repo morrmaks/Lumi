@@ -134,7 +134,12 @@ class UserController {
       }
 
       const { id: userId } = (req as any).user;
-      const avatarUrl = await userService.updateAvatar(userId, file.filename);
+      const avatarUrl = await userService.updateAvatar(
+        userId,
+        file.buffer,
+        file.mimetype,
+        file.originalname,
+      );
       return res.json(avatarUrl);
     } catch (e) {
       next(e);

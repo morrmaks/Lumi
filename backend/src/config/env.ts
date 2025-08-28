@@ -18,4 +18,7 @@ export const env = {
       : getEnv("CLIENT_DEV_URL"),
   YOO_SHOP_ID: getEnv("YOO_SHOP_ID"),
   YOO_SECRET_KEY: getEnv("YOO_SECRET_KEY"),
+  S3_ACCESS_KEY: getEnv("S3_ACCESS_KEY"),
+  S3_SECRET_KEY: getEnv("S3_SECRET_KEY"),
+  S3_BUCKET: getEnv("S3_BUCKET"),
 };

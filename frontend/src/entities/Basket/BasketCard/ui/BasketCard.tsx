@@ -7,7 +7,7 @@ import { AppLink } from '@/shared/ui/AppLink'
 import { getBasketProducts, IBasketProduct } from '@/features/Basket'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { AppImage } from '@/shared/ui/AppImage'
-import { fullImageUrl, getIconTheme } from '@/shared/lib/utils'
+import { getIconTheme } from '@/shared/lib/utils'
 import { getTotalPriceCard } from '@/entities/Basket'
 import { memo, useMemo } from 'react'
 import { useBasketCardActions } from '@/entities/Basket/BasketCard/hooks'
@@ -52,7 +52,7 @@ export const BasketCard = memo(({ card }: BasketCardProps) => {
         <AppLink to={getRouteCatalogItem(categorySlug, id)}>
           <div className={cls.basketCard__details}>
             <AppImage
-              src={fullImageUrl(image)}
+              src={image}
               alt={name}
               className={cls.basketCard__image}
             />
