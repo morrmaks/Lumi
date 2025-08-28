@@ -4,8 +4,8 @@ import {
   ImgHTMLAttributes,
   memo,
   ReactElement,
-  useCallback, useEffect,
-  useLayoutEffect,
+  useCallback,
+  useEffect,
   useState,
 } from 'react'
 import { Skeleton } from '@/shared/ui/Skeleton'
