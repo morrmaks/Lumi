@@ -1,10 +1,7 @@
 import cls from './PaymentSuccessPage.module.less'
-import { getRouteMain } from '@/shared/consts'
 import { PageLayout } from '@/widgets/PageLayout'
 import { PaymentMethods, useGetOrderValidateQuery } from '@/features/Order'
-import { Loader } from '@/shared/ui/Loader'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { Navigate } from 'react-router-dom'
 import { PaymentSuccessHeader } from './Header'
 import {
   PaymentSuccessInfoCards,

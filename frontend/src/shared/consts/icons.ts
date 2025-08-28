@@ -97,7 +97,7 @@ export const IconsMap = {
   LIST: ListSvg,
   ERROR: CircleSvg,
   SUCCESS: CircleCheckSvg,
-  SHOP: ShoppingBagSvg
+  SHOP: ShoppingBagSvg,
 } as const
 
 export type IconsMap = (typeof IconsMap)[keyof typeof IconsMap]
