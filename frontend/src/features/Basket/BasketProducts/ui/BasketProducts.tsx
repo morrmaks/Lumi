@@ -113,6 +113,7 @@ const BasketProducts = () => {
           theme={ButtonTheme.PRIMARY}
           className={cls.basketProducts__orderButton}
           onClick={handleOrder}
+          disabled={basketItems.length === 0}
         >
           <Icon Svg={IconsMap.PAYMENT} />
           {Placeholders.features.basket.products.onPlaceAnOrder}

@@ -100,6 +100,7 @@ const ConfiguratorPage = () => {
               <Button
                 className={cls.configuratorPage__totalButtons_button}
                 onClick={handleOrder}
+                disabled={!filled}
               >
                 {Placeholders.pages.configurator.total.onPlaceAnOrder}
               </Button>
