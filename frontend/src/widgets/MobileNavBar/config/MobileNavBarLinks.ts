@@ -1,6 +1,6 @@
 import {
   getRouteBasket,
-  getRouteCatalog,
+  getRouteCatalog, getRouteConfigurator,
   getRouteMain,
   getRouteProfile,
   getRouteWishlist,
@@ -17,26 +17,26 @@ export const MobileNavBarLinksConfig: IMobileNavBarItem[] = [
   {
     to: getRouteMain(),
     icon: IconsMap.HOME,
-    label: 'Главная',
+    label: 'главная',
   },
   {
-    to: getRouteWishlist(),
-    icon: IconsMap.WISHLIST,
-    label: 'Избранное',
+    to: getRouteConfigurator(),
+    icon: IconsMap.CONFIGURATOR,
+    label: 'конфиг',
   },
   {
     to: getRouteCatalog(),
     icon: IconsMap.CATALOG,
-    label: 'Каталог',
+    label: 'каталог',
   },
   {
     to: getRouteBasket(),
     icon: IconsMap.BASKET,
-    label: 'Корзина',
+    label: 'корзина',
   },
   {
     to: getRouteProfile(),
     icon: IconsMap.PROFILE,
-    label: 'Профиль',
+    label: 'профиль',
   },
 ]

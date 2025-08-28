@@ -21,7 +21,6 @@ const orderSlice = createSlice({
     builder.addMatcher(
       orderApi.endpoints.createOrder.matchFulfilled,
       (state) => {
-        state.isFromOrderLink = false
         state.products = []
       }
     )

@@ -1,6 +1,6 @@
 import cls from './PaymentSuccessPage.module.less'
 import { PageLayout } from '@/widgets/PageLayout'
-import { PaymentMethods, useGetOrderValidateQuery } from '@/features/Order'
+import { orderActions, PaymentMethods, useGetOrderValidateQuery } from '@/features/Order'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { PaymentSuccessHeader } from './Header'
 import {
@@ -10,15 +10,25 @@ import {
   PaymentSuccessPayInfo,
 } from '@/pages/PaymentSuccess'
 import { OrderStatus, PaymentStatus } from '@/entities/Order'
+import { Loader } from '@/shared/ui/Loader'
+import { Navigate } from 'react-router-dom'
+import { getRouteMain } from '@/shared/consts'
+import { useEffect } from 'react'
+import { useAppDispatch } from '@/shared/lib/hooks'
 
 const PaymentSuccessPage = () => {
+  const dispatch = useAppDispatch()
   const searchParams = new URLSearchParams(window.location.search)
   const orderId = searchParams.get('orderId')
   const { data, isLoading } = useGetOrderValidateQuery(orderId ?? skipToken)
 
-  // if (isLoading) return <Loader />
-  //
-  // if (!isLoading && !data?.orderNumber) return <Navigate to={getRouteMain()} />
+  useEffect(() => {
+    dispatch(orderActions.setIsFromOrderLink(false))
+  }, [])
+
+  if (isLoading) return <Loader />
+
+  if (!isLoading && !data?.orderNumber) return <Navigate to={getRouteMain()} />
 
   const showPaymentSection =
     data?.paymentMethod === PaymentMethods.CASH ||

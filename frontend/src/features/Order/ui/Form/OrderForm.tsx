@@ -11,7 +11,7 @@ import { useMemo } from 'react'
 import { getOrderProducts, orderFormSchema, OrderFormValues } from '../../model'
 import { AddressInput } from '../AddressInput'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
+import { useAppSelector } from '@/shared/lib/hooks'
 import { PaymentMethods } from '../../consts'
 import { useCreateOrderMutation } from '@/features/Order'
 
@@ -23,7 +23,6 @@ const initialFormState: OrderFormValues = {
 export const OrderForm = () => {
   const navigate = useNavigate()
   const products = useAppSelector(getOrderProducts)
-  const dispatch = useAppDispatch()
   const [createOrder, { isLoading, error: orderError }] =
     useCreateOrderMutation()
   const {
@@ -53,7 +52,6 @@ export const OrderForm = () => {
       if (paymentMethods === PaymentMethods.CARD) {
         window.location.href = orderResponse.paymentUrl
       } else {
-        console.log('должен сработать navigate')
         navigate(`${getRoutePaymentSuccess()}?orderId=${orderResponse.orderId}`)
       }
     } catch (e) {
