@@ -17,7 +17,7 @@ export const yaSuggestApi = createApi({
       query: (search: string) =>
         `suggest?apikey=${process.env.YA_SUGGEST_API_KEY}&text=${search}&lang=ru_RU`,
       transformResponse: (response: SuggestResponse) =>
-        response?.results?.map((item) => item.title.text) ?? []
+        response?.results?.map((item) => item.title.text) ?? [],
     }),
   }),
 })

@@ -1,6 +1,10 @@
 import cls from './PaymentSuccessPage.module.less'
 import { PageLayout } from '@/widgets/PageLayout'
-import { orderActions, PaymentMethods, useGetOrderValidateQuery } from '@/features/Order'
+import {
+  orderActions,
+  PaymentMethods,
+  useGetOrderValidateQuery,
+} from '@/features/Order'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { PaymentSuccessHeader } from './Header'
 import {

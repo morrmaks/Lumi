@@ -1,9 +1,9 @@
 import {
   getRouteBasket,
-  getRouteCatalog, getRouteConfigurator,
+  getRouteCatalog,
+  getRouteConfigurator,
   getRouteMain,
   getRouteProfile,
-  getRouteWishlist,
 } from '@/shared/consts/router'
 import { IconsMap } from '@/shared/consts/icons'
 
