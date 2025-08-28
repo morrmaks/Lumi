@@ -10,6 +10,8 @@ import {
 } from 'react'
 import { Skeleton } from '@/shared/ui/Skeleton'
 import { MouseEvent } from 'react'
+import { Icon } from '../Icon'
+import { IconsMap } from '@/shared/consts'
 
 type HtmlImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'onClick'>
 
@@ -35,15 +37,30 @@ export const CustomImage = ({
 }: ImageProps) => {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
+  const [timeoutReached, setTimeoutReached] = useState(false)
+
   useLayoutEffect(() => {
     const img = new Image()
+    console.log('таймер пошел')
+    const timeout = setTimeout(() => {
+      console.log('таймер прошел')
+      setTimeoutReached(true)
+      setIsLoading(false)
+    }, 10000)
+
     img.src = src ?? ''
     img.onload = () => {
       setIsLoading(false)
+      clearTimeout(timeout)
     }
     img.onerror = () => {
       setHasError(true)
+      clearTimeout(timeout)
+      setIsLoading(false)
+      setTimeoutReached(true)
     }
+
+    return () => clearTimeout(timeout)
   }, [src])
 
   const handleClick = useCallback(
@@ -61,8 +78,18 @@ export const CustomImage = ({
     )
   }
 
-  if (hasError && errorFallback) {
-    return errorFallback
+  if (hasError || timeoutReached) {
+    console.log('ошибка')
+    return (
+      errorFallback ?? (
+        <div className={classNames(cls.image__errorFallback, {}, [className])}>
+          <Icon
+            Svg={IconsMap.PHOTO}
+            className={cls.image__errorFallback_icon}
+          />
+        </div>
+      )
+    )
   }
 
   return (

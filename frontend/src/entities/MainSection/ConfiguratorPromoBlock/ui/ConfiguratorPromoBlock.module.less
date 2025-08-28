@@ -5,11 +5,13 @@
 
 .configuratorPromoBlock {
   .grid(1fr, row, 16px);
+  .border();
+  .shadow(0 , 2px, 8px);
 
   border-radius: var(--border-radius-xl);
   padding: 24px 16px;
   background-color: var(--card-bg-color);
-  min-height: 300px;
+  min-height: 200px;
   position: relative;
 
   @media @breakpoint-sm {
@@ -20,7 +22,7 @@
   }
 
   @media @breakpoint-md {
-    height: 350px;
+    height: 300px;
   }
 
   @media @breakpoint-lg {
@@ -28,12 +30,6 @@
     padding: 32px;
     height: 400px;
   }
-
-  //&:hover {
-  //  .configuratorPromoBlock__button {
-  //    border-color: var(--accent-bg-color);
-  //  }
-  //}
 
   &__image {
     width: 100%;

@@ -8,6 +8,7 @@ export default (env: BuildEnv) => {
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     build: path.resolve(__dirname, 'build'),
     html: path.resolve(__dirname, 'public', 'index.html'),
+    favicon: path.resolve(__dirname, 'public', 'favicon-32x32.png'),
     src: path.resolve(__dirname, 'src'),
     envStack: path.resolve(
       __dirname,

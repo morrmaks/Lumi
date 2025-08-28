@@ -9,6 +9,7 @@ export interface BuildPaths {
   entry: string
   build: string
   html: string
+  favicon: string
   src: string
   envStack: string
   envFile: string

@@ -35,11 +35,11 @@
   }
 }
 
-.hoverShadow() {
+.hoverShadow(@color: var(--shadow-color)) {
   transition: var(--transition-speed);
 
   &:hover {
-    .shadow(0, 4px, 8px, 0);
+    .shadow(0, 4px, 8px, 0, @color);
   }
 }
 

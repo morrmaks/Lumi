@@ -1,4 +1,17 @@
+@import '@/app/styles/mixins/container';
+
 .image {
   object-fit: cover;
   display: block;
+
+  &__errorFallback {
+    .flex();
+    background-color: var(--muted-bg-color);
+
+    &_icon {
+      width: 64px;
+      height: 64px;
+      stroke: var(--muted-color);
+    }
+  }
 }
