@@ -1,7 +1,8 @@
 import { classNames } from '@/shared/lib/utils'
 import { AnchorHTMLAttributes } from 'react'
 
-interface ExternalLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface ExternalLinkProps
+  extends AnchorHTMLAttributes<HTMLAnchorElement> {
   className?: string
   theme?: string
 }

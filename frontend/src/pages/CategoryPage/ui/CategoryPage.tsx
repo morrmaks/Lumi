@@ -59,6 +59,9 @@ const CategoryPage = () => {
     { skip: !category.id }
   )
 
+  const scrollIsEnabled =
+    hasMore && products.length > 0 && !productsIsLoading && !productsIsFetching
+
   useSyncQueryParams({ page, view, sort, search, limit })
   useSyncProducts(productsData, productsError, page, dispatch)
   useInitCategoryPage(dispatch, data, categoryId, searchParams)
@@ -102,16 +105,10 @@ const CategoryPage = () => {
             <InfiniteScrollWrapper
               onScrollEnd={onLoadNextPart}
               withWrapperScroll={false}
-              enabled={
-                hasMore &&
-                products.length > 0 &&
-                !productsIsLoading &&
-                !productsIsFetching
-              }
+              enabled={scrollIsEnabled}
             >
               <CategoryProducts
-                isFetching={productsIsFetching}
-                isLoading={productsIsLoading}
+                isLoading={productsIsLoading || productsIsFetching}
                 categoryIsLoading={isLoading}
               />
             </InfiniteScrollWrapper>

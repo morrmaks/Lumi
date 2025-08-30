@@ -36,6 +36,9 @@ jobs:
       - name: Frontend lint
         run: cd frontend && npm run lint:ts
 
+      - name: Frontend build storybook
+        run: cd frontend && npm run storybook:build
+
       - name: Frontend build
         run: cd frontend && npm run build:prod
 

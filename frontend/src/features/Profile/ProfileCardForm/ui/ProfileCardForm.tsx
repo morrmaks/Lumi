@@ -7,7 +7,7 @@ import { ProfileCardFormValues } from '@/features/Profile'
 import { ApiError } from '@/shared/types'
 import { SerializedError } from '@reduxjs/toolkit'
 
-interface ProfileCardFormProps {
+export interface ProfileCardFormProps {
   disabled: boolean
   apiErrors: ApiError | SerializedError | undefined
 }

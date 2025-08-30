@@ -7,7 +7,7 @@ import { getPriceOrderCard } from '@/entities/Order'
 import { Placeholders } from '@/shared/consts'
 import { IOrderProductFull } from '@/features/Order'
 
-interface ProductCardProps {
+export interface ProductCardProps {
   card: IOrderProductFull
 }
 

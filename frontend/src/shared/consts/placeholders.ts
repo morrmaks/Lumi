@@ -206,6 +206,10 @@ export const Placeholders = {
     catalog: {
       categories: {
         productsQuantity: 'Товаров:',
+        notFound: {
+          mainText: 'Категории не найдены',
+          describeText: 'пожалуйста, перезагрузите страницу',
+        },
       },
     },
     basket: {
@@ -279,7 +283,7 @@ export const Placeholders = {
         onRouteCategory: 'Заменить',
       },
       emptyComponent: {
-        describeText: 'Не выбран',
+        describeText: 'не выбран',
       },
     },
     dropdownMenu: {

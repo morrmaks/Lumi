@@ -19,7 +19,7 @@ import { categoryPageActions } from '@/pages/CategoryPage/model/slice/categoryPa
 import { SearchInput } from '@/features/Search'
 import { CategoryFiltersSkeleton } from './CategoryFiltersSkeleton'
 
-interface CategoryFiltersProps {
+export interface CategoryFiltersProps {
   categoryIsLoading?: boolean
 }
 

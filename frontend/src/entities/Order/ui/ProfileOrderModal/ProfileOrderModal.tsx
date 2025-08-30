@@ -18,7 +18,7 @@ import { Button } from '@/shared/ui/Button'
 import { useCallback } from 'react'
 import { Loader } from '@/shared/ui/Loader'
 
-interface OrderModalProps {
+export interface OrderModalProps {
   onClose: () => void
   card: IOrder
 }

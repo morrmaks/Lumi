@@ -1,6 +1,6 @@
 import cls from './Progress.module.less'
 
-interface ProgressProps {
+export interface ProgressProps {
   value: number
 }
 

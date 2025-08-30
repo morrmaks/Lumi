@@ -23,7 +23,7 @@ import { createConfiguratorComponentsMap } from '@/features/Configurator'
 import { getTotalConfigPrice } from '@/pages/Configurator'
 import { FullEmptyConfiguratorComponents } from '@/features/Configurator'
 
-interface ConfiguratorComponentsProps {
+export interface ConfiguratorComponentsProps {
   carousel?: boolean
   className?: string
 }

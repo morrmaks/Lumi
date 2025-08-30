@@ -4,7 +4,7 @@ import cls from './BackButton.module.less'
 import { useNavigate } from 'react-router-dom'
 import { ReactNode, useCallback } from 'react'
 
-interface BackButtonProps {
+export interface BackButtonProps {
   className?: string
   children?: ReactNode
   theme?: ButtonTheme

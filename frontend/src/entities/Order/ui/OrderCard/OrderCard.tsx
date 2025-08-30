@@ -5,7 +5,7 @@ import { OrderStatusMap, ProfileOrderModal } from '@/entities/Order'
 import { Placeholders } from '@/shared/consts'
 import { classNames, formattedDate } from '@/shared/lib/utils'
 
-interface OrderCardProps {
+export interface OrderCardProps {
   card: IOrder
 }
 

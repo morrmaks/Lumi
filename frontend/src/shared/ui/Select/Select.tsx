@@ -10,7 +10,7 @@ export interface SelectOption<T> {
   content: string
 }
 
-interface SelectProps<T extends string> {
+export interface SelectProps<T extends string> {
   value: T
   options: SelectOption<T>[]
   onChange: (value: T) => void

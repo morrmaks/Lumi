@@ -9,7 +9,7 @@ import {
   ProductImagesSkeleton,
 } from '@/entities/ProductDetails'
 
-interface ProductImagesProps {
+export interface ProductImagesProps {
   isLoading: boolean
 }
 

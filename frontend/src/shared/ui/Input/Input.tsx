@@ -9,7 +9,7 @@ import { classNames } from '@/shared/lib/utils'
 import { IconsMap } from '@/shared/consts/icons'
 import { Icon } from '@/shared/ui/Icon'
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
   type?: string
   icon?: keyof typeof IconsMap

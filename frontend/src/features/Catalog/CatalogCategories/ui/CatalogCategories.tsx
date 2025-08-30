@@ -9,7 +9,7 @@ import { useGetCategoriesQuery } from '@/features/Category'
 import { CatalogCategoriesMap, Placeholders } from '@/shared/consts'
 import { CatalogCategoriesSkeleton } from '@/features/Catalog/CatalogCategories/ui/CatalogCategoriesSkeleton'
 
-interface CatalogCategoriesProps {
+export interface CatalogCategoriesProps {
   compact?: boolean
   className?: string
   grid?: boolean
@@ -31,7 +31,17 @@ export const CatalogCategories = ({
       />
     )
 
-  if (!data) return <div>Категории не найдены</div>
+  if (!data)
+    return (
+      <div className={cls.catalogCategories__notFound}>
+        <h3 className={cls.catalogCategories__notFound_title}>
+          {Placeholders.features.catalog.categories.notFound.mainText}
+        </h3>
+        <p className={cls.catalogCategories__notFound_description}>
+          {Placeholders.features.catalog.categories.notFound.describeText}
+        </p>
+      </div>
+    )
 
   if (compact) {
     return (

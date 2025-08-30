@@ -13,7 +13,7 @@ import { useMemo } from 'react'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { getProductCard } from '@/pages/ProductPage'
 
-interface ProductDetailsProps {
+export interface ProductDetailsProps {
   isLoading: boolean
 }
 

@@ -4,7 +4,7 @@ import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { Placeholders } from '@/shared/consts'
 
-interface ConfiguratorComponentCardProps {
+export interface ConfiguratorComponentCardProps {
   componentConfig: ConfiguratorComponentConfig
   compact?: boolean
 }

@@ -5,7 +5,7 @@ import cls from './ApiErrorMessage.module.less'
 import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts'
 
-interface ApiErrorMessageProps {
+export interface ApiErrorMessageProps {
   error?: ApiError | SerializedError
 }
 

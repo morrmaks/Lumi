@@ -4,7 +4,7 @@ import { ISpecs } from '@/features/Product/model/types/IProduct'
 import { ProductSpecsMap } from '@/entities/ProductDetails'
 import { ComponentTypes, ComponentTypeToKeyMap } from '@/features/Configurator'
 
-interface ProductSpecsProps<C extends ComponentTypes> {
+export interface ProductSpecsProps<C extends ComponentTypes> {
   specs: ISpecs<C>
   componentType: C
 }

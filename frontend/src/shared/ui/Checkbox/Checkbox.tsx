@@ -12,7 +12,7 @@ export const CheckboxType = {
 
 export type CheckboxType = (typeof CheckboxType)[keyof typeof CheckboxType]
 
-interface CheckboxProps {
+export interface CheckboxProps {
   checked?: boolean
   defaultChecked?: boolean
   onChange: (checked: boolean) => void

@@ -8,7 +8,7 @@ import {
 } from '@/entities/DropdownMenu'
 import { useAppSelector } from '@/shared/lib/hooks'
 
-interface BurgerButtonProps {
+export interface BurgerButtonProps {
   className?: string
 }
 

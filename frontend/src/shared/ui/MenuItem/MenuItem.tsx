@@ -11,7 +11,7 @@ import {
 } from '@/entities/DropdownMenu'
 import { useAppSelector } from '@/shared/lib/hooks'
 
-interface MenuItemProps {
+export interface MenuItemProps {
   to: string
   Svg?: React.FC<React.SVGProps<SVGSVGElement>>
   className?: string

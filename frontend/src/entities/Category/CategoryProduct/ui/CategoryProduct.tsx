@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { ICategoryProduct, ViewFormat } from '@/pages/CategoryPage'
 import { CategoryProductGrid, CategoryProductList } from '@/entities/Category'
 
-interface CategoryProductProps {
+export interface CategoryProductProps {
   product: ICategoryProduct
   view: ViewFormat
 }

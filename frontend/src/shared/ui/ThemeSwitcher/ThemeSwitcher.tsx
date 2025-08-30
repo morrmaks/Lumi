@@ -8,7 +8,7 @@ import { IconsMap } from '@/shared/consts/icons'
 import { getDropdownMenuState } from '@/entities/DropdownMenu'
 import { useAppSelector } from '@/shared/lib/hooks'
 
-interface ThemeSwitcherProps {
+export interface ThemeSwitcherProps {
   className?: string
   children?: ReactNode
   themeButton?: ButtonTheme

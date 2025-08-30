@@ -13,7 +13,7 @@ import { IWishlistProduct } from '@/features/Wishlist'
 import { memo, useCallback } from 'react'
 import { useWishlistCardActions } from '@/entities/Wishlist'
 
-interface WishlistCardProps {
+export interface WishlistCardProps {
   card: IWishlistProduct
   onSelectCard: (id: string, newStateChecked: boolean) => void
   onClickRemove: (id: string) => void

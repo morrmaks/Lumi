@@ -2,7 +2,7 @@ import { classNames } from '@/shared/lib/utils'
 import cls from './Skeleton.module.less'
 import { CSSProperties } from 'react'
 
-interface SkeletonProps {
+export interface SkeletonProps {
   className?: string
   width?: string | number
   height?: string | number

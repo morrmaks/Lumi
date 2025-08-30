@@ -5,7 +5,7 @@ import { Icon } from '@/shared/ui/Icon'
 import { IconsMap } from '@/shared/consts/icons'
 import { classNames } from '@/shared/lib/utils'
 
-interface ModalProps {
+export interface ModalProps {
   onClose: () => void
   children?: ReactNode
   className?: string

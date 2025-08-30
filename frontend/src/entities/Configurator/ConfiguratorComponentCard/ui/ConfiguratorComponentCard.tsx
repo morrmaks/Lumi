@@ -4,7 +4,7 @@ import {
   ConfiguratorComponentCardFull,
 } from '@/entities/Configurator'
 
-interface ConfiguratorComponentCardProps {
+export interface ConfiguratorComponentCardProps {
   componentName: ComponentTypes
   component: IConfiguratorComponent
   compact?: boolean

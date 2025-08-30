@@ -2,7 +2,7 @@ import { classNames, Mods } from '@/shared/lib/utils/classNames/classNames'
 import cls from './Icon.module.less'
 import { IconTheme } from '@/shared/consts/iconTheme'
 
-interface IconProps extends React.SVGProps<SVGSVGElement> {
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
   className?: string
   Svg: React.FC<React.SVGProps<SVGSVGElement>>
   theme?: IconTheme

@@ -1,7 +1,8 @@
 import { classNames } from '@/shared/lib/utils'
 import { Link, LinkProps } from 'react-router-dom'
+import cls from './AppLink.module.less'
 
-interface AppLinkProps extends LinkProps {
+export interface AppLinkProps extends LinkProps {
   className?: string
   theme?: string
 }
@@ -15,7 +16,7 @@ export const AppLink = ({
 }: AppLinkProps) => {
   return (
     <Link
-      className={classNames('', {}, [className, theme])}
+      className={classNames(cls.appLink, {}, [className, theme])}
       to={to}
       {...otherProps}
     >

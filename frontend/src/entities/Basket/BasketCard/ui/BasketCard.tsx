@@ -12,7 +12,7 @@ import { getTotalPriceCard } from '@/entities/Basket'
 import { memo, useMemo } from 'react'
 import { useBasketCardActions } from '@/entities/Basket/BasketCard/hooks'
 
-interface BasketCardProps {
+export interface BasketCardProps {
   card: IBasketProduct
 }
 

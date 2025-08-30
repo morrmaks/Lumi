@@ -1,7 +1,7 @@
 import cls from './Loader.module.less'
 import { useEffect, useState } from 'react'
 
-interface LoaderProps {
+export interface LoaderProps {
   delay?: number
 }
 

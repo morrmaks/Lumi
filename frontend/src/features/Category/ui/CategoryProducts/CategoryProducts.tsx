@@ -7,20 +7,18 @@ import { useSkeletonProductsCount } from '@/features/Category'
 
 interface CategoryProductsProps {
   isLoading: boolean
-  isFetching: boolean
   categoryIsLoading: boolean
 }
 
 export const CategoryProducts = ({
   isLoading,
-  isFetching,
   categoryIsLoading,
 }: CategoryProductsProps) => {
   const { view, products } = useAppSelector(getCategoryState)
 
   const skeletonCount = useSkeletonProductsCount()
 
-  if (!products.length && !isLoading && !isFetching && !categoryIsLoading) {
+  if (!products.length && !isLoading && !categoryIsLoading) {
     return (
       <div className={cls.categoryProducts__empty}>
         <h3 className={cls.categoryProducts__empty_title}>
@@ -41,7 +39,7 @@ export const CategoryProducts = ({
           <CategoryProduct product={product} view={view} />
         </li>
       ))}
-      {(isLoading || isFetching || categoryIsLoading) &&
+      {(isLoading || categoryIsLoading) &&
         [...new Array(skeletonCount)].map((_, i) => (
           <li key={i}>
             <CategoryProductSkeleton view={view} />
