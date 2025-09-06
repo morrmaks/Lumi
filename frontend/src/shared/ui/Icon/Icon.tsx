@@ -21,6 +21,7 @@ export const Icon = ({
 
   return (
     <Svg
+      data-testid="svg-icon"
       className={classNames(cls.icon, mods, [className])}
       onClick={onClick}
       {...props}

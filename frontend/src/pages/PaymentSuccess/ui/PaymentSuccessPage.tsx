@@ -19,6 +19,7 @@ import { Navigate } from 'react-router-dom'
 import { getRouteMain } from '@/shared/consts'
 import { useEffect } from 'react'
 import { useAppDispatch } from '@/shared/lib/hooks'
+import { Seo } from '@/shared/lib/components'
 
 const PaymentSuccessPage = () => {
   const dispatch = useAppDispatch()
@@ -43,6 +44,7 @@ const PaymentSuccessPage = () => {
 
   return (
     <PageLayout>
+      <Seo title="Успешная оплата" />
       <div className={cls.paymentSuccessPage}>
         <div className={cls.paymentSuccessPage__mainContainer}>
           <PaymentSuccessHeader

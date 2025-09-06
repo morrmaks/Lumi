@@ -32,36 +32,38 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   resetPadding?: boolean
 }
 
-const ButtonComponent = ({
-  children,
-  className,
-  disabled = false,
-  square,
-  fullWidth,
-  resetPadding,
-  withBorder,
-  theme = ButtonTheme.PRIMARY,
-  size = ButtonSize.M,
-  ...otherProps
-}: ButtonProps) => {
-  const mods: Mods = {
-    [cls[theme]]: true,
-    [cls[size]]: true,
-    [cls.square]: square,
-    [cls.fullWidth]: fullWidth,
-    [cls.resetPadding]: resetPadding,
-    [cls.withBorder]: withBorder,
+export const Button = memo(
+  ({
+    children,
+    className,
+    disabled = false,
+    square,
+    fullWidth,
+    resetPadding,
+    withBorder,
+    theme = ButtonTheme.PRIMARY,
+    size = ButtonSize.M,
+    ...otherProps
+  }: ButtonProps) => {
+    const mods: Mods = {
+      [cls[theme]]: true,
+      [cls[size]]: true,
+      [cls.square]: square,
+      [cls.fullWidth]: fullWidth,
+      [cls.resetPadding]: resetPadding,
+      [cls.withBorder]: withBorder,
+    }
+
+    return (
+      <button
+        className={classNames(cls.button, mods, [className, cls[theme]])}
+        disabled={disabled}
+        {...otherProps}
+      >
+        {children}
+      </button>
+    )
   }
+)
 
-  return (
-    <button
-      className={classNames(cls.button, mods, [className, cls[theme]])}
-      disabled={disabled}
-      {...otherProps}
-    >
-      {children}
-    </button>
-  )
-}
-
-export const Button = memo(ButtonComponent)
+Button.displayName = 'Button'

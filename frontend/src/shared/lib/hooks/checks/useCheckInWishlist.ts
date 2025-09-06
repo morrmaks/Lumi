@@ -1,4 +1,4 @@
-import { useAppSelector } from '@/shared/lib/hooks/useAppSelector'
+import { useAppSelector } from '@/shared/lib/hooks/useAppSelector/useAppSelector'
 import { getWishlistProducts } from '@/features/Wishlist'
 
 export const useCheckInWishlist = (id: string): boolean => {

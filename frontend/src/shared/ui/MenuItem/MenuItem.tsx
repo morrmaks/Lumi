@@ -5,11 +5,8 @@ import { classNames } from '@/shared/lib/utils'
 import { useCallback, useEffect, useTransition } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/shared/lib/hooks'
-import {
-  dropdownMenuActions,
-  getDropdownMenuState,
-} from '@/entities/DropdownMenu'
 import { useAppSelector } from '@/shared/lib/hooks'
+import { getSlideMenuState, slideMenuActions } from '@/entities/SlideMenu'
 
 export interface MenuItemProps {
   to: string
@@ -28,7 +25,7 @@ export const MenuItem = ({
 }: MenuItemProps) => {
   const navigate = useNavigate()
   const [isPending, startTransition] = useTransition()
-  const { isOpen: dropdownMenuIsOpen } = useAppSelector(getDropdownMenuState)
+  const { isOpen: dropdownMenuIsOpen } = useAppSelector(getSlideMenuState)
   const dispatch = useAppDispatch()
 
   const handleClick = useCallback(() => {
@@ -39,7 +36,7 @@ export const MenuItem = ({
 
   useEffect(() => {
     if (!isPending && dropdownMenuIsOpen) {
-      dispatch(dropdownMenuActions.setIsOpen(false))
+      dispatch(slideMenuActions.setIsOpen(false))
     }
   }, [isPending, dispatch])
 

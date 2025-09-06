@@ -1,7 +1,7 @@
 import cls from './OrderStatusSection.module.less'
 import { IconsMap, Placeholders } from '@/shared/consts'
 import { OrderStatus, OrderStatusMap } from '@/entities/Order'
-import { copyToClipboard, formattedDate } from '@/shared/lib/utils'
+import { copyToClipboard, formattedData } from '@/shared/lib/utils'
 import { Icon } from '@/shared/ui/Icon'
 
 interface OrderStatusSectionProps {
@@ -22,7 +22,7 @@ export const OrderStatusSection = ({
           {OrderStatusMap[status]}
         </span>
         <span className={cls.orderStatusSection__date}>
-          {`${Placeholders.entities.order.profileOrderModal.dateOrder} ${formattedDate(date)}`}
+          {`${Placeholders.entities.order.profileOrderModal.dateOrder} ${formattedData(date)}`}
         </span>
       </div>
       <div className={cls.orderStatusSection__trackNumber_container}>

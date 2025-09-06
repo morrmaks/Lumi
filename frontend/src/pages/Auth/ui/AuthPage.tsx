@@ -7,6 +7,7 @@ import { classNames } from '@/shared/lib/utils'
 import { PageLayout } from '@/widgets/PageLayout'
 import { Placeholders } from '@/shared/consts'
 import { AuthFormSkeleton } from '@/pages/Auth'
+import { Seo } from '@/shared/lib/components'
 
 const AuthPage = () => {
   const location = useLocation()
@@ -15,6 +16,7 @@ const AuthPage = () => {
 
   return (
     <PageLayout>
+      <Seo title="Авторизация" />
       <div className={cls.authPage}>
         <div className={cls.authPage__header}>
           <h2 className={cls.authPage__title}>

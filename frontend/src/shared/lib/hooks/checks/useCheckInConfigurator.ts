@@ -1,4 +1,4 @@
-import { useAppSelector } from '@/shared/lib/hooks/useAppSelector'
+import { useAppSelector } from '@/shared/lib/hooks/useAppSelector/useAppSelector'
 import { getConfiguratorComponentsList } from '@/features/Configurator'
 
 export const useCheckInConfigurator = (id: string): boolean => {

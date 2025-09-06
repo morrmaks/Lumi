@@ -1,5 +1,5 @@
 import { BuildOptions } from './types/config'
-import webpack from 'webpack'
+import * as webpack from 'webpack'
 import { buildCssLoader } from './loaders/buildCssLoader'
 import { buildBabelLoader } from './loaders/buildBabelLoader'
 
@@ -18,8 +18,8 @@ export const buildLoaders = (options: BuildOptions): webpack.RuleSetRule[] => {
 
   const cssLoader = buildCssLoader(isDev)
 
-  const babelLoader = buildBabelLoader({ ...options, isJsx: false })
-  const jsxBabelLoader = buildBabelLoader({ ...options, isJsx: true })
+  const babelLoader = buildBabelLoader({ ...options, isTsx: false })
+  const tsxBabelLoader = buildBabelLoader({ ...options, isTsx: true })
 
-  return [fileLoader, svgLoader, cssLoader, babelLoader, jsxBabelLoader]
+  return [fileLoader, svgLoader, cssLoader, babelLoader, tsxBabelLoader]
 }

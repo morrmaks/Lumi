@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { WishlistProductsSchema } from '@/features/Wishlist/WishlistProducts'
 import { LocalStorage } from '@/shared/consts'
-import { authApi } from '@/entities/User/api'
+import { authApi } from '@/entities/User/api/authApi'
 
 const initialState: WishlistProductsSchema = {
   products: [],

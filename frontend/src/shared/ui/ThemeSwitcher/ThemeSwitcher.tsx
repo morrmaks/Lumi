@@ -5,8 +5,6 @@ import { ReactNode, MouseEvent } from 'react'
 import { classNames } from '@/shared/lib/utils'
 import cls from './ThemeSwitcher.module.less'
 import { IconsMap } from '@/shared/consts/icons'
-import { getDropdownMenuState } from '@/entities/DropdownMenu'
-import { useAppSelector } from '@/shared/lib/hooks'
 
 export interface ThemeSwitcherProps {
   className?: string
@@ -21,7 +19,6 @@ export const ThemeSwitcher = ({
   themeButton = ButtonTheme.PRIMARY,
   onClick,
 }: ThemeSwitcherProps) => {
-  const { isOpen: dropdownMenuIsOpen } = useAppSelector(getDropdownMenuState)
   const { theme, toggleTheme } = useTheme()
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -31,6 +28,7 @@ export const ThemeSwitcher = ({
 
   return (
     <Button
+      data-testid="theme-switcher"
       style={{ viewTransitionName: 'theme-icon' }}
       onClick={handleClick}
       theme={themeButton}
@@ -38,9 +36,17 @@ export const ThemeSwitcher = ({
       className={classNames(cls.themeSwitcher, {}, [className])}
     >
       {theme === Theme.LIGHT ? (
-        <Icon key={Theme.LIGHT} Svg={IconsMap.THEME_LIGHT} />
+        <Icon
+          key={Theme.LIGHT}
+          Svg={IconsMap.THEME_LIGHT}
+          data-testid="light-icon"
+        />
       ) : (
-        <Icon key={Theme.DARK} Svg={IconsMap.THEME_DARK} />
+        <Icon
+          key={Theme.DARK}
+          Svg={IconsMap.THEME_DARK}
+          data-testid="dark-icon"
+        />
       )}
       {children}
     </Button>

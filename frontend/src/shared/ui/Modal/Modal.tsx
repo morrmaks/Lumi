@@ -11,8 +11,6 @@ export interface ModalProps {
   className?: string
 }
 
-const modalRoot = document.getElementById('modal')
-
 export const Modal = ({ onClose, children, className }: ModalProps) => {
   useEffect(() => {
     const originalStyle = window.getComputedStyle(document.body).overflow
@@ -23,15 +21,17 @@ export const Modal = ({ onClose, children, className }: ModalProps) => {
     }
   }, [])
 
+  const modalRoot = document.getElementById('modal')
   if (!modalRoot) return null
   return (
     <Portal element={modalRoot}>
-      <div className={cls.modal} onClick={onClose}>
+      <div data-testid="modal" className={cls.modal} onClick={onClose}>
         <div
           onClick={(e) => e.stopPropagation()}
           className={classNames(cls.modal__container, {}, [className])}
         >
           <Icon
+            data-testid="close-icon"
             Svg={IconsMap.CLOSE}
             onClick={onClose}
             className={cls.modal__closeIcon}

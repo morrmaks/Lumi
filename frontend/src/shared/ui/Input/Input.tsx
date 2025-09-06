@@ -59,12 +59,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       >
         {IconComponent && (
           <Icon
+            data-testid="input-icon"
             className={cls.input__icon}
             Svg={IconComponent}
             onClick={onIconClick}
           />
         )}
         <input
+          data-testid="input"
           className={classNames(cls.input, {}, [className])}
           ref={ref}
           type={type}

@@ -1,5 +1,5 @@
 import { BuildOptions } from './types/config'
-import webpack from 'webpack'
+import * as webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'

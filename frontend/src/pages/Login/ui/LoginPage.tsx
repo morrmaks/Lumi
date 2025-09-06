@@ -2,10 +2,12 @@ import cls from './LoginPage.module.less'
 import { LoginForm } from '@/features/Auth/Login'
 import { PageLayout } from '@/widgets/PageLayout'
 import { Placeholders } from '@/shared/consts'
+import { Seo } from '@/shared/lib/components'
 
 const LoginPage = () => {
   return (
     <PageLayout noPadding>
+      <Seo title="Вход в аккаунт" />
       <div className={cls.loginPage}>
         <h3 className={cls.loginPage__title}>
           {Placeholders.pages.login.mainText}

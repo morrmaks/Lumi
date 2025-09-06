@@ -72,6 +72,7 @@ export const useWishlistProductsActions = (
     dispatch(wishlistProductsActions.removeProduct(select))
     setSelect([])
   }, [isAuth, dispatch, select, deleteWishlistProducts])
+
   const addSelectedToBasket = useCallback(async () => {
     if (isAuth) {
       const basketItemsToAdd = basketItems.filter((item) =>

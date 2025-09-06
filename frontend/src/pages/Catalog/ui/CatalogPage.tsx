@@ -2,10 +2,12 @@ import { PageLayout } from '@/widgets/PageLayout'
 import cls from './CatalogPage.module.less'
 import { CatalogCategories } from '@/features/Catalog'
 import { Placeholders } from '@/shared/consts'
+import { Seo } from '@/shared/lib/components'
 
 const CatalogPage = () => {
   return (
     <PageLayout>
+      <Seo title="Каталог" />
       <div className={cls.catalogPage}>
         <div className={cls.catalogPage__header}>
           <div>

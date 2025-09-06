@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
 import { memo, useEffect } from 'react'
 import { PageLayout } from '@/widgets/PageLayout'
 import { ProductDetails, ProductImages } from '@/entities/ProductDetails'
-import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components'
+import { DynamicModuleLoader, ReducerList, Seo } from '@/shared/lib/components'
 import { useGetProductQuery } from '@/features/Product'
 import {
   getProductCard,
@@ -44,6 +44,7 @@ const ProductPage = () => {
 
   return (
     <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={false}>
+      <Seo title={product.name} />
       <PageLayout name={product.name}>
         <div className={cls.productPage}>
           <BackButton className={cls.productPage__backButton}>

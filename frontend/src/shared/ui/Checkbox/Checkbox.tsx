@@ -52,6 +52,7 @@ export const Checkbox = ({
     >
       {checkboxType === CheckboxType.CHECK && (
         <Icon
+          data-testid="icon-check-mark"
           Svg={IconsMap.CHECK_MARK}
           className={classNames(cls.checkbox__icon, {
             [cls.checkbox__checked_icon]: isChecked,

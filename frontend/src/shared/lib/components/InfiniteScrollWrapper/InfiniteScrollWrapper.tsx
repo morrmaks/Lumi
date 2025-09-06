@@ -26,9 +26,9 @@ export const InfiniteScrollWrapper = ({
 
   if (withWrapperScroll) {
     return (
-      <div ref={wrapperRef}>
+      <div data-testid="wrapper" ref={wrapperRef}>
         {children}
-        <div ref={triggerRef} />
+        <div data-testid="trigger" ref={triggerRef} />
       </div>
     )
   }
@@ -36,7 +36,7 @@ export const InfiniteScrollWrapper = ({
   return (
     <div>
       {children}
-      <div ref={triggerRef} />
+      <div data-testid="trigger" ref={triggerRef} />
     </div>
   )
 }

@@ -6,7 +6,7 @@ import { Placeholders } from '@/shared/consts'
 
 export const Logo = () => {
   return (
-    <AppLink to={getRouteMain()} className={cls.logo}>
+    <AppLink data-testid={'logo'} to={getRouteMain()} className={cls.logo}>
       <span className={classNames(cls.logo__text, {}, [])}>
         {Placeholders.shared.logo.mainText}
       </span>

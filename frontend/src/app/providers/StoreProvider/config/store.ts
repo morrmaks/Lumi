@@ -1,6 +1,5 @@
 import { StateSchema } from './stateSchema'
 import { Reducer, ReducersMapObject } from 'redux'
-import { dropdownMenuReducer } from '@/entities/DropdownMenu'
 import { createReducerManager } from '@/app/providers/StoreProvider/config/reducerManager'
 import { configureStore } from '@reduxjs/toolkit'
 import { breadcrumbNavReducer } from '@/features/BreadcrumbNav'
@@ -11,6 +10,7 @@ import { configuratorComponentsReducer } from '@/features/Configurator'
 import { rtkApi, yaSuggestApi } from '@/shared/api'
 import { forgotPasswordReducer } from '@/features/Auth'
 import { orderReducer } from '@/features/Order'
+import { slideMenuReducer } from '@/entities/SlideMenu'
 
 export const createReduxStore = (initialState?: StateSchema) => {
   const rootReducers: ReducersMapObject<StateSchema> = {
@@ -18,7 +18,7 @@ export const createReduxStore = (initialState?: StateSchema) => {
     auth: authReducer,
     order: orderReducer,
     forgotPassword: forgotPasswordReducer,
-    dropdownMenu: dropdownMenuReducer,
+    slideMenu: slideMenuReducer,
     breadcrumbNav: breadcrumbNavReducer,
     wishlistProducts: wishlistProductsReducer,
     basketProducts: basketProductsReducer,

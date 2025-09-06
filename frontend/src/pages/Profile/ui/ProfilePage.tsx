@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { ProfilePageTabContentMap } from '../consts'
 import { Placeholders } from '@/shared/consts'
 import { useGetOrdersCountQuery } from '@/entities/User/api'
+import { Seo } from '@/shared/lib/components'
 
 const ProfilePage = () => {
   const [tab, setTab] = useState<ProfilePageTabs>(ProfilePageTabs.PROFILE)
@@ -14,6 +15,7 @@ const ProfilePage = () => {
 
   return (
     <PageLayout>
+      <Seo title="Профиль" />
       <div className={cls.profilePage}>
         <div className={cls.profilePage__header}>
           <div className={cls.profilePage__header_container}>

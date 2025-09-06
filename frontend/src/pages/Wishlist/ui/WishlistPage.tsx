@@ -10,12 +10,14 @@ import { getRouteCatalog } from '@/shared/consts/router'
 import { Loader } from '@/shared/ui/Loader'
 import { Suspense } from 'react'
 import { Placeholders } from '@/shared/consts'
+import { Seo } from '@/shared/lib/components'
 
 const WishlistPage = () => {
   const products = useAppSelector(getWishlistProducts)
 
   return (
     <PageLayout>
+      <Seo title="Избранное" />
       <div className={cls.wishlistPage}>
         <div className={cls.wishlistPage__header}>
           <div>

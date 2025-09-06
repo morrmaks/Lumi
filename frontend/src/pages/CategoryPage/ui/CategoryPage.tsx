@@ -1,11 +1,7 @@
 import cls from './CategoryPage.module.less'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { Suspense, useCallback } from 'react'
-import {
-  useAppDispatch,
-  useAppSelector,
-  useDebounceValue,
-} from '@/shared/lib/hooks'
+import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
 import {
   CategoryFilters,
   CategoryProducts,
@@ -17,6 +13,7 @@ import {
   DynamicModuleLoader,
   InfiniteScrollWrapper,
   ReducerList,
+  Seo,
 } from '@/shared/lib/components'
 import {
   categoryPageReducer,
@@ -38,12 +35,11 @@ const initialReducers: ReducerList = {
 }
 
 const CategoryPage = () => {
-  const dispatch = useAppDispatch()
   const { category, page, view, products, hasMore, sort, search, limit } =
     useAppSelector(getCategoryState)
+  const dispatch = useAppDispatch()
   const [searchParams] = useSearchParams()
   const categoryId = useParams().categoryId ?? ''
-  const debouncedSearch = useDebounceValue(search, 300)
 
   const { data, isLoading, isFetching } = useGetCategoryQuery(categoryId, {
     skip: !categoryId,
@@ -83,6 +79,7 @@ const CategoryPage = () => {
   return (
     <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={false}>
       <PageLayout>
+        <Seo title={category.name} />
         <div className={cls.categoryPage}>
           <div className={cls.categoryPage__header}>
             <div>

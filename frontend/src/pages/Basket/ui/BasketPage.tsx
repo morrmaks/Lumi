@@ -10,14 +10,16 @@ import { Button, ButtonTheme } from '@/shared/ui/Button'
 import { Loader } from '@/shared/ui/Loader'
 import { Suspense } from 'react'
 import { Placeholders } from '@/shared/consts'
+import { Seo } from '@/shared/lib/components'
 
 const BasketPage = () => {
   const products = useAppSelector(getBasketProducts)
 
   return (
     <PageLayout>
+      <Seo title="Корзина" />
       <div className={cls.basketPage}>
-        <div className={cls.basketPage__header}>
+        <div data-testid="basket-header" className={cls.basketPage__header}>
           <div>
             <h2 className={cls.basketPage__title}>
               {Placeholders.pages.basket.mainText}
@@ -29,10 +31,15 @@ const BasketPage = () => {
         </div>
         {products.length > 0 ? (
           <Suspense fallback={<Loader />}>
-            <BasketProducts />
+            <div data-testid="basket-products">
+              <BasketProducts />
+            </div>
           </Suspense>
         ) : (
-          <div className={cls.basketPage__emptyBasket}>
+          <div
+            className={cls.basketPage__emptyBasket}
+            data-testid="empty-basket"
+          >
             <Icon
               Svg={IconsMap.BASKET}
               className={cls.basketPage__emptyBasket_icon}
@@ -44,7 +51,10 @@ const BasketPage = () => {
               {Placeholders.pages.basket.empty.describeText}
             </p>
             <AppLink to={getRouteCatalog()}>
-              <Button theme={ButtonTheme.SECONDARY}>
+              <Button
+                theme={ButtonTheme.SECONDARY}
+                data-testid="empty-basket-button"
+              >
                 {Placeholders.pages.basket.empty.onRouteCatalog}
               </Button>
             </AppLink>

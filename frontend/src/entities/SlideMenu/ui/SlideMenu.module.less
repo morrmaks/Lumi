@@ -1,0 +1,65 @@
+@import '@/app/styles/mixins/container';
+@import '@/app/styles/mixins/interactive.less';
+
+.slideMenu {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-dropdown-menu);
+  transition: var(--transition-speed);
+
+  &_open {
+    pointer-events: auto;
+
+    .slideMenu__overlay {
+      opacity: 1;
+    }
+
+    .slideMenu__wrapper {
+      transform: translateX(0);
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: var(--transition-speed);
+    z-index: 10;
+  }
+
+  &__wrapper {
+    .flex(column, start, start);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100%;
+    background-color: var(--bg-color);
+    transform: translateX(-100%);
+    transition: var(--transition-speed);
+    z-index: var(--z-dropdown-menu);
+    padding: 20px 32px 40px;
+    gap: 20px;
+    overflow-y: auto;
+  }
+
+  &__item {
+    .selectable(var(--hover-opacity), var(--primary-color), var(--primary-color));
+    padding: 10px;
+    gap: 16px;
+  }
+
+  &__themeSwitcher {
+    font: var(--font-s);
+
+    svg {
+      stroke: var(--accent-color);
+    }
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}

@@ -82,17 +82,20 @@ export const AppImage = memo(
     if (isLoading) {
       return (
         fallback ?? (
-          <Skeleton className={classNames(cls.image, {}, [className])} />
+          <Skeleton
+            data-testid="skeleton"
+            className={classNames(cls.image, {}, [className])}
+          />
         )
       )
     }
 
     if (hasError || timeoutReached) {
-      console.log('ошибка')
       return (
         errorFallback ?? (
           <div
             className={classNames(cls.image__errorFallback, {}, [className])}
+            data-testid="error-fallback"
           >
             <Icon
               Svg={IconsMap.PHOTO}
@@ -105,6 +108,7 @@ export const AppImage = memo(
 
     return (
       <img
+        data-testid="app-image"
         src={src}
         alt={alt}
         className={classNames(cls.image, {}, [className])}

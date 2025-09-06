@@ -1,2 +1,2 @@
-import { formattedDate } from './formattedData'
-export { formattedDate }
+import { formattedData } from './formattedData'
+export { formattedData }

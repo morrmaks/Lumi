@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ForgotPasswordSchema } from '../types/forgotPasswordSchema'
-import { authApi } from '@/entities/User/api'
+import { authApi } from '@/entities/User/api/authApi'
 
 const initialState: ForgotPasswordSchema = {
   email: '',

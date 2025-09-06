@@ -3,7 +3,7 @@ import { IOrder } from '@/features/Order'
 import { useState } from 'react'
 import { OrderStatusMap, ProfileOrderModal } from '@/entities/Order'
 import { Placeholders } from '@/shared/consts'
-import { classNames, formattedDate } from '@/shared/lib/utils'
+import { classNames, formattedData } from '@/shared/lib/utils'
 
 export interface OrderCardProps {
   card: IOrder
@@ -37,7 +37,7 @@ export const OrderCard = ({ card }: OrderCardProps) => {
             </p>
             <p
               className={cls.orderCard__date}
-            >{`${formattedDate(date)} • ${products.length} шт`}</p>
+            >{`${formattedData(date)} • ${products.length} шт`}</p>
           </div>
           <span className={cls.orderCard__totalPrice}>{total} ₽</span>
         </div>

@@ -15,6 +15,7 @@ export const ExternalLink = ({
 }: ExternalLinkProps) => {
   return (
     <a
+      data-testid="external-link"
       className={classNames('', {}, [className])}
       href={href}
       target="_blank"

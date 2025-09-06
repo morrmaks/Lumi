@@ -4,6 +4,7 @@ import { PageLayout } from '@/widgets/PageLayout'
 import { getIsFromOrderLink, OrderForm } from '@/features/Order'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { Navigate } from 'react-router-dom'
+import { Seo } from '@/shared/lib/components'
 
 const OrderPage = () => {
   const isFromOrderLink = useAppSelector(getIsFromOrderLink)
@@ -12,6 +13,7 @@ const OrderPage = () => {
 
   return (
     <PageLayout>
+      <Seo title="Мой заказ" />
       <div className={cls.orderPage}>
         <div className={cls.orderPage__header}>
           <h2 className={cls.orderPage__title}>

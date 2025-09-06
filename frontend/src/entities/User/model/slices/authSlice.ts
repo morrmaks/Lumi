@@ -1,6 +1,6 @@
-import { AuthSchema } from '@/entities/User'
+import { AuthSchema } from '../types/auth'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { authApi } from '@/entities/User/api'
+import { authApi } from '../../api'
 
 const initialState: AuthSchema = {
   inited: false,

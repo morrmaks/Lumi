@@ -6,6 +6,7 @@ import { PageLayout } from '@/widgets/PageLayout'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { Placeholders } from '@/shared/consts'
 import { getForgotPasswordEmail, getIsForgotPassword } from '@/features/Auth'
+import { Seo } from '@/shared/lib/components'
 
 const ResetPasswordPage = () => {
   const isAllowed = useAppSelector(getIsForgotPassword)
@@ -17,6 +18,7 @@ const ResetPasswordPage = () => {
 
   return (
     <PageLayout noPadding>
+      <Seo title="Сброс пароля" />
       <div className={cls.resetPasswordPage}>
         <div className={cls.resetPasswordPage__header}>
           <h3 className={cls.resetPasswordPage__title}>

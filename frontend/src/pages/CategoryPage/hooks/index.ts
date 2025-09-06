@@ -1,4 +1,3 @@
-import { useSyncQueryParams } from './useSyncQueryParams'
-import { useSyncProducts } from './useSyncProducts'
-import { useInitCategoryPage } from './useInitCategoryPage'
-export { useSyncQueryParams, useSyncProducts, useInitCategoryPage }
+export * from './useSyncQueryParams/useSyncQueryParams'
+export * from './useSyncProducts/useSyncProducts'
+export * from './useInitCategoryPage/useInitCategoryPage'

@@ -5,6 +5,8 @@
   .flex(row, center, start);
   .selectable(var(--hover-opacity));
 
+  flex-shrink: 0;
+  z-index: var(--z-burger-button);
   position: relative;
   width: 22px;
   height: 20px;
@@ -38,7 +40,7 @@
     z-index: var(--z-burger-button);
   }
 
-  &_animate {
+  &_open {
     &::before {
       transform: translateY(0.5px) translateX(1px) rotate(-45deg) scaleX(1.25);
     }

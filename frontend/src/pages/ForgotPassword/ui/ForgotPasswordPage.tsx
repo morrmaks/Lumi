@@ -2,10 +2,12 @@ import cls from './ForgotPasswordPage.module.less'
 import { ForgotPasswordForm } from '@/features/Auth/ForgotPassword'
 import { PageLayout } from '@/widgets/PageLayout'
 import { Placeholders } from '@/shared/consts'
+import { Seo } from '@/shared/lib/components'
 
 const ForgotPasswordPage = () => {
   return (
     <PageLayout noPadding>
+      <Seo title="Восстановление пароля" />
       <div className={cls.forgotPasswordPage}>
         <div className={cls.forgotPasswordPage__header}>
           <h3 className={cls.forgotPasswordPage__title}>

@@ -23,6 +23,7 @@ export const Skeleton = ({
 
   return (
     <div
+      data-testid="skeleton"
       className={classNames(cls.skeleton, {}, [className])}
       style={styles}
     ></div>

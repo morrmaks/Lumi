@@ -1,4 +1,4 @@
-import { DropdownMenuSchema } from '@/entities/DropdownMenu'
+import { SlideMenuSchema } from 'src/entities/SlideMenu'
 import { Reducer, ReducersMapObject, UnknownAction } from 'redux'
 import { EnhancedStore } from '@reduxjs/toolkit'
 import { ForgotPasswordSchema } from 'src/features/Auth'
@@ -19,7 +19,7 @@ export interface StateSchema {
   auth: AuthSchema
   order: OrderSchema
   forgotPassword: ForgotPasswordSchema
-  dropdownMenu: DropdownMenuSchema
+  slideMenu: SlideMenuSchema
   breadcrumbNav: BreadcrumbNavSchema
   wishlistProducts: WishlistProductsSchema
   basketProducts: BasketProductsSchema

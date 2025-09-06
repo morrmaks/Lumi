@@ -10,6 +10,7 @@ export const Progress = ({ value }: ProgressProps) => {
   return (
     <div className={cls.progress}>
       <div
+        data-testid="progressbar"
         className={cls.progress__fill}
         style={{
           width: `${clampedValue}%`,

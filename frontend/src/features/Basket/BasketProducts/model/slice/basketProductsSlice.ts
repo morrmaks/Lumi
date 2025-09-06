@@ -3,7 +3,7 @@ import {
   IBasketItem,
   BasketProductsSchema,
 } from '../types/basketProductsSchema'
-import { authApi } from '@/entities/User/api'
+import { authApi } from '@/entities/User/api/authApi'
 import { LocalStorage } from '@/shared/consts'
 
 const initialState: BasketProductsSchema = {

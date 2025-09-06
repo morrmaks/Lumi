@@ -3,5 +3,6 @@ import {
   DynamicModuleLoader,
 } from './DynamicModuleLoader/DynamicModuleLoader'
 import { InfiniteScrollWrapper } from './InfiniteScrollWrapper/InfiniteScrollWrapper'
+import { Seo } from './Seo'
 
-export { ReducerList, DynamicModuleLoader, InfiniteScrollWrapper }
+export { ReducerList, DynamicModuleLoader, InfiniteScrollWrapper, Seo }

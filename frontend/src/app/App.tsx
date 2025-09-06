@@ -3,7 +3,7 @@ import { classNames } from '@/shared/lib/utils'
 import { NavBar } from '@/widgets/NavBar'
 import { useBreakpoint } from '@/shared/lib/hooks'
 import { MobileNavBar } from '@/widgets/MobileNavBar'
-import { DropdownMenu } from '@/entities/DropdownMenu'
+import { SlideMenu } from '@/entities/SlideMenu'
 import { useViewportHeightCssVar } from '@/shared/lib/hooks'
 import { AppFooter } from '@/widgets/AppFooter'
 import { BreadcrumbNav } from '@/features/BreadcrumbNav'
@@ -64,7 +64,7 @@ export const App = () => {
     <div className={classNames('app', {}, [])}>
       <NavBar />
       {md ? null : <MobileNavBar />}
-      {!md ? <DropdownMenu /> : null}
+      {!md ? <SlideMenu /> : null}
       <BreadcrumbNav />
       <div className={'contentPage'}>
         {isInited ? <AppRouter /> : <Loader />}

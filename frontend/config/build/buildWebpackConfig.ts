@@ -1,4 +1,4 @@
-import webpack from 'webpack'
+import * as webpack from 'webpack'
 import { BuildOptions } from './types/config'
 import { buildDevServer } from './buildDevServer'
 import { buildPlugins } from './buildPlugins'
@@ -28,6 +28,9 @@ export const buildWebpackConfig = (
     resolve: buildResolvers(options),
     optimization: {
       minimize: !isDev,
+      splitChunks: {
+        chunks: 'all',
+      },
     },
   }
 }

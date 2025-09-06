@@ -19,7 +19,7 @@ export const Loader = ({ delay = 500 }: LoaderProps) => {
   if (!visible) return null
 
   return (
-    <div className={cls.loader}>
+    <div data-testid="loader" className={cls.loader}>
       <div></div>
       <div></div>
       <div></div>

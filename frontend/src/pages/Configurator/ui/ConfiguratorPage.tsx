@@ -17,6 +17,7 @@ import { getUserIsAuth } from '@/entities/User'
 import { useNavigate } from 'react-router-dom'
 import { AppLink } from '@/shared/ui/AppLink'
 import { orderActions } from '@/features/Order'
+import { Seo } from '@/shared/lib/components'
 
 const ConfiguratorPage = () => {
   const navigate = useNavigate()
@@ -38,6 +39,7 @@ const ConfiguratorPage = () => {
 
   return (
     <PageLayout>
+      <Seo title="Конфигуратор" />
       <div className={cls.configuratorPage}>
         <div className={cls.configuratorPage__header}>
           <h2 className={cls.configuratorPage__title}>

@@ -3,7 +3,7 @@ import {
   IConfiguratorComponentDto,
   ConfiguratorComponentsSchema,
 } from '../types/configuratorComponentsSchema'
-import { authApi } from '@/entities/User/api'
+import { authApi } from '@/entities/User/api/authApi'
 import { LocalStorage } from '@/shared/consts'
 import { EmptyConfigureComponentIdsMap } from '../../consts/EmptyConfigureComponentsMap'
 

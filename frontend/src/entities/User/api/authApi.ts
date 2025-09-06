@@ -1,9 +1,9 @@
-import { rtkApi } from '@/shared/api'
+import { rtkApi } from '@/shared/api/rtkApi'
 import { ApiMap } from '@/shared/consts'
 import { removeAccessToken, setAccessToken } from '@/shared/lib/utils'
-import { Settings, userActions } from '@/entities/User'
-import { forgotPasswordActions, ResetPasswordFormValues } from '@/features/Auth'
 import {
+  forgotPasswordActions,
+  ResetPasswordFormValues,
   ForgotPasswordFormValues,
   LoginFormValues,
   RegisterFormValues,
@@ -12,7 +12,8 @@ import {
   ProfileCardFormValues,
   ProfileSettingsFormValues,
 } from '@/features/Profile'
-import { User } from '../model/types/user'
+import { Settings, User } from '../model/types/user'
+import { userActions } from '../model'
 
 export const authApi = rtkApi.injectEndpoints({
   endpoints: (build) => ({
