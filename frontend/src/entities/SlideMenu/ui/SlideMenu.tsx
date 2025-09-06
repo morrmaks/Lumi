@@ -36,7 +36,7 @@ export const SlideMenu = () => {
 
   return (
     <div
-      className={classNames(cls.dropdownMenu, {
+      className={classNames(cls.slideMenu, {
         [cls.slideMenu_open]: slideMenuIsOpen,
       })}
     >
