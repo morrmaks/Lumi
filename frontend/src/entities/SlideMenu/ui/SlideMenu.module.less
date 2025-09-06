@@ -13,6 +13,7 @@
 
     .slideMenu__overlay {
       opacity: 1;
+      visibility: visible;
     }
 
     .slideMenu__wrapper {
@@ -24,9 +25,10 @@
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
+    visibility: hidden;
     opacity: 0;
     transition: var(--transition-speed);
-    z-index: 10;
+    z-index: var(--z-dropdown-menu-overlay);
   }
 
   &__wrapper {

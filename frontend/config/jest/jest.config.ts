@@ -12,9 +12,6 @@ export default {
   transform: {
     '^.+\\.(ts|tsx|js|jsx)$': 'babel-jest',
   },
-  testPathIgnorePatterns: [
-    '/node_modules/',
-    '\\.e2e\\.(ts|tsx)$',
-  ],
+  testPathIgnorePatterns: ['/node_modules/', '\\.e2e\\.(ts|tsx)$'],
   clearMocks: true,
 }
