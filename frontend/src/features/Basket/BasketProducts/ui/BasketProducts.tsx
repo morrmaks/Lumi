@@ -58,7 +58,7 @@ const BasketProducts = () => {
   }, [navigate, basketItems])
 
   return (
-    <div className={cls.basketProducts}>
+    <div data-testid="basket-products" className={cls.basketProducts}>
       <ul className={cls.basketProducts__productList}>
         {isLoading
           ? [...new Array(5)].map((_, index) => (

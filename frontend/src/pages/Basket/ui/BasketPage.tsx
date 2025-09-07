@@ -31,9 +31,7 @@ const BasketPage = () => {
         </div>
         {products.length > 0 ? (
           <Suspense fallback={<Loader />}>
-            <div data-testid="basket-products">
-              <BasketProducts />
-            </div>
+            <BasketProducts />
           </Suspense>
         ) : (
           <div
